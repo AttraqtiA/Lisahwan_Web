@@ -14,6 +14,17 @@ return new class extends Migration
         Schema::create('products', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
+
+            $table->string('name');
+            $table->integer('price');
+            $table->integer('stock')->nullable();
+            $table->integer('weight');
+            $table->integer('discount');
+            $table->boolean('best_seller')->nullable();
+            // $table->boolean('favorite_status'); INI GAPERLU SOALNYA UDAH ADA WISHLIST
+
+            $table->string('image')->nullable();
+
         });
     }
 

@@ -1,7 +1,7 @@
 @extends('layouts.frame')
 
 @section('content_page')
-    <section style="background-image: url('images/crop_brown_desk.jpg')"
+    <section style="background-image: url('/images/cover.jpg')"
         class="bg-center bg-cover bg-no-repeat bg-gray-700 bg-blend-multiply">
         <div class="px-4 mx-auto max-w-screen-xl text-center text-white py-16 lg:py-24 flex flex-col gap-16">
             <div>

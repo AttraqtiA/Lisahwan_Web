@@ -1,5 +1,5 @@
-<section style="background-image: url('/images/crop_services_bg.jpg')"
-    class="bg-center bg-no-repeat bg-gray-700 bg-blend-multiply">
+<section style="background-image: url('/images/fotoproduk/GalleryCarousel_8.jpg')"
+    class="bg-cover bg-center bg-no-repeat bg-gray-700 bg-blend-multiply">
     <div class="px-4 mx-auto max-w-screen-xl text-center text-white py-16 lg:py-32">
         <h2 class="text-center mb-20 text-4xl font-bold">Tunggu apa lagi? <mark class="px-2 text-yellow-500 bg-gray-900 rounded dark:bg-gray-800">Order Sekarang</mark> juga!</h2>
 

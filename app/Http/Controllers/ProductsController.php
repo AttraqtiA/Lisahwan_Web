@@ -13,19 +13,30 @@ class ProductsController extends Controller
      */
     public function index()
     {
-        return view('index', [
-            "carousel_1" => "",
-            "carousel_2" => "",
-            "carousel_3" => "",
-            "TabTitle" => "Lisahwan Products",
-            'pageTitle' => '<mark class="px-2 text-yellow-500 bg-gray-800 rounded dark:bg-gray-800">Produk </mark> Kami',
+        return view('products_page', [
+
+            "TabTitle" => "Lisahwan Snacks Surabaya",
+            "pageTitle" => '<mark class="px-2 text-yellow-500 bg-gray-800 rounded dark:bg-gray-800">Produk </mark> Kami',
             'pageDescription' => 'Telusuri Kenikmatan Rasa <span class="underline underline-offset-2 decoration-4 decoration-yellow-500">Kualitas</span> melalui Produk Homemade <span class="underline underline-offset-2 decoration-4 decoration-amber-400">Lisahwan</span>',
-            "active_1" => "text-white rounded md:bg-transparent md:text-yellow-500 md:p-0 md:dark:text-yellow-500",
+            "active_2" => "text-white rounded md:bg-transparent md:text-yellow-500 md:p-0 md:dark:text-yellow-500",
 
             "products" => Products::all(),
         ]);
     }
 
+    public function best_seller() {
+        return view('index', [
+            "carousel_1" => "/images/fotoproduk/GalleryCarousel_12.jpeg",
+            "carousel_2" => "/images/fotoproduk/GalleryCarousel_3.jpg",
+            "carousel_3" => "/images/fotoproduk/GalleryCarousel_10.jpg",
+            "carousel_4" => "/images/fotoproduk/GalleryCarousel_11.jpg",
+
+            "TabTitle" => "Lisahwan Snacks Surabaya",
+            "active_1" => "text-white rounded md:bg-transparent md:text-yellow-500 md:p-0 md:dark:text-yellow-500",
+
+            "products" => Products::where('best_seller', true)->get(),
+        ]);
+    }
     /**
      * Show the form for creating a new resource.
      */

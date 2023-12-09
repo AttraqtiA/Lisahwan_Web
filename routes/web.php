@@ -15,7 +15,8 @@ use Illuminate\Support\Facades\Auth;
 |
 */
 
-Route::get('/', [ProductsController::class, 'index']);
+Route::get('/', [ProductsController::class, 'best_seller']); // halaman HOME
+Route::get('/products', [ProductsController::class, 'index']); // halaman PRODUCTS
 
 
 Auth::routes();
