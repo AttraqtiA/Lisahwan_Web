@@ -9,14 +9,14 @@
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 pt-16 px-12 pb-16 mx-auto">
 
         @foreach ($galleries as $gallery)
-            <div class="relative group @if ($loop->index % 4 == 0) sm:col-span-2 lg:col-span-3 @endif">
+            <div class="relative group @if ($loop->index % 4 == 0) sm:col-span-2 lg:max-h-screen lg:col-span-3 @endif">
                 @if ($gallery->type == 'image')
                     <img class="h-full w-full rounded-lg object-cover" src="/images/fotoproduk/{{ $gallery->content }}"
                         alt="{{ $gallery->content }}">
                     <div
                         class="rounded-lg absolute inset-0 flex items-center justify-center bg-black duration-500 bg-opacity-50 opacity-0 transition-opacity group-hover:opacity-100">
-                        <div class="text-white text-center">
-                            <p class="text-lg font-bold">{{ $gallery->title }}</p>
+                        <div class="text-white text-center px-4">
+                            <p class="text-lg md:text-2xl lg:text-3xl font-bold">{{ $gallery->title }}</p>
                         </div>
                     </div>
                 @else
