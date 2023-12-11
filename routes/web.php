@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ProductsController;
+use App\Http\Controllers\GalleryController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 
@@ -17,6 +18,8 @@ use Illuminate\Support\Facades\Auth;
 
 Route::get('/', [ProductsController::class, 'best_seller']); // halaman HOME
 Route::get('/products', [ProductsController::class, 'index']); // halaman PRODUCTS
+
+Route::get('/gallery', [GalleryController::class, 'index']); // halaman PRODUCTS
 
 
 Auth::routes();
