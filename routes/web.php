@@ -1,10 +1,10 @@
 <?php
 
-use App\Models\Order;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\GalleryController;
+use Illuminate\Support\Facades\Auth;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,9 +18,11 @@ use App\Http\Controllers\ProductController;
 */
 
 
+
 Route::get('/', [ProductController::class, 'best_seller']); // halaman HOME
 Route::get('/products', [ProductController::class, 'index']); // halaman PRODUCTS
 Route::get('/products/{product_id}', [ProductController::class, 'show']);
+Route::get('/gallery', [GalleryController::class, 'index']); // halaman PRODUCTS
 
 Auth::routes();
 
