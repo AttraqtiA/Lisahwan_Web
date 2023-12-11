@@ -15,11 +15,12 @@
             <img class="h-3/4 rounded-t-lg w-full object-cover" src="{{ $product->image }}"
                 alt="{{ $product->image }}" />
             <div class="h-1/4 px-8 pb-2 flex flex-col justify-center items-center">
-                <h5 class="sm:text-lg lg:text-2xl font-bold tracking-tight text-yellow-500 text-center">{{ $product->name }}
-                </h5>
-                <p class="fold:text-xs text-base font-normal text-white text-center">{{ $product->price }}</p>
-                <p class="fold:text-xs text-base font-normal text-white text-center">{{ $product->stock }}</p>
-                <p class="fold:text-xs text-base font-normal text-white text-center">{{ $product->weight }}gr</p>
+                <h5 class="sm:text-lg lg:text-2xl font-bold tracking-tight text-yellow-500 text-center">{{ $product->name }}</h5>
+
+                <p class="fold:text-xs text-base font-normal text-white text-center">
+                    Rp{{ number_format($product->price, 0, ',', '.') }}
+                </p>
+
             </div>
         </div>
     @endforeach
