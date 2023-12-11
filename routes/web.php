@@ -1,8 +1,8 @@
 <?php
 
-use App\Http\Controllers\ProductsController;
-use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ProductController;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,9 +15,9 @@ use Illuminate\Support\Facades\Auth;
 |
 */
 
-Route::get('/', [ProductsController::class, 'best_seller']); // halaman HOME
-Route::get('/products', [ProductsController::class, 'index']); // halaman PRODUCTS
 
+Route::get('/', [ProductController::class, 'best_seller']); // halaman HOME
+Route::get('/products', [ProductController::class, 'index']); // halaman PRODUCTS
 
 Auth::routes();
 

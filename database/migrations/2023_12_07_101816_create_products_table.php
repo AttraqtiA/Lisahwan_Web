@@ -13,18 +13,15 @@ return new class extends Migration
     {
         Schema::create('products', function (Blueprint $table) {
             $table->id();
+            $table->string('name')->nullable(false)->unique();
+            $table->string('description')->nullable(false);
+            $table->bigInteger('price')->nullable(false);
+            $table->integer('stock')->nullable(false);
+            $table->integer('weight')->nullable(false);
+            $table->integer('discount')->nullable(true)->default(0);
+            $table->enum('favorite_status', ['0', '1'])->default('0');
+            $table->string('image')->nullable(false);
             $table->timestamps();
-
-            $table->string('name');
-            $table->integer('price');
-            $table->integer('stock')->nullable();
-            $table->integer('weight');
-            $table->integer('discount');
-            $table->boolean('best_seller')->nullable();
-            // $table->boolean('favorite_status'); INI GAPERLU SOALNYA UDAH ADA WISHLIST
-
-            $table->string('image')->nullable();
-
         });
     }
 
