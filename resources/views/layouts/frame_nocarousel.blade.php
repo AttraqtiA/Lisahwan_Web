@@ -5,11 +5,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>{{ $TabTitle ?? "Lisahwan Snacks" }}</title>
+    <title>{{ $TabTitle ?? 'Lisahwan Snacks' }}</title>
     <link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet'>
     <link rel="icon" href="/images/lisahwan_logo.crdownload">
 
-    @vite(['resources/css/app.css','resources/js/app.js'])
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
     <script src="https://cdn.tailwindcss.com"></script>
 
     <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.0.0/flowbite.min.css" rel="stylesheet" />
@@ -28,6 +28,7 @@
         </div>
 
         @include('layouts.contact_src')
+
         <div>
             @include('layouts.bottombar')
         </div>
