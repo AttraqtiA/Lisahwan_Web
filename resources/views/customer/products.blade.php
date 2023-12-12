@@ -15,22 +15,23 @@
                         <img class="h-3/4 rounded-t-lg w-full object-cover" src="/images/fotoproduk/{{ $product->image }}"
                             alt="{{ $product->image }}" />
                         <div class="h-1/4 px-8 pb-2 flex flex-col justify-center items-center">
-                            <h5 class="sm:text-xl font-bold tracking-tight text-yellow-500 text-center">
+                            <h5 class="sm:text-xl font-extrabold tracking-tight text-yellow-500 text-center">
                                 {{ $product->name }}
                             </h5>
-                            <p class="text-base font-normal text-white text-center"> Rp.
+                            <p class="text-base font-medium text-white text-center"> Rp.
                                 {{ number_format($product->price, 0, ',', '.') }}</p>
-                            <p class="text-sm font-normal text-lime-500 text-center mt-2">Tersisa {{ $product->stock }}
+                            <p class="text-sm font-light text-lime-500 text-center mt-2">Tersisa {{ $product->stock }}
                                 stock
                                 lagi</p>
                         </div>
-                        <!-- SVG icon di kanan bawah dari gambar -->
-                        <svg class="absolute w-6 h-6 text-gray-800 dark:text-white bottom-4 right-4 hover:text-red-600"
-                            aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 18">
-                            <path
-                                d="M17.947 2.053a5.209 5.209 0 0 0-3.793-1.53A6.414 6.414 0 0 0 10 2.311 6.482 6.482 0 0 0 5.824.5a5.2 5.2 0 0 0-3.8 1.521c-1.915 1.916-2.315 5.392.625 8.333l7 7a.5.5 0 0 0 .708 0l7-7a6.6 6.6 0 0 0 2.123-4.508 5.179 5.179 0 0 0-1.533-3.793Z" />
-                        </svg>
-                        <!-- Diskon di pojok kanan atas -->
+                        <div class="bg-yellow-500 rounded-full absolute bottom-4 right-4 p-2">
+                            <svg class="m-auto relative w-6 h-6 text-gray-800 dark:text-white  hover:text-red-600"
+                                aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
+                                viewBox="0 0 20 18">
+                                <path
+                                    d="M17.947 2.053a5.209 5.209 0 0 0-3.793-1.53A6.414 6.414 0 0 0 10 2.311 6.482 6.482 0 0 0 5.824.5a5.2 5.2 0 0 0-3.8 1.521c-1.915 1.916-2.315 5.392.625 8.333l7 7a.5.5 0 0 0 .708 0l7-7a6.6 6.6 0 0 0 2.123-4.508 5.179 5.179 0 0 0-1.533-3.793Z" />
+                            </svg>
+                        </div>
                         @if ($product->discount == 0)
                             <div
                                 class="absolute top-0 right-0 m-4 text-base text-red-600 rounded-lg font-bold bg-gray-900 p-3">

@@ -4,7 +4,7 @@
         <h2 class="text-center mb-20 text-4xl font-bold">Tunggu apa lagi? <mark class="px-2 text-yellow-500 bg-gray-900 rounded dark:bg-gray-800">Order Sekarang</mark> juga!</h2>
 
         <a href="/contact_us"
-            class="inline-flex justify-center items-center py-4 px-7 text-lg font-medium text-center text-white rounded-xl bg-amber-500 hover:bg-amber-400 focus:ring-4 focus:ring-yellow-300 dark:focus:ring-yellow-900">
+            class="inline-flex justify-center items-center py-4 px-7 text-lg font-medium text-center text-white rounded-xl bg-yellow-500 hover:bg-yellow-600">
             Contact Us
             <svg class="w-5 h-5 ms-2 rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
                 viewBox="0 0 14 10">

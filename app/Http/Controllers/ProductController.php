@@ -51,10 +51,12 @@ class ProductController extends Controller
     public function show($id)
     {
         $product = Product::find($id);
+        $total_product = Product::count();
         return view('customer.orderdetail', [
             "TabTitle" => $product->name,
             // "active_2" => "text-white rounded md:bg-transparent md:text-yellow-500 md:p-0 md:dark:text-yellow-500",
             "product" => $product,
+            "total_product" => $total_product
         ]);
     }
 
