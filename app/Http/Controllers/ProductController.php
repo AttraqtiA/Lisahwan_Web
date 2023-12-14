@@ -21,20 +21,25 @@ class ProductController extends Controller
         ]);
     }
 
+    public function best_seller()
+    {
+        return view('index', [
+            "carousel_1" => "/images/fotoproduk/GalleryCarousel_12.jpeg",
+            "carousel_2" => "/images/fotoproduk/GalleryCarousel_3.jpg",
+            "carousel_3" => "/images/fotoproduk/GalleryCarousel_10.jpg",
+            "carousel_4" => "/images/fotoproduk/GalleryCarousel_11.jpg",
+            "TabTitle" => "Lisahwan Snacks Surabaya",
+            "active_1" => "text-white rounded md:bg-transparent md:text-yellow-500 md:p-0 md:dark:text-yellow-500",
+            "products" => Product::where('best_seller', true)->get(),
+        ]);
+    }
+
     /**
      * Show the form for creating a new resource.
      */
     public function create()
     {
-        // return view('index', [
-        //     "carousel_1" => "/images/fotoproduk/GalleryCarousel_12.jpeg",
-        //     "carousel_2" => "/images/fotoproduk/GalleryCarousel_3.jpg",
-        //     "carousel_3" => "/images/fotoproduk/GalleryCarousel_10.jpg",
-        //     "carousel_4" => "/images/fotoproduk/GalleryCarousel_11.jpg",
-        //     "TabTitle" => "Lisahwan Snacks Surabaya",
-        //     "active_1" => "text-white rounded md:bg-transparent md:text-yellow-500 md:p-0 md:dark:text-yellow-500",
-        //     "products" => Product::where('best_seller', true)->get(),
-        // ]);
+
     }
 
     /**
