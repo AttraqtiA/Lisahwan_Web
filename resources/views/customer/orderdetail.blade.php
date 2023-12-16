@@ -1,7 +1,7 @@
 @extends('layouts.frame_nocarousel')
 
 @section('content_page')
-    <div class="grid sm:grid-cols-1 lg:grid-cols-2 gap-x-8 sm:gap-y-14 lg:gap-y-12 p-12 mx-auto">
+    <div class="grid grid-cols-1 sm:grid-cols-1 lg:grid-cols-2 gap-x-8 gap-y-8 sm:gap-y-8 lg:gap-y-12 p-12 mx-auto">
         <div class="flex flex-col lg:justify-center">
             <img class="lg:h-screen lg:w-screen lg:object-bottom object-cover rounded-lg drop-shadow-md"
                 src="/images/fotoproduk/{{ $product->image }}" alt="{{ $product->image }}">
@@ -17,56 +17,58 @@
                 <hr class="h-px my-4 border-0 dark:bg-gray-400">
                 <p class="text-base font-medium text-gray-900">{{ $product->description }}</p>
 
-                <form class="max-w-xs mt-8">
+                <div class="max-w-xs mt-8">
                     <label for="{{ $product->id }}"
-                        class="block mb-2 text-sm font-semibold text-gray-900 dark:text-gray-900">Choose
-                        quantity:</label>
-                    <div class="relative flex items-center max-w-[8rem]">
-                        <button type="button" id="{{ 'input-decrement-' . $product->id }}"
-                            onClick="changeQuantity('{{ $product->id }}', -1, '{{ $product->price }}')"
-                            class="bg-gray-100 dark:bg-gray-900 dark:hover:bg-gray-800 dark:border-gray-900 hover:bg-gray-800 border border-gray-900 rounded-s-lg p-3 h-11">
-                            <svg class="w-3 h-3 text-gray-900 dark:text-white" aria-hidden="true"
-                                xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 2">
-                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M1 1h16" />
-                            </svg>
-                        </button>
-                        <input type="text" id="{{ 'input-' . $product->id }}" name="{{ 'input-' . $product->id }}"
-                            value="0" data-input-counter data-input-counter-min="1"
-                            aria-describedby="helper-text-explanation"
-                            class="bg-gray-900 border-x-0 border-gray-900 h-11 text-center text-white text-sm block w-full py-2.5 dark:bg-gray-900 dark:border-gray-900 dark:placeholder-gray-800 dark:text-white"
-                            required>
-                        <button type="button" id="{{ 'input-increment-' . $product->id }}"
-                            onClick="changeQuantity('{{ $product->id }}', 1, '{{ $product->price }}')"
-                            class="bg-gray-100 dark:bg-gray-900 dark:hover:bg-gray-800 dark:border-gray-900 hover:bg-gray-800 border border-gray-900 rounded-e-lg p-3 h-11 ">
-                            <svg class="w-3 h-3 text-gray-900 dark:text-white" aria-hidden="true"
-                                xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 18">
-                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M9 1v16M1 9h16" />
-                            </svg>
-                        </button>
-                    </div>
-                    <p id="helper-text-explanation" class="mt-2 text-sm text-gray-600 dark:text-gray-600">Mohon isikan
-                        jumlah pemesanan anda.</p>
-                    <label for="message"
-                        class="mt-2 block mb-2 text-sm font-semibold text-gray-900 dark:text-gray-900">Tambahkan
-                        catatan:</label>
-                    <textarea id="message" rows="2"
-                        class="block p-2.5 w-full text-sm text-gray-600 bg-gray-300 rounded-lg border border-yellow-500  dark:bg-gray-300 dark:border-yellow-500 dark:placeholder-gray-300 dark:text-gray-600"
-                        placeholder="Write your thoughts here..."></textarea>
-                </form>
+                        class="block mb-2 text-sm font-semibold text-gray-900 dark:text-gray-900">Pilih jumlah:</label>
+                    <form action="/carts/{{ $product->id }}" method="POST">
+                        @csrf
+                        <div class="relative flex items-center max-w-[8rem]">
+                            <button type="button" id="{{ 'input-decrement-' . $product->id }}"
+                                onClick="changeQuantity('{{ $product->id }}', -1, '{{ $product->price }}')"
+                                class="bg-gray-100 dark:bg-gray-900 dark:hover:bg-gray-800 dark:border-gray-900 hover:bg-gray-800 border border-gray-900 rounded-s-lg p-3 h-11">
+                                <svg class="w-3 h-3 text-gray-900 dark:text-white" aria-hidden="true"
+                                    xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 2">
+                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                        stroke-width="2" d="M1 1h16" />
+                                </svg>
+                            </button>
+                            <input type="text" id="{{ 'input-' . $product->id }}" name="quantity"
+                                value="0" data-input-counter data-input-counter-min="1"
+                                aria-describedby="helper-text-explanation"
+                                class="bg-gray-900 border-x-0 border-gray-900 h-11 text-center text-white text-sm block w-full py-2.5 dark:bg-gray-900 dark:border-gray-900 dark:placeholder-gray-800 dark:text-white"
+                                required>
+                            <button type="button" id="{{ 'input-increment-' . $product->id }}"
+                                onClick="changeQuantity('{{ $product->id }}', 1, '{{ $product->price }}')"
+                                class="bg-gray-100 dark:bg-gray-900 dark:hover:bg-gray-800 dark:border-gray-900 hover:bg-gray-800 border border-gray-900 rounded-e-lg p-3 h-11 ">
+                                <svg class="w-3 h-3 text-gray-900 dark:text-white" aria-hidden="true"
+                                    xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 18">
+                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                        stroke-width="2" d="M9 1v16M1 9h16" />
+                                </svg>
+                            </button>
+                        </div>
+                        <p id="helper-text-explanation" class="mt-2 text-sm text-gray-600 dark:text-gray-600">Mohon isikan
+                            jumlah pemesanan anda.</p>
+                        <label for="message"
+                            class="mt-2 block mb-2 text-sm font-semibold text-gray-900 dark:text-gray-900">Tambahkan
+                            catatan:</label>
+                        <textarea id="message" rows="2"
+                            class="block p-2.5 w-full text-sm text-gray-600 bg-gray-300 rounded-lg border border-yellow-500  dark:bg-gray-300 dark:border-yellow-500 dark:placeholder-gray-300 dark:text-gray-600"
+                            placeholder="Write your thoughts here..."></textarea>
+                </div>
                 <div class="flex flex-row mt-4 items-center">
                     <label for="cost" class="text-sm font-semibold text-gray-900">Subtotal:</label>
                     <input type="text" id="cost" name="cost" aria-label="disabled input 2"
-                        class="ml-2 bg-gray-300 border border-yellow-500 text-gray-600 text-sm rounded-lg block w-4/12 lg:w-4/12 p-2.5 cursor-not-allowed dark:bg-gray-300 dark:border-yellow-500 dark:placeholder-gray-400 dark:text-gray-600"
+                        class="text-center ml-2 bg-gray-300 border border-yellow-500 text-gray-600 text-sm rounded-lg block w-5/12 sm:w-3/12 p-2.5 cursor-not-allowed dark:bg-gray-300 dark:border-yellow-500 dark:placeholder-gray-400 dark:text-gray-600"
                         value="0" readonly>
                 </div>
                 <hr class="h-px my-6 border-0 dark:bg-gray-400">
                 <div class="flex flex-row mt-2 justify-center">
-                    <button type="button"
+                    <button type="submit"
                         class="text-yellow-500 hover:text-white border border-yellow-500 hover:bg-yellow-500 font-medium rounded-lg text-base px-5 py-2.5 me-2 dark:border-yellow-500 dark:text-yellow-500 dark:hover:text-white dark:hover:bg-yellow-500">Beli
                         Langsung</button>
-                    <button type="button"
+
+                    <button type="submit"
                         class="text-white bg-yellow-500 hover:bg-yellow-600 font-medium rounded-lg text-base px-5 py-2.5 text-center inline-flex items-center">
                         <svg class="w-3 h-3 mr-2 text-white dark:text-white" aria-hidden="true"
                             xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 18">
@@ -76,10 +78,12 @@
                         Keranjang
                     </button>
                 </div>
+            </form>
             </div>
         </div>
         <div class="flex flex-col h-full">
-            <h1 class="text-3xl font-semibold dark:text-gray-900 sm:text-center lg:text-start">Customer Reviews</h1>
+            <h1 class="text-2xl lg:text-3xl font-semibold dark:text-gray-900 sm:text-center lg:text-start">Customer Reviews
+            </h1>
             <hr class="h-px my-2 border-0 dark:bg-gray-400">
             <div class="flex flex-col-reverse">
                 @foreach ($testimonies as $testimony)
@@ -135,13 +139,13 @@
         </div>
         <div class="flex flex-col">
             <div class="flex flex-row justify-between items-center">
-                <h1 class="text-3xl font-semibold dark:text-gray-900">Produk Lainnya</h1>
+                <h1 class="text-xl sm:text-2xl lg:text-3xl font-semibold dark:text-gray-900">Produk Lainnya</h1>
                 <a href="/products">
                     <p class="text-sm font-medium text-yellow-500 hover:text-yellow-600">Lihat semua</p>
                 </a>
             </div>
             <hr class="h-px my-2 border-0 dark:bg-gray-400">
-            <div class = "grid grid-cols-2 gap-3 p-4 mx-auto">
+            <div class = "grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-3 p-4 mx-auto">
                 @foreach ($products_bestseller as $bestseller)
                     <div
                         class="relative hover:shadow-xl transform transition duration-500 hover:-translate-y-4 hover:z-40">
@@ -152,12 +156,17 @@
                                     src="/images/fotoproduk/{{ $bestseller->product->image }}"
                                     alt="{{ $bestseller->product->image }}" />
                                 <div class="h-1/4 px-8 pb-2 flex flex-col justify-center items-center">
-                                    <h5 class="sm:text-xl font-bold tracking-tight text-yellow-500 text-center">
+                                    <h5
+                                        class="text-xl sm:text-3xl md:text-2xl lg:text-xl font-bold tracking-tight text-yellow-500 text-center">
                                         {{ $bestseller->product->name }}
                                     </h5>
-                                    <p class="text-base font-normal text-white text-center"> Rp.
+                                    <p
+                                        class="text-base sm:text-xl md:text-lg lg:text-base font-normal text-white text-center">
+                                        Rp.
                                         {{ number_format($bestseller->product->price, 0, ',', '.') }}</p>
-                                    <p class="text-sm font-normal text-lime-500 text-center mt-2">Tersisa
+                                    <p
+                                        class="text-sm sm:text-lg md:text-base lg:text-sm font-normal text-lime-500 text-center mt-2">
+                                        Tersisa
                                         {{ $bestseller->product->stock }}
                                         stock
                                         lagi</p>
@@ -172,7 +181,7 @@
                                 </svg>
 
                                 <!-- Diskon di pojok kanan atas -->
-                                @if ($bestseller->product->discount == 0)
+                                @if ($bestseller->product->discount != 0)
                                     <div
                                         class="absolute top-0 right-0 m-4 text-lg text-red-600 rounded-full font-bold bg-gray-900 p-4">
                                         {{ $bestseller->product->discount }}%</div>
@@ -199,7 +208,17 @@
                 qty = Math.max(qty, 1);
 
                 var total_price = qty * price;
-                document.getElementById("cost").value = total_price;
+
+                // Format uang rupiah dengan memanggil fungsi numberFormat
+                var formattedTotal = numberFormat(total_price);
+
+                // Mengatur nilai elemen HTML
+                document.getElementById("cost").value = formattedTotal;
+            }
+
+            // Fungsi untuk memformat uang dengan pemisah ribuan
+            function numberFormat(amount) {
+                return amount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
             }
 
             // Menambahkan event listener untuk event input

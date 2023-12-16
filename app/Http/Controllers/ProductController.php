@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Cart;
 use App\Models\Product;
 use App\Models\Testimony;
 use App\Models\OrderDetail;
@@ -15,12 +16,20 @@ class ProductController extends Controller
      */
     public function index()
     {
+        $cart_user = Cart::where('user_id', 1)->first();
+        if(empty($cart_user)){
+            $carts = null;
+        }
+        else{
+            $carts = $cart_user->cart_detail;
+        }
         return view('customer.products', [
             "TabTitle" => "Produk Lisahwan",
             "pageTitle" => '<mark class="px-2 text-yellow-500 bg-gray-800 rounded dark:bg-gray-800">Produk</mark> Kami',
             'pageDescription' => 'Jelajahi camilan terbaik di <span class="underline underline-offset-2 decoration-4 decoration-yellow-500">Lisahwan</span> dan pilih favorit Anda sekarang!',
             "active_2" => "text-white rounded md:bg-transparent md:text-yellow-500 md:p-0 md:dark:text-yellow-500",
             "products" => Product::all(),
+            "carts" => $carts
         ]);
     }
 

@@ -15,12 +15,15 @@
                         <img class="h-3/4 rounded-t-lg w-full object-cover" src="/images/fotoproduk/{{ $product->image }}"
                             alt="{{ $product->image }}" />
                         <div class="h-1/4 px-8 pb-2 flex flex-col justify-center items-center">
-                            <h5 class="sm:text-xl font-bold tracking-tight text-yellow-500 text-center">
+                            <h5
+                                class="text-xl sm:text-3xl md:text-2xl lg:text-xl font-bold tracking-tight text-yellow-500 text-center">
                                 {{ $product->name }}
                             </h5>
-                            <p class="text-base font-normal text-white text-center"> Rp.
+                            <p class="text-base sm:text-xl md:text-lg lg:text-base font-normal text-white text-center"> Rp.
                                 {{ number_format($product->price, 0, ',', '.') }}</p>
-                            <p class="text-sm font-normal text-lime-500 text-center mt-2">Tersisa {{ $product->stock }}
+                            <p
+                                class="text-sm sm:text-lg md:text-base lg:text-sm font-normal text-lime-500 text-center mt-2">
+                                Tersisa {{ $product->stock }}
                                 stock
                                 lagi</p>
                         </div>

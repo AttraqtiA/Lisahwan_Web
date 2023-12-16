@@ -8,24 +8,99 @@
             <!-- Right Side Of Navbar -->
             <ul class="flex flex-row items-center gap-2 md:gap-4 mt-1 md:mt-0">
                 <li>
-                    <a href="/cart" class="">
-                        <div class="rounded-lg border border-white p-1">
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                stroke-width="1.5" stroke="currentColor" class="file: h-6 w-6 text-white">
-                                <path stroke-linecap="round" stroke-linejoin="round"
-                                    d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 00-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 00-16.536-1.84M7.5 14.25L5.106 5.272M6 20.25a.75.75 0 11-1.5 0 .75.75 0 011.5 0zm12.75 0a.75.75 0 11-1.5 0 .75.75 0 011.5 0z" />
+                    <button type="button" data-drawer-target="drawer-right-example"
+                        data-drawer-show="drawer-right-example" data-drawer-placement="right"
+                        aria-controls="drawer-right-example">
+                        <div class="rounded-lg border border-white border-0.5 p-2">
+                            <svg class="w-6 h-6 text-white dark:text-white " aria-hidden="true"
+                                xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 20">
+                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                    stroke-width="1"
+                                    d="M6 15a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm0 0h8m-8 0-1-4m9 4a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm-9-4h10l2-7H3m2 7L3 4m0 0-.792-3H1" />
                             </svg>
                         </div>
-                    </a>
+                    </button>
                 </li>
+                <!-- drawer component -->
+                <div id="drawer-right-example"
+                    class="fixed top-0 right-0 z-40 w-4/12 h-screen pt-6 p-4 overflow-y-auto transition-transform translate-x-full bg-gray-800 dark:bg-gray-800"
+                    tabindex="-1" aria-labelledby="drawer-right-label">
+                    <div class="flex flex-row items-center mb-4 justify-between">
+                        <h5 id="drawer-right-label"
+                            class="inline-flex items-center text-lg font-semibold text-yellow-500 dark:text-yellow-500">
+                            <svg class="w-6 h-6 mr-2 text-yellow-500 dark:text-yellow-500" aria-hidden="true"
+                                xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 20">
+                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                    stroke-width="1"
+                                    d="M6 15a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm0 0h8m-8 0-1-4m9 4a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm-9-4h10l2-7H3m2 7L3 4m0 0-.792-3H1" />
+                            </svg>Keranjang
+                        </h5>
+                        <button type="button" data-drawer-hide="drawer-right-example"
+                            aria-controls="drawer-right-example"
+                            class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 inline-flex items-center justify-center dark:hover:bg-gray-200 dark:hover:text-gray-400">
+                            <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
+                                viewBox="0 0 14 14">
+                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                    stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
+                            </svg>
+                            <span class="sr-only">Close menu</span>
+                        </button>
+                    </div>
+                    <div class="flex flex-col-reverse">
+                        @if (!empty($carts))
+                            @foreach ($carts as $cart)
+                                <div class="flex flex-row items-center w-full">
+                                    <img class="h-28 w-28 object-bottom object-cover rounded-lg drop-shadow-md"
+                                        src="/images/fotoproduk/{{ $cart->product->image }}" alt="KentangAbon.jpg">
+                                    <div class="flex flex-col ml-3 justify-center">
+                                        <p class="text-lg font-medium text-white">{{ $cart->product->name }}</p>
+                                        <p class="text-sm font-normal text-gray-400">{{ $cart->quantity }} buah</p>
+                                        <p class="mt-2 text-base font-normal text-gray-400">Rp.
+                                            {{ number_format($cart->price, 0, ',', '.') }}</p>
+                                        <div class="flex flex-row items-center gap-x-16 mt-1 mb-1">
+                                            <button type="button"
+                                                class="text-white bg-yellow-500 hover:bg-yellow-600 font-medium rounded-md text-sm px-2 py-1 text-center inline-flex items-center">
+                                                <svg class="w-4 h-4 mr-1 text-white dark:text-white" aria-hidden="true"
+                                                    xmlns="http://www.w3.org/2000/svg" fill="currentColor"
+                                                    viewBox="0 0 20 18">
+                                                    <path
+                                                        d="M12.687 14.408a3.01 3.01 0 0 1-1.533.821l-3.566.713a3 3 0 0 1-3.53-3.53l.713-3.566a3.01 3.01 0 0 1 .821-1.533L10.905 2H2.167A2.169 2.169 0 0 0 0 4.167v11.666A2.169 2.169 0 0 0 2.167 18h11.666A2.169 2.169 0 0 0 16 15.833V11.1l-3.313 3.308Zm5.53-9.065.546-.546a2.518 2.518 0 0 0 0-3.56 2.576 2.576 0 0 0-3.559 0l-.547.547 3.56 3.56Z" />
+                                                    <path
+                                                        d="M13.243 3.2 7.359 9.081a.5.5 0 0 0-.136.256L6.51 12.9a.5.5 0 0 0 .59.59l3.566-.713a.5.5 0 0 0 .255-.136L16.8 6.757 13.243 3.2Z" />
+                                                </svg>
+                                                Ubah Pesanan
+                                            </button>
+                                            <p class="text-sm font-medium text-yellow-500 hover:text-yellow-600">Hapus
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                                @if ($loop->first)
+                                @else
+                                    <hr class="h-px my-4 border-0 dark:bg-gray-400">
+                                @endif
+                            @endforeach
+                        @else
+                        <div class="flex flex-col items-center justify-center h-full w-full">
+                            <h1 class="text-4xl font-extrabold dark:text-gray-900">Keranjang anda kosong</h1>
+                            <a href="/products">
+                                <p class="text-base font-medium text-gray-900">Belanja sekarang!</p>
+                            </a>
+                        </div>
+                        @endif
+                    </div>
+                </div>
+
                 <!-- Authentication Links -->
                 @guest
                     @if (Route::has('login'))
                         <li class="">
                             <a class="nav-link text-white" href="{{ route('login') }}">
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-12 h-12">
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="M17.982 18.725A7.488 7.488 0 0012 15.75a7.488 7.488 0 00-5.982 2.975m11.963 0a9 9 0 10-11.963 0m11.963 0A8.966 8.966 0 0112 21a8.966 8.966 0 01-5.982-2.275M15 9.75a3 3 0 11-6 0 3 3 0 016 0z" />
-                                  </svg>
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                    stroke-width="1.5" stroke="currentColor" class="w-12 h-12">
+                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                        d="M17.982 18.725A7.488 7.488 0 0012 15.75a7.488 7.488 0 00-5.982 2.975m11.963 0a9 9 0 10-11.963 0m11.963 0A8.966 8.966 0 0112 21a8.966 8.966 0 01-5.982-2.275M15 9.75a3 3 0 11-6 0 3 3 0 016 0z" />
+                                </svg>
                             </a>
                         </li>
                     @endif
