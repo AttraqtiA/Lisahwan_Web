@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Product;
+use App\Models\Testimony;
+use App\Models\OrderDetail;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class ProductController extends Controller
 {
@@ -50,13 +53,20 @@ class ProductController extends Controller
      */
     public function show($id)
     {
+        $testimonies = Testimony::where('product_id', $id)->paginate(4);
         $product = Product::find($id);
+        $products_bestseller = OrderDetail::select('product_id', DB::raw('SUM(quantity) as total_quantity'))
+            ->groupBy('product_id')
+            ->orderByDesc('total_quantity')
+            ->take(4)
+            ->get();
         $total_product = Product::count();
         return view('customer.orderdetail', [
             "TabTitle" => $product->name,
-            // "active_2" => "text-white rounded md:bg-transparent md:text-yellow-500 md:p-0 md:dark:text-yellow-500",
             "product" => $product,
-            "total_product" => $total_product
+            "total_product" => $total_product,
+            "testimonies" => $testimonies,
+            "products_bestseller" => $products_bestseller
         ]);
     }
 

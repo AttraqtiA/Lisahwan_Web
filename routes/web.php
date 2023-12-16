@@ -20,7 +20,7 @@ use App\Http\Controllers\ProductController;
 
 Route::get('/', [ProductController::class, 'best_seller']); // halaman HOME
 Route::get('/products', [ProductController::class, 'index']); // halaman PRODUCTS
-Route::get('/products/{product_id}', [ProductController::class, 'show']);
+Route::get('/products/{product_id}', [ProductController::class, 'show']); // halaman ORDERDETAIL
 
 Auth::routes();
 
