@@ -4,27 +4,29 @@
     <div class="grid grid-cols-1 sm:grid-cols-1 lg:grid-cols-2 gap-x-8 gap-y-8 sm:gap-y-8 lg:gap-y-12 p-12 mx-auto">
         <div class="flex flex-col lg:justify-center">
             <img class="lg:h-screen lg:w-screen lg:object-bottom object-cover rounded-lg drop-shadow-md"
-                src="/images/fotoproduk/{{ $product->image }}" alt="{{ $product->image }}">
+                src="/images/fotoproduk/{{ $cart_detail->product->image }}" alt="{{ $cart_detail->product->image }}">
         </div>
         <div class="flex flex-col justify-center">
             <div class="h-full flex flex-col justify-center">
-                <h1 class="text-4xl font-extrabold dark:text-gray-900">{{ $product->name }}</h1>
-                <p class="mt-2 text-xl font-semibold text-gray-900">Rp. {{ number_format($product->price, 0, ',', '.') }}</p>
+                <h1 class="text-4xl font-extrabold dark:text-gray-900">{{ $cart_detail->product->name }}</h1>
+                <p class="mt-2 text-xl font-semibold text-gray-900">Rp.
+                    {{ number_format($cart_detail->product->price, 0, ',', '.') }}</p>
                 <p class="mt-4 text-base font-medium text-gray-900">Ketersediaan stok: <span
-                        class="underline underline-offset-2 decoration-4 decoration-yellow-500">{{ $product->stock }}
+                        class="underline underline-offset-2 decoration-4 decoration-yellow-500">{{ $cart_detail->product->stock }}
                         buah</span>
                 </p>
                 <hr class="h-px my-4 border-0 dark:bg-gray-400">
-                <p class="text-base font-medium text-gray-900">{{ $product->description }}</p>
+                <p class="text-base font-medium text-gray-900">{{ $cart_detail->product->description }}</p>
 
                 <div class="max-w-xs mt-8">
-                    <label for="{{ $product->id }}"
+                    <label for="{{ $cart_detail->product->id }}"
                         class="block mb-2 text-sm font-semibold text-gray-900 dark:text-gray-900">Pilih jumlah:</label>
-                    <form action="/carts/add/{{ $product->id }}" method="POST">
+                    <form action="/carts/update/{{ $cart_detail->id }}" method="POST">
+                        @method('patch')
                         @csrf
                         <div class="relative flex items-center max-w-[8rem]">
-                            <button type="button" id="{{ 'input-decrement-' . $product->id }}"
-                                onClick="changeQuantity('{{ $product->id }}', -1, '{{ $product->price }}')"
+                            <button type="button" id="{{ 'input-decrement-' . $cart_detail->product->id }}"
+                                onClick="changeQuantity('{{ $cart_detail->product->id }}', -1, '{{ $cart_detail->product->price }}')"
                                 class="bg-gray-100 dark:bg-gray-900 dark:hover:bg-gray-800 dark:border-gray-900 hover:bg-gray-800 border border-gray-900 rounded-s-lg p-3 h-11">
                                 <svg class="w-3 h-3 text-gray-900 dark:text-white" aria-hidden="true"
                                     xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 2">
@@ -32,13 +34,13 @@
                                         stroke-width="2" d="M1 1h16" />
                                 </svg>
                             </button>
-                            <input type="text" id="{{ 'input-' . $product->id }}" name="quantity"
-                                value="{{ old('quantity', 0) }}" data-input-counter data-input-counter-min="1"
-                                aria-describedby="helper-text-explanation"
+                            <input type="text" id="{{ 'input-' . $cart_detail->product->id }}" name="quantity"
+                                value="{{ old('quantity', $cart_detail->quantity) }}" data-input-counter
+                                data-input-counter-min="1" aria-describedby="helper-text-explanation"
                                 class="bg-gray-900 border-x-0 border-gray-900 h-11 text-center text-white text-sm block w-full py-2.5 dark:bg-gray-900 dark:border-gray-900 dark:placeholder-gray-800 dark:text-white"
                                 required>
-                            <button type="button" id="{{ 'input-increment-' . $product->id }}"
-                                onClick="changeQuantity('{{ $product->id }}', 1, '{{ $product->price }}')"
+                            <button type="button" id="{{ 'input-increment-' . $cart_detail->product->id }}"
+                                onClick="changeQuantity('{{ $cart_detail->product->id }}', 1, '{{ $cart_detail->product->price }}')"
                                 class="bg-gray-100 dark:bg-gray-900 dark:hover:bg-gray-800 dark:border-gray-900 hover:bg-gray-800 border border-gray-900 rounded-e-lg p-3 h-11 ">
                                 <svg class="w-3 h-3 text-gray-900 dark:text-white" aria-hidden="true"
                                     xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 18">
@@ -58,7 +60,7 @@
                     <label for="cost" class="text-sm font-semibold text-gray-900">Subtotal:</label>
                     <input type="text" id="cost" name="cost" aria-label="disabled input 2"
                         class="text-center ml-2 border {{ $errors->has('cost') ? 'bg-red-50 dark:bg-red-100 border-red-600 dark:border-red-400 text-red-600 dark:text-red-500 placeholder-red-700' : 'bg-gray-300 dark:bg-gray-300 border-yellow-500 dark:border-yellow-500 text-gray-600 dark:text-gray-600 placeholder-gray-400' }} text-sm rounded-lg block w-5/12 sm:w-3/12 p-2.5 cursor-not-allowed"
-                        value="{{ old('cost', 0) }}" readonly>
+                        value="{{ old('cost', $cart_detail->price) }}" readonly>
                 </div>
                 @error('cost')
                     <p class="mt-1 text-sm text-red-600 dark:text-red-500"><span class="font-medium">{{ $message }}</p>
@@ -71,12 +73,7 @@
 
                     <button type="submit"
                         class="text-white bg-yellow-500 hover:bg-yellow-600 font-medium rounded-lg text-base px-5 py-2.5 text-center inline-flex items-center">
-                        <svg class="w-3 h-3 mr-2 text-white dark:text-white" aria-hidden="true"
-                            xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 18">
-                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M9 1v16M1 9h16" />
-                        </svg>
-                        Keranjang
+                        Perbarui Pesanan
                     </button>
                 </div>
                 </form>
@@ -197,8 +194,8 @@
     </div>
     <script language="javascript">
         document.addEventListener('DOMContentLoaded', function() {
-            var inputElement = document.getElementById('input-{{ $product->id }}');
-            var price = '{{ $product->price }}';
+            var inputElement = document.getElementById('input-{{ $cart_detail->product->id }}');
+            var price = '{{ $cart_detail->product->price }}';
 
             // Fungsi untuk mengupdate subtotal
             function updateSubtotal() {
@@ -228,16 +225,18 @@
             });
 
             // Menambahkan event listener untuk tombol decrement
-            document.getElementById('input-decrement-{{ $product->id }}').addEventListener('click', function() {
-                changeQuantity(-1);
-                updateSubtotal();
-            });
+            document.getElementById('input-decrement-{{ $cart_detail->product->id }}').addEventListener('click',
+                function() {
+                    changeQuantity(-1);
+                    updateSubtotal();
+                });
 
             // Menambahkan event listener untuk tombol increment
-            document.getElementById('input-increment-{{ $product->id }}').addEventListener('click', function() {
-                changeQuantity(1);
-                updateSubtotal();
-            });
+            document.getElementById('input-increment-{{ $cart_detail->product->id }}').addEventListener('click',
+                function() {
+                    changeQuantity(1);
+                    updateSubtotal();
+                });
 
             // Fungsi untuk mengubah kuantitas
             function changeQuantity(change) {

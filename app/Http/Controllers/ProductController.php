@@ -17,10 +17,9 @@ class ProductController extends Controller
     public function index()
     {
         $cart_user = Cart::where('user_id', 1)->first();
-        if(empty($cart_user)){
+        if (empty($cart_user)) {
             $carts = null;
-        }
-        else{
+        } else {
             $carts = $cart_user->cart_detail;
         }
         return view('customer.products', [
@@ -70,13 +69,21 @@ class ProductController extends Controller
             ->take(4)
             ->get();
         $total_product = Product::count();
+        $cart_user = Cart::where('user_id', 1)->first();
+        if (empty($cart_user)) {
+            $carts = null;
+        } else {
+            $carts = $cart_user->cart_detail;
+        }
         return view('customer.orderdetail', [
             "TabTitle" => $product->name,
             "product" => $product,
             "total_product" => $total_product,
             "testimonies" => $testimonies,
-            "products_bestseller" => $products_bestseller
+            "products_bestseller" => $products_bestseller,
+            "carts" => $carts
         ]);
+
     }
 
     /**

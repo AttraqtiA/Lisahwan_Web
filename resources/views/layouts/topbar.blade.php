@@ -23,11 +23,11 @@
                 </li>
                 <!-- drawer component -->
                 <div id="drawer-right-example"
-                    class="fixed top-0 right-0 z-40 w-4/12 h-screen pt-6 p-4 overflow-y-auto transition-transform translate-x-full bg-gray-800 dark:bg-gray-800"
+                    class="fixed top-0 right-0 z-40 w-full sm:w-7/12 lg:w-4/12 h-screen pt-6 p-5 overflow-y-auto transition-transform translate-x-full bg-gray-800 dark:bg-gray-800"
                     tabindex="-1" aria-labelledby="drawer-right-label">
                     <div class="flex flex-row items-center mb-4 justify-between">
                         <h5 id="drawer-right-label"
-                            class="inline-flex items-center text-lg font-semibold text-yellow-500 dark:text-yellow-500">
+                            class="inline-flex justify-center items-center text-xl sm:text-lg font-semibold text-yellow-500 dark:text-yellow-500">
                             <svg class="w-6 h-6 mr-2 text-yellow-500 dark:text-yellow-500" aria-hidden="true"
                                 xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 20">
                                 <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
@@ -46,7 +46,8 @@
                             <span class="sr-only">Close menu</span>
                         </button>
                     </div>
-                    <div class="flex flex-col-reverse">
+                    <div
+                        class="flex flex-col-reverse mt-6 @if (empty($carts)) h-full justify-center items-center @endif">
                         @if (!empty($carts))
                             @foreach ($carts as $cart)
                                 <div class="flex flex-row items-center w-full">
@@ -54,39 +55,53 @@
                                         src="/images/fotoproduk/{{ $cart->product->image }}" alt="KentangAbon.jpg">
                                     <div class="flex flex-col ml-3 justify-center">
                                         <p class="text-lg font-medium text-white">{{ $cart->product->name }}</p>
-                                        <p class="text-sm font-normal text-gray-400">{{ $cart->quantity }} buah</p>
+                                        <p class="text-sm font-normal text-gray-400">{{ $cart->quantity }} buah
+                                            ({{ $cart->weight }} gram)
+                                        </p>
                                         <p class="mt-2 text-base font-normal text-gray-400">Rp.
-                                            {{ number_format($cart->price, 0, ',', '.') }}</p>
-                                        <div class="flex flex-row items-center gap-x-16 mt-1 mb-1">
-                                            <button type="button"
-                                                class="text-white bg-yellow-500 hover:bg-yellow-600 font-medium rounded-md text-sm px-2 py-1 text-center inline-flex items-center">
-                                                <svg class="w-4 h-4 mr-1 text-white dark:text-white" aria-hidden="true"
-                                                    xmlns="http://www.w3.org/2000/svg" fill="currentColor"
-                                                    viewBox="0 0 20 18">
-                                                    <path
-                                                        d="M12.687 14.408a3.01 3.01 0 0 1-1.533.821l-3.566.713a3 3 0 0 1-3.53-3.53l.713-3.566a3.01 3.01 0 0 1 .821-1.533L10.905 2H2.167A2.169 2.169 0 0 0 0 4.167v11.666A2.169 2.169 0 0 0 2.167 18h11.666A2.169 2.169 0 0 0 16 15.833V11.1l-3.313 3.308Zm5.53-9.065.546-.546a2.518 2.518 0 0 0 0-3.56 2.576 2.576 0 0 0-3.559 0l-.547.547 3.56 3.56Z" />
-                                                    <path
-                                                        d="M13.243 3.2 7.359 9.081a.5.5 0 0 0-.136.256L6.51 12.9a.5.5 0 0 0 .59.59l3.566-.713a.5.5 0 0 0 .255-.136L16.8 6.757 13.243 3.2Z" />
-                                                </svg>
-                                                Ubah Pesanan
-                                            </button>
-                                            <p class="text-sm font-medium text-yellow-500 hover:text-yellow-600">Hapus
-                                            </p>
+                                            {{ number_format($cart->price, 0, ',', '.') }}
+                                        </p>
+                                        <div
+                                            class="flex flex-row items-center gap-x-16 sm:gap-x-6 md:gap-x-24 lg:gap-x-16 mt-1 mb-1">
+                                            <form action="/carts/edit/{{ $cart->product_id }}" method="GET">
+                                                @csrf
+                                                <button type="submit"
+                                                    class="text-white bg-yellow-500 hover:bg-yellow-600 font-medium rounded-md text-sm sm:text-sm md:text-sm lg:text-sm px-2 py-1 inline-flex items-center">
+                                                    <svg class="w-4 h-4 sm:mr-1 text-white dark:text-white"
+                                                        aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                                                        fill="currentColor" viewBox="0 0 20 18">
+                                                        <path
+                                                            d="M12.687 14.408a3.01 3.01 0 0 1-1.533.821l-3.566.713a3 3 0 0 1-3.53-3.53l.713-3.566a3.01 3.01 0 0 1 .821-1.533L10.905 2H2.167A2.169 2.169 0 0 0 0 4.167v11.666A2.169 2.169 0 0 0 2.167 18h11.666A2.169 2.169 0 0 0 16 15.833V11.1l-3.313 3.308Zm5.53-9.065.546-.546a2.518 2.518 0 0 0 0-3.56 2.576 2.576 0 0 0-3.559 0l-.547.547 3.56 3.56Z" />
+                                                        <path
+                                                            d="M13.243 3.2 7.359 9.081a.5.5 0 0 0-.136.256L6.51 12.9a.5.5 0 0 0 .59.59l3.566-.713a.5.5 0 0 0 .255-.136L16.8 6.757 13.243 3.2Z" />
+                                                    </svg>
+                                                    <span class="sm:inline-block">Ubah Pesanan</span>
+                                                </button>
+                                            </form>
+                                            <form action="/carts/delete/{{ $cart->id }}" method="POST">
+                                                @method('delete')
+                                                @csrf
+                                                <button type="submit"
+                                                    class="text-sm font-medium text-yellow-500 hover:text-yellow-600"
+                                                    onclick="alert('Apakah anda ingin menghapus pesanan ini?')">
+                                                    Hapus
+                                                </button>
+                                            </form>
                                         </div>
                                     </div>
                                 </div>
-                                @if ($loop->first)
-                                @else
+                                @if (!$loop->last)
                                     <hr class="h-px my-4 border-0 dark:bg-gray-400">
+                                @else
                                 @endif
                             @endforeach
                         @else
-                        <div class="flex flex-col items-center justify-center h-full w-full">
-                            <h1 class="text-4xl font-extrabold dark:text-gray-900">Keranjang anda kosong</h1>
-                            <a href="/products">
-                                <p class="text-base font-medium text-gray-900">Belanja sekarang!</p>
-                            </a>
-                        </div>
+                            <div class="flex flex-col items-center justify-center">
+                                <h1 class="text-center text-xl font-bold dark:text-gray-400">Keranjang anda kosong</h1>
+                                <a href="/products">
+                                    <p class="text-center text-base font-normal text-yellow-500">Belanja sekarang!</p>
+                                </a>
+                            </div>
                         @endif
                     </div>
                 </div>
