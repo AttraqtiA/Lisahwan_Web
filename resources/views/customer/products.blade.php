@@ -1,6 +1,34 @@
 @extends('layouts.frame_nocarousel')
 
 @section('content_page')
+    @if (session('deleteCart_success'))
+        <div class="w-8/12 sm:w-5/12 md:w-4/12 lg:w-3/12 flex justify-center items-center p-4 mt-8 text-sm text-green-800 rounded-lg bg-green-50 dark:bg-gray-900 dark:text-green-400"
+            role="alert">
+            <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                fill="currentColor" viewBox="0 0 20 20">
+                <path
+                    d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Zm3.707 8.207-4 4a1 1 0 0 1-1.414 0l-2-2a1 1 0 0 1 1.414-1.414L9 10.586l3.293-3.293a1 1 0 0 1 1.414 1.414Z" />
+            </svg>
+            <span class="sr-only">Info</span>
+            <div>
+                <span class="font-medium">{{ session('deleteCart_success') }}
+            </div>
+        </div>
+    @endif
+    @if (session('empty_stock'))
+        <div class="w-8/12 sm:w-5/12 md:w-4/12 lg:w-3/12 flex justify-center items-center p-4 mt-8 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-900 dark:text-red-400"
+            role="alert">
+            <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                fill="currentColor" viewBox="0 0 20 20">
+                <path
+                    d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Zm3.707 11.793a1 1 0 1 1-1.414 1.414L10 11.414l-2.293 2.293a1 1 0 0 1-1.414-1.414L8.586 10 6.293 7.707a1 1 0 0 1 1.414-1.414L10 8.586l2.293-2.293a1 1 0 0 1 1.414 1.414L11.414 10l2.293 2.293Z" />
+            </svg>
+            <span class="sr-only">Info</span>
+            <div>
+                <span class="font-medium">{{ session('empty_stock') }}
+            </div>
+        </div>
+    @endif
     <div class="mx-auto w-11/12 sm:max-w-screen-xl text-center sm:col-span-2 md:col-span-2 lg:col-span-4 mb-4 mt-16">
         <h1 class="mb-8 text-4xl font-extrabold tracking-tight leading-none text-gray-900 md:text-5xl lg:text-6xl">
             {!! $pageTitle !!}</h1>
@@ -16,16 +44,42 @@
                             alt="{{ $product->image }}" />
                         <div class="h-1/4 px-8 pb-2 flex flex-col justify-center items-center">
                             <h5
-                                class="text-xl sm:text-3xl md:text-2xl lg:text-xl font-bold tracking-tight text-yellow-500 text-center">
+                                class="sm:leading-6 md:leading-normal lg:leading-normal text-xl sm:text-2xl md:text-2xl lg:text-xl font-bold tracking-tight text-yellow-500 text-center">
                                 {{ $product->name }}
                             </h5>
-                            <p class="text-base sm:text-xl md:text-lg lg:text-base font-normal text-white text-center"> Rp.
-                                {{ number_format($product->price, 0, ',', '.') }}</p>
-                            <p
-                                class="text-sm sm:text-lg md:text-base lg:text-sm font-normal text-lime-500 text-center mt-2">
-                                Tersisa {{ $product->stock }}
-                                stock
-                                lagi</p>
+                            <div class="flex flex-row w-full justify-center items-center">
+                                @if ($product->discount != 0)
+                                    <p
+                                        class="text-base sm:text-sm md:text-lg lg:text-sm font-normal text-white text-center">
+                                        Rp.
+                                        {{ number_format($product->price, 0, ',', '.') }}</p>
+                                    <p
+                                        class="ml-2 flex items-center text-base sm:text-sm md:text-lg lg:text-sm font-bold text-red-600 text-center">
+                                        <svg class="w-4 h-4 mr-2 text-red-600 dark:text-red-600" aria-hidden="true"
+                                            xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
+                                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                                stroke-width="2" d="M1 5h12m0 0L9 1m4 4L9 9" />
+                                        </svg>
+                                        (Rp. {{ number_format($product->countDiscount(), 0, ',', '.') }})
+                                    </p>
+                                @else
+                                    <p
+                                        class="text-base sm:text-sm md:text-lg lg:text-base font-normal text-white text-center">
+                                        Rp.
+                                        {{ number_format($product->price, 0, ',', '.') }}</p>
+                                @endif
+                            </div>
+                            @if ($product->stock == 0)
+                                <p
+                                    class="text-sm sm:text-base md:text-base lg:text-sm font-normal text-red-600 text-center mt-2">
+                                    Stock Habis!</p>
+                            @else
+                                <p
+                                    class="text-sm sm:text-base md:text-base lg:text-sm font-normal text-lime-500 text-center mt-2">
+                                    Tersisa {{ $product->stock }}
+                                    stock
+                                    lagi!</p>
+                            @endif
                         </div>
 
                         <!-- SVG icon di kanan bawah dari gambar -->
@@ -36,12 +90,11 @@
                         </svg>
 
                         <!-- Diskon di pojok kanan atas -->
-                        @if ($product->discount == 0)
+                        @if ($product->discount != 0)
                             <div
-                                class="absolute top-0 right-0 m-4 text-lg text-red-600 rounded-full font-bold bg-gray-900 p-4">
+                                class="absolute top-0 right-0 m-4 text-lg text-red-600 rounded-lg font-bold bg-gray-900 p-2">
                                 {{ $product->discount }}%</div>
                         @endif
-
                     </div>
                 </a>
             </div>

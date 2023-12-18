@@ -97,7 +97,7 @@
                             @endforeach
                         @else
                             <div class="flex flex-col items-center justify-center">
-                                <h1 class="text-center text-xl font-bold dark:text-gray-400">Keranjang anda kosong</h1>
+                                <h1 class="text-center text-xl font-bold text-gray-400 dark:text-gray-400">Keranjang anda kosong</h1>
                                 <a href="/products">
                                     <p class="text-center text-base font-normal text-yellow-500">Belanja sekarang!</p>
                                 </a>

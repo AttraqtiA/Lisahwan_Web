@@ -31,7 +31,7 @@ class ProductSeeder extends Seeder
             'price' => 40000,
             'stock' => 50,
             'weight' => 100,
-            'discount' => 0,
+            'discount' => 50,
             'favorite_status' => '0',
             'image' => 'KentangAbon.jpg'
         ]);

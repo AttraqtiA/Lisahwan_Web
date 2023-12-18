@@ -34,4 +34,10 @@ class Product extends Model
     {
         return $this->hasMany(CartDetail::class, 'product_id', 'id');
     }
+
+    public function countDiscount()
+    {
+        $discountedPrice = $this->price - ($this->price * ($this->discount / 100));
+        return max($discountedPrice, 0); // Harga diskon tidak boleh kurang dari 0
+    }
 }
