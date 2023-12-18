@@ -8,7 +8,7 @@
         </div>
         <div class="flex flex-col justify-center">
             <div class="h-full flex flex-col justify-center">
-                <h1 class="text-4xl font-extrabold dark:text-gray-900">{{ $product->name }}</h1>
+                <h1 class="text-4xl font-extrabold text-gray-900">{{ $product->name }}</h1>
                 @if ($product->discount != 0)
                     <p class="mt-2 text-xl font-semibold text-gray-900">Rp.
                         {{ number_format($product->countDiscount(), 0, ',', '.') }}</p>
@@ -106,7 +106,7 @@
                                     alt="{{ $testimony->user->profile_picture }}">
                             </div>
                             <div class="flex flex-col mt-1">
-                                <h4 class="text-base font-semibold dark:text-gray-900">{{ $testimony->user->name }}
+                                <h4 class="text-base font-semibold text-gray-900">{{ $testimony->user->name }}
                                 </h4>
                                 <p class="text-sm font-normal text-gray-400">
                                     {{ date('d F Y', strtotime($testimony->date)) }}</p>

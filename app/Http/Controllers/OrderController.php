@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Cart;
 use App\Models\Order;
+use App\Models\Address;
 use App\Http\Requests\StoreOrderRequest;
 use App\Http\Requests\UpdateOrderRequest;
 
@@ -13,7 +15,13 @@ class OrderController extends Controller
      */
     public function index()
     {
-        //
+        $cart = Cart::where('user_id', 1)->first();
+        $address = Address::where('user_id', 1)->get();
+        return view('customer.checkout', [
+            "TabTitle" => "Checkout",
+            "carts" => $cart->cart_detail,
+            "addresses" => $address
+        ]);
     }
 
     /**
