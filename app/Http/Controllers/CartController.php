@@ -109,33 +109,36 @@ class CartController extends Controller
      */
     public function edit($id)
     {
-        $testimonies = Testimony::where('product_id', $id)->paginate(4);
-        $products_bestseller = OrderDetail::select('product_id', DB::raw('SUM(quantity) as total_quantity'))
-            ->groupBy('product_id')
-            ->orderByDesc('total_quantity')
-            ->take(4)
-            ->get();
-        $total_product = Product::count();
-        $cart_user = Cart::where('user_id', 1)->first();
-        if (empty($cart_user)) {
-            $carts = null;
-        } else {
-            $carts = $cart_user->cart_detail;
-        }
-
         $cart_detail = CartDetail::where('product_id', $id)->first();
 
-        return view(
-            'customer.edit_orderdetail',
-            [
-                "TabTitle" => $cart_detail->product->name,
-                "total_product" => $total_product,
-                "testimonies" => $testimonies,
-                "products_bestseller" => $products_bestseller,
-                "carts" => $carts,
-                "cart_detail" => $cart_detail
-            ]
-        );
+        if (!$cart_detail) {
+            return redirect('/products')->with('deleteCart_success', 'Pesanan berhasil dihapus!');
+        } else {
+            $testimonies = Testimony::where('product_id', $id)->paginate(4);
+            $products_bestseller = OrderDetail::select('product_id', DB::raw('SUM(quantity) as total_quantity'))
+                ->groupBy('product_id')
+                ->orderByDesc('total_quantity')
+                ->take(4)
+                ->get();
+            $total_product = Product::count();
+            $cart_user = Cart::where('user_id', 1)->first();
+            if (empty($cart_user)) {
+                $carts = null;
+            } else {
+                $carts = $cart_user->cart_detail;
+            }
+            return view(
+                'customer.edit_orderdetail',
+                [
+                    "TabTitle" => $cart_detail->product->name,
+                    "total_product" => $total_product,
+                    "testimonies" => $testimonies,
+                    "products_bestseller" => $products_bestseller,
+                    "carts" => $carts,
+                    "cart_detail" => $cart_detail
+                ]
+            );
+        }
     }
 
     /**
@@ -174,10 +177,10 @@ class CartController extends Controller
                 'price' => $price_afterConverted,
                 'weight' => $total_weight
             ]);
+            return redirect('/products')->with('updateCart_success', 'Pesanan berhasil diperbarui!');
         } else {
             return back()->with('over_quantity', 'Mohon maaf, pesanan anda melebihi stok!');
         }
-        return redirect('/products');
     }
 
     /**
@@ -203,7 +206,7 @@ class CartController extends Controller
                 // Jika tidak ada cart_detail, hapus juga keranjangnya
                 $cart->delete();
             }
-            return redirect('/products')->with('deleteCart_success', 'Pesanan berhasil dihapus!');
+            return back()->with('deleteCart_success', 'Pesanan berhasil dihapus!');
         }
     }
 }

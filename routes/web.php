@@ -22,6 +22,8 @@ Route::delete('/carts/delete/{cartdetail_id}', [CartController::class, 'destroy'
 Route::get('/carts/edit/{product_id}', [CartController::class, 'edit']); // EDIT CART
 Route::patch('/carts/update/{product_id}', [CartController::class, 'update']); // UPDATE CART
 Route::get('/checkout', [OrderController::class, 'index']); // CHECKOUT PAGE
+Route::post('/checkout/payment', [OrderController::class, 'store']); // PAYMENT PAGE
+Route::get('/orderhistory', [OrderController::class, 'show_orderhistory']); // ORDER HISTORY PAGE
 Route::get('/products', [ProductController::class, 'index']); // PRODUCTS PAGE
 Route::get('/products/{product_id}', [ProductController::class, 'show']); // ORDERDETAIL PAGE
 

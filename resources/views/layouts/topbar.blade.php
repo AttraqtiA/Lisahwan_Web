@@ -23,7 +23,7 @@
                 </li>
                 <!-- drawer component -->
                 <div id="drawer-right-example"
-                    class="fixed top-0 right-0 z-40 w-full sm:w-7/12 lg:w-4/12 h-screen pt-6 p-5 overflow-y-auto transition-transform translate-x-full bg-gray-800 dark:bg-gray-800"
+                    class="fixed top-0 right-0 z-40 w-full sm:w-7/12 lg:w-5/12 h-screen pt-6 p-5 overflow-y-auto transition-transform translate-x-full bg-gray-800 dark:bg-gray-800"
                     tabindex="-1" aria-labelledby="drawer-right-label">
                     <div class="flex flex-row items-center mb-4 justify-between">
                         <h5 id="drawer-right-label"
@@ -48,6 +48,9 @@
                     </div>
                     <div
                         class="flex flex-col-reverse mt-6 @if (empty($carts)) h-full justify-center items-center @endif">
+                        @php
+                            $countSubtotal = 0;
+                        @endphp
                         @if (!empty($carts))
                             @foreach ($carts as $cart)
                                 <div class="flex flex-row items-center w-full">
@@ -58,11 +61,11 @@
                                         <p class="text-sm font-normal text-gray-400">{{ $cart->quantity }} buah
                                             ({{ $cart->weight }} gram)
                                         </p>
-                                        <p class="mt-2 text-base font-normal text-gray-400">Rp.
+                                        <p class="mt-2 text-base font-medium text-white">Rp.
                                             {{ number_format($cart->price, 0, ',', '.') }}
                                         </p>
                                         <div
-                                            class="flex flex-row items-center gap-x-16 sm:gap-x-6 md:gap-x-24 lg:gap-x-16 mt-1 mb-1">
+                                            class="flex flex-row items-center gap-x-16 sm:gap-x-6 md:gap-x-24 lg:gap-x-40 mt-1 mb-1">
                                             <form action="/carts/edit/{{ $cart->product_id }}" method="GET">
                                                 @csrf
                                                 <button type="submit"
@@ -90,8 +93,11 @@
                                         </div>
                                     </div>
                                 </div>
+                                @php
+                                    $countSubtotal += $cart->price;
+                                @endphp
                                 @if (!$loop->last)
-                                    <hr class="h-px my-4 border-0 dark:bg-gray-400">
+                                    <hr class="h-px my-4 border-0 bg-gray-400">
                                 @else
                                 @endif
                             @endforeach
@@ -105,6 +111,36 @@
                             </div>
                         @endif
                     </div>
+                    @if ($countSubtotal)
+                        <hr class="h-px my-7 border-2 border-yellow-500">
+                        <div class="flex flex-row justify-between items-center">
+                            <p class="text-lg font-medium text-white">
+                                Subtotal:
+                            </p>
+                            <p class="text-lg font-medium text-white">
+                                Rp. {{ number_format($countSubtotal, 0, ',', '.') }}
+                            </p>
+                        </div>
+                        <p class="text-sm font-normal text-gray-400">
+                            Ongkos kirim ditambahkan ketika checkout.
+                        </p>
+                        <form action="/checkout" method="GET">
+                            <button type="submit"
+                                class="mt-7 w-full text-white bg-yellow-500 hover:bg-yellow-600 font-medium rounded-lg text-base px-5 py-2.5 text-center items-center">
+                                Checkout
+                            </button>
+                        </form>
+                        <a href="/products" class="mt-3 flex flex-row justify-center items-center w-full">
+                            <p class="text-sm font-normal text-gray-400">
+                                atau <span class="text-yellow-500">Lanjut Belanja</span>
+                            </p>
+                            <svg class="ml-1 w-4 h-4 text-yellow-500" aria-hidden="true"
+                                xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
+                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                    stroke-width="1" d="M1 5h12m0 0L9 1m4 4L9 9" />
+                            </svg>
+                        </a>
+                    @endif
                 </div>
 
                 <!-- Authentication Links -->

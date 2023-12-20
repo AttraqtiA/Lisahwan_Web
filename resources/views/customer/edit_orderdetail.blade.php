@@ -1,7 +1,7 @@
 @extends('layouts.frame_nocarousel')
 
 @section('content_page')
-    <div class="grid grid-cols-1 sm:grid-cols-1 lg:grid-cols-2 gap-x-8 gap-y-8 sm:gap-y-8 lg:gap-y-12 p-12 mx-auto">
+    <div class="grid grid-cols-1 sm:grid-cols-1 lg:grid-cols-2 gap-x-8 gap-y-8 sm:gap-y-8 lg:gap-y-12 p-8 sm:p-12 mx-auto">
         <div class="flex flex-col lg:justify-center">
             <img class="lg:h-screen lg:w-screen lg:object-bottom object-cover rounded-lg drop-shadow-md"
                 src="/images/fotoproduk/{{ $cart_detail->product->image }}" alt="{{ $cart_detail->product->image }}">
@@ -21,7 +21,7 @@
                         class="underline underline-offset-2 decoration-4 decoration-yellow-500">{{ $cart_detail->product->stock }}
                         buah</span>
                 </p>
-                <hr class="h-px my-4 border-0 dark:bg-gray-400">
+                <hr class="h-px my-4 border-0 bg-gray-400">
                 <p class="text-base font-medium text-gray-900">{{ $cart_detail->product->description }}</p>
 
                 <div class="max-w-xs mt-8">
@@ -75,7 +75,7 @@
                 @error('cost')
                     <p class="mt-1 text-sm text-red-600 dark:text-red-500"><span class="font-medium">{{ $message }}</p>
                 @enderror
-                <hr class="h-px my-6 border-0 dark:bg-gray-400">
+                <hr class="h-px my-6 border-0 bg-gray-400">
                 <div class="flex flex-row justify-center">
                     <button type="submit"
                         class="text-yellow-500 hover:text-white border border-yellow-500 hover:bg-yellow-500 font-medium rounded-lg text-base px-5 py-2.5 me-2 dark:border-yellow-500 dark:text-yellow-500 dark:hover:text-white dark:hover:bg-yellow-500">Beli
@@ -92,7 +92,7 @@
         <div class="flex flex-col h-full">
             <h1 class="text-2xl lg:text-3xl font-semibold dark:text-gray-900 sm:text-center lg:text-start">Customer Reviews
             </h1>
-            <hr class="h-px my-2 border-0 dark:bg-gray-400">
+            <hr class="h-px my-2 border-0 bg-gray-400">
             <div class="flex flex-col-reverse @if (count($testimonies) == 0) h-full justify-center items-center @endif">
                 @if (count($testimonies) > 0)
                     @foreach ($testimonies as $testimony)
@@ -136,7 +136,7 @@
                                     alt="{{ $testimony->user->profile_picture }}">
                                 @if ($loop->first)
                                 @else
-                                    <hr class="h-px mt-6 border-0 dark:bg-gray-400">
+                                    <hr class="h-px mt-6 border-0 bg-gray-400">
                                 @endif
                             </div>
                         </div>
@@ -161,7 +161,7 @@
                     <p class="text-sm font-medium text-yellow-500 hover:text-yellow-600">Lihat semua</p>
                 </a>
             </div>
-            <hr class="h-px my-2 border-0 dark:bg-gray-400">
+            <hr class="h-px my-2 border-0 bg-gray-400">
             <div class = "grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-3 p-4 mx-auto">
                 @if (count($products_bestseller) > 0)
                     @foreach ($products_bestseller as $bestseller)

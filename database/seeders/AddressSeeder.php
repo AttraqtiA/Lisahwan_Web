@@ -20,19 +20,19 @@ class AddressSeeder extends Seeder
             'province' => 'Jawa Timur',
             'postal_code' => 60237
         ]);
-        Address::create([
-            'user_id' => 1,
-            'address' => 'Jalan Jemur Andayani XIII No. 6',
-            'city' => 'Surabaya',
-            'province' => 'Jawa Timur',
-            'postal_code' => 60237
-        ]);
-        Address::create([
-            'user_id' => 1,
-            'address' => 'Jalan Jemur Andayani XIII No. 6',
-            'city' => 'Surabaya',
-            'province' => 'Jawa Timur',
-            'postal_code' => 60237
-        ]);
+        // Address::create([
+        //     'user_id' => 1,
+        //     'address' => 'Jalan Jemur Andayani XIII No. 6',
+        //     'city' => 'Surabaya',
+        //     'province' => 'Jawa Timur',
+        //     'postal_code' => 60237
+        // ]);
+        // Address::create([
+        //     'user_id' => 1,
+        //     'address' => 'Jalan Jemur Andayani XIII No. 6',
+        //     'city' => 'Surabaya',
+        //     'province' => 'Jawa Timur',
+        //     'postal_code' => 60237
+        // ]);
     }
 }
