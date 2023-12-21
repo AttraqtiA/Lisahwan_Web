@@ -83,7 +83,7 @@
                     <div class="relative p-4 w-full max-w-md max-h-full">
                         <div class="relative rounded-lg shadow bg-white">
                             <button type="button"
-                                class="absolute top-3 end-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
+                                class="cursor-pointer absolute top-3 end-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
                                 data-modal-hide="payment-modal">
                                 <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
                                     viewBox="0 0 14 14">
@@ -118,7 +118,7 @@
                                 </div>
                                 <button type="submit"
                                     onclick="return confirm('Apakah anda sudah yakin dengan detail pemesanan anda?')"
-                                    class="mt-3 w-full text-white bg-yellow-500 hover:bg-yellow-600 font-medium rounded-lg text-base px-5 py-2.5 text-center items-center">
+                                    class="cursor-pointer mt-3 w-full text-white bg-yellow-500 hover:bg-yellow-600 font-medium rounded-lg text-base px-5 py-2.5 text-center items-center">
                                     Done
                                 </button>
                             </div>
@@ -145,7 +145,7 @@
                                         class="relative w-full h-full bg-white rounded-lg dark:bg-gray-900 dark:border-gray-800 mx-auto shadow">
                                         <img class="h-3/4 rounded-t-lg w-full object-center object-cover"
                                             src="/images/fotoproduk/{{ $bestseller->product->image }}"
-                                            alt="{{ $bestseller->product->image }}" />
+                                            alt="{{ $bestseller->product->name }}" />
                                         <div class="h-1/4 px-8 pb-2 flex flex-col justify-center items-center">
                                             <h5
                                                 class="sm:leading-6 md:leading-normal lg:leading-normal text-xl sm:text-3xl md:text-2xl lg:text-xl font-bold tracking-tight text-yellow-500 text-center">
@@ -244,7 +244,7 @@
                                         <form action="/carts/edit/{{ $cart->product_id }}" method="GET">
                                             @csrf
                                             <button type="submit"
-                                                class="text-white bg-yellow-500 hover:bg-yellow-600 font-medium rounded-md text-sm sm:text-sm md:text-sm lg:text-sm px-2 py-1 inline-flex items-center">
+                                                class="cursor-pointer text-white bg-yellow-500 hover:bg-yellow-600 font-medium rounded-md text-sm sm:text-sm md:text-sm lg:text-sm px-2 py-1 inline-flex items-center">
                                                 <svg class="w-4 h-4 sm:mr-1 text-white dark:text-white" aria-hidden="true"
                                                     xmlns="http://www.w3.org/2000/svg" fill="currentColor"
                                                     viewBox="0 0 20 18">
@@ -260,7 +260,7 @@
                                             @method('delete')
                                             @csrf
                                             <button type="submit"
-                                                class="text-sm font-medium text-yellow-500 hover:text-yellow-600"
+                                                class="cursor-pointer text-sm font-medium text-yellow-500 hover:text-yellow-600"
                                                 onclick="return confirm('Apakah anda ingin menghapus pesanan ini?')">
                                                 Hapus
                                             </button>
@@ -317,7 +317,7 @@
                     </div>
                     <hr class="h-px my-7 border-2 border-yellow-500">
                     <button type="button" data-modal-target="payment-modal" data-modal-toggle="payment-modal"
-                        class="w-full text-white bg-gray-900 hover:bg-gray-800 font-medium rounded-lg text-base px-5 py-2.5 text-center items-center">
+                        class="cursor-pointer w-full text-white bg-gray-900 hover:bg-gray-800 font-medium rounded-lg text-base px-5 py-2.5 text-center items-center">
                         Bayar Sekarang
                     </button>
                 @endif

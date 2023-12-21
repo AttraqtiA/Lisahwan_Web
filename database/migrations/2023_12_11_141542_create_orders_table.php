@@ -17,8 +17,9 @@ return new class extends Migration
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
             $table->unsignedBigInteger('address_id');
             $table->foreign('address_id')->references('id')->on('addresses')->onDelete('cascade')->onUpdate('cascade');
-            $table->date('order_date')->nullable(false);
-            $table->date('shipment_date')->nullable(true);
+            $table->dateTime('order_date')->nullable(false);
+            $table->dateTime('shipment_date')->nullable(true);
+            $table->dateTime('arrived_date')->nullable(true);
             $table->bigInteger('total_price')->nullable(false);
             $table->integer('total_weight')->nullable(false);
             $table->string('payment')->nullable(false);

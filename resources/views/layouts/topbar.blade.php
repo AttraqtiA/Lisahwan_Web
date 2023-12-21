@@ -37,7 +37,7 @@
                         </h5>
                         <button type="button" data-drawer-hide="drawer-right-example"
                             aria-controls="drawer-right-example"
-                            class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 inline-flex items-center justify-center dark:hover:bg-gray-200 dark:hover:text-gray-400">
+                            class="cursor-pointer text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 inline-flex items-center justify-center dark:hover:bg-gray-200 dark:hover:text-gray-400">
                             <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
                                 viewBox="0 0 14 14">
                                 <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
@@ -55,7 +55,7 @@
                             @foreach ($carts as $cart)
                                 <div class="flex flex-row items-center w-full">
                                     <img class="h-28 w-28 object-bottom object-cover rounded-lg drop-shadow-md"
-                                        src="/images/fotoproduk/{{ $cart->product->image }}" alt="KentangAbon.jpg">
+                                        src="/images/fotoproduk/{{ $cart->product->image }}" alt="{{ $cart->product->name }}">
                                     <div class="flex flex-col ml-3 justify-center">
                                         <p class="text-lg font-medium text-white">{{ $cart->product->name }}</p>
                                         <p class="text-sm font-normal text-gray-400">{{ $cart->quantity }} buah
@@ -69,7 +69,7 @@
                                             <form action="/carts/edit/{{ $cart->product_id }}" method="GET">
                                                 @csrf
                                                 <button type="submit"
-                                                    class="text-white bg-yellow-500 hover:bg-yellow-600 font-medium rounded-md text-sm sm:text-sm md:text-sm lg:text-sm px-2 py-1 inline-flex items-center">
+                                                    class="cursor-pointer text-white bg-yellow-500 hover:bg-yellow-600 font-medium rounded-md text-sm sm:text-sm md:text-sm lg:text-sm px-2 py-1 inline-flex items-center">
                                                     <svg class="w-4 h-4 sm:mr-1 text-white dark:text-white"
                                                         aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
                                                         fill="currentColor" viewBox="0 0 20 18">
@@ -85,7 +85,7 @@
                                                 @method('delete')
                                                 @csrf
                                                 <button type="submit"
-                                                    class="text-sm font-medium text-yellow-500 hover:text-yellow-600"
+                                                    class="cursor-pointer text-sm font-medium text-yellow-500 hover:text-yellow-600"
                                                     onclick="return confirm('Apakah anda ingin menghapus pesanan ini?')">
                                                     Hapus
                                                 </button>
@@ -126,7 +126,7 @@
                         </p>
                         <form action="/checkout" method="GET">
                             <button type="submit"
-                                class="mt-7 w-full text-white bg-yellow-500 hover:bg-yellow-600 font-medium rounded-lg text-base px-5 py-2.5 text-center items-center">
+                                class="cursor-pointer mt-7 w-full text-white bg-yellow-500 hover:bg-yellow-600 font-medium rounded-lg text-base px-5 py-2.5 text-center items-center">
                                 Checkout
                             </button>
                         </form>
@@ -179,7 +179,7 @@
             </ul>
 
             <button data-collapse-toggle="navbar-sticky" type="button"
-                class="ml-4 inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
+                class="cursor-pointer ml-4 inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
                 aria-controls="navbar-sticky" aria-expanded="false">
                 <span class="sr-only">Open main menu</span>
                 <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"

@@ -112,7 +112,7 @@ class CartController extends Controller
         $cart_detail = CartDetail::where('product_id', $id)->first();
 
         if (!$cart_detail) {
-            return redirect('/products')->with('deleteCart_success', 'Pesanan berhasil dihapus!');
+            return redirect('/products')->with('deleteCart_success', 'Mohon maaf, keranjang anda kosong!');
         } else {
             $testimonies = Testimony::where('product_id', $id)->paginate(4);
             $products_bestseller = OrderDetail::select('product_id', DB::raw('SUM(quantity) as total_quantity'))

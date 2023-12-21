@@ -8,7 +8,6 @@ use App\Models\Address;
 use App\Models\OrderDetail;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use App\Http\Requests\UpdateOrderRequest;
 
 class OrderController extends Controller
 {
@@ -19,7 +18,7 @@ class OrderController extends Controller
     {
         $cart = Cart::where('user_id', 1)->first();
         if (!$cart) {
-            return redirect('/products')->with('deleteCart_success', 'Pesanan berhasil dihapus!');
+            return redirect('/products')->with('checkout_cancel', 'Oops! Keranjang anda kosong!');
         } else {
             $products_bestseller = OrderDetail::select('product_id', DB::raw('SUM(quantity) as total_quantity'))
                 ->groupBy('product_id')
@@ -41,7 +40,18 @@ class OrderController extends Controller
 
     public function show_orderhistory()
     {
-        return view('customer.orderhistory');
+        $orders = Order::where('user_id', 1)->orderByDesc('id')->paginate(4);
+        if ($orders) {
+            return view(
+                'customer.orderhistory',
+                [
+                    "TabTitle" => "Riwayat Pemesanan",
+                    "orders" => $orders
+                ]
+            );
+        } else {
+            return redirect('/products')->with('empty_cart', 'Oops! Anda belum belanja sama sekali!');
+        }
     }
 
     /**
@@ -157,7 +167,7 @@ class OrderController extends Controller
 
         $cart->delete();
 
-        return redirect('/products')->with('order_success', 'Pemesanan anda berhasil! <br><a href="/orderhistory" class="font-bold text-yellow-500">Check Status Pesanan</a>.');
+        return redirect('/products')->with('order_success', 'Pemesanan anda berhasil! <br><a href="/orderhistory" class="inline-flex items-center font-bold text-yellow-500">Check Status Pesanan <svg class="ml-1 w-4 h-4 text-yellow-500" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10"> <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M1 5h12m0 0L9 1m4 4L9 9" /> </svg></a>');
     }
 
     /**
@@ -179,9 +189,15 @@ class OrderController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateOrderRequest $request, Order $order)
+    public function update($id)
     {
-        //
+        $order = Order::where('id', $id)->first();
+        $arrived_date = now();
+        $order->update([
+            'arrived_date' => $arrived_date,
+            'acceptbyCustomer_status' => 1
+        ]);
+        return back();
     }
 
     /**

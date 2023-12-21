@@ -4,17 +4,19 @@
     <div class="grid grid-cols-1 sm:grid-cols-1 lg:grid-cols-2 gap-x-8 gap-y-8 sm:gap-y-8 lg:gap-y-12 p-8 sm:p-12 mx-auto">
         <div class="flex flex-col lg:justify-center">
             <img class="lg:h-screen lg:w-screen lg:object-bottom object-cover rounded-lg drop-shadow-md"
-                src="/images/fotoproduk/{{ $cart_detail->product->image }}" alt="{{ $cart_detail->product->image }}">
+                src="/images/fotoproduk/{{ $cart_detail->product->image }}" alt="{{ $cart_detail->product->name }}">
         </div>
         <div class="flex flex-col justify-center">
             <div class="h-full flex flex-col justify-center">
                 <h1 class="text-4xl font-extrabold text-gray-900">{{ $cart_detail->product->name }}</h1>
                 @if ($cart_detail->product->discount != 0)
                     <p class="mt-2 text-xl font-semibold text-gray-900">Rp.
-                        {{ number_format($cart_detail->product->countDiscount(), 0, ',', '.') }}</p>
+                        {{ number_format($cart_detail->product->countDiscount(), 0, ',', '.') }} <span
+                            class="text-sm font-medium">({{ $cart_detail->product->weight }} gram)</span></p>
                 @else
                     <p class="mt-2 text-xl font-semibold text-gray-900">Rp.
-                        {{ number_format($cart_detail->product->price, 0, ',', '.') }}
+                        {{ number_format($cart_detail->product->price, 0, ',', '.') }} <span
+                            class="text-sm font-medium">({{ $cart_detail->product->weight }} gram)</span>
                     </p>
                 @endif
                 <p class="mt-4 text-base font-medium text-gray-900">Ketersediaan stok: <span
@@ -33,7 +35,7 @@
                         <div class="relative flex items-center max-w-[8rem]">
                             <button type="button" id="{{ 'input-decrement-' . $cart_detail->product->id }}"
                                 onClick="changeQuantity('{{ $cart_detail->product->id }}', -1, '{{ $cart_detail->product->price }}')"
-                                class="bg-gray-100 dark:bg-gray-900 dark:hover:bg-gray-800 dark:border-gray-900 hover:bg-gray-800 border border-gray-900 rounded-s-lg p-3 h-11">
+                                class="cursor-pointer bg-gray-100 dark:bg-gray-900 dark:hover:bg-gray-800 dark:border-gray-900 hover:bg-gray-800 border border-gray-900 rounded-s-lg p-3 h-11">
                                 <svg class="w-3 h-3 text-gray-900 dark:text-white" aria-hidden="true"
                                     xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 2">
                                     <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
@@ -47,7 +49,7 @@
                                 required>
                             <button type="button" id="{{ 'input-increment-' . $cart_detail->product->id }}"
                                 onClick="changeQuantity('{{ $cart_detail->product->id }}', 1, '{{ $cart_detail->product->price }}')"
-                                class="bg-gray-100 dark:bg-gray-900 dark:hover:bg-gray-800 dark:border-gray-900 hover:bg-gray-800 border border-gray-900 rounded-e-lg p-3 h-11 ">
+                                class="cursor-pointer bg-gray-100 dark:bg-gray-900 dark:hover:bg-gray-800 dark:border-gray-900 hover:bg-gray-800 border border-gray-900 rounded-e-lg p-3 h-11 ">
                                 <svg class="w-3 h-3 text-gray-900 dark:text-white" aria-hidden="true"
                                     xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 18">
                                     <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
@@ -78,11 +80,11 @@
                 <hr class="h-px my-6 border-0 bg-gray-400">
                 <div class="flex flex-row justify-center">
                     <button type="submit"
-                        class="text-yellow-500 hover:text-white border border-yellow-500 hover:bg-yellow-500 font-medium rounded-lg text-base px-5 py-2.5 me-2 dark:border-yellow-500 dark:text-yellow-500 dark:hover:text-white dark:hover:bg-yellow-500">Beli
+                        class="cursor-pointer text-yellow-500 hover:text-white border border-yellow-500 hover:bg-yellow-500 font-medium rounded-lg text-base px-5 py-2.5 me-2 dark:border-yellow-500 dark:text-yellow-500 dark:hover:text-white dark:hover:bg-yellow-500">Beli
                         Langsung</button>
 
                     <button type="submit"
-                        class="text-white bg-yellow-500 hover:bg-yellow-600 font-medium rounded-lg text-base px-5 py-2.5 text-center inline-flex items-center">
+                        class="cursor-pointer text-white bg-yellow-500 hover:bg-yellow-600 font-medium rounded-lg text-base px-5 py-2.5 text-center inline-flex items-center">
                         Perbarui Pesanan
                     </button>
                 </div>
@@ -100,7 +102,7 @@
                             <div class="flex-none">
                                 <img class="w-12 h-12 object-top object-cover rounded-full overflow-hidden"
                                     src="/images/testing/{{ $testimony->user->profile_picture }}"
-                                    alt="{{ $testimony->user->profile_picture }}">
+                                    alt="{{ $testimony->user->name }}">
                             </div>
                             <div class="flex flex-col mt-1">
                                 <h4 class="text-base font-semibold text-gray-900">{{ $testimony->user->name }}
@@ -132,8 +134,7 @@
                                 </div>
                                 <p class="mt-2 text-sm font-normal text-gray-900">{{ $testimony->review }}</p>
                                 <img class="mt-3 w-2/6 object-center object-cover rounded-lg"
-                                    src="/images/fotoproduk/{{ $testimony->image }}"
-                                    alt="{{ $testimony->user->profile_picture }}">
+                                    src="/images/fotoproduk/{{ $testimony->image }}" alt="{{ $testimony->user->name }}">
                                 @if ($loop->first)
                                 @else
                                     <hr class="h-px mt-6 border-0 bg-gray-400">
@@ -172,7 +173,7 @@
                                     class="relative w-full h-full bg-white rounded-lg dark:bg-gray-900 dark:border-gray-800 mx-auto shadow">
                                     <img class="h-3/4 rounded-t-lg w-full object-center object-cover"
                                         src="/images/fotoproduk/{{ $bestseller->product->image }}"
-                                        alt="{{ $bestseller->product->image }}" />
+                                        alt="{{ $bestseller->product->name }}" />
                                     <div class="h-1/4 px-8 pb-2 flex flex-col justify-center items-center">
                                         <h5
                                             class="text-xl sm:text-3xl md:text-2xl lg:text-xl font-bold tracking-tight text-yellow-500 text-center">
