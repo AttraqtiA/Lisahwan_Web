@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Testimony;
-use App\Http\Requests\StoreTestimonyRequest;
-use App\Http\Requests\UpdateTestimonyRequest;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class TestimonyController extends Controller
 {
@@ -27,9 +27,46 @@ class TestimonyController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreTestimonyRequest $request)
+    public function store(Request $request, $id)
     {
-        //
+        $validatedData = $request->validate([
+            "review" => "required|string|max:255",
+            "rating" => "required|numeric|between:1,5",
+            "image" => "image|file|max:10000",
+        ], [
+            'review.required' => 'Review wajib diisi!',
+            'review.string' => 'Review wajib berupa karakter!',
+            'review.max' => 'Maksimal :max karakter!',
+            'rating.required' => 'Rating wajib diisi!',
+            'rating.numeric' => 'Rating wajib berupa angka!',
+            'rating.between' => 'Rating wajib berada dalam rentang 1 sampai 5!',
+            'image.image' => 'File wajib berupa gambar!',
+            'image.max' => 'Ukuran gambar tidak boleh lebih dari 10MB!',
+        ]);
+
+        $user_id = 1;
+        $date = now();
+
+        if ($request->file('image')) {
+            $validatedData['image'] = $request->file('image')->store('foto_ulasan', ['disk' => 'public']);
+            Testimony::create([
+                'user_id' => $user_id,
+                'product_id' => $id,
+                'review' => $validatedData['review'],
+                'rating' => $validatedData['rating'],
+                'image' => $validatedData['image'],
+                'date' => $date
+            ]);
+        } else {
+            Testimony::create([
+                'user_id' => $user_id,
+                'product_id' => $id,
+                'review' => $validatedData['review'],
+                'rating' => $validatedData['rating'],
+                'date' => $date
+            ]);
+        }
+        return back()->with('addTestimony_success', 'Ulasan anda berhasil ditambahkan!');
     }
 
     /**
@@ -51,9 +88,48 @@ class TestimonyController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateTestimonyRequest $request, Testimony $testimony)
+    public function update(Request $request, $id)
     {
-        //
+        $validatedData = $request->validate([
+            "review" => "required|string|max:255",
+            "rating" => "required|numeric|between:1,5",
+            "image" => "image|file|max:10000",
+        ], [
+            'review.required' => 'Review wajib diisi!',
+            'review.string' => 'Review wajib berupa karakter!',
+            'review.max' => 'Maksimal :max karakter!',
+            'rating.required' => 'Rating wajib diisi!',
+            'rating.numeric' => 'Rating wajib berupa angka!',
+            'rating.between' => 'Rating wajib berada dalam rentang 1 sampai 5!',
+            'image.image' => 'File wajib berupa gambar!',
+            'image.max' => 'Ukuran gambar tidak boleh lebih dari 10MB!',
+        ]);
+
+        $date = now();
+
+        $testimony = Testimony::where('product_id', $id)->first();
+
+        if ($request->file('image')) {
+            if ($request->oldImage) {
+                Storage::disk('public')->delete($request->oldImage);
+            }
+            $validatedData['image'] = $request->file('image')->store('foto_ulasan', ['disk' => 'public']);
+
+            $testimony->update([
+                'review' => $validatedData['review'],
+                'rating' => $validatedData['rating'],
+                'image' => $validatedData['image'],
+                'date' => $date
+            ]);
+        } else {
+            $testimony->update([
+                'review' => $validatedData['review'],
+                'rating' => $validatedData['rating'],
+                'date' => $date
+            ]);
+        }
+
+        return back()->with('updateTestimony_success', 'Ulasan anda berhasil diperbarui!');
     }
 
     /**

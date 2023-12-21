@@ -24,10 +24,10 @@ return new class extends Migration
             $table->integer('total_weight')->nullable(false);
             $table->string('payment')->nullable(false);
             $table->string('note')->nullable(true);
-            $table->enum('is_print', ['0', '1'])->default('0');
-            $table->enum('shipment_status', ['0', '1'])->default('0');
-            $table->enum('acceptbyAdmin_status', ['0', '1'])->default('0');
-            $table->enum('acceptbyCustomer_status', ['0', '1'])->default('0');
+            $table->enum('is_print', ['pending', 'sudah'])->default('pending');
+            $table->enum('shipment_status', ['pending', 'sudah'])->default('pending');
+            $table->enum('acceptbyAdmin_status', ['pending', 'sudah'])->default('pending');
+            $table->enum('acceptbyCustomer_status', ['pending', 'sudah'])->default('pending');
             $table->timestamps();
         });
     }

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
 use App\Models\Cart;
 use App\Models\Order;
 use App\Models\Address;
@@ -41,16 +42,28 @@ class OrderController extends Controller
     public function show_orderhistory()
     {
         $orders = Order::where('user_id', 1)->orderByDesc('id')->paginate(4);
-        if ($orders) {
+        if ($orders->isEmpty()) {
+            return redirect('/products')->with('empty_order', 'Oops! Anda belum belanja sama sekali!');
+        } else {
+            foreach ($orders as $order) {
+                $orderDate = Carbon::parse($order->order_date);
+                $currentDate = Carbon::now();
+                $daysDifference = $currentDate->diffInDays($orderDate);
+
+                if ($daysDifference > 3) {
+                    $order->update(['arrived_date' => $currentDate]);
+                    $order->update(['acceptbyCustomer_status' => 'Sudah']);
+                }
+            }
             return view(
                 'customer.orderhistory',
                 [
                     "TabTitle" => "Riwayat Pemesanan",
+                    "pageTitle" => '<mark class="px-2 text-yellow-500 bg-gray-800 rounded dark:bg-gray-800">Riwayat</mark> Pemesanan',
+                    'pageDescription' => 'Lacak pesanan anda <span class="underline underline-offset-2 decoration-4 decoration-yellow-500">di sini!</span>',
                     "orders" => $orders
                 ]
             );
-        } else {
-            return redirect('/products')->with('empty_cart', 'Oops! Anda belum belanja sama sekali!');
         }
     }
 
@@ -80,17 +93,18 @@ class OrderController extends Controller
             'address.required_if' => 'Alamat Pengiriman wajib diisi!',
             'address.max' => 'Maksimal :max karakter!',
             'city.required' => 'Kota wajib diisi!',
+            'city.string' => 'Kota wajib berupa karakter!',
             'city.max' => 'Maksimal :max karakter!',
             'province.required' => 'Provinsi wajib diisi!',
+            'province.string' => 'Provinsi wajib berupa karakter!',
             'province.max' => 'Maksimal :max karakter!',
             'postal_code.required' => 'Kode Pos wajib diisi!',
-            'postal_code.numeric' => 'Kode Pos harus berupa angka!',
+            'postal_code.numeric' => 'Kode Pos wajib berupa angka!',
             'note.max' => 'Maksimal :max karakter!',
             'payment_upload.required' => 'Mohon upload bukti pembayaran anda!',
             'payment_upload.image' => 'File wajib berupa gambar!',
-            'payment_upload.max' => 'Maksimal 5 MB!',
+            'payment_upload.max' => 'Ukuran gambar tidak boleh lebih dari 5MB!',
         ]);
-
 
         $order_date = now();
 
@@ -101,7 +115,7 @@ class OrderController extends Controller
         $total_weight = $cart_details->sum('weight');
 
         if ($request->file('payment_upload')) {
-            $validatedData['payment'] = $request->file('payment_upload')->store('upload_images', ['disk' => 'public']);
+            $validatedData['payment'] = $request->file('payment_upload')->store('bukti_transfer', ['disk' => 'public']);
         }
 
         if ($validatedData['address_id']) {

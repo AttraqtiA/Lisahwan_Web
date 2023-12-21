@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Cart;
+use App\Models\Order;
 use App\Models\Product;
 use App\Models\Testimony;
 use App\Models\OrderDetail;
@@ -58,6 +59,8 @@ class ProductController extends Controller
             return redirect('/products')->with('empty_stock', 'Mohon maaf, stok habis!');
         } else {
             $testimonies = Testimony::where('product_id', $id)->paginate(4);
+            $check1 = Order::where('user_id', 1)->get();
+            $check_testimonies_user = $check1->product->where('id', $id)->first();
             $products_bestseller = OrderDetail::select('product_id', DB::raw('SUM(quantity) as total_quantity'))
                 ->groupBy('product_id')
                 ->orderByDesc('total_quantity')
@@ -75,6 +78,7 @@ class ProductController extends Controller
                 "product" => $product,
                 "total_product" => $total_product,
                 "testimonies" => $testimonies,
+                "check_testimonies_user" => $check_testimonies_user,
                 "products_bestseller" => $products_bestseller,
                 "carts" => $carts
             ]);

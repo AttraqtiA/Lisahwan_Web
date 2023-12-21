@@ -90,7 +90,7 @@ class CartController extends Controller
             $product->update([
                 'stock' =>  $product->stock - $validatedData['quantity']
             ]);
-            return redirect('/products');
+            return redirect('/products')->with('addCart_success', 'Pesanan ditambahkan ke keranjang!');
         } else {
             return back()->with('over_quantity', 'Mohon maaf, pesanan anda melebihi stok!');
         }

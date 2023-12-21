@@ -80,9 +80,7 @@
                 <hr class="h-px my-6 border-0 bg-gray-400">
                 <div class="flex flex-row justify-center">
                     <button type="submit"
-                        class="cursor-pointer text-yellow-500 hover:text-white border border-yellow-500 hover:bg-yellow-500 font-medium rounded-lg text-base px-5 py-2.5 me-2 dark:border-yellow-500 dark:text-yellow-500 dark:hover:text-white dark:hover:bg-yellow-500">Beli
-                        Langsung</button>
-
+                        class="cursor-pointer text-yellow-500 hover:text-white border border-yellow-500 hover:bg-yellow-500 font-medium rounded-lg text-base px-5 py-2.5 me-2 dark:border-yellow-500 dark:text-yellow-500 dark:hover:text-white dark:hover:bg-yellow-500">Beli Langsung</button>
                     <button type="submit"
                         class="cursor-pointer text-white bg-yellow-500 hover:bg-yellow-600 font-medium rounded-lg text-base px-5 py-2.5 text-center inline-flex items-center">
                         Perbarui Pesanan
@@ -92,8 +90,7 @@
             </div>
         </div>
         <div class="flex flex-col h-full">
-            <h1 class="text-2xl lg:text-3xl font-semibold dark:text-gray-900 sm:text-center lg:text-start">Customer Reviews
-            </h1>
+            <h1 class="text-2xl lg:text-3xl font-semibold dark:text-gray-900 sm:text-center lg:text-start">Ulasan Produk</h1>
             <hr class="h-px my-2 border-0 bg-gray-400">
             <div class="flex flex-col-reverse @if (count($testimonies) == 0) h-full justify-center items-center @endif">
                 @if (count($testimonies) > 0)

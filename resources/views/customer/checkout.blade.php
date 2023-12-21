@@ -15,7 +15,7 @@
                     <div class="sm:col-span-2">
                         <label for="address" class="block mb-2 text-sm font-semibold text-gray-900">Alamat</label>
                         <select id="address_id" name="address_id" onchange="toggleInputAddress()"
-                            class="{{ $errors->has('address') ? 'bg-red-50 dark:bg-red-100 border-red-600 dark:border-red-400 text-red-600 dark:text-red-500 placeholder-red-700' : 'bg-white border-yellow-500 text-gray-900 placeholder-gray-400  focus:ring-yellow-500 focus:border-yellow-500' }} rounded-lg border-2 text-sm mt-3 block w-full p-2.5">
+                            class="{{ $errors->has('address_id') ? 'bg-red-50 dark:bg-red-100 border-red-600 dark:border-red-400 text-red-600 dark:text-red-500 placeholder-red-700' : 'bg-white border-yellow-500 text-gray-900 placeholder-gray-400  focus:ring-yellow-500 focus:border-yellow-500' }} rounded-lg border-1 text-sm mt-3 block w-full p-2.5">
                             <option value="0">Tambah alamat lain</option>
                             @foreach ($addresses as $address)
                                 @if (old('address_id') == $address->id)
@@ -26,7 +26,7 @@
                             @endforeach
                         </select>
                         <input type="text" name="address" id="address" value="{{ old('address') }}"
-                            class="{{ $errors->has('address') ? 'bg-red-50 dark:bg-red-100 border-red-600 dark:border-red-400 text-red-600 dark:text-red-500 placeholder-red-700' : 'bg-white border-yellow-500 text-gray-900 placeholder-gray-400  focus:ring-yellow-500 focus:border-yellow-500' }} rounded-lg border-2 text-sm mt-3 block w-full p-2.5"
+                            class="{{ $errors->has('address') ? 'bg-red-50 dark:bg-red-100 border-red-600 dark:border-red-400 text-red-600 dark:text-red-500 placeholder-red-700' : 'bg-white border-yellow-500 text-gray-900 placeholder-gray-400  focus:ring-yellow-500 focus:border-yellow-500' }} rounded-lg border-1 text-sm mt-3 block w-full p-2.5"
                             placeholder="(Contoh: Jln. Indonesia Raya No. 17, RT 08 RW 08)">
                         @error('address')
                             <p class="mt-2 text-sm text-red-600 dark:text-red-500"><span class="font-medium">{{ $message }}
@@ -36,7 +36,7 @@
                     <div class="w-full">
                         <label for="city" class="block mb-2 text-sm font-semibold text-gray-900">Kota</label>
                         <input type="text" name="city" id="city" value="{{ old('city') }}"
-                            class="{{ $errors->has('city') ? 'bg-red-50 dark:bg-red-100 border-red-600 dark:border-red-400 text-red-600 dark:text-red-500 placeholder-red-700' : 'bg-white border-yellow-500 text-gray-900 placeholder-gray-400  focus:ring-yellow-500 focus:border-yellow-500' }} rounded-lg border-2 text-sm mt-3 block w-full p-2.5"
+                            class="{{ $errors->has('city') ? 'bg-red-50 dark:bg-red-100 border-red-600 dark:border-red-400 text-red-600 dark:text-red-500 placeholder-red-700' : 'bg-white border-yellow-500 text-gray-900 placeholder-gray-400  focus:ring-yellow-500 focus:border-yellow-500' }} rounded-lg border-1 text-sm mt-3 block w-full p-2.5"
                             placeholder="(Contoh: Surabaya)">
                         @error('city')
                             <p class="mt-2 text-sm text-red-600 dark:text-red-500"><span
@@ -47,7 +47,7 @@
                     <div class="w-full">
                         <label for="province" class="block mb-2 text-sm font-semibold text-gray-900">Provinsi</label>
                         <input type="text" name="province" id="province" value="{{ old('province') }}"
-                            class="{{ $errors->has('province') ? 'bg-red-50 dark:bg-red-100 border-red-600 dark:border-red-400 text-red-600 dark:text-red-500 placeholder-red-700' : 'bg-white border-yellow-500 text-gray-900 placeholder-gray-400  focus:ring-yellow-500 focus:border-yellow-500' }} rounded-lg border-2 text-sm mt-3 block w-full p-2.5"
+                            class="{{ $errors->has('province') ? 'bg-red-50 dark:bg-red-100 border-red-600 dark:border-red-400 text-red-600 dark:text-red-500 placeholder-red-700' : 'bg-white border-yellow-500 text-gray-900 placeholder-gray-400  focus:ring-yellow-500 focus:border-yellow-500' }} rounded-lg border-1 text-sm mt-3 block w-full p-2.5"
                             placeholder="(Contoh: Jawa Timur)">
                         @error('province')
                             <p class="mt-2 text-sm text-red-600 dark:text-red-500"><span
@@ -58,7 +58,7 @@
                     <div>
                         <label for="postal_code" class="block mb-2 text-sm font-semibold text-gray-900">Kode Pos</label>
                         <input type="text" name="postal_code" id="postal_code" value="{{ old('postal_code') }}"
-                            class="{{ $errors->has('postal_code') ? 'bg-red-50 dark:bg-red-100 border-red-600 dark:border-red-400 text-red-600 dark:text-red-500 placeholder-red-700' : 'bg-white border-yellow-500 text-gray-900 placeholder-gray-400  focus:ring-yellow-500 focus:border-yellow-500' }} rounded-lg border-2 text-sm mt-3 block w-full p-2.5"
+                            class="{{ $errors->has('postal_code') ? 'bg-red-50 dark:bg-red-100 border-red-600 dark:border-red-400 text-red-600 dark:text-red-500 placeholder-red-700' : 'bg-white border-yellow-500 text-gray-900 placeholder-gray-400  focus:ring-yellow-500 focus:border-yellow-500' }} rounded-lg border-1 text-sm mt-3 block w-full p-2.5"
                             placeholder="(Contoh: 60237)">
                         @error('postal_code')
                             <p class="mt-2 text-sm text-red-600 dark:text-red-500"><span
@@ -69,7 +69,7 @@
                     <div>
                         <label for="note" class="block mb-2 text-sm font-semibold text-gray-900">Catatan</label>
                         <textarea id="note" name="note" rows="4"
-                            class="{{ $errors->has('note') ? 'bg-red-50 dark:bg-red-100 border-red-600 dark:border-red-400 text-red-600 dark:text-red-500 placeholder-red-700' : 'bg-white border-yellow-500 text-gray-900 placeholder-gray-400  focus:ring-yellow-500 focus:border-yellow-500' }} rounded-lg border-2 text-sm mt-3 block w-full p-2.5"
+                            class="{{ $errors->has('note') ? 'bg-red-50 dark:bg-red-100 border-red-600 dark:border-red-400 text-red-600 dark:text-red-500 placeholder-red-700' : 'bg-white border-yellow-500 text-gray-900 placeholder-gray-400  focus:ring-yellow-500 focus:border-yellow-500' }} rounded-lg border-1 text-sm mt-3 block w-full p-2.5"
                             placeholder="Tambahkan catatan jika perlu...">{{ old('note') }}</textarea>
                         @error('note')
                             <p class="mt-2 text-sm text-red-600 dark:text-red-500"><span
@@ -94,12 +94,12 @@
                             </button>
                             <div class="p-4 md:p-5 text-center">
                                 <span class="block text-base font-semibold text-gray-900">Upload Bukti Pembayaran</span>
-                                <span class="block mb-3 text-xl font-bold text-yellow-500"> No Rek. 5120164866 (a.n.
+                                <span class="block mb-3 text-xl font-bold text-yellow-500">No Rek. 5120164866 (a.n.
                                     Hendra)</span>
                                 <div id="imagePreview" class="mb-3"></div>
                                 <div class="flex justify-center items-center w-full">
                                     <label for="payment_upload"
-                                        class="flex flex-col justify-center items-center w-full h-44 bg-gray-50 rounded-lg border-2 border-gray-300 border-dashed cursor-pointer hover:bg-gray-100">
+                                        class="flex flex-col justify-center items-center w-full h-44 bg-gray-50 rounded-lg border-1 border-gray-300 border-dashed cursor-pointer hover:bg-gray-100">
                                         <input type="file" name="payment_upload" id="payment_upload" class="hidden"
                                             onchange="displayImagePreview(this)">
                                         <div class="flex flex-col justify-center items-center w-full pt-5 pb-6">
@@ -119,7 +119,7 @@
                                 <button type="submit"
                                     onclick="return confirm('Apakah anda sudah yakin dengan detail pemesanan anda?')"
                                     class="cursor-pointer mt-3 w-full text-white bg-yellow-500 hover:bg-yellow-600 font-medium rounded-lg text-base px-5 py-2.5 text-center items-center">
-                                    Done
+                                    Selesaikan Pembayaran
                                 </button>
                             </div>
                         </div>
@@ -329,7 +329,7 @@
             var selectAddress = document.getElementById('address_id');
             var inputAddress = document.getElementById('address');
 
-            if (selectAddress.value != 'tambah_alamat_lain') {
+            if (selectAddress.value != '0') {
                 inputAddress.style.display = 'none';
             } else {
                 inputAddress.style.display = 'block';
