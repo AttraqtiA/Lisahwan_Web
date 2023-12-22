@@ -67,8 +67,6 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-
-
         if ($data['profile_picture'] == null) {
             return User::create([
                 'name' => $data['name'],

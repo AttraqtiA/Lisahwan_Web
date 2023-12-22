@@ -97,7 +97,7 @@
                                             </p>
                                             <div
                                                 class="flex flex-row items-center gap-x-16 sm:gap-x-6 md:gap-x-24 lg:gap-x-40 mt-1 mb-1">
-                                                <form action="/carts/edit/{{ $cart->product_id }}" method="GET">
+                                                <form action="{{ route('member.carts.edit', $cart->product_id) }}" method="GET">
                                                     @csrf
                                                     <button type="submit"
                                                         class="cursor-pointer text-white bg-yellow-500 hover:bg-yellow-600 font-medium rounded-md text-sm sm:text-sm md:text-sm lg:text-sm px-2 py-1 inline-flex items-center">
@@ -112,7 +112,7 @@
                                                         <span class="sm:inline-block">Ubah Pesanan</span>
                                                     </button>
                                                 </form>
-                                                <form action="/carts/delete/{{ $cart->id }}" method="POST">
+                                                <form action="{{ route('member.carts.destroy', $cart->id) }}" method="POST">
                                                     @method('delete')
                                                     @csrf
                                                     <button type="submit"
@@ -155,7 +155,7 @@
                             <p class="text-sm font-normal text-gray-400">
                                 Ongkos kirim ditambahkan ketika checkout.
                             </p>
-                            <form action="/checkout" method="GET">
+                            <form action="{{ route('member.checkout') }}" method="GET">
                                 <button type="submit"
                                     class="cursor-pointer mt-7 w-full text-white bg-yellow-500 hover:bg-yellow-600 font-medium rounded-lg text-base px-5 py-2.5 text-center items-center">
                                     Checkout

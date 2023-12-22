@@ -2,9 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Http\Request;
 use App\Models\ProductionProduct;
-use App\Http\Requests\StoreProductionProductRequest;
-use App\Http\Requests\UpdateProductionProductRequest;
 
 class ProductionProductController extends Controller
 {
@@ -27,7 +26,7 @@ class ProductionProductController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreProductionProductRequest $request)
+    public function store(Request $request)
     {
         //
     }
@@ -51,7 +50,7 @@ class ProductionProductController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateProductionProductRequest $request, ProductionProduct $productionProduct)
+    public function update(Request $request, ProductionProduct $productionProduct)
     {
         //
     }

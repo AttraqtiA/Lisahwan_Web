@@ -9,7 +9,7 @@
     <link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet'>
     <link rel="icon" href="/images/lisahwan_logo.crdownload">
 
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
+    {{-- @vite(['resources/css/app.css', 'resources/js/app.js']) --}}
 
     <!-- CSRF Token, gaperlu ini udah nongol sih tomnol log-outnya -->
     <meta name="csrf-token" content="{{ csrf_token() }}">

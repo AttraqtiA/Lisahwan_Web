@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Member;
 
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 
@@ -21,7 +22,7 @@ class OrderController extends Controller
     {
         $cart = Cart::where('user_id', Auth::user()->id)->first();
         if (!$cart) {
-            return redirect('/products')->with('checkout_cancel', 'Oops! Keranjang anda kosong!');
+            return redirect()->route('products')->with('checkout_cancel', 'Oops! Keranjang anda kosong!');
         } else {
             $products_bestseller = OrderDetail::select('product_id', DB::raw('SUM(quantity) as total_quantity'))
                 ->groupBy('product_id')
@@ -51,7 +52,7 @@ class OrderController extends Controller
             $carts = $cart_user->cart_detail;
         }
         if ($orders->isEmpty()) {
-            return redirect('/products')->with('empty_order', 'Oops! Anda belum belanja sama sekali!');
+            return redirect()->route('products')->with('empty_order', 'Oops! Anda belum belanja sama sekali!');
         } else {
             foreach ($orders as $order) {
                 $orderDate = Carbon::parse($order->order_date);
@@ -190,7 +191,7 @@ class OrderController extends Controller
 
         $cart->delete();
 
-        return redirect('/products')->with('order_success', 'Pemesanan anda berhasil! <br><a href="/orderhistory" class="inline-flex items-center font-bold text-yellow-500">Check Status Pesanan <svg class="ml-1 w-4 h-4 text-yellow-500" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10"> <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M1 5h12m0 0L9 1m4 4L9 9" /> </svg></a>');
+        return redirect()->route('products')->with('order_success', 'Pemesanan anda berhasil! <br><a href="'.route('member.orderhistory').'" class="inline-flex items-center font-bold text-yellow-500">Check Status Pesanan <svg class="ml-1 w-4 h-4 text-yellow-500" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10"> <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M1 5h12m0 0L9 1m4 4L9 9" /> </svg></a>');
     }
 
     /**

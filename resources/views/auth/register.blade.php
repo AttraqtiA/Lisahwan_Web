@@ -14,7 +14,8 @@
                                 Membuat akun baru
                             </h1>
 
-                            <form method="POST" action="{{ route('register') }}" class="space-y-4 md:space-y-6" enctype="multipart/form-data">
+                            <form method="POST" action="{{ route('register') }}" class="space-y-4 md:space-y-6"
+                                enctype="multipart/form-data">
                                 @csrf
 
                                 <div class="flex flex-row gap-4">
@@ -22,12 +23,12 @@
                                         <label for="name" class="block mb-2 text-sm font-medium text-white">Nama</label>
                                         <input type="text" name="name" id="name"
                                             class="@error('name') is-invalid @enderror bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-yellow-500 dark:focus:border-yellow-500"
-                                            placeholder="{{ old('name') }}" required autocomplete="name" autofocus>
-
+                                            placeholder="" value="{{ old('name') }}" required autocomplete="name"
+                                            autofocus>
                                         @error('name')
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
+                                            <p class="mt-2 text-sm text-red-600 dark:text-red-500"><span
+                                                    class="font-medium">{{ $message }}
+                                            </p>
                                         @enderror
                                     </div>
 
@@ -36,13 +37,12 @@
                                             Telp/WA</label>
                                         <input type="text" name="phone_number" id="phone_number"
                                             class="@error('phone_number') is-invalid @enderror bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-yellow-500 dark:focus:border-yellow-500"
-                                            placeholder="{{ old('phone_number') }}" required autocomplete="phone_number"
+                                            placeholder="" value="{{ old('phone_number') }}" required autocomplete="phone_number"
                                             autofocus>
-
                                         @error('phone_number')
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
+                                            <p class="mt-2 text-sm text-red-600 dark:text-red-500"><span
+                                                    class="font-medium">{{ $message }}
+                                            </p>
                                         @enderror
                                     </div>
                                 </div>
@@ -50,12 +50,11 @@
                                     <label for="email" class="block mb-2 text-sm font-medium text-white">Email</label>
                                     <input type="email" name="email" id="email"
                                         class="@error('email') is-invalid @enderror bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-yellow-500 dark:focus:border-yellow-500"
-                                        placeholder="{{ old('email') }}" required autocomplete="email" autofocus>
-
-                                    @error('email')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
+                                        placeholder="" value="{{ old('email') }}" required autocomplete="email" autofocus>
+                                        @error('email')
+                                        <p class="mt-2 text-sm text-red-600 dark:text-red-500"><span
+                                                class="font-medium">{{ $message }}
+                                        </p>
                                     @enderror
                                 </div>
 
@@ -67,11 +66,10 @@
                                         <input type="password" name="password" id="password" placeholder="••••••••"
                                             class="@error('password') is-invalid @enderror bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-yellow-500 dark:focus:border-yellow-500"
                                             required autocomplete="new-password">
-
-                                        @error('password')
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
+                                            @error('password')
+                                            <p class="mt-2 text-sm text-red-600 dark:text-red-500"><span
+                                                    class="font-medium">{{ $message }}
+                                            </p>
                                         @enderror
                                     </div>
 
@@ -89,32 +87,32 @@
 
                                 <div class="mb-4">
                                     <span class="block mb-2 text-sm font-medium text-gray-900">Foto Profil</span>
-                                        <div id="existingImagePreviewId" class="mb-3"></div>
-                                        <label for="profile_picture"
-                                            class="flex flex-col justify-center items-center w-full h-44 bg-gray-50 rounded-lg border-1 border-gray-300 border-dashed cursor-pointer hover:bg-gray-100">
-                                            <input type="file" name="profile_picture" id="profile_picture" class="hidden"
-                                                onchange="displayImagePreview_Add(this)">
-                                            <div class="flex flex-col justify-center items-center w-full pt-5 pb-6">
-                                                <svg aria-hidden="true" class="mb-3 w-10 h-10 text-gray-400" fill="none"
-                                                    stroke="currentColor" viewBox="0 0 24 24"
-                                                    xmlns="http://www.w3.org/2000/svg">
-                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                        d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
-                                                </svg>
-                                                <p class="mb-2 text-sm text-gray-500">
-                                                    <span class="font-semibold">Klik untuk upload</span>
-                                                </p>
-                                                <p class="text-xs text-gray-500">PNG, JPG atau JPEG (Ukuran File MAX.
-                                                    5MB)
-                                                </p>
-                                            </div>
-                                        </label>
+                                    <div id="existingImagePreviewId" class="mb-3"></div>
+                                    <label for="profile_picture"
+                                        class="flex flex-col justify-center items-center w-full h-44 bg-gray-50 rounded-lg border-1 border-gray-300 border-dashed cursor-pointer hover:bg-gray-100">
+                                        <input type="file" name="profile_picture" id="profile_picture" class="hidden"
+                                            onchange="displayImagePreview_Add(this)">
+                                        <div class="flex flex-col justify-center items-center w-full pt-5 pb-6">
+                                            <svg aria-hidden="true" class="mb-3 w-10 h-10 text-gray-400" fill="none"
+                                                stroke="currentColor" viewBox="0 0 24 24"
+                                                xmlns="http://www.w3.org/2000/svg">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                    d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
+                                            </svg>
+                                            <p class="mb-2 text-sm text-gray-500">
+                                                <span class="font-semibold">Klik untuk upload</span>
+                                            </p>
+                                            <p class="text-xs text-gray-500">PNG, JPG atau JPEG (Ukuran File MAX.
+                                                5MB)
+                                            </p>
+                                        </div>
+                                    </label>
                                 </div>
 
                                 <button type="submit"
                                     class="w-full text-white bg-yellow-500 hover:bg-yellow-600 focus:ring-4 focus:outline-none focus:ring-yellow-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">Daftar</button>
 
-                                <p class="text-sm font-light text-gray-500 dark:text-gray-400">
+                                <p class="text-center text-sm font-light text-gray-500 dark:text-gray-400">
                                     Sudah memiliki akun? <a href="{{ route('login') }}"
                                         class="font-medium text-yellow-500 hover:underline">Masuk</a>
                                 </p>

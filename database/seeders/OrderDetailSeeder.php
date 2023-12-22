@@ -13,20 +13,20 @@ class OrderDetailSeeder extends Seeder
      */
     public function run(): void
     {
-        OrderDetail::create([
-            'order_id' => 1,
-            'product_id' => 1,
-            'quantity' => 1,
-            'price' => 100000,
-            'weight' => 1000,
-        ]);
+        // OrderDetail::create([
+        //     'order_id' => 1,
+        //     'product_id' => 1,
+        //     'quantity' => 1,
+        //     'price' => 100000,
+        //     'weight' => 1000,
+        // ]);
 
-        OrderDetail::create([
-            'order_id' => 1,
-            'product_id' => 2,
-            'quantity' => 5,
-            'price' => 100000,
-            'weight' => 1000,
-        ]);
+        // OrderDetail::create([
+        //     'order_id' => 1,
+        //     'product_id' => 2,
+        //     'quantity' => 5,
+        //     'price' => 100000,
+        //     'weight' => 1000,
+        // ]);
     }
 }

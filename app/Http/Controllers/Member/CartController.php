@@ -1,14 +1,16 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Member;
 
 use App\Models\Cart;
 use App\Models\Product;
 use App\Models\Testimony;
 use App\Models\CartDetail;
+use App\Models\Production;
 use App\Models\OrderDetail;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 
 class CartController extends Controller
@@ -92,10 +94,16 @@ class CartController extends Controller
             $product->update([
                 'stock' =>  $product->stock - $validatedData['quantity']
             ]);
+            Production::create([
+                'date' => now(),
+                'product_id' => $id,
+                'quantity' => $validatedData['quantity'],
+                'type' => 'kurang'
+            ]);
             if ($submitButton === 'submit1') {
-                return redirect('/checkout');
+                return redirect()->route('member.checkout');
             } else {
-                return redirect('/products')->with('addCart_success', 'Pesanan ditambahkan ke keranjang!');
+                return redirect()->route('products')->with('addCart_success', 'Pesanan ditambahkan ke keranjang!');
             }
         } else {
             return back()->with('over_quantity', 'Mohon maaf, pesanan anda melebihi stok!');
@@ -118,7 +126,7 @@ class CartController extends Controller
         $cart_detail = CartDetail::where('product_id', $id)->first();
 
         if (!$cart_detail) {
-            return redirect('/products')->with('deleteCart_success', 'Mohon maaf, keranjang anda kosong!');
+            return redirect()->route('products')->with('deleteCart_success', 'Mohon maaf, keranjang anda kosong!');
         } else {
             $testimonies = Testimony::where('product_id', $id)->paginate(4);
             $products_bestseller = OrderDetail::select('product_id', DB::raw('SUM(quantity) as total_quantity'))
@@ -178,12 +186,17 @@ class CartController extends Controller
             $product->update([
                 'stock' => $cart_detail->product->stock - $quantity_difference
             ]);
+            $production = Production::where('product_id', $product->id)->first();
+            $production->update([
+                'quantity' => $quantity_difference,
+                'type' => 'tambah'
+            ]);
             $cart_detail->update([
                 'quantity' => $validatedData['quantity'],
                 'price' => $price_afterConverted,
                 'weight' => $total_weight
             ]);
-            return redirect('/products')->with('updateCart_success', 'Pesanan berhasil diperbarui!');
+            return redirect()->route('products')->with('updateCart_success', 'Pesanan berhasil diperbarui!');
         } else {
             return back()->with('over_quantity', 'Mohon maaf, pesanan anda melebihi stok!');
         }

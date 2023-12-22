@@ -1,23 +1,18 @@
 <?php
 
-use App\Http\Controllers\ProductController;
-use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\GalleryController;
-use App\Http\Controllers\CartController;
-use App\Http\Controllers\OrderController;
-use App\Http\Controllers\TestimonyController;
-use App\Http\Controllers\WishlistController;
-
-use App\Http\Controllers\Owner\UserController;
-use App\Http\Controllers\Owner\ProductController as OwnerProductController;
-use App\Http\Controllers\Owner\OrderDetailController as OwnerOrderDetailController;
-use App\Http\Controllers\Owner\OrderController as OwnerOrderController;
-
-use App\Http\Controllers\Admin\OrderDetailController as AdminOrderDetailController;
-use App\Http\Controllers\Admin\OrderController as AdminOrderController;
-
-use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\GalleryController;
+use App\Http\Controllers\Owner\UserController;
+use App\Http\Controllers\ProductController;
+use App\Http\Controllers\Admin\OrderController as AdminOrderController;
+use App\Http\Controllers\Member\CartController as MemberCartController;
+use App\Http\Controllers\Owner\OrderController as OwnerOrderController;
+use App\Http\Controllers\Member\OrderController as MemberOrderController;
+use App\Http\Controllers\Owner\ProductController as OwnerProductController;
+use App\Http\Controllers\Member\ProductController as MemberProductController;
+use App\Http\Controllers\Member\WishlistController as MemberWishlistController;
+use App\Http\Controllers\Member\TestimonyController as MemberTestimonyController;
 
 /*
 |--------------------------------------------------------------------------
@@ -31,74 +26,82 @@ use Illuminate\Support\Facades\Auth;
 */
 
 
+//====================================== BISA DIAKSES SEMUA ROLE ======================================
+Route::get('/', [ProductController::class, 'best_seller']); // HOME PAGE
+Route::get('/products', [ProductController::class, 'index'])->name('products'); // PRODUCTS PAGE
+Route::get('/gallery', [GalleryController::class, 'index']); // GALLERY PAGE
+Route::view('/contactus', 'contact'); // CONTACT US PAGE
+//=====================================================================================================
 
-Route::get('/', [ProductController::class, 'best_seller']); // halaman HOME
-Route::get('/products', [ProductController::class, 'index'])->name('products'); // halaman PRODUCTS
-Route::get('/products/{product_id}', [ProductController::class, 'show']); // halaman ORDERDETAIL
-Route::get('/gallery', [GalleryController::class, 'index']); // halaman Gallery
 
-Route::view('/contactus', 'contact');
+//=================================== BISA DIAKSES ROLE MEMBER SAJA ===================================
+Route::group([
+    'middleware' => 'member',
+    'prefix' => 'member',
+    'as' => 'member.'
+], function () {
+    Route::get('/products/{product_id}', [MemberProductController::class, 'show'])->name('products.show'); // ORDERDETAIL PAGE
 
-// Route::group([
-//     'middleware' => 'member',
-//     'prefix' => 'member',
-//     'as' => 'member.'
-// ], function (){
+    Route::post('/carts/add/{product_id}', [MemberCartController::class, 'store'])->name('carts.add'); // INSERT TO CART
+    Route::delete('/carts/delete/{cartdetail_id}', [MemberCartController::class, 'destroy'])->name('carts.destroy'); // DELETE CART
+    Route::get('/carts/edit/{product_id}', [MemberCartController::class, 'edit'])->name('carts.edit'); // EDIT CART
+    Route::patch('/carts/update/{product_id}', [MemberCartController::class, 'update'])->name('carts.update'); // UPDATE CART
 
-Route::post('/carts/add/{product_id}', [CartController::class, 'store']); // INSERT TO CART
-Route::delete('/carts/delete/{cartdetail_id}', [CartController::class, 'destroy']); // DELETE CART
-Route::get('/carts/edit/{product_id}', [CartController::class, 'edit']); // EDIT CART
-Route::patch('/carts/update/{product_id}', [CartController::class, 'update']); // UPDATE CART
+    Route::get('/checkout', [MemberOrderController::class, 'index'])->name('checkout'); // CHECKOUT PAGE
+    Route::post('/checkout/payment', [MemberOrderController::class, 'store'])->name('checkout.store'); // CREATE ORDER
+    Route::get('/orderhistory', [MemberOrderController::class, 'show_orderhistory'])->name('orderhistory'); // ORDER HISTORY PAGE
+    Route::patch('/orderhistory/{order_id}', [MemberOrderController::class, 'update'])->name('orderhistory.update'); // CHANGE ACCEPT_BY_CUSTOMER STATUS
 
-Route::get('/checkout', [OrderController::class, 'index']); // CHECKOUT PAGE
-Route::post('/checkout/payment', [OrderController::class, 'store']); // CREATE ORDER
-Route::get('/orderhistory', [OrderController::class, 'show_orderhistory']); // ORDER HISTORY PAGE
-Route::patch('/orderhistory/{order_id}', [OrderController::class, 'update']); // CHANGE ACCEPT_BY_CUSTOMER STATUS
+    Route::post('/testimony/{product_id}', [MemberTestimonyController::class, 'store'])->name('testimony.store'); // CREATE TESTIMONY
+    Route::patch('/testimony/{product_id}', [MemberTestimonyController::class, 'update'])->name('testimony.update'); // UPDATE TESTIMONY
+    Route::delete('/testimony/{testimony_id}', [MemberTestimonyController::class, 'destroy'])->name('testimony.destroy'); // UPDATE TESTIMONY]
 
-Route::post('/testimony/{product_id}', [TestimonyController::class, 'store']); // CREATE TESTIMONY
-Route::patch('/testimony/{product_id}', [TestimonyController::class, 'update']); // UPDATE TESTIMONY
-Route::delete('/testimony/{product_id}', [TestimonyController::class, 'destroy']); // UPDATE TESTIMONY]
+    Route::get('/wishlist', [MemberWishlistController::class, 'index'])->name('wishlist'); // WISHLIST PAGE
+    Route::post('/wishlist/{product_id}', [MemberWishlistController::class, 'store'])->name('wishlist.store'); // INSERT PRODUCT TO WISHLIST
+});
+//=====================================================================================================
 
-Route::get('/wishlist', [WishlistController::class, 'index']); // WISHLIST PAGE
-Route::post('/wishlist/{product_id}', [WishlistController::class, 'store']); // INSERT PRODUCT TO WISHLIST
 
-// Kalau mau akses lewat link atas, ada 'prefix' yang perlu diinclude, kyk /!!owner!!/admin_products
+//=================================== BISA DIAKSES ROLE OWNER SAJA ====================================
 Route::group([
     'middleware' => 'owner',
     'prefix' => 'owner',
     'as' => 'owner.'
 ], function () {
-    // Route::get('/admin', [OwnerOrderDetailController::class, 'index'])->middleware('auth')->name('admin');
-    Route::get('/admin', [OwnerOrderController::class, 'index'])->middleware('auth')->name('admin');
-    Route::put('/admin/update/{order}', [OwnerOrderController::class, 'update'])->middleware('auth')->name('admin.update');
+    Route::get('/admin', [OwnerOrderController::class, 'index'])->name('admin');
+    Route::put('/admin/update/{order}', [OwnerOrderController::class, 'update'])->name('admin.update');
 
-    Route::get('/order_history', [OwnerOrderController::class, 'history'])->middleware('auth')->name('order_history');
-    Route::put('/order_history/update/{order}', [OwnerOrderController::class, 'update'])->middleware('auth')->name('order_history.update');
+    Route::get('/order_history', [OwnerOrderController::class, 'history'])->name('order_history');
+    Route::put('/order_history/update/{order}', [OwnerOrderController::class, 'update'])->name('order_history.update');
 
-    Route::get('/admin_products', [OwnerProductController::class, 'admin_products'])->middleware('auth')->name('admin_products');
-    Route::post('/admin_products', [OwnerProductController::class, 'store'])->middleware('auth')->name('admin_products.store');
-    Route::get('/admin_products/detail/{product}', [OwnerProductController::class, 'detail'])->middleware('auth')->name('admin_products.detail');
-    Route::put('/admin_products/update/{product}', [OwnerProductController::class, 'update'])->middleware('auth')->name('admin_products.update');
-    Route::put('/admin_products/updateImage/{product}', [OwnerProductController::class, 'updateImage'])->middleware('auth')->name('admin_products.updateImage');
-    Route::put('/admin_products/addStock/{product}', [OwnerProductController::class, 'addStock'])->middleware('auth')->name('admin_products.addStock');
-    Route::delete('/admin_products/destroy/{product}', [OwnerProductController::class, 'destroy'])->middleware('auth')->name('admin_products.destroy');
+    Route::get('/admin_products', [OwnerProductController::class, 'admin_products'])->name('admin_products');
+    Route::post('/admin_products', [OwnerProductController::class, 'store'])->name('admin_products.store');
+    Route::get('/admin_products/detail/{product}', [OwnerProductController::class, 'detail'])->name('admin_products.detail');
+    Route::put('/admin_products/update/{product}', [OwnerProductController::class, 'update'])->name('admin_products.update');
+    Route::put('/admin_products/updateImage/{product}', [OwnerProductController::class, 'updateImage'])->name('admin_products.updateImage');
+    Route::put('/admin_products/addStock/{product}', [OwnerProductController::class, 'addStock'])->name('admin_products.addStock');
+    Route::delete('/admin_products/destroy/{product}', [OwnerProductController::class, 'destroy'])->name('admin_products.destroy');
 
-    Route::get('/admin_users', [UserController::class, 'index'])->middleware('auth')->name('admin_users');
+    Route::get('/admin_users', [UserController::class, 'index'])->name('admin_users');
 });
+//====================================================================================================
 
+
+//=================================== BISA DIAKSES ROLE ADMIN SAJA ===================================
 Route::group([
     'middleware' => 'admin',
     'prefix' => 'admin',
     'as' => 'admin.'
 ], function () {
-    // Route::get('/admin', [AdminOrderDetailController::class, 'index'])->middleware('auth')->name('admin');
-    Route::get('/admin', [AdminOrderController::class, 'index'])->middleware('auth')->name('admin');
-    Route::put('/admin/update/{order}', [OwnerOrderController::class, 'update'])->middleware('auth')->name('admin.update');
+    Route::get('/admin', [AdminOrderController::class, 'index'])->name('admin');
+    Route::put('/admin/update/{order}', [OwnerOrderController::class, 'update'])->name('admin.update');
 
-    Route::get('/order_history', [AdminOrderController::class, 'history'])->middleware('auth')->name('order_history');
-    Route::put('/order_history/update/{order}', [AdminOrderController::class, 'update'])->middleware('auth')->name('order_history.update');
+    Route::get('/order_history', [AdminOrderController::class, 'history'])->name('order_history');
+    Route::put('/order_history/update/{order}', [AdminOrderController::class, 'update'])->name('order_history.update');
 });
+//====================================================================================================
+
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+// Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

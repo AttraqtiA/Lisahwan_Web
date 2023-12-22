@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Member;
 
+use App\Http\Controllers\Controller;
 use App\Models\Wishlist;
 use App\Models\Product;
 use Illuminate\Http\Request;
@@ -61,7 +62,7 @@ class WishlistController extends Controller
             $product->update([
                 'favorite_status' => '1'
             ]);
-            return redirect('/wishlist')->with('addWishlist_success', 'Produk berhasil ditambahkan ke Wish List!');
+            return redirect()->route('member.wishlist')->with('addWishlist_success', 'Produk berhasil ditambahkan ke Wish List!');
         }
     }
 
