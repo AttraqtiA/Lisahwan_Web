@@ -29,6 +29,20 @@
             </div>
         </div>
     @endif
+    @if (session('deleteTestimony_success'))
+        <div class="w-10/12 sm:w-7/12 md:w-6/12 lg:w-4/12 flex justify-center items-center p-4 mt-8 text-sm text-green-800 rounded-lg bg-green-50 dark:bg-gray-900 dark:text-green-400"
+            role="alert">
+            <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                fill="currentColor" viewBox="0 0 20 20">
+                <path
+                    d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Zm3.707 8.207-4 4a1 1 0 0 1-1.414 0l-2-2a1 1 0 0 1 1.414-1.414L9 10.586l3.293-3.293a1 1 0 0 1 1.414 1.414Z" />
+            </svg>
+            <span class="sr-only">Info</span>
+            <div>
+                <span class="font-medium">{!! session('deleteTestimony_success') !!}
+            </div>
+        </div>
+    @endif
     @error('review')
         <div class="w-8/12 sm:w-5/12 md:w-4/12 lg:w-3/12 flex justify-center items-center p-4 mt-8 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-900 dark:text-red-400"
             role="alert">
@@ -101,6 +115,7 @@
                         class="block mb-2 text-sm font-semibold text-gray-900 dark:text-gray-900">Pilih jumlah:</label>
                     <form action="/carts/add/{{ $product->id }}" method="POST">
                         @csrf
+                        <input type="hidden" name="submitButton" id="submitButton" value="">
                         <div class="relative flex items-center max-w-[8rem]">
                             <button type="button" id="{{ 'input-decrement-' . $product->id }}"
                                 onClick="changeQuantity('{{ $product->id }}', -1, '{{ $product->price }}')"
@@ -148,10 +163,10 @@
                 @enderror
                 <hr class="h-px my-6 border-0 bg-gray-400">
                 <div class="flex flex-row justify-center">
-                    <button type="submit"
+                    <button type="submit" onclick="setSubmitButton('submit1')"
                         class="cursor-pointer text-yellow-500 hover:text-white border border-yellow-500 hover:bg-yellow-500 font-medium rounded-lg text-base px-5 py-2.5 me-2 dark:border-yellow-500 dark:text-yellow-500 dark:hover:text-white dark:hover:bg-yellow-500">Beli
                         Langsung</button>
-                    <button type="submit"
+                    <button type="submit" onclick="setSubmitButton('submit2')"
                         class="cursor-pointer text-white bg-yellow-500 hover:bg-yellow-600 font-medium rounded-lg text-base px-5 py-2.5 text-center inline-flex items-center">
                         <svg class="w-3 h-3 mr-2 text-white dark:text-white" aria-hidden="true"
                             xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 18">
@@ -167,176 +182,197 @@
         <div class="flex flex-col h-full">
             <div class="flex flex-row justify-between items-center">
                 <h1 class="text-xl sm:text-2xl lg:text-3xl font-semibold dark:text-gray-900">Ulasan Produk</h1>
-                @if (!$check_testimonies_user)
-                    <button type="button" data-modal-target="add_testimony_modal"
-                        data-modal-toggle="add_testimony_modal"
-                        class="inline-flex cursor-pointer text-white bg-yellow-500 hover:bg-yellow-600 font-medium rounded-lg text-sm px-3 py-2.5 text-center items-center">
-                        <svg class="w-4 h-4 mr-2 text-white dark:text-white" aria-hidden="true"
-                            xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 18">
-                            <path
-                                d="M18 0H2a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h3.546l3.2 3.659a1 1 0 0 0 1.506 0L13.454 14H18a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2Zm-8 10H5a1 1 0 0 1 0-2h5a1 1 0 1 1 0 2Zm5-4H5a1 1 0 0 1 0-2h10a1 1 0 1 1 0 2Z" />
-                        </svg>Ulas Produk
-                    </button>
-                    <form action="/testimony/{{ $product->id }}" method="POST" enctype="multipart/form-data"
-                        id="add_testimony_modal" tabindex="-1"
-                        class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
-                        @csrf
-                        <div class="relative p-4 w-full max-w-md max-h-full">
-                            <div class="relative rounded-lg shadow bg-white">
-                                <button type="button"
-                                    class="cursor-pointer absolute top-3 end-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
-                                    data-modal-hide="add_testimony_modal">
-                                    <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
-                                        fill="none" viewBox="0 0 14 14">
-                                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                                            stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
-                                    </svg>
-                                    <span class="sr-only">Close modal</span>
-                                </button>
-                                <div class="p-4 md:p-5 text-center">
-                                    <span class="mb-1 block text-lg font-bold text-gray-900">Ulas
-                                        {{ $product->name }}</span>
-                                    <div class="flex flex-col justify-center items-center w-full">
-                                        <label for="review"
-                                            class="mb-2 block text-sm font-semibold text-gray-900">Review</label>
-                                        <textarea id="review" name="review" rows="4"
-                                            class="{{ $errors->has('review') ? 'bg-red-50 dark:bg-red-100 border-red-600 dark:border-red-400 text-red-600 dark:text-red-500 placeholder-red-700' : 'bg-white border-yellow-500 text-gray-900 placeholder-gray-400  focus:ring-yellow-500 focus:border-yellow-500' }} text-center rounded-lg border-1 text-sm block w-full p-2.5"
-                                            placeholder="Berikan ulasan anda terhadap produk ini">{{ old('review') }}</textarea>
-                                        <label for="rating"
-                                            class="mt-4 mb-2 block text-sm font-semibold text-gray-900">Rating</label>
-                                        <input type="number" id="rating" name="rating"
-                                            aria-describedby="helper-text-explanation"
-                                            class="{{ $errors->has('review') ? 'bg-red-50 dark:bg-red-100 border-red-600 dark:border-red-400 text-red-600 dark:text-red-500 placeholder-red-700' : 'bg-white border-yellow-500 text-gray-900 placeholder-gray-400  focus:ring-yellow-500 focus:border-yellow-500' }} text-center rounded-lg border-1 text-sm block w-full p-2.5"
-                                            placeholder="Beri rating dari 1 - 5" min="1" max="5"
-                                            value="{{ old('rating') }}">
-                                        <span class="mt-4 mb-2 block text-sm font-semibold text-gray-900">Upload Foto
-                                            Ulasan
-                                            (Opsional)</span>
-                                        <div id="existingImagePreviewId" class="mb-3"></div>
-                                        <label for="image"
-                                            class="flex flex-col justify-center items-center w-full h-44 bg-gray-50 rounded-lg border-1 border-gray-300 border-dashed cursor-pointer hover:bg-gray-100">
-                                            <input type="file" name="image" id="image" class="hidden"
-                                                onchange="displayImagePreview(this)">
-                                            <div class="flex flex-col justify-center items-center w-full pt-5 pb-6">
-                                                <svg aria-hidden="true" class="mb-3 w-10 h-10 text-gray-400"
-                                                    fill="none" stroke="currentColor" viewBox="0 0 24 24"
-                                                    xmlns="http://www.w3.org/2000/svg">
-                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                        d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
-                                                </svg>
-                                                <p class="mb-2 text-sm text-gray-500">
-                                                    <span class="font-semibold">Klik untuk upload</span>
-                                                </p>
-                                                <p class="text-xs text-gray-500">PNG, JPG atau JPEG (Ukuran File MAX. 5MB)
-                                                </p>
-                                            </div>
-                                        </label>
-                                    </div>
-                                    <button type="submit"
-                                        onclick="return confirm('Apakah anda yakin dengan ulasan ini?')"
-                                        class="cursor-pointer mt-3 w-full text-white bg-yellow-500 hover:bg-yellow-600 font-medium rounded-lg text-base px-5 py-2.5 text-center items-center">
-                                        Tambahkan Ulasan
+                @if ($check_order_user)
+                    @if (!$check_testimonies)
+                        <button type="button" data-modal-target="add_testimony_modal"
+                            data-modal-toggle="add_testimony_modal"
+                            class="inline-flex cursor-pointer text-white bg-yellow-500 hover:bg-yellow-600 font-medium rounded-lg text-sm px-3 py-2.5 text-center items-center">
+                            <svg class="w-4 h-4 mr-2 text-white dark:text-white" aria-hidden="true"
+                                xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 18">
+                                <path
+                                    d="M18 0H2a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h3.546l3.2 3.659a1 1 0 0 0 1.506 0L13.454 14H18a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2Zm-8 10H5a1 1 0 0 1 0-2h5a1 1 0 1 1 0 2Zm5-4H5a1 1 0 0 1 0-2h10a1 1 0 1 1 0 2Z" />
+                            </svg>Ulas Produk
+                        </button>
+                        <form action="/testimony/{{ $product->id }}" method="POST" enctype="multipart/form-data"
+                            id="add_testimony_modal" tabindex="-1"
+                            class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
+                            @csrf
+                            <div class="relative p-4 w-full max-w-md max-h-full">
+                                <div class="relative rounded-lg shadow bg-white">
+                                    <button type="button"
+                                        class="cursor-pointer absolute top-3 end-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
+                                        data-modal-hide="add_testimony_modal">
+                                        <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                                            fill="none" viewBox="0 0 14 14">
+                                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                                stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
+                                        </svg>
+                                        <span class="sr-only">Close modal</span>
                                     </button>
-                                </div>
-                            </div>
-                        </div>
-                    </form>
-                @else
-                    <button type="button" data-modal-target="update_testimony_modal"
-                        data-modal-toggle="update_testimony_modal"
-                        class="inline-flex cursor-pointer text-white bg-yellow-500 hover:bg-yellow-600 font-medium rounded-lg text-sm px-3 py-2.5 text-center items-center">
-                        <svg class="w-4 h-4 mr-2 text-white dark:text-white" aria-hidden="true"
-                            xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 18">
-                            <path
-                                d="M18 0H2a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h3.546l3.2 3.659a1 1 0 0 0 1.506 0L13.454 14H18a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2Zm-8 10H5a1 1 0 0 1 0-2h5a1 1 0 1 1 0 2Zm5-4H5a1 1 0 0 1 0-2h10a1 1 0 1 1 0 2Z" />
-                        </svg>Edit Ulasan
-                    </button>
-                    <form action="/testimony/{{ $product->id }}" method="POST" enctype="multipart/form-data"
-                        id="update_testimony_modal" tabindex="-1"
-                        class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
-                        @method('patch')
-                        @csrf
-                        <input type="hidden" name="oldImage" value="{{ $check_testimonies_user->image }}">
-                        <div class="relative p-4 w-full max-w-md max-h-full">
-                            <div class="relative rounded-lg shadow bg-white">
-                                <button type="button"
-                                    class="cursor-pointer absolute top-3 end-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
-                                    data-modal-hide="update_testimony_modal">
-                                    <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
-                                        fill="none" viewBox="0 0 14 14">
-                                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                                            stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
-                                    </svg>
-                                    <span class="sr-only">Close modal</span>
-                                </button>
-                                <div class="p-4 md:p-5 text-center">
-                                    <span class="mb-1 block text-lg font-bold text-gray-900">Ulas
-                                        {{ $product->name }}</span>
-                                    <div class="flex flex-col justify-center items-center w-full">
-                                        <label for="review"
-                                            class="mb-2 block text-sm font-semibold text-gray-900">Review</label>
-                                        <textarea id="review" name="review" rows="4"
-                                            class="{{ $errors->has('review') ? 'bg-red-50 dark:bg-red-100 border-red-600 dark:border-red-400 text-red-600 dark:text-red-500 placeholder-red-700' : 'bg-white border-yellow-500 text-gray-900 placeholder-gray-400  focus:ring-yellow-500 focus:border-yellow-500' }} text-center rounded-lg border-1 text-sm block w-full p-2.5"
-                                            placeholder="Berikan ulasan anda terhadap produk ini">{{ old('review', $check_testimonies_user->review) }}</textarea>
-                                        <label for="rating"
-                                            class="mt-4 mb-2 block text-sm font-semibold text-gray-900">Rating</label>
-                                        <input type="number" id="rating" name="rating"
-                                            aria-describedby="helper-text-explanation"
-                                            class="{{ $errors->has('review') ? 'bg-red-50 dark:bg-red-100 border-red-600 dark:border-red-400 text-red-600 dark:text-red-500 placeholder-red-700' : 'bg-white border-yellow-500 text-gray-900 placeholder-gray-400  focus:ring-yellow-500 focus:border-yellow-500' }} text-center rounded-lg border-1 text-sm block w-full p-2.5"
-                                            placeholder="Beri rating dari 1 - 5" min="1" max="5"
-                                            value="{{ old('rating', $check_testimonies_user->rating) }}">
-                                        <span class="mt-4 mb-2 block text-sm font-semibold text-gray-900">Upload Foto
-                                            Ulasan
-                                            (Opsional)</span>
-                                        <div id="existingImagePreviewId" class="mb-3">
-                                            @if ($check_testimonies_user->image)
-                                                <img src="{{ asset('') . $check_testimonies_user->image }}"
-                                                    class="w-6/12 mx-auto rounded-lg object-cover" />
-                                            @endif
+                                    <div class="p-4 md:p-5 text-center">
+                                        <span class="mb-1 block text-lg font-bold text-gray-900">Ulas
+                                            {{ $product->name }}</span>
+                                        <div class="flex flex-col justify-center items-center w-full">
+                                            <label for="review"
+                                                class="mb-2 block text-sm font-semibold text-gray-900">Review</label>
+                                            <textarea id="review" name="review" rows="4"
+                                                class="{{ $errors->has('review') ? 'bg-red-50 dark:bg-red-100 border-red-600 dark:border-red-400 text-red-600 dark:text-red-500 placeholder-red-700' : 'bg-white border-yellow-500 text-gray-900 placeholder-gray-400  focus:ring-yellow-500 focus:border-yellow-500' }} text-center rounded-lg border-1 text-sm block w-full p-2.5"
+                                                placeholder="Berikan ulasan anda terhadap produk ini">{{ old('review') }}</textarea>
+                                            <label for="rating"
+                                                class="mt-4 mb-2 block text-sm font-semibold text-gray-900">Rating</label>
+                                            <input type="number" id="rating" name="rating"
+                                                aria-describedby="helper-text-explanation"
+                                                class="{{ $errors->has('review') ? 'bg-red-50 dark:bg-red-100 border-red-600 dark:border-red-400 text-red-600 dark:text-red-500 placeholder-red-700' : 'bg-white border-yellow-500 text-gray-900 placeholder-gray-400  focus:ring-yellow-500 focus:border-yellow-500' }} text-center rounded-lg border-1 text-sm block w-full p-2.5"
+                                                placeholder="Beri rating dari 1 - 5" min="1" max="5"
+                                                value="{{ old('rating') }}">
+                                            <span class="mt-4 mb-2 block text-sm font-semibold text-gray-900">Upload Foto
+                                                Ulasan
+                                                (Opsional)</span>
+                                            <div id="existingImagePreviewId" class="mb-3"></div>
+                                            <label for="image"
+                                                class="flex flex-col justify-center items-center w-full h-44 bg-gray-50 rounded-lg border-1 border-gray-300 border-dashed cursor-pointer hover:bg-gray-100">
+                                                <input type="file" name="image" id="image" class="hidden"
+                                                    onchange="displayImagePreview_UlasProduk(this)">
+                                                <div class="flex flex-col justify-center items-center w-full pt-5 pb-6">
+                                                    <svg aria-hidden="true" class="mb-3 w-10 h-10 text-gray-400"
+                                                        fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                                                        xmlns="http://www.w3.org/2000/svg">
+                                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                                            stroke-width="2"
+                                                            d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
+                                                    </svg>
+                                                    <p class="mb-2 text-sm text-gray-500">
+                                                        <span class="font-semibold">Klik untuk upload</span>
+                                                    </p>
+                                                    <p class="text-xs text-gray-500">PNG, JPG atau JPEG (Ukuran File MAX.
+                                                        5MB)
+                                                    </p>
+                                                </div>
+                                            </label>
                                         </div>
-                                        <label for="image"
-                                            class="flex flex-col justify-center items-center w-full h-44 bg-gray-50 rounded-lg border-1 border-gray-300 border-dashed cursor-pointer hover:bg-gray-100">
-                                            <input type="file" name="image" id="image" class="hidden"
-                                                onchange="displayImagePreview(this, '{{ $check_testimonies_user->image }}', 'existingImagePreviewId')">
-                                            <div class="flex flex-col justify-center items-center w-full pt-5 pb-6">
-                                                <svg aria-hidden="true" class="mb-3 w-10 h-10 text-gray-400"
-                                                    fill="none" stroke="currentColor" viewBox="0 0 24 24"
-                                                    xmlns="http://www.w3.org/2000/svg">
-                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                        d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
-                                                </svg>
-                                                <p class="mb-2 text-sm text-gray-500">
-                                                    <span class="font-semibold">Klik untuk upload</span>
-                                                </p>
-                                                <p class="text-xs text-gray-500">PNG, JPG atau JPEG (Ukuran File MAX. 5MB)
-                                                </p>
-                                            </div>
-                                        </label>
+                                        <button type="submit"
+                                            onclick="return confirm('Apakah anda yakin dengan ulasan ini?')"
+                                            class="cursor-pointer mt-3 w-full text-white bg-yellow-500 hover:bg-yellow-600 font-medium rounded-lg text-base px-5 py-2.5 text-center items-center">
+                                            Tambahkan Ulasan
+                                        </button>
                                     </div>
-                                    <button type="submit"
-                                        onclick="return confirm('Apakah anda yakin dengan ulasan ini?')"
-                                        class="cursor-pointer mt-3 w-full text-white bg-yellow-500 hover:bg-yellow-600 font-medium rounded-lg text-base px-5 py-2.5 text-center items-center">
-                                        Edit Ulasan
-                                    </button>
                                 </div>
                             </div>
-                        </div>
-                    </form>
+                        </form>
+                    @else
+                        <button type="button" data-modal-target="update_testimony_modal"
+                            data-modal-toggle="update_testimony_modal"
+                            class="inline-flex cursor-pointer text-white bg-yellow-500 hover:bg-yellow-600 font-medium rounded-lg text-sm px-3 py-2.5 text-center items-center">
+                            <svg class="w-4 h-4 mr-2 text-white dark:text-white" aria-hidden="true"
+                                xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 18">
+                                <path
+                                    d="M18 0H2a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h3.546l3.2 3.659a1 1 0 0 0 1.506 0L13.454 14H18a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2Zm-8 10H5a1 1 0 0 1 0-2h5a1 1 0 1 1 0 2Zm5-4H5a1 1 0 0 1 0-2h10a1 1 0 1 1 0 2Z" />
+                            </svg>Edit Ulasan
+                        </button>
+                        <form action="/testimony/{{ $product->id }}" method="POST" enctype="multipart/form-data"
+                            id="update_testimony_modal" tabindex="-1"
+                            class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
+                            @method('patch')
+                            @csrf
+                            <input type="hidden" name="oldImage" value="{{ $check_testimonies->image }}">
+                            <div class="relative p-4 w-full max-w-md max-h-full">
+                                <div class="relative rounded-lg shadow bg-white">
+                                    <button type="button"
+                                        class="cursor-pointer absolute top-3 end-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
+                                        data-modal-hide="update_testimony_modal">
+                                        <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                                            fill="none" viewBox="0 0 14 14">
+                                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                                stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
+                                        </svg>
+                                        <span class="sr-only">Close modal</span>
+                                    </button>
+                                    <div class="p-4 md:p-5 text-center">
+                                        <span class="mb-1 block text-lg font-bold text-gray-900">Ulas
+                                            {{ $product->name }}</span>
+                                        <div class="flex flex-col justify-center items-center w-full">
+                                            <label for="review"
+                                                class="mb-2 block text-sm font-semibold text-gray-900">Review</label>
+                                            <textarea id="review" name="review" rows="4"
+                                                class="{{ $errors->has('review') ? 'bg-red-50 dark:bg-red-100 border-red-600 dark:border-red-400 text-red-600 dark:text-red-500 placeholder-red-700' : 'bg-white border-yellow-500 text-gray-900 placeholder-gray-400  focus:ring-yellow-500 focus:border-yellow-500' }} text-center rounded-lg border-1 text-sm block w-full p-2.5"
+                                                placeholder="Berikan ulasan anda terhadap produk ini">{{ old('review', $check_testimonies->review) }}</textarea>
+                                            <label for="rating"
+                                                class="mt-4 mb-2 block text-sm font-semibold text-gray-900">Rating</label>
+                                            <input type="number" id="rating" name="rating"
+                                                aria-describedby="helper-text-explanation"
+                                                class="{{ $errors->has('review') ? 'bg-red-50 dark:bg-red-100 border-red-600 dark:border-red-400 text-red-600 dark:text-red-500 placeholder-red-700' : 'bg-white border-yellow-500 text-gray-900 placeholder-gray-400  focus:ring-yellow-500 focus:border-yellow-500' }} text-center rounded-lg border-1 text-sm block w-full p-2.5"
+                                                placeholder="Beri rating dari 1 - 5" min="1" max="5"
+                                                value="{{ old('rating', $check_testimonies->rating) }}">
+                                            <span class="mt-4 mb-2 block text-sm font-semibold text-gray-900">Upload Foto
+                                                Ulasan
+                                                (Opsional)</span>
+                                            <div id="existingImagePreviewId" class="mb-3">
+                                                @if ($check_testimonies->image)
+                                                    <img src="{{ asset('') . $check_testimonies->image }}"
+                                                        class="w-6/12 mx-auto rounded-lg object-cover" />
+                                                @endif
+                                            </div>
+                                            <label for="image"
+                                                class="flex flex-col justify-center items-center w-full h-44 bg-gray-50 rounded-lg border-1 border-gray-300 border-dashed cursor-pointer hover:bg-gray-100">
+                                                <input type="file" name="image" id="image" class="hidden"
+                                                    onchange="displayImagePreview_EditProduk(this, '{{ $check_testimonies->image }}', 'existingImagePreviewId')">
+                                                <div class="flex flex-col justify-center items-center w-full pt-5 pb-6">
+                                                    <svg aria-hidden="true" class="mb-3 w-10 h-10 text-gray-400"
+                                                        fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                                                        xmlns="http://www.w3.org/2000/svg">
+                                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                                            stroke-width="2"
+                                                            d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
+                                                    </svg>
+                                                    <p class="mb-2 text-sm text-gray-500">
+                                                        <span class="font-semibold">Klik untuk upload</span>
+                                                    </p>
+                                                    <p class="text-xs text-gray-500">PNG, JPG atau JPEG (Ukuran File MAX.
+                                                        5MB)
+                                                    </p>
+                                                </div>
+                                            </label>
+                                        </div>
+                                        <button type="submit"
+                                            onclick="return confirm('Apakah anda yakin dengan ulasan ini?')"
+                                            class="cursor-pointer mt-3 w-full text-white bg-yellow-500 hover:bg-yellow-600 font-medium rounded-lg text-base px-5 py-2.5 text-center items-center">
+                                            Edit Ulasan
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    @endif
+                @else
                 @endif
             </div>
             <hr class="h-px my-2 border-0 bg-gray-400">
             <div class="flex flex-col-reverse @if (count($testimonies) == 0) h-full justify-center items-center @endif">
                 @if (count($testimonies) > 0)
                     @foreach ($testimonies as $testimony)
-                        <div class="flex flex-row gap-x-3 mt-3">
+                        <div class="flex flex-row gap-x-3 mt-3 w-full">
                             <div class="flex-none">
                                 <img class="w-12 h-12 object-top object-cover rounded-full overflow-hidden"
                                     src="/images/testing/{{ $testimony->user->profile_picture }}"
                                     alt="{{ $testimony->user->name }}">
                             </div>
-                            <div class="flex flex-col mt-1">
-                                <h4 class="text-base font-semibold text-gray-900">{{ $testimony->user->name }}
-                                </h4>
+                            <div class="flex flex-col mt-1 w-full">
+                                <div class="flex flex-row justify-between items-center">
+                                    <h4 class="text-base font-semibold text-gray-900">{{ $testimony->user->name }}
+                                    </h4>
+                                    @if ($testimony->user_id == 1)
+                                        <form action="/testimony/{{ $testimony->id }}" method="POST">
+                                            @method('delete')
+                                            @csrf
+                                            <button type="submit"
+                                                class="cursor-pointer text-sm font-medium text-yellow-500 hover:text-yellow-600"
+                                                onclick="return confirm('Apakah anda ingin menghapus ulasan ini?')">
+                                                Hapus Ulasan
+                                            </button>
+                                        </form>
+                                    @else
+                                    @endif
+                                </div>
                                 <p class="text-sm font-normal text-gray-400">
                                     {{ date('d F Y', strtotime($testimony->date)) }}</p>
                                 @php
@@ -455,33 +491,49 @@
                                                 lagi!</p>
                                         @endif
                                     </div>
-
-                                    <!-- SVG icon di kanan bawah dari gambar -->
-                                    <svg class="absolute w-6 h-6 text-gray-800 dark:text-white bottom-4 right-4 hover:text-red-600"
-                                        aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
-                                        viewBox="0 0 20 18">
-                                        <path
-                                            d="M17.947 2.053a5.209 5.209 0 0 0-3.793-1.53A6.414 6.414 0 0 0 10 2.311 6.482 6.482 0 0 0 5.824.5a5.2 5.2 0 0 0-3.8 1.521c-1.915 1.916-2.315 5.392.625 8.333l7 7a.5.5 0 0 0 .708 0l7-7a6.6 6.6 0 0 0 2.123-4.508 5.179 5.179 0 0 0-1.533-3.793Z" />
-                                    </svg>
-
-                                    <!-- Diskon di pojok kanan atas -->
-                                    @if ($bestseller->product->discount != 0)
-                                        <div
-                                            class="absolute top-0 right-0 m-4 text-lg text-red-600 rounded-lg font-bold bg-gray-900 p-2">
-                                            {{ $bestseller->product->discount }}%</div>
-                                    @endif
-                                </div>
                             </a>
+
+                            <!-- SVG icon di kanan bawah dari gambar -->
+                            <form action="/wishlist/{{ $bestseller->product->id }}" method="POST">
+                                @csrf
+                                @if ($bestseller->product->favorite_status == 0)
+                                    <button type="submit">
+                                        <svg class="cursor-pointer absolute w-6 h-6 text-white bottom-4 right-4 hover:text-red-600"
+                                            aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
+                                            viewBox="0 0 20 18">
+                                            <path
+                                                d="M17.947 2.053a5.209 5.209 0 0 0-3.793-1.53A6.414 6.414 0 0 0 10 2.311 6.482 6.482 0 0 0 5.824.5a5.2 5.2 0 0 0-3.8 1.521c-1.915 1.916-2.315 5.392.625 8.333l7 7a.5.5 0 0 0 .708 0l7-7a6.6 6.6 0 0 0 2.123-4.508 5.179 5.179 0 0 0-1.533-3.793Z" />
+                                        </svg>
+                                    </button>
+                                @else
+                                    <button type="submit">
+                                        <svg class="cursor-pointer absolute w-6 h-6 text-red-600 bottom-4 right-4 hover:text-white"
+                                            aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
+                                            viewBox="0 0 20 18">
+                                            <path
+                                                d="M17.947 2.053a5.209 5.209 0 0 0-3.793-1.53A6.414 6.414 0 0 0 10 2.311 6.482 6.482 0 0 0 5.824.5a5.2 5.2 0 0 0-3.8 1.521c-1.915 1.916-2.315 5.392.625 8.333l7 7a.5.5 0 0 0 .708 0l7-7a6.6 6.6 0 0 0 2.123-4.508 5.179 5.179 0 0 0-1.533-3.793Z" />
+                                        </svg>
+                                    </button>
+                                @endif
+                            </form>
+
+                            <!-- Diskon di pojok kanan atas -->
+                            @if ($bestseller->product->discount != 0)
+                                <div
+                                    class="absolute top-0 right-0 m-4 text-lg text-red-600 rounded-lg font-bold bg-gray-900 p-2">
+                                    {{ $bestseller->product->discount }}%</div>
+                            @endif
                         </div>
-                    @endforeach
-                @else
-                    <div class="col-span-2 flex flex-col items-center justify-center">
-                        <h1 class="text-center text-lg font-bold text-gray-400 dark:text-gray-400">Mohon maaf, belum ada
-                            produk best seller!</h1>
-                    </div>
-                @endif
             </div>
+            @endforeach
+        @else
+            <div class="col-span-2 flex flex-col items-center justify-center">
+                <h1 class="text-center text-lg font-bold text-gray-400 dark:text-gray-400">Mohon maaf, belum ada
+                    produk best seller!</h1>
+            </div>
+            @endif
         </div>
+    </div>
     </div>
     @php
         // Tentukan harga berdasarkan apakah produk memiliki diskon atau tidak
@@ -546,7 +598,32 @@
             }
         });
 
-        function displayImagePreview(input, existingImageUrl, existingImagePreviewId) {
+        function setSubmitButton(buttonId) {
+            document.getElementById('submitButton').value = buttonId;
+        }
+
+        function displayImagePreview_UlasProduk(input) {
+            var preview = document.getElementById('existingImagePreviewId');
+
+            // Remove existing image
+            while (preview.firstChild) {
+                preview.removeChild(preview.firstChild);
+            }
+
+            // Display newly uploaded image
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+                reader.onload = function(e) {
+                    var img = document.createElement('img');
+                    img.src = e.target.result;
+                    img.classList.add('w-6/12', 'mx-auto', 'rounded-lg', 'object-cover');
+                    preview.appendChild(img);
+                };
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+
+        function displayImagePreview_EditProduk(input, existingImageUrl, existingImagePreviewId) {
             var preview = document.getElementById(existingImagePreviewId);
 
             // Remove existing image

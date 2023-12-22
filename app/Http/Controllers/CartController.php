@@ -34,6 +34,8 @@ class CartController extends Controller
      */
     public function store(Request $request, $id)
     {
+        $submitButton = $request->input('submitButton');
+
         $cart = Cart::where('user_id', 1)->first();
         $product = Product::find($id);
 
@@ -90,7 +92,11 @@ class CartController extends Controller
             $product->update([
                 'stock' =>  $product->stock - $validatedData['quantity']
             ]);
-            return redirect('/products')->with('addCart_success', 'Pesanan ditambahkan ke keranjang!');
+            if ($submitButton === 'submit1') {
+                return redirect('/checkout');
+            } else {
+                return redirect('/products')->with('addCart_success', 'Pesanan ditambahkan ke keranjang!');
+            }
         } else {
             return back()->with('over_quantity', 'Mohon maaf, pesanan anda melebihi stok!');
         }

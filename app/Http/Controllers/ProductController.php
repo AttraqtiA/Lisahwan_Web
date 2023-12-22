@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Cart;
+use App\Models\User;
 use App\Models\Order;
 use App\Models\Product;
 use App\Models\Testimony;
@@ -59,8 +60,12 @@ class ProductController extends Controller
             return redirect('/products')->with('empty_stock', 'Mohon maaf, stok habis!');
         } else {
             $testimonies = Testimony::where('product_id', $id)->paginate(4);
-            $check1 = Order::where('user_id', 1)->get();
-            $check_testimonies_user = $check1->product->where('id', $id)->first();
+            $check_testimonies = $testimonies->where('user_id', 1)->first();
+            $user = User::find(1);
+            $product_id = $id;
+            $check_order_user = $user->order->filter(function ($order) use ($product_id) {
+                return $order->order_detail->where('product_id', $product_id)->isNotEmpty();
+            })->isNotEmpty();
             $products_bestseller = OrderDetail::select('product_id', DB::raw('SUM(quantity) as total_quantity'))
                 ->groupBy('product_id')
                 ->orderByDesc('total_quantity')
@@ -78,7 +83,8 @@ class ProductController extends Controller
                 "product" => $product,
                 "total_product" => $total_product,
                 "testimonies" => $testimonies,
-                "check_testimonies_user" => $check_testimonies_user,
+                "check_order_user" => $check_order_user,
+                "check_testimonies" => $check_testimonies,
                 "products_bestseller" => $products_bestseller,
                 "carts" => $carts
             ]);

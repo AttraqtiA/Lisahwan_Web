@@ -41,7 +41,7 @@ class TestimonyController extends Controller
             'rating.numeric' => 'Rating wajib berupa angka!',
             'rating.between' => 'Rating wajib berada dalam rentang 1 sampai 5!',
             'image.image' => 'File wajib berupa gambar!',
-            'image.max' => 'Ukuran gambar tidak boleh lebih dari 10MB!',
+            'image.max' => 'Maksimal ukuran gambar 10MB!',
         ]);
 
         $user_id = 1;
@@ -102,7 +102,7 @@ class TestimonyController extends Controller
             'rating.numeric' => 'Rating wajib berupa angka!',
             'rating.between' => 'Rating wajib berada dalam rentang 1 sampai 5!',
             'image.image' => 'File wajib berupa gambar!',
-            'image.max' => 'Ukuran gambar tidak boleh lebih dari 10MB!',
+            'image.max' => 'Maksimal ukuran gambar 10MB!',
         ]);
 
         $date = now();
@@ -135,8 +135,10 @@ class TestimonyController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Testimony $testimony)
+    public function destroy($id)
     {
-        //
+        $testimony = Testimony::where('id', $id)->first();
+        $testimony->delete();
+        return back()->with('deleteTestimony_success', 'Ulasan anda berhasil dihapus!');
     }
 }

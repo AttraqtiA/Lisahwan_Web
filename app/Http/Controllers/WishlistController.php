@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Cart;
 use App\Models\Product;
 use App\Models\Wishlist;
 use App\Http\Requests\StoreWishlistRequest;
@@ -15,11 +16,18 @@ class WishlistController extends Controller
     public function index()
     {
         $wishlists = Wishlist::where('user_id', 1)->get();
+        $cart_user = Cart::where('user_id', 1)->first();
+        if (empty($cart_user)) {
+            $carts = null;
+        } else {
+            $carts = $cart_user->cart_detail;
+        }
         return view('customer.wishlist', [
             "TabTitle" => "Wish List",
             "pageTitle" => '<mark class="px-2 text-yellow-500 bg-gray-800 rounded dark:bg-gray-800">Wish List</mark>',
             'pageDescription' => 'Tambah produk favorit anda di <span class="underline underline-offset-2 decoration-4 decoration-yellow-500">Wish List!</span>',
-            "wishlists" => $wishlists
+            "wishlists" => $wishlists,
+            "carts" => $carts
         ]);
     }
 

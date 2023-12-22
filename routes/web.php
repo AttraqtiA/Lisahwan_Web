@@ -29,10 +29,11 @@ Route::get('/orderhistory', [OrderController::class, 'show_orderhistory']); // O
 Route::patch('/orderhistory/{order_id}', [OrderController::class, 'update']); // CHANGE ACCEPT_BY_CUSTOMER STATUS
 Route::get('/products', [ProductController::class, 'index']); // PRODUCTS PAGE
 Route::get('/products/{product_id}', [ProductController::class, 'show']); // ORDERDETAIL PAGE
-Route::get('/wishlist', [WishlistController::class, 'index']); // WISHLIST PAGE
-Route::post('/wishlist/{product_id}', [WishlistController::class, 'store']); // INSERT PRODUCT TO WISHLIST
 Route::post('/testimony/{product_id}', [TestimonyController::class, 'store']); // CREATE TESTIMONY
 Route::patch('/testimony/{product_id}', [TestimonyController::class, 'update']); // UPDATE TESTIMONY
+Route::delete('/testimony/{product_id}', [TestimonyController::class, 'destroy']); // UPDATE TESTIMONY
+Route::get('/wishlist', [WishlistController::class, 'index']); // WISHLIST PAGE
+Route::post('/wishlist/{product_id}', [WishlistController::class, 'store']); // INSERT PRODUCT TO WISHLIST
 
 Auth::routes();
 

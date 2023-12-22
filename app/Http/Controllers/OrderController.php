@@ -42,6 +42,12 @@ class OrderController extends Controller
     public function show_orderhistory()
     {
         $orders = Order::where('user_id', 1)->orderByDesc('id')->paginate(4);
+        $cart_user = Cart::where('user_id', 1)->first();
+        if (empty($cart_user)) {
+            $carts = null;
+        } else {
+            $carts = $cart_user->cart_detail;
+        }
         if ($orders->isEmpty()) {
             return redirect('/products')->with('empty_order', 'Oops! Anda belum belanja sama sekali!');
         } else {
@@ -61,7 +67,8 @@ class OrderController extends Controller
                     "TabTitle" => "Riwayat Pemesanan",
                     "pageTitle" => '<mark class="px-2 text-yellow-500 bg-gray-800 rounded dark:bg-gray-800">Riwayat</mark> Pemesanan',
                     'pageDescription' => 'Lacak pesanan anda <span class="underline underline-offset-2 decoration-4 decoration-yellow-500">di sini!</span>',
-                    "orders" => $orders
+                    "orders" => $orders,
+                    "carts" => $carts
                 ]
             );
         }
@@ -103,7 +110,7 @@ class OrderController extends Controller
             'note.max' => 'Maksimal :max karakter!',
             'payment_upload.required' => 'Mohon upload bukti pembayaran anda!',
             'payment_upload.image' => 'File wajib berupa gambar!',
-            'payment_upload.max' => 'Ukuran gambar tidak boleh lebih dari 5MB!',
+            'payment_upload.max' => 'Maksimal ukuran gambar 5MB!',
         ]);
 
         $order_date = now();

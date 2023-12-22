@@ -55,7 +55,8 @@
                             @foreach ($carts as $cart)
                                 <div class="flex flex-row items-center w-full">
                                     <img class="h-28 w-28 object-bottom object-cover rounded-lg drop-shadow-md"
-                                        src="/images/fotoproduk/{{ $cart->product->image }}" alt="{{ $cart->product->name }}">
+                                        src="/images/fotoproduk/{{ $cart->product->image }}"
+                                        alt="{{ $cart->product->name }}">
                                     <div class="flex flex-col ml-3 justify-center">
                                         <p class="text-lg font-medium text-white">{{ $cart->product->name }}</p>
                                         <p class="text-sm font-normal text-gray-400">{{ $cart->quantity }} buah

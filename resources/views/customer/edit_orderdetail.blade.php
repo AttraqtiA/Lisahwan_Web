@@ -80,8 +80,6 @@
                 <hr class="h-px my-6 border-0 bg-gray-400">
                 <div class="flex flex-row justify-center">
                     <button type="submit"
-                        class="cursor-pointer text-yellow-500 hover:text-white border border-yellow-500 hover:bg-yellow-500 font-medium rounded-lg text-base px-5 py-2.5 me-2 dark:border-yellow-500 dark:text-yellow-500 dark:hover:text-white dark:hover:bg-yellow-500">Beli Langsung</button>
-                    <button type="submit"
                         class="cursor-pointer text-white bg-yellow-500 hover:bg-yellow-600 font-medium rounded-lg text-base px-5 py-2.5 text-center inline-flex items-center">
                         Perbarui Pesanan
                     </button>
@@ -90,7 +88,8 @@
             </div>
         </div>
         <div class="flex flex-col h-full">
-            <h1 class="text-2xl lg:text-3xl font-semibold dark:text-gray-900 sm:text-center lg:text-start">Ulasan Produk</h1>
+            <h1 class="text-2xl lg:text-3xl font-semibold dark:text-gray-900 sm:text-center lg:text-start">Ulasan Produk
+            </h1>
             <hr class="h-px my-2 border-0 bg-gray-400">
             <div class="flex flex-col-reverse @if (count($testimonies) == 0) h-full justify-center items-center @endif">
                 @if (count($testimonies) > 0)
@@ -213,34 +212,48 @@
                                                 lagi!</p>
                                         @endif
                                     </div>
-
-                                    <!-- SVG icon di kanan bawah dari gambar -->
-                                    <svg class="absolute w-6 h-6 text-gray-800 dark:text-white bottom-4 right-4 hover:text-red-600"
-                                        aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
-                                        viewBox="0 0 20 18">
-                                        <path
-                                            d="M17.947 2.053a5.209 5.209 0 0 0-3.793-1.53A6.414 6.414 0 0 0 10 2.311 6.482 6.482 0 0 0 5.824.5a5.2 5.2 0 0 0-3.8 1.521c-1.915 1.916-2.315 5.392.625 8.333l7 7a.5.5 0 0 0 .708 0l7-7a6.6 6.6 0 0 0 2.123-4.508 5.179 5.179 0 0 0-1.533-3.793Z" />
-                                    </svg>
-
-                                    <!-- Diskon di pojok kanan atas -->
-                                    @if ($bestseller->product->discount != 0)
-                                        <div
-                                            class="absolute top-0 right-0 m-4 text-lg text-red-600 rounded-lg font-bold bg-gray-900 p-2">
-                                            {{ $bestseller->product->discount }}%</div>
-                                    @endif
-
-                                </div>
                             </a>
+                            <!-- SVG icon di kanan bawah dari gambar -->
+                            <form action="/wishlist/{{ $bestseller->product->id }}" method="POST">
+                                @csrf
+                                @if ($bestseller->product->favorite_status == 0)
+                                    <button type="submit">
+                                        <svg class="cursor-pointer absolute w-6 h-6 text-white bottom-4 right-4 hover:text-red-600"
+                                            aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
+                                            viewBox="0 0 20 18">
+                                            <path
+                                                d="M17.947 2.053a5.209 5.209 0 0 0-3.793-1.53A6.414 6.414 0 0 0 10 2.311 6.482 6.482 0 0 0 5.824.5a5.2 5.2 0 0 0-3.8 1.521c-1.915 1.916-2.315 5.392.625 8.333l7 7a.5.5 0 0 0 .708 0l7-7a6.6 6.6 0 0 0 2.123-4.508 5.179 5.179 0 0 0-1.533-3.793Z" />
+                                        </svg>
+                                    </button>
+                                @else
+                                    <button type="submit">
+                                        <svg class="cursor-pointer absolute w-6 h-6 text-red-600 bottom-4 right-4 hover:text-white"
+                                            aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
+                                            viewBox="0 0 20 18">
+                                            <path
+                                                d="M17.947 2.053a5.209 5.209 0 0 0-3.793-1.53A6.414 6.414 0 0 0 10 2.311 6.482 6.482 0 0 0 5.824.5a5.2 5.2 0 0 0-3.8 1.521c-1.915 1.916-2.315 5.392.625 8.333l7 7a.5.5 0 0 0 .708 0l7-7a6.6 6.6 0 0 0 2.123-4.508 5.179 5.179 0 0 0-1.533-3.793Z" />
+                                        </svg>
+                                    </button>
+                                @endif
+                            </form>
+
+                            <!-- Diskon di pojok kanan atas -->
+                            @if ($bestseller->product->discount != 0)
+                                <div
+                                    class="absolute top-0 right-0 m-4 text-lg text-red-600 rounded-lg font-bold bg-gray-900 p-2">
+                                    {{ $bestseller->product->discount }}%</div>
+                            @endif
                         </div>
-                    @endforeach
-                @else
-                    <div class="col-span-2 flex flex-col items-center justify-center">
-                        <h1 class="text-center text-lg font-bold text-gray-400 dark:text-gray-400">Mohon maaf, belum ada
-                            produk best seller!</h1>
-                    </div>
-                @endif
             </div>
+            @endforeach
+        @else
+            <div class="col-span-2 flex flex-col items-center justify-center">
+                <h1 class="text-center text-lg font-bold text-gray-400 dark:text-gray-400">Mohon maaf, belum ada
+                    produk best seller!</h1>
+            </div>
+            @endif
         </div>
+    </div>
     </div>
     @php
         // Tentukan harga berdasarkan apakah produk memiliki diskon atau tidak

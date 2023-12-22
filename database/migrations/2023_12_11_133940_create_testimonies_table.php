@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('review')->nullable(false);
             $table->integer('rating')->nullable(false);
             $table->string('image')->nullable(true);
-            $table->date('date')->nullable(true);
+            $table->date('date')->nullable(false);
             $table->timestamps();
         });
     }
