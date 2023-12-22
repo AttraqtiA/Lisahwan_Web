@@ -41,8 +41,6 @@ class OrderController extends Controller
         }
 
 
-
-
         return view('admin.admin_dashboard', [
             "active_1" => "text-yellow-500",
             "orders" => $orders,
