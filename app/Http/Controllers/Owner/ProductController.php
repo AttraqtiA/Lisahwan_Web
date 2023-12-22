@@ -72,7 +72,7 @@ class ProductController extends Controller
             // dengan nama file yang sudah merupakan string random sehingga memungkinkan kita untuk
             // memasukkan file gambar dengan nama yang sama tapii beda gambar.
 
-            Product::create([
+            $product = Product::create([
                 'name' => $validatedData['name'],
                 'description' => $validatedData['description'],
                 'price' => $validatedData['price'],
@@ -81,14 +81,28 @@ class ProductController extends Controller
                 'discount' => $validatedData['discount'],
                 'image' => $validatedData['image'],
             ]);
+
+            Production::create([
+                'date' => now(),
+                'product_id' => $product->id,
+                'quantity' => $validatedData['stock'],
+                'type' => 'tambah'
+            ]);
         } else {
-            Product::create([
+            $product = Product::create([
                 'name' => $validatedData['name'],
                 'description' => $validatedData['description'],
                 'price' => $validatedData['price'],
                 'stock' => $validatedData['stock'],
                 'weight' => $validatedData['weight'],
                 'discount' => $validatedData['discount'],
+            ]);
+
+            Production::create([
+                'date' => now(),
+                'product_id' => $product->id,
+                'quantity' => $validatedData['stock'],
+                'type' => 'tambah'
             ]);
         }
 
@@ -133,6 +147,7 @@ class ProductController extends Controller
             'date' => now(),
             'product_id' => $product->id,
             'quantity' => $validatedData['stock'],
+            'type' => 'tambah'
         ]);
 
         return redirect()->route('owner.admin_products.detail', $product);
@@ -156,7 +171,6 @@ class ProductController extends Controller
         $validatedData = $request->validate([
             'name' => 'required',
             'price' => 'required|numeric',
-            'stock' => 'required|numeric',
             'weight' => 'required|numeric',
             'discount' => 'required|numeric',
             'description' => 'required',
@@ -166,7 +180,6 @@ class ProductController extends Controller
             'name' => $validatedData['name'],
             'description' => $validatedData['description'],
             'price' => $validatedData['price'],
-            'stock' => $validatedData['stock'],
             'weight' => $validatedData['weight'],
             'discount' => $validatedData['discount'],
         ]);

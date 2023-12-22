@@ -123,9 +123,15 @@
                                         {{ $stock_history->date }}
                                     </td>
 
-                                    <td class="px-6 py-4">
-                                        {{ $stock_history->quantity }}
-                                    </td>
+                                    @if ($stock_history->type == 'tambah')
+                                        <td class="px-6 py-4 text-green-400">
+                                            + {{ $stock_history->quantity }}
+                                        </td>
+                                    @else
+                                        <td class="px-6 py-4 text-red-700">
+                                            - {{ $stock_history->quantity }}
+                                        </td>
+                                    @endif
                                 </tr>
                             @endforeach
                         @endif
@@ -168,32 +174,30 @@
                         <div class="mb-4">
                             <span class="block mb-2 text-sm font-medium text-gray-900">Product Image</span>
 
-                                <div id="existingImagePreviewId" class="mb-3">
-                                    @if ($productDetail->image)
-                                        <img src="{{ asset('') . $productDetail->image }}"
-                                            class="w-1/2 md:w-1/4 mx-auto rounded-lg object-cover" />
-                                    @endif
+                            <div id="existingImagePreviewId" class="mb-3">
+                                @if ($productDetail->image)
+                                    <img src="{{ asset('') . $productDetail->image }}"
+                                        class="w-1/2 md:w-1/4 mx-auto rounded-lg object-cover" />
+                                @endif
+                            </div>
+                            <label for="image"
+                                class="flex flex-col justify-center items-center w-full h-44 bg-gray-50 rounded-lg border-1 border-gray-300 border-dashed cursor-pointer hover:bg-gray-100">
+                                <input type="file" name="image" id="image" class="hidden"
+                                    onchange="displayImagePreview_Update(this, '{{ $productDetail->image }}', 'existingImagePreviewId')">
+                                <div class="flex flex-col justify-center items-center w-full pt-5 pb-6">
+                                    <svg aria-hidden="true" class="mb-3 w-10 h-10 text-gray-400" fill="none"
+                                        stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
+                                    </svg>
+                                    <p class="mb-2 text-sm text-gray-500">
+                                        <span class="font-semibold">Klik untuk upload</span>
+                                    </p>
+                                    <p class="text-xs text-gray-500">PNG, JPG atau JPEG (Ukuran File MAX.
+                                        5MB)
+                                    </p>
                                 </div>
-                                <label for="image"
-                                    class="flex flex-col justify-center items-center w-full h-44 bg-gray-50 rounded-lg border-1 border-gray-300 border-dashed cursor-pointer hover:bg-gray-100">
-                                    <input type="file" name="image" id="image" class="hidden"
-                                        onchange="displayImagePreview_Update(this, '{{ $productDetail->image }}', 'existingImagePreviewId')">
-                                    <div class="flex flex-col justify-center items-center w-full pt-5 pb-6">
-                                        <svg aria-hidden="true" class="mb-3 w-10 h-10 text-gray-400"
-                                            fill="none" stroke="currentColor" viewBox="0 0 24 24"
-                                            xmlns="http://www.w3.org/2000/svg">
-                                            <path stroke-linecap="round" stroke-linejoin="round"
-                                                stroke-width="2"
-                                                d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
-                                        </svg>
-                                        <p class="mb-2 text-sm text-gray-500">
-                                            <span class="font-semibold">Klik untuk upload</span>
-                                        </p>
-                                        <p class="text-xs text-gray-500">PNG, JPG atau JPEG (Ukuran File MAX.
-                                            5MB)
-                                        </p>
-                                    </div>
-                                </label>
+                            </label>
                         </div>
 
 

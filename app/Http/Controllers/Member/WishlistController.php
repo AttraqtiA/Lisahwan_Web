@@ -24,9 +24,10 @@ class WishlistController extends Controller
             $carts = $cart_user->cart_detail;
         }
         return view('customer.wishlist', [
-            "TabTitle" => "Wish List",
-            "pageTitle" => '<mark class="px-2 text-yellow-500 bg-gray-800 rounded dark:bg-gray-800">Wish List</mark>',
-            'pageDescription' => 'Tambah produk favorit anda di <span class="underline underline-offset-2 decoration-4 decoration-yellow-500">Wish List!</span>',
+            "TabTitle" => "Wishlist",
+            "pageTitle" => '<mark class="px-2 text-yellow-500 bg-gray-800 rounded dark:bg-gray-800">Wishlist</mark>',
+            'pageDescription' => 'Tambah produk favorit anda di <span class="underline underline-offset-2 decoration-4 decoration-yellow-500">Wishlist!</span>',
+            "active_wishlist" => "text-white rounded md:bg-transparent md:text-yellow-500 md:p-0",
             "wishlists" => $wishlists,
             "carts" => $carts
         ]);
@@ -53,7 +54,7 @@ class WishlistController extends Controller
             $product->update([
                 'favorite_status' => '0'
             ]);
-            return back()->with('deleteWishlist_success', 'Produk berhasil dihapus dari Wish List!');
+            return back()->with('deleteWishlist_success', 'Produk berhasil dihapus dari Wishlist!');
         } else {
             Wishlist::create([
                 'user_id' =>  $user_id,
@@ -62,7 +63,7 @@ class WishlistController extends Controller
             $product->update([
                 'favorite_status' => '1'
             ]);
-            return redirect()->route('member.wishlist')->with('addWishlist_success', 'Produk berhasil ditambahkan ke Wish List!');
+            return redirect()->route('member.wishlist')->with('addWishlist_success', 'Produk berhasil ditambahkan ke Wishlist!');
         }
     }
 

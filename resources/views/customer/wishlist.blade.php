@@ -124,7 +124,7 @@
             <h1 class="text-center text-xl font-bold text-gray-400 dark:text-gray-400">Oops! Anda belum punya produk
                 favorit!</h1>
             <a href="{{ route('products') }}">
-                <p class="text-center text-base font-normal text-yellow-500">Tambahkan produk favorit ke Wish List
+                <p class="text-center text-base font-normal text-yellow-500">Tambahkan produk favorit ke Wishlist
                     sekarang!</p>
             </a>
         </div>

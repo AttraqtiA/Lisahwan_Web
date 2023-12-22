@@ -50,7 +50,7 @@ class ProductController extends Controller
             "carousel_3" => "/images/fotoproduk/GalleryCarousel_10.jpg",
             "carousel_4" => "/images/fotoproduk/GalleryCarousel_11.jpg",
             "TabTitle" => "Lisahwan Snacks Surabaya",
-            "active_1" => "text-white rounded md:bg-transparent md:text-yellow-500 md:p-0 md:dark:text-yellow-500",
+            "active_1" => "text-white rounded md:bg-transparent md:text-yellow-500 md:p-0",
             // "products" => Product::where('best_seller', true)->get(),
         ]);
     }

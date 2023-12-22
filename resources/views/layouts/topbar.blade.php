@@ -97,7 +97,8 @@
                                             </p>
                                             <div
                                                 class="flex flex-row items-center gap-x-16 sm:gap-x-6 md:gap-x-24 lg:gap-x-40 mt-1 mb-1">
-                                                <form action="{{ route('member.carts.edit', $cart->product_id) }}" method="GET">
+                                                <form action="{{ route('member.carts.edit', $cart->product_id) }}"
+                                                    method="GET">
                                                     @csrf
                                                     <button type="submit"
                                                         class="cursor-pointer text-white bg-yellow-500 hover:bg-yellow-600 font-medium rounded-md text-sm sm:text-sm md:text-sm lg:text-sm px-2 py-1 inline-flex items-center">
@@ -112,7 +113,8 @@
                                                         <span class="sm:inline-block">Ubah Pesanan</span>
                                                     </button>
                                                 </form>
-                                                <form action="{{ route('member.carts.destroy', $cart->id) }}" method="POST">
+                                                <form action="{{ route('member.carts.destroy', $cart->id) }}"
+                                                    method="POST">
                                                     @method('delete')
                                                     @csrf
                                                     <button type="submit"
@@ -221,7 +223,7 @@
                                         d="M17.982 18.725A7.488 7.488 0 0012 15.75a7.488 7.488 0 00-5.982 2.975m11.963 0a9 9 0 10-11.963 0m11.963 0A8.966 8.966 0 0112 21a8.966 8.966 0 01-5.982-2.275M15 9.75a3 3 0 11-6 0 3 3 0 016 0z" />
                                 </svg>
                             @else
-                                <img class="w-11 h-11 rounded-full"
+                                <img class="w-11 h-11 rounded-full object-cover"
                                     src="{{ asset('storage/' . Auth::user()->profile_picture) }}" alt="user photo">
                             @endif
                         </button>
@@ -295,9 +297,15 @@
 
                 @auth
                     <li>
-                        <a href="/orderhistory"
+                        <a href="{{ route ('member.wishlist') }}"
+                            class="block py-2 pl-3 pr-4 {{ $active_wishlist ?? 'text-white rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-yellow-500 md:p-0 md:hover:bg-transparent' }}"
+                            aria-current="page">Wishlist</a>
+                    </li>
+
+                    <li>
+                        <a href="{{ route ('member.orderhistory') }}"
                             class="block py-2 pl-3 pr-4 {{ $active_history ?? 'text-white rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-yellow-500 md:p-0 md:hover:bg-transparent' }}"
-                            aria-current="page">Riwayat Pesanan</a>
+                            aria-current="page">Order History</a>
                     </li>
                 @endauth
 

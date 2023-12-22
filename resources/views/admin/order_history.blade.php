@@ -413,8 +413,7 @@
                                                             <input type="datetime-local" name="shipment_date"
                                                                 id="shipment_date"
                                                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
-                                                                value="{{ $order->shipment_date ? \Carbon\Carbon::parse($order->shipment_date)->format('Y-m-d\TH:i') : '' }}"
-                                                                required>
+                                                                value="{{ $order->shipment_date ? \Carbon\Carbon::parse($order->shipment_date)->format('Y-m-d\TH:i') : '' }}">
                                                         </div>
 
                                                         <div>
@@ -424,8 +423,7 @@
                                                             <input type="datetime-local" name="arrived_date"
                                                                 id="arrived_date"
                                                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
-                                                                value="{{ $order->arrived_date ? \Carbon\Carbon::parse($order->arrived_date)->format('Y-m-d\TH:i') : '' }}"
-                                                                required>
+                                                                value="{{ $order->arrived_date ? \Carbon\Carbon::parse($order->arrived_date)->format('Y-m-d\TH:i') : '' }}">
                                                         </div>
 
                                                         <div class="col-span-2">
@@ -525,7 +523,7 @@
                                                 @if ($order->payment != null || $order->payment != '')
                                                 <img src="{{ asset('storage/' . $order->payment) }}"
                                                     alt="{{ asset('storage/' . $order->payment) }}"
-                                                    class="mt-3 w-full mx-auto rounded-lg object-cover">
+                                                    class="mt-3 w-96 mx-auto rounded-lg object-cover">
                                                 @else
                                                 <p class="mt-3 text-red-700 text-center font-semibold text-gray-900">
                                                     Belum ada bukti pembayaran</p>
