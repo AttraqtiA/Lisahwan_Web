@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\OrderDetail;
-use App\Http\Requests\StoreOrderDetailRequest;
-use App\Http\Requests\UpdateOrderDetailRequest;
+use App\Models\CartDetail;
+use App\Http\Requests\StoreCartDetailRequest;
+use App\Http\Requests\UpdateCartDetailRequest;
 
-class OrderDetailController extends Controller
+class CartDetailController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -27,7 +27,7 @@ class OrderDetailController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreOrderDetailRequest $request)
+    public function store(StoreCartDetailRequest $request)
     {
         //
     }
@@ -35,7 +35,7 @@ class OrderDetailController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(OrderDetail $orderDetail)
+    public function show(CartDetail $cartDetail)
     {
         //
     }
@@ -43,7 +43,7 @@ class OrderDetailController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(OrderDetail $orderDetail)
+    public function edit(CartDetail $cartDetail)
     {
         //
     }
@@ -51,7 +51,7 @@ class OrderDetailController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateOrderDetailRequest $request, OrderDetail $orderDetail)
+    public function update(UpdateCartDetailRequest $request, CartDetail $cartDetail)
     {
         //
     }
@@ -59,7 +59,7 @@ class OrderDetailController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(OrderDetail $orderDetail)
+    public function destroy(CartDetail $cartDetail)
     {
         //
     }

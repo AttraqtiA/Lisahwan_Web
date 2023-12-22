@@ -1,4 +1,4 @@
-<footer class="p-4 bg-white sm:p-6 dark:bg-gray-900">
+<footer class="p-4 bg-gray-900 sm:p-6">
     <div class="mx-auto">
         <div class="text-white flex flex-col md:flex-row justify-center gap-6 px-4 md:px-0">
             <div class="mt-6 md:mt-0 w-32">
@@ -8,7 +8,7 @@
             </div>
             <div class="w-full md:w-1/2">
                 <h2 class="mb-6 text-lg font-semibold uppercase">Lisahwan Snacks Surabaya</h2>
-                <p>Teri Oven, Balado, Kerupuk, Kentang, Dendeng, Snacks, Cemilan, Kualitas, Homemade, Terlaris, Fast
+                <p>Premium, Teri Oven, Balado, Kerupuk, Kentang, Dendeng, Snacks, Cemilan, Kualitas, Homemade, Terlaris, Fast
                     Respon, Enak</p>
             </div>
             <div>
@@ -55,10 +55,10 @@
             </div>
         </div>
 
-        <hr class="my-6 border-gray-200 sm:mx-auto dark:border-gray-700 lg:my-8" />
+        <hr class="my-6 border-gray-500 sm:mx-auto lg:my-8" />
 
         <div class="flex items-center px-4 md:px-0">
-            <span class="mx-auto text-sm text-gray-500 text-center dark:text-gray-400">© 2024 <a href=""
+            <span class="mx-auto text-sm text-gray-500 text-center">© 2024 <a href=""
                     class="hover:underline">Lisahwan™</a>. All Rights Reserved.
             </span>
         </div>

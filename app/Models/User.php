@@ -18,13 +18,13 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
-        'role_id',
         'name',
+        'role_id',
+        'is_login',
+        'is_active',
         'email',
         'password',
         'phone_number',
-        'is_login',
-        'is_active',
         'profile_picture'
     ];
 
@@ -71,5 +71,30 @@ class User extends Authenticatable
     public function order()
     {
         return $this->HasMany(Order::class, 'user_id', 'id');
+    }
+
+
+    public function isOwner(): bool
+    {
+        if ($this->role_id === 1) {
+            return true;
+        }
+        return false;
+    }
+
+    public function isAdmin(): bool
+    {
+        if ($this->role_id === 2) {
+            return true;
+        }
+        return false;
+    }
+
+    public function isMember(): bool
+    {
+        if ($this->role_id === 3) {
+            return true;
+        }
+        return false;
     }
 }

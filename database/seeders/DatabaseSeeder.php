@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use Illuminate\Database\Eloquent\Model;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Database\Seeders\ProductSeeder;
@@ -20,9 +21,22 @@ class DatabaseSeeder extends Seeder
         //     'email' => 'test@example.com',
         // ]);
 
+        Model::unguard();
+
         $this->call([
             ProductSeeder::class,
             GallerySeeder::class,
+
+            RoleSeeder::class, // Role seeder sebelum user ajaa
+            UserSeeder::class,
+
+            AddressSeeder::class,
+            OrderSeeder::class,
+            OrderDetailSeeder::class,
+
+            ProductionSeeder::class,
         ]);
+
+        Model::reguard();
     }
 }

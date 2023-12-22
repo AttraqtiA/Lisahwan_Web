@@ -17,9 +17,10 @@ return new class extends Migration
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
             $table->unsignedBigInteger('product_id');
             $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade')->onUpdate('cascade');
-            $table->string('review')->nullable(true);
-            $table->string('rating')->nullable(true);
+            $table->string('review')->nullable(false);
+            $table->string('rating')->nullable(false);
             $table->string('image')->nullable(true);
+            $table->date('date')->nullable(false);
             $table->timestamps();
         });
     }

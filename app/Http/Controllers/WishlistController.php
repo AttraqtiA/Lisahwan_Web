@@ -3,17 +3,32 @@
 namespace App\Http\Controllers;
 
 use App\Models\Wishlist;
-use App\Http\Requests\StoreWishlistRequest;
-use App\Http\Requests\UpdateWishlistRequest;
+use App\Models\Product;
+use Illuminate\Http\Request;
+use App\Models\Cart;
+use Illuminate\Support\Facades\Auth;
 
 class WishlistController extends Controller
 {
-    /**
+   /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        //
+        $wishlists = Wishlist::where('user_id', Auth::user()->id)->get();
+        $cart_user = Cart::where('user_id', Auth::user()->id)->first();
+        if (empty($cart_user)) {
+            $carts = null;
+        } else {
+            $carts = $cart_user->cart_detail;
+        }
+        return view('customer.wishlist', [
+            "TabTitle" => "Wish List",
+            "pageTitle" => '<mark class="px-2 text-yellow-500 bg-gray-800 rounded dark:bg-gray-800">Wish List</mark>',
+            'pageDescription' => 'Tambah produk favorit anda di <span class="underline underline-offset-2 decoration-4 decoration-yellow-500">Wish List!</span>',
+            "wishlists" => $wishlists,
+            "carts" => $carts
+        ]);
     }
 
     /**
@@ -27,9 +42,27 @@ class WishlistController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreWishlistRequest $request)
+    public function store($id)
     {
-        //
+        $user_id = Auth::user()->id;
+        $wishlist = Wishlist::where('product_id', $id)->first();
+        $product = Product::where('id', $id)->first();
+        if ($wishlist) {
+            $wishlist->delete();
+            $product->update([
+                'favorite_status' => '0'
+            ]);
+            return back()->with('deleteWishlist_success', 'Produk berhasil dihapus dari Wish List!');
+        } else {
+            Wishlist::create([
+                'user_id' =>  $user_id,
+                'product_id' => $id
+            ]);
+            $product->update([
+                'favorite_status' => '1'
+            ]);
+            return redirect('/wishlist')->with('addWishlist_success', 'Produk berhasil ditambahkan ke Wish List!');
+        }
     }
 
     /**
@@ -51,7 +84,7 @@ class WishlistController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateWishlistRequest $request, Wishlist $wishlist)
+    public function update(Request $request, Wishlist $wishlist)
     {
         //
     }

@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class ProductionProduct extends Model
+class CartDetail extends Model
 {
     use HasFactory;
 
@@ -16,8 +16,8 @@ class ProductionProduct extends Model
         return $this->belongsTo(Product::class, 'product_id', 'id');
     }
 
-    public function production()
+    public function cart()
     {
-        return $this->belongsTo(Production::class, 'production_id', 'id');
+        return $this->belongsTo(Cart::class, 'cart_id', 'id');
     }
 }

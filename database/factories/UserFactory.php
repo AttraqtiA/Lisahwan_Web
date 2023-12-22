@@ -25,9 +25,14 @@ class UserFactory extends Factory
     {
         return [
             'name' => fake()->name(),
+            'role_id' => 3, // role member
+            'is_login' => '0',
+            'is_active' => '1',
             'email' => fake()->unique()->safeEmail(),
             'email_verified_at' => now(),
-            'password' => static::$password ??= Hash::make('password'),
+            'password' => bcrypt('12345678'), // password
+            'phone_number' => '082136047069',
+            'profile_picture' => '', // if null or '' then use default image!
             'remember_token' => Str::random(10),
         ];
     }

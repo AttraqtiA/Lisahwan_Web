@@ -21,13 +21,23 @@ class Product extends Model
         return $this->hasMany(Testimony::class, 'product_id', 'id');
     }
 
-    public function production_product()
+    public function production()
     {
-        return $this->hasMany(ProductionProduct::class, 'product_id', 'id');
+        return $this->hasMany(Production::class, 'product_id', 'id');
     }
 
     public function order_detail()
     {
         return $this->hasMany(OrderDetail::class, 'product_id', 'id');
+    }
+    public function cart_detail()
+    {
+        return $this->hasMany(CartDetail::class, 'product_id', 'id');
+    }
+
+    public function countDiscount()
+    {
+        $discountedPrice = $this->price - ($this->price * ($this->discount / 100));
+        return max($discountedPrice, 0); // Harga diskon tidak boleh kurang dari 0
     }
 }

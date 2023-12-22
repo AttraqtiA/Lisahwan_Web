@@ -8,6 +8,7 @@ use App\Models\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Http\Request;
 
 class RegisterController extends Controller
 {
@@ -51,8 +52,10 @@ class RegisterController extends Controller
     {
         return Validator::make($data, [
             'name' => ['required', 'string', 'max:255'],
+            'phone_number' => ['required', 'string', 'max:50'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'profile_picture' => ['nullable', 'image', 'mimes:jpeg,png,jpg', 'max:5000'],
         ]);
     }
 
@@ -64,10 +67,42 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        return User::create([
-            'name' => $data['name'],
-            'email' => $data['email'],
-            'password' => Hash::make($data['password']),
-        ]);
+
+
+        if ($data['profile_picture'] == null) {
+            return User::create([
+                'name' => $data['name'],
+                'phone_number' => $data['phone_number'],
+                'role_id' => 3,
+                'is_active' => '1',
+                'email' => $data['email'],
+                'password' => Hash::make($data['password']),
+            ]);
+        } else {
+            return User::create([
+                'name' => $data['name'],
+                'phone_number' => $data['phone_number'],
+                'role_id' => 3,
+                'is_active' => '1',
+                'email' => $data['email'],
+                'password' => Hash::make($data['password']),
+                'profile_picture' => $data['profile_picture']->store('upload_images', ['disk' => 'public']),
+            ]);
+        }
+    }
+
+    public function register(Request $request)
+    {
+        // $request['phone_number'] = strval($request['phone_number']);
+
+        $this->validator($request->all())->validate();
+
+        $user = $this->create($request->all());
+
+        if (empty($user)) {
+            return redirect()->route('register');
+        }
+
+        return redirect()->route('login');
     }
 }

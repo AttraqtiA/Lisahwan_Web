@@ -11,8 +11,9 @@ class Production extends Model
 
     protected $guarded = ['id'];
 
-    public function production_product()
+    public function product()
     {
-        return $this->hasMany(ProductionProduct::class, 'production_id', 'id');
+        return $this->belongsTo(Product::class, 'product_id', 'id');
     }
+
 }
