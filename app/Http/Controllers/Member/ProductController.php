@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Member;
 use App\Http\Controllers\Controller;
 use App\Models\Cart;
 use App\Models\User;
-use App\Models\Order;
 use App\Models\Product;
 use App\Models\Testimony;
 use App\Models\OrderDetail;
@@ -20,7 +19,7 @@ class ProductController extends Controller
      */
     public function index()
     {
-       //
+        //
     }
 
     /**
@@ -69,6 +68,7 @@ class ProductController extends Controller
             }
             return view('customer.orderdetail', [
                 "TabTitle" => $product->name,
+                "active_2" => "text-yellow-500 rounded md:bg-transparent md:p-0",
                 "product" => $product,
                 "total_product" => $total_product,
                 "testimonies" => $testimonies,

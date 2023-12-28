@@ -33,7 +33,7 @@ class GallerySeeder extends Seeder
 
         Gallery::create([
             'title' => 'Kering Kentang Thinwall',
-            'content' => 'GalleryCarousel_2.jpg',
+            'content' => 'KeringKentangThinwall.jpg',
             'type' => 'image'
         ]);
 
@@ -50,9 +50,9 @@ class GallerySeeder extends Seeder
         ]);
 
         Gallery::create([
-            'title' => 'Teri Jumbo Pedas',
-            'content' => 'GalleryCarousel_7.jpeg',
-            'type' => 'image'
+            'title' => 'Lisahwan Promotion Video',
+            'content' => 'LisahwanPromotionVideo.mp4',
+            'type' => 'video'
         ]);
 
         Gallery::create([
@@ -66,7 +66,5 @@ class GallerySeeder extends Seeder
             'content' => 'GalleryCarousel_10.jpg',
             'type' => 'image'
         ]);
-
-
     }
 }

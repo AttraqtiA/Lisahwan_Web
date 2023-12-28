@@ -3,7 +3,7 @@
 @section('content_page')
     <div class="flex flex-col items-center">
         @if (session('deleteCart_success'))
-            <div class="w-8/12 sm:w-5/12 md:w-4/12 lg:w-3/12 flex justify-center items-center p-4 mt-8 text-sm text-green-800 rounded-lg bg-green-50 dark:bg-gray-900 dark:text-green-400"
+            <div class="w-8/12 sm:w-5/12 md:w-4/12 lg:w-3/12 flex justify-center items-center p-4 mt-8 text-sm rounded-lg bg-gray-900 text-green-400"
                 role="alert">
                 <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
                     fill="currentColor" viewBox="0 0 20 20">
@@ -17,7 +17,7 @@
             </div>
         @endif
         @if (session('deleteWishlist_success'))
-            <div class="w-10/12 sm:w-7/12 md:w-6/12 lg:w-4/12 flex justify-center items-center p-4 mt-8 text-sm text-green-800 rounded-lg bg-green-50 dark:bg-gray-900 dark:text-green-400"
+            <div class="w-10/12 sm:w-7/12 md:w-6/12 lg:w-4/12 flex justify-center items-center p-4 mt-8 text-sm rounded-lg bg-gray-900 text-green-400"
                 role="alert">
                 <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
                     fill="currentColor" viewBox="0 0 20 20">
@@ -40,8 +40,7 @@
                 @foreach ($wishlists as $wishlist)
                     <div class="relative hover:shadow-xl transform transition duration-500 hover:-translate-y-4 hover:z-40">
                         <a href="{{ route('member.wishlist.store', $wishlist->product->id) }}">
-                            <div
-                                class="relative w-full h-full bg-white rounded-lg dark:bg-gray-900 dark:border-gray-800 mx-auto shadow">
+                            <div class="relative w-full h-full rounded-lg bg-gray-900 border-gray-800 mx-auto shadow">
                                 <img class="h-3/4 rounded-t-lg w-full object-cover"
                                     src="/images/fotoproduk/{{ $wishlist->product->image }}"
                                     alt="{{ $wishlist->product->image }}" />
@@ -58,7 +57,7 @@
                                                 {{ number_format($wishlist->product->price, 0, ',', '.') }}</p>
                                             <p
                                                 class="ml-2 flex items-center text-base sm:text-sm md:text-lg lg:text-sm font-bold text-red-600 text-center">
-                                                <svg class="w-4 h-4 mr-2 text-red-600 dark:text-red-600" aria-hidden="true"
+                                                <svg class="w-4 h-4 mr-2 text-red-600" aria-hidden="true"
                                                     xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
                                                     <path stroke="currentColor" stroke-linecap="round"
                                                         stroke-linejoin="round" stroke-width="2"
@@ -121,7 +120,7 @@
         @endforeach
     @else
         <div class="flex flex-col col-span-4 items-center justify-center sm:p-12 md:p-28 lg:p-48">
-            <h1 class="text-center text-xl font-bold text-gray-400 dark:text-gray-400">Oops! Anda belum punya produk
+            <h1 class="text-center text-xl font-bold text-gray-400">Oops! Anda belum punya produk
                 favorit!</h1>
             <a href="{{ route('products') }}">
                 <p class="text-center text-base font-normal text-yellow-500">Tambahkan produk favorit ke Wishlist

@@ -140,6 +140,9 @@ class TestimonyController extends Controller
     public function destroy($id)
     {
         $testimony = Testimony::where('id', $id)->first();
+        if ($testimony->image != null) {
+            Storage::disk('public')->delete($testimony->image);
+        }
         $testimony->delete();
         return back()->with('deleteTestimony_success', 'Ulasan anda berhasil dihapus!');
     }

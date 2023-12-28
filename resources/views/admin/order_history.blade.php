@@ -521,12 +521,12 @@
                                                 <!-- Modal body -->
 
                                                 @if ($order->payment != null || $order->payment != '')
-                                                <img src="{{ asset('storage/' . $order->payment) }}"
-                                                    alt="{{ asset('storage/' . $order->payment) }}"
-                                                    class="mt-3 w-96 mx-auto rounded-lg object-cover">
+                                                    <img src="{{ asset('storage/' . $order->payment) }}"
+                                                        alt="{{ asset('storage/' . $order->payment) }}"
+                                                        class="mt-3 w-96 mx-auto rounded-lg object-cover">
                                                 @else
-                                                <p class="mt-3 text-red-700 text-center font-semibold text-gray-900">
-                                                    Belum ada bukti pembayaran</p>
+                                                    <p class="mt-3 text-red-700 text-center font-semibold text-gray-900">
+                                                        Belum ada bukti pembayaran</p>
                                                 @endif
                                             </div>
                                         </div>

@@ -156,9 +156,9 @@
                                                                 d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z" />
                                                         </svg>
                                                     @else
-                                                        <svg class="w-5 h-5 text-yellow-500 dark:text-yellow-500"
-                                                            aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
-                                                            fill="none" viewBox="0 0 21 20">
+                                                        <svg class="w-5 h-5 text-yellow-500" aria-hidden="true"
+                                                            xmlns="http://www.w3.org/2000/svg" fill="none"
+                                                            viewBox="0 0 21 20">
                                                             <path stroke="currentColor" stroke-linecap="round"
                                                                 stroke-linejoin="round" stroke-width="2"
                                                                 d="m11.479 1.712 2.367 4.8a.532.532 0 0 0 .4.292l5.294.769a.534.534 0 0 1 .3.91l-3.83 3.735a.534.534 0 0 0-.154.473l.9 5.272a.535.535 0 0 1-.775.563l-4.734-2.49a.536.536 0 0 0-.5 0l-4.73 2.487a.534.534 0 0 1-.775-.563l.9-5.272a.534.534 0 0 0-.154-.473L2.158 8.48a.534.534 0 0 1 .3-.911l5.294-.77a.532.532 0 0 0 .4-.292l2.367-4.8a.534.534 0 0 1 .96.004Z" />
@@ -446,25 +446,25 @@
                     <div class="mb-4">
                         <span class="block mb-2 text-sm font-medium text-gray-900">Product Image</span>
 
-                            <div id="existingImagePreviewId" class="mb-3"></div>
-                            <label for="image"
-                                class="flex flex-col justify-center items-center w-full h-44 bg-gray-50 rounded-lg border-1 border-gray-300 border-dashed cursor-pointer hover:bg-gray-100">
-                                <input type="file" name="image" id="image" class="hidden"
-                                    onchange="displayImagePreview_Add(this)">
-                                <div class="flex flex-col justify-center items-center w-full pt-5 pb-6">
-                                    <svg aria-hidden="true" class="mb-3 w-10 h-10 text-gray-400" fill="none"
-                                        stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                            d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
-                                    </svg>
-                                    <p class="mb-2 text-sm text-gray-500">
-                                        <span class="font-semibold">Klik untuk upload</span>
-                                    </p>
-                                    <p class="text-xs text-gray-500">PNG, JPG atau JPEG (Ukuran File MAX.
-                                        5MB)
-                                    </p>
-                                </div>
-                            </label>
+                        <div id="existingImagePreviewId" class="mb-3"></div>
+                        <label for="image"
+                            class="flex flex-col justify-center items-center w-full h-44 bg-gray-50 rounded-lg border-1 border-gray-300 border-dashed cursor-pointer hover:bg-gray-100">
+                            <input type="file" name="image" id="image" class="hidden"
+                                onchange="displayImagePreview_Add(this)">
+                            <div class="flex flex-col justify-center items-center w-full pt-5 pb-6">
+                                <svg aria-hidden="true" class="mb-3 w-10 h-10 text-gray-400" fill="none"
+                                    stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
+                                </svg>
+                                <p class="mb-2 text-sm text-gray-500">
+                                    <span class="font-semibold">Klik untuk upload</span>
+                                </p>
+                                <p class="text-xs text-gray-500">PNG, JPG atau JPEG (Ukuran File MAX.
+                                    5MB)
+                                </p>
+                            </div>
+                        </label>
                     </div>
 
                     <div class="items-center space-y-4 sm:flex sm:space-y-0 sm:space-x-4">
@@ -517,7 +517,8 @@
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                 d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                         </svg>
-                        <h3 class="mb-5 text-lg font-normal text-gray-500">Apakah anda yakin ingin menghapus produk ini?</h3>
+                        <h3 class="mb-5 text-lg font-normal text-gray-500">Apakah anda yakin ingin menghapus produk ini?
+                        </h3>
 
 
                         <button type="submit" id="delete" name="delete"

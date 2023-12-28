@@ -27,10 +27,16 @@ use App\Http\Controllers\Member\TestimonyController as MemberTestimonyController
 
 
 //====================================== BISA DIAKSES SEMUA ROLE ======================================
-Route::get('/', [ProductController::class, 'best_seller']); // HOME PAGE
-Route::get('/products', [ProductController::class, 'index'])->name('products'); // PRODUCTS PAGE
-Route::get('/gallery', [GalleryController::class, 'index']); // GALLERY PAGE
-Route::view('/contactus', 'contact'); // CONTACT US PAGE
+Route::get('/', [ProductController::class, 'home']); // HOME PAGE (CHECKED)
+Route::get('/products', [ProductController::class, 'index'])->name('products'); // PRODUCTS PAGE (CHECKED)
+Route::get('/gallery', [GalleryController::class, 'index']); // GALLERY PAGE (CHECKED)
+Route::get('/contactus', function () {
+    $data = [
+        "TabTitle" => "Kontak Lisahwan",
+        "active_4" => "text-yellow-500 rounded md:bg-transparent md:p-0",
+    ];
+    return view('contact', $data);
+});// CONTACT PAGE (CHECKED)
 //=====================================================================================================
 
 
@@ -40,24 +46,24 @@ Route::group([
     'prefix' => 'member',
     'as' => 'member.'
 ], function () {
-    Route::get('/products/{product_id}', [MemberProductController::class, 'show'])->name('products.show'); // ORDERDETAIL PAGE
+    Route::get('/products/{product_id}', [MemberProductController::class, 'show'])->name('products.show'); // ORDERDETAIL PAGE (CHECKED)
 
-    Route::post('/carts/add/{product_id}', [MemberCartController::class, 'store'])->name('carts.add'); // INSERT TO CART
-    Route::delete('/carts/delete/{cartdetail_id}', [MemberCartController::class, 'destroy'])->name('carts.destroy'); // DELETE CART
-    Route::get('/carts/edit/{product_id}', [MemberCartController::class, 'edit'])->name('carts.edit'); // EDIT CART
-    Route::patch('/carts/update/{product_id}', [MemberCartController::class, 'update'])->name('carts.update'); // UPDATE CART
+    Route::post('/carts/add/{product_id}', [MemberCartController::class, 'store'])->name('carts.add'); // INSERT TO CART (CHECKED)
+    Route::delete('/carts/delete/{cartdetail_id}', [MemberCartController::class, 'destroy'])->name('carts.destroy'); // DELETE CART (CHECKED)
+    Route::get('/carts/edit/{product_id}', [MemberCartController::class, 'edit'])->name('carts.edit'); // EDIT CART (CHECKED)
+    Route::patch('/carts/update/{product_id}', [MemberCartController::class, 'update'])->name('carts.update'); // UPDATE CART (CHECKED)
 
-    Route::get('/checkout', [MemberOrderController::class, 'index'])->name('checkout'); // CHECKOUT PAGE
-    Route::post('/checkout/payment', [MemberOrderController::class, 'store'])->name('checkout.store'); // CREATE ORDER
-    Route::get('/orderhistory', [MemberOrderController::class, 'show_orderhistory'])->name('orderhistory'); // ORDER HISTORY PAGE
-    Route::patch('/orderhistory/{order_id}', [MemberOrderController::class, 'update'])->name('orderhistory.update'); // CHANGE ACCEPT_BY_CUSTOMER STATUS
+    Route::get('/checkout', [MemberOrderController::class, 'index'])->name('checkout'); // CHECKOUT PAGE (CHECKED)
+    Route::post('/checkout/payment', [MemberOrderController::class, 'store'])->name('checkout.store'); // CREATE ORDER (CHECKED)
+    Route::get('/orderhistory', [MemberOrderController::class, 'show_orderhistory'])->name('orderhistory'); // ORDER HISTORY PAGE (CHECKED)
+    Route::patch('/orderhistory/{order_id}', [MemberOrderController::class, 'update'])->name('orderhistory.update'); // CHANGE ACCEPT_BY_CUSTOMER STATUS (CHECKED)
 
-    Route::post('/testimony/{product_id}', [MemberTestimonyController::class, 'store'])->name('testimony.store'); // CREATE TESTIMONY
-    Route::patch('/testimony/{product_id}', [MemberTestimonyController::class, 'update'])->name('testimony.update'); // UPDATE TESTIMONY
-    Route::delete('/testimony/{testimony_id}', [MemberTestimonyController::class, 'destroy'])->name('testimony.destroy'); // UPDATE TESTIMONY]
+    Route::post('/testimony/{product_id}', [MemberTestimonyController::class, 'store'])->name('testimony.store'); // CREATE TESTIMONY (CHECKED)
+    Route::patch('/testimony/{product_id}', [MemberTestimonyController::class, 'update'])->name('testimony.update'); // UPDATE TESTIMONY (CHECKED)
+    Route::delete('/testimony/{testimony_id}', [MemberTestimonyController::class, 'destroy'])->name('testimony.destroy'); // UPDATE TESTIMONY (CHECKED)
 
-    Route::get('/wishlist', [MemberWishlistController::class, 'index'])->name('wishlist'); // WISHLIST PAGE
-    Route::post('/wishlist/{product_id}', [MemberWishlistController::class, 'store'])->name('wishlist.store'); // INSERT PRODUCT TO WISHLIST
+    Route::get('/wishlist', [MemberWishlistController::class, 'index'])->name('wishlist'); // WISHLIST PAGE (CHECKED)
+    Route::post('/wishlist/{product_id}', [MemberWishlistController::class, 'store'])->name('wishlist.store'); // INSERT PRODUCT TO WISHLIST (CHECKED)
 });
 //=====================================================================================================
 

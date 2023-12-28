@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Auth;
 
 class WishlistController extends Controller
 {
-   /**
+    /**
      * Display a listing of the resource.
      */
     public function index()
@@ -25,9 +25,9 @@ class WishlistController extends Controller
         }
         return view('customer.wishlist', [
             "TabTitle" => "Wishlist",
-            "pageTitle" => '<mark class="px-2 text-yellow-500 bg-gray-800 rounded dark:bg-gray-800">Wishlist</mark>',
+            "active_wishlist" => "text-yellow-500 rounded md:bg-transparent md:p-0",
+            "pageTitle" => '<mark class="px-2 text-yellow-500 bg-gray-900 rounded">Wishlist</mark>',
             'pageDescription' => 'Tambah produk favorit anda di <span class="underline underline-offset-2 decoration-4 decoration-yellow-500">Wishlist!</span>',
-            "active_wishlist" => "text-white rounded md:bg-transparent md:text-yellow-500 md:p-0",
             "wishlists" => $wishlists,
             "carts" => $carts
         ]);

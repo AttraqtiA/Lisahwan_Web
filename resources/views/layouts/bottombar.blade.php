@@ -8,7 +8,8 @@
             </div>
             <div class="w-full md:w-1/2">
                 <h2 class="mb-6 text-lg font-semibold uppercase">Lisahwan Snacks Surabaya</h2>
-                <p>Premium, Teri Oven, Balado, Kerupuk, Kentang, Dendeng, Snacks, Cemilan, Kualitas, Homemade, Terlaris, Fast
+                <p>Premium, Teri Oven, Balado, Kerupuk, Kentang, Dendeng, Snacks, Cemilan, Kualitas, Homemade, Terlaris,
+                    Fast
                     Respon, Enak</p>
             </div>
             <div>
@@ -16,13 +17,15 @@
                 <div class="flex flex-col md:flex-row gap-6 lg:gap-4">
                     <div class="flex flex-col gap-4">
                         <a class="flex flex-row items-center gap-4"
-                            href="https://www.google.com/maps/place/Jl.+Jemur+Andayani+XIII+No.6,+Jemur+Wonosari,+Kec.+Wonocolo,+Surabaya,+Jawa+Timur+60237/@-7.3285967,112.7316548,17z/data=!3m1!4b1!4m6!3m5!1s0x2dd7fb41eea3ee81:0x83d2a1606a6f6179!8m2!3d-7.3285967!4d112.7342297!16s%2Fg%2F11c24f323l?entry=ttu" target="_blank">
+                            href="https://www.google.com/maps/place/Jl.+Jemur+Andayani+XIII+No.6,+Jemur+Wonosari,+Kec.+Wonocolo,+Surabaya,+Jawa+Timur+60237/@-7.3285967,112.7316548,17z/data=!3m1!4b1!4m6!3m5!1s0x2dd7fb41eea3ee81:0x83d2a1606a6f6179!8m2!3d-7.3285967!4d112.7342297!16s%2Fg%2F11c24f323l?entry=ttu"
+                            target="_blank">
                             <img src="/images/map_logo.png" class="w-6 h-7" alt="Alamat">
                             <p class="hover:underline">Jl. Jemur Andayani XIII No. 6, Kota
                                 Surabaya, Jawa Timur - 60237</p>
                         </a>
 
-                        <a class="flex flex-row items-center gap-4" href="https://www.tokopedia.com/lisahwan" target="_blank">
+                        <a class="flex flex-row items-center gap-4" href="https://www.tokopedia.com/lisahwan"
+                            target="_blank">
                             <img src="/images/tokopedia_logo.png" class="w-6" alt="Tokopedia">
                             <p class="hover:underline">tokopedia.com/lisahwan</p>
                         </a>
@@ -31,7 +34,8 @@
 
                     <div class="flex flex-col gap-4">
 
-                        <a class="flex flex-row items-center gap-4" href="https://api.whatsapp.com/send?phone=6282230308030" target="_blank">
+                        <a class="flex flex-row items-center gap-4"
+                            href="https://api.whatsapp.com/send?phone=6282230308030" target="_blank">
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-6" fill="currentColor"
                                 style="color: #128c7e" viewBox="0 0 24 24">
                                 <path
@@ -41,7 +45,8 @@
                                 822-3030-8030</p>
                         </a>
 
-                        <a class="flex flex-row items-center gap-4 mt-2 md:mt-0" href="https://www.instagram.com/lisahwan" target="_blank">
+                        <a class="flex flex-row items-center gap-4 mt-2 md:mt-0"
+                            href="https://www.instagram.com/lisahwan" target="_blank">
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-5" fill="currentColor"
                                 style="color: #c13584" viewBox="0 0 24 24">
                                 <path

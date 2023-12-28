@@ -3,21 +3,21 @@
 @section('content_page')
     <div class="flex flex-col items-center">
         @if (session('deleteCart_success'))
-                <div class="w-8/12 sm:w-5/12 md:w-4/12 lg:w-3/12 flex justify-center items-center p-4 mt-8 text-sm text-green-800 rounded-lg bg-green-50 dark:bg-gray-900 dark:text-green-400"
-                    role="alert">
-                    <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
-                        fill="currentColor" viewBox="0 0 20 20">
-                        <path
-                            d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Zm3.707 8.207-4 4a1 1 0 0 1-1.414 0l-2-2a1 1 0 0 1 1.414-1.414L9 10.586l3.293-3.293a1 1 0 0 1 1.414 1.414Z" />
-                    </svg>
-                    <span class="sr-only">Info</span>
-                    <div>
-                        <span class="font-medium">{{ session('deleteCart_success') }}
-                    </div>
+            <div class="w-8/12 sm:w-5/12 md:w-4/12 lg:w-3/12 flex justify-center items-center p-4 mt-8 text-sm rounded-lg bg-gray-900 text-green-400"
+                role="alert">
+                <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                    fill="currentColor" viewBox="0 0 20 20">
+                    <path
+                        d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Zm3.707 8.207-4 4a1 1 0 0 1-1.414 0l-2-2a1 1 0 0 1 1.414-1.414L9 10.586l3.293-3.293a1 1 0 0 1 1.414 1.414Z" />
+                </svg>
+                <span class="sr-only">Info</span>
+                <div>
+                    <span class="font-medium">{{ session('deleteCart_success') }}
                 </div>
-            @endif
+            </div>
+        @endif
         @if (session('addTestimony_success'))
-            <div class="w-8/12 sm:w-5/12 md:w-4/12 lg:w-3/12 flex justify-center items-center p-4 mt-8 text-sm text-green-800 rounded-lg bg-green-50 dark:bg-gray-900 dark:text-green-400"
+            <div class="w-8/12 sm:w-5/12 md:w-4/12 lg:w-3/12 flex justify-center items-center p-4 mt-8 text-sm rounded-lg bg-gray-900 text-green-400"
                 role="alert">
                 <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
                     fill="currentColor" viewBox="0 0 20 20">
@@ -31,7 +31,7 @@
             </div>
         @endif
         @if (session('updateTestimony_success'))
-            <div class="w-8/12 sm:w-5/12 md:w-4/12 lg:w-3/12 flex justify-center items-center p-4 mt-8 text-sm text-green-800 rounded-lg bg-green-50 dark:bg-gray-900 dark:text-green-400"
+            <div class="w-8/12 sm:w-5/12 md:w-4/12 lg:w-3/12 flex justify-center items-center p-4 mt-8 text-sm rounded-lg bg-gray-900 text-green-400"
                 role="alert">
                 <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
                     fill="currentColor" viewBox="0 0 20 20">
@@ -45,7 +45,7 @@
             </div>
         @endif
         @if (session('deleteTestimony_success'))
-            <div class="w-10/12 sm:w-7/12 md:w-6/12 lg:w-4/12 flex justify-center items-center p-4 mt-8 text-sm text-green-800 rounded-lg bg-green-50 dark:bg-gray-900 dark:text-green-400"
+            <div class="w-10/12 sm:w-7/12 md:w-6/12 lg:w-4/12 flex justify-center items-center p-4 mt-8 text-sm rounded-lg bg-gray-900 text-green-400"
                 role="alert">
                 <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
                     fill="currentColor" viewBox="0 0 20 20">
@@ -59,7 +59,7 @@
             </div>
         @endif
         @error('review')
-            <div class="w-8/12 sm:w-5/12 md:w-4/12 lg:w-3/12 flex justify-center items-center p-4 mt-8 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-900 dark:text-red-400"
+            <div class="w-8/12 sm:w-5/12 md:w-4/12 lg:w-3/12 flex justify-center items-center p-4 mt-8 text-sm rounded-lg bg-gray-900 text-red-400"
                 role="alert">
                 <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
                     fill="currentColor" viewBox="0 0 20 20">
@@ -73,7 +73,7 @@
             </div>
         @enderror
         @error('rating')
-            <div class="w-8/12 sm:w-5/12 md:w-4/12 lg:w-3/12 flex justify-center items-center p-4 mt-8 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-900 dark:text-red-400"
+            <div class="w-8/12 sm:w-5/12 md:w-4/12 lg:w-3/12 flex justify-center items-center p-4 mt-8 text-sm rounded-lg bg-gray-900 text-red-400"
                 role="alert">
                 <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
                     fill="currentColor" viewBox="0 0 20 20">
@@ -87,7 +87,7 @@
             </div>
         @enderror
         @error('image')
-            <div class="w-8/12 sm:w-5/12 md:w-4/12 lg:w-3/12 flex justify-center items-center p-4 mt-8 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-900 dark:text-red-400"
+            <div class="w-8/12 sm:w-5/12 md:w-4/12 lg:w-3/12 flex justify-center items-center p-4 mt-8 text-sm rounded-lg bg-gray-900 text-red-400"
                 role="alert">
                 <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
                     fill="currentColor" viewBox="0 0 20 20">
@@ -127,17 +127,17 @@
                     <p class="text-base font-medium text-gray-900">{{ $product->description }}</p>
 
                     <div class="max-w-xs mt-8">
-                        <label for="{{ $product->id }}"
-                            class="block mb-2 text-sm font-semibold text-gray-900 dark:text-gray-900">Pilih jumlah:</label>
+                        <label for="{{ $product->id }}" class="block mb-2 text-sm font-semibold text-gray-900">Pilih
+                            jumlah:</label>
                         <form action="{{ route('member.carts.add', $product->id) }}" method="POST">
                             @csrf
                             <input type="hidden" name="submitButton" id="submitButton" value="">
                             <div class="relative flex items-center max-w-[8rem]">
                                 <button type="button" id="{{ 'input-decrement-' . $product->id }}"
                                     onClick="changeQuantity('{{ $product->id }}', -1, '{{ $product->price }}')"
-                                    class="cursor-pointer bg-gray-100 dark:bg-gray-900 dark:hover:bg-gray-800 dark:border-gray-900 hover:bg-gray-800 border border-gray-900 rounded-s-lg p-3 h-11">
-                                    <svg class="w-3 h-3 text-gray-900 dark:text-white" aria-hidden="true"
-                                        xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 2">
+                                    class="cursor-pointer bg-gray-900 hover:bg-gray-800 border-gray-900 border rounded-s-lg p-3 h-11">
+                                    <svg class="w-3 h-3 text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                                        fill="none" viewBox="0 0 18 2">
                                         <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
                                             stroke-width="2" d="M1 1h16" />
                                     </svg>
@@ -145,49 +145,48 @@
                                 <input type="text" id="{{ 'input-' . $product->id }}" name="quantity"
                                     value="{{ old('quantity', 0) }}" data-input-counter data-input-counter-min="1"
                                     aria-describedby="helper-text-explanation"
-                                    class="bg-gray-900 border-x-0 border-gray-900 h-11 text-center text-white text-sm block w-full py-2.5 dark:bg-gray-900 dark:border-gray-900 dark:placeholder-gray-800 dark:text-white"
+                                    class="border-x-0 h-11 text-center text-sm block w-full py-2.5 bg-gray-900 border-gray-900 placeholder-gray-800 text-white"
                                     required>
                                 <button type="button" id="{{ 'input-increment-' . $product->id }}"
                                     onClick="changeQuantity('{{ $product->id }}', 1, '{{ $product->price }}')"
-                                    class="cursor-pointer bg-gray-100 dark:bg-gray-900 dark:hover:bg-gray-800 dark:border-gray-900 hover:bg-gray-800 border border-gray-900 rounded-e-lg p-3 h-11 ">
-                                    <svg class="w-3 h-3 text-gray-900 dark:text-white" aria-hidden="true"
-                                        xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 18">
+                                    class="cursor-pointer bg-gray-900 hover:bg-gray-800 border-gray-900 border rounded-e-lg p-3 h-11 ">
+                                    <svg class="w-3 h-3 text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                                        fill="none" viewBox="0 0 18 18">
                                         <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
                                             stroke-width="2" d="M9 1v16M1 9h16" />
                                     </svg>
                                 </button>
                             </div>
-                            <p id="helper-text-explanation" class="mt-2 text-sm text-gray-600 dark:text-gray-600">Mohon
+                            <p id="helper-text-explanation" class="mt-2 text-sm text-gray-600">Mohon
                                 isikan
                                 jumlah pemesanan anda.</p>
                             @error('quantity')
-                                <p class="mt-1 text-sm text-red-600 dark:text-red-500"><span
-                                        class="font-medium">{{ $message }}</p>
+                                <p class="mt-1 text-sm text-red-500"><span class="font-medium">{{ $message }}</p>
                             @enderror
                             @if (session('over_quantity'))
-                                <p class="mt-1 text-sm text-red-600 dark:text-red-500"><span
+                                <p class="mt-1 text-sm text-red-500"><span
                                         class="font-medium">{{ session('over_quantity') }}</p>
                             @endif
                     </div>
                     <div class="flex flex-row mt-4 items-center">
                         <label for="cost" class="text-sm font-semibold text-gray-900">Subtotal:</label>
                         <input type="text" id="cost" name="cost" aria-label="disabled input 2"
-                            class="text-center ml-2 border {{ $errors->has('cost') ? 'bg-red-50 dark:bg-red-100 border-red-600 dark:border-red-400 text-red-600 dark:text-red-500 placeholder-red-700' : 'bg-gray-300 dark:bg-gray-300 border-yellow-500 dark:border-yellow-500 text-gray-600 dark:text-gray-600 placeholder-gray-400' }} text-sm rounded-lg block w-5/12 sm:w-3/12 p-2.5 cursor-not-allowed"
+                            class="text-center ml-2 border {{ $errors->has('cost') ? 'bg-red-100 border-red-400 text-red-500 placeholder-red-700' : 'bg-gray-300 border-yellow-500 text-gray-600 placeholder-gray-400' }} text-sm rounded-lg block w-5/12 sm:w-3/12 p-2.5 cursor-not-allowed"
                             value="{{ old('cost', 0) }}" readonly>
                     </div>
                     @error('cost')
-                        <p class="mt-1 text-sm text-red-600 dark:text-red-500"><span class="font-medium">{{ $message }}
+                        <p class="mt-1 text-sm text-red-500"><span class="font-medium">{{ $message }}
                         </p>
                     @enderror
                     <hr class="h-px my-6 border-0 bg-gray-400">
                     <div class="flex flex-row justify-center">
                         <button type="submit" onclick="setSubmitButton('submit1')"
-                            class="cursor-pointer text-yellow-500 hover:text-white border border-yellow-500 hover:bg-yellow-500 font-medium rounded-lg text-base px-5 py-2.5 me-2 dark:border-yellow-500 dark:text-yellow-500 dark:hover:text-white dark:hover:bg-yellow-500">Beli
+                            class="cursor-pointer border font-medium rounded-lg text-base px-5 py-2.5 me-2 border-yellow-500 text-yellow-500 hover:text-white hover:bg-yellow-500">Beli
                             Langsung</button>
                         <button type="submit" onclick="setSubmitButton('submit2')"
                             class="cursor-pointer text-white bg-yellow-500 hover:bg-yellow-600 font-medium rounded-lg text-base px-5 py-2.5 text-center inline-flex items-center">
-                            <svg class="w-3 h-3 mr-2 text-white dark:text-white" aria-hidden="true"
-                                xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 18">
+                            <svg class="w-3 h-3 mr-2 text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                                fill="none" viewBox="0 0 18 18">
                                 <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
                                     stroke-width="2" d="M9 1v16M1 9h16" />
                             </svg>
@@ -199,13 +198,13 @@
             </div>
             <div class="flex flex-col h-full">
                 <div class="flex flex-row justify-between items-center">
-                    <h1 class="text-xl sm:text-2xl lg:text-3xl font-semibold dark:text-gray-900">Ulasan Produk</h1>
+                    <h1 class="text-xl sm:text-2xl lg:text-3xl font-semibold text-gray-900">Ulasan Produk</h1>
                     @if ($check_order_user)
                         @if (!$check_testimonies)
                             <button type="button" data-modal-target="add_testimony_modal"
                                 data-modal-toggle="add_testimony_modal"
                                 class="inline-flex cursor-pointer text-white bg-yellow-500 hover:bg-yellow-600 font-medium rounded-lg text-sm px-3 py-2.5 text-center items-center">
-                                <svg class="w-4 h-4 mr-2 text-white dark:text-white" aria-hidden="true"
+                                <svg class="w-4 h-4 mr-2 text-white" aria-hidden="true"
                                     xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 18">
                                     <path
                                         d="M18 0H2a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h3.546l3.2 3.659a1 1 0 0 0 1.506 0L13.454 14H18a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2Zm-8 10H5a1 1 0 0 1 0-2h5a1 1 0 1 1 0 2Zm5-4H5a1 1 0 0 1 0-2h10a1 1 0 1 1 0 2Z" />
@@ -218,7 +217,7 @@
                                 <div class="relative p-4 w-full max-w-md max-h-full">
                                     <div class="relative rounded-lg shadow bg-white">
                                         <button type="button"
-                                            class="cursor-pointer absolute top-3 end-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
+                                            class="cursor-pointer absolute top-3 end-2.5 text-gray-400 bg-transparent rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center hover:bg-gray-600 hover:text-white"
                                             data-modal-hide="add_testimony_modal">
                                             <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
                                                 fill="none" viewBox="0 0 14 14">
@@ -235,13 +234,13 @@
                                                 <label for="review"
                                                     class="mb-2 block text-sm font-semibold text-gray-900">Review</label>
                                                 <textarea id="review" name="review" rows="4"
-                                                    class="{{ $errors->has('review') ? 'bg-red-50 dark:bg-red-100 border-red-600 dark:border-red-400 text-red-600 dark:text-red-500 placeholder-red-700' : 'bg-white border-yellow-500 text-gray-900 placeholder-gray-400  focus:ring-yellow-500 focus:border-yellow-500' }} text-center rounded-lg border-1 text-sm block w-full p-2.5"
+                                                    class="{{ $errors->has('review') ? 'bg-red-100 border-red-400 text-red-500 placeholder-red-700' : 'bg-white border-yellow-500 text-gray-900 placeholder-gray-400  focus:ring-yellow-500 focus:border-yellow-500' }} text-center rounded-lg border-1 text-sm block w-full p-2.5"
                                                     placeholder="Berikan ulasan anda terhadap produk ini">{{ old('review') }}</textarea>
                                                 <label for="rating"
                                                     class="mt-4 mb-2 block text-sm font-semibold text-gray-900">Rating</label>
                                                 <input type="number" id="rating" name="rating"
                                                     aria-describedby="helper-text-explanation"
-                                                    class="{{ $errors->has('review') ? 'bg-red-50 dark:bg-red-100 border-red-600 dark:border-red-400 text-red-600 dark:text-red-500 placeholder-red-700' : 'bg-white border-yellow-500 text-gray-900 placeholder-gray-400  focus:ring-yellow-500 focus:border-yellow-500' }} text-center rounded-lg border-1 text-sm block w-full p-2.5"
+                                                    class="{{ $errors->has('review') ? 'bg-red-100 border-red-400 text-red-500 placeholder-red-700' : 'bg-white border-yellow-500 text-gray-900 placeholder-gray-400  focus:ring-yellow-500 focus:border-yellow-500' }} text-center rounded-lg border-1 text-sm block w-full p-2.5"
                                                     placeholder="Beri rating dari 1 - 5" min="1" max="5"
                                                     value="{{ old('rating') }}">
                                                 <span class="mt-4 mb-2 block text-sm font-semibold text-gray-900">Upload
@@ -285,7 +284,7 @@
                             <button type="button" data-modal-target="update_testimony_modal"
                                 data-modal-toggle="update_testimony_modal"
                                 class="inline-flex cursor-pointer text-white bg-yellow-500 hover:bg-yellow-600 font-medium rounded-lg text-sm px-3 py-2.5 text-center items-center">
-                                <svg class="w-4 h-4 mr-2 text-white dark:text-white" aria-hidden="true"
+                                <svg class="w-4 h-4 mr-2 text-white" aria-hidden="true"
                                     xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 18">
                                     <path
                                         d="M18 0H2a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h3.546l3.2 3.659a1 1 0 0 0 1.506 0L13.454 14H18a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2Zm-8 10H5a1 1 0 0 1 0-2h5a1 1 0 1 1 0 2Zm5-4H5a1 1 0 0 1 0-2h10a1 1 0 1 1 0 2Z" />
@@ -300,7 +299,7 @@
                                 <div class="relative p-4 w-full max-w-md max-h-full">
                                     <div class="relative rounded-lg shadow bg-white">
                                         <button type="button"
-                                            class="cursor-pointer absolute top-3 end-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
+                                            class="cursor-pointer absolute top-3 end-2.5 text-gray-400 bg-transparent rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center hover:bg-gray-600 hover:text-white"
                                             data-modal-hide="update_testimony_modal">
                                             <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
                                                 fill="none" viewBox="0 0 14 14">
@@ -317,13 +316,13 @@
                                                 <label for="review"
                                                     class="mb-2 block text-sm font-semibold text-gray-900">Review</label>
                                                 <textarea id="review" name="review" rows="4"
-                                                    class="{{ $errors->has('review') ? 'bg-red-50 dark:bg-red-100 border-red-600 dark:border-red-400 text-red-600 dark:text-red-500 placeholder-red-700' : 'bg-white border-yellow-500 text-gray-900 placeholder-gray-400  focus:ring-yellow-500 focus:border-yellow-500' }} text-center rounded-lg border-1 text-sm block w-full p-2.5"
+                                                    class="{{ $errors->has('review') ? 'bg-red-100 border-red-400 text-red-500 placeholder-red-700' : 'bg-white border-yellow-500 text-gray-900 placeholder-gray-400  focus:ring-yellow-500 focus:border-yellow-500' }} text-center rounded-lg border-1 text-sm block w-full p-2.5"
                                                     placeholder="Berikan ulasan anda terhadap produk ini">{{ old('review', $check_testimonies->review) }}</textarea>
                                                 <label for="rating"
                                                     class="mt-4 mb-2 block text-sm font-semibold text-gray-900">Rating</label>
                                                 <input type="number" id="rating" name="rating"
                                                     aria-describedby="helper-text-explanation"
-                                                    class="{{ $errors->has('review') ? 'bg-red-50 dark:bg-red-100 border-red-600 dark:border-red-400 text-red-600 dark:text-red-500 placeholder-red-700' : 'bg-white border-yellow-500 text-gray-900 placeholder-gray-400  focus:ring-yellow-500 focus:border-yellow-500' }} text-center rounded-lg border-1 text-sm block w-full p-2.5"
+                                                    class="{{ $errors->has('review') ? 'bg-red-100 border-red-400 text-red-500 placeholder-red-700' : 'bg-white border-yellow-500 text-gray-900 placeholder-gray-400  focus:ring-yellow-500 focus:border-yellow-500' }} text-center rounded-lg border-1 text-sm block w-full p-2.5"
                                                     placeholder="Beri rating dari 1 - 5" min="1" max="5"
                                                     value="{{ old('rating', $check_testimonies->rating) }}">
                                                 <span class="mt-4 mb-2 block text-sm font-semibold text-gray-900">Upload
@@ -380,7 +379,7 @@
                             <div class="flex flex-row gap-x-3 mt-3 w-full">
                                 <div class="flex-none">
                                     <img class="w-12 h-12 object-top object-cover rounded-full overflow-hidden"
-                                        src="/images/testing/{{ $testimony->user->profile_picture }}"
+                                        src="{{ asset('storage/' . $testimony->user->profile_picture) }}"
                                         alt="{{ $testimony->user->name }}">
                                 </div>
                                 <div class="flex flex-col mt-1 w-full">
@@ -408,7 +407,7 @@
                                     @endphp
                                     <div class="flex flex-row mt-3">
                                         @for ($i = 1; $i <= $testimony->rating; $i++)
-                                            <svg class="w-5 h-5 text-yellow-500 dark:text-yellow-500" aria-hidden="true"
+                                            <svg class="w-5 h-5 text-yellow-500" aria-hidden="true"
                                                 xmlns="http://www.w3.org/2000/svg" fill="currentColor"
                                                 viewBox="0 0 22 20">
                                                 <path
@@ -423,8 +422,8 @@
                                                 $differenceStar = 5 - $count_star;
                                             @endphp
                                             @for ($i = 1; $i <= $differenceStar; $i++)
-                                                <svg class="w-5 h-5 text-yellow-500 dark:text-yellow-500"
-                                                    aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
+                                                <svg class="w-5 h-5 text-yellow-500" aria-hidden="true"
+                                                    xmlns="http://www.w3.org/2000/svg" fill="none"
                                                     viewBox="0 0 21 20">
                                                     <path stroke="currentColor" stroke-linecap="round"
                                                         stroke-linejoin="round" stroke-width="2"
@@ -449,7 +448,7 @@
                         @endforeach
                     @else
                         <div class="mt-4 col-span-2 flex flex-col items-center justify-center">
-                            <h1 class="text-center text-lg font-bold text-gray-400 dark:text-gray-400">Mohon maaf, belum
+                            <h1 class="text-center text-lg font-bold text-gray-400">Mohon maaf, belum
                                 ada
                                 review terkait
                                 produk ini!</h1>
@@ -462,7 +461,7 @@
             </div>
             <div class="flex flex-col">
                 <div class="flex flex-row justify-between items-center">
-                    <h1 class="text-xl sm:text-2xl lg:text-3xl font-semibold dark:text-gray-900">Produk Lainnya</h1>
+                    <h1 class="text-xl sm:text-2xl lg:text-3xl font-semibold text-gray-900">Produk Lainnya</h1>
                     <a href="{{ route('products') }}">
                         <p class="text-sm font-medium text-yellow-500 hover:text-yellow-600">Lihat semua</p>
                     </a>
@@ -476,7 +475,7 @@
                                 class="relative hover:shadow-xl transform transition duration-500 hover:-translate-y-4 hover:z-40">
                                 <a href="{{ route('member.products.show', $bestseller->product->id) }}">
                                     <div
-                                        class="relative w-full h-full bg-white rounded-lg dark:bg-gray-900 dark:border-gray-800 mx-auto shadow">
+                                        class="relative w-full h-full rounded-lg bg-gray-900 border-gray-800 mx-auto shadow">
                                         <img class="h-3/4 rounded-t-lg w-full object-center object-cover"
                                             src="/images/fotoproduk/{{ $bestseller->product->image }}"
                                             alt="{{ $bestseller->product->name }}" />
@@ -493,9 +492,9 @@
                                                         {{ number_format($bestseller->product->price, 0, ',', '.') }}</p>
                                                     <p
                                                         class="ml-2 flex items-center text-base sm:text-sm md:text-lg lg:text-sm font-bold text-red-600 text-center">
-                                                        <svg class="w-4 h-4 mr-2 text-red-600 dark:text-red-600"
-                                                            aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
-                                                            fill="none" viewBox="0 0 14 10">
+                                                        <svg class="w-4 h-4 mr-2 text-red-600" aria-hidden="true"
+                                                            xmlns="http://www.w3.org/2000/svg" fill="none"
+                                                            viewBox="0 0 14 10">
                                                             <path stroke="currentColor" stroke-linecap="round"
                                                                 stroke-linejoin="round" stroke-width="2"
                                                                 d="M1 5h12m0 0L9 1m4 4L9 9" />
@@ -560,7 +559,7 @@
                 @endforeach
             @else
                 <div class="col-span-2 flex flex-col items-center justify-center">
-                    <h1 class="text-center text-lg font-bold text-gray-400 dark:text-gray-400">Mohon maaf, belum ada
+                    <h1 class="text-center text-lg font-bold text-gray-400">Mohon maaf, belum ada
                         produk best seller!</h1>
                 </div>
                 @endif

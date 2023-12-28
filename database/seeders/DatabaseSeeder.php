@@ -34,7 +34,7 @@ class DatabaseSeeder extends Seeder
             OrderSeeder::class,
             OrderDetailSeeder::class,
 
-            ProductionSeeder::class,
+            // ProductionSeeder::class,
         ]);
 
         Model::reguard();

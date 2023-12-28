@@ -2,9 +2,9 @@
 
 @section('content_page')
     <div class="mx-auto w-11/12 sm:max-w-screen-xl text-center sm:col-span-2 md:col-span-2 lg:col-span-4 mt-16">
-        <h1 class="mb-8 font-extrabold tracking-tight leading-none text-gray-900 text-5xl sm:text-6xl">
+        <h1 class="mb-8 text-4xl font-extrabold tracking-tight leading-none text-gray-900 md:text-5xl lg:text-6xl">
             {!! $pageTitle !!}</h1>
-        <p class="font-normal text-gray-900 text-lg sm:text-xl sm:px-16 lg:px-48">{!! $pageDescription !!}</p>
+        <p class="text-lg font-normal text-gray-900 lg:text-xl sm:px-16 lg:px-48">{!! $pageDescription !!}</p>
     </div>
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 pt-16 px-12 pb-16 mx-auto">
 
@@ -25,7 +25,6 @@
                         Your browser does not support the video tag.
                     </video>
                 @endif
-
             </div>
         @endforeach
     </div>

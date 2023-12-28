@@ -3,7 +3,7 @@
 @section('content_page')
 
     <!-- Start block -->
-    <section class="dark:bg-neutral-200 p-2 sm:p-4 antialiased h-full">
+    <section class="bg-neutral-200 p-2 sm:p-4 antialiased h-full">
         <div class="mx-auto max-w-screen-2xl pt-24 sm:ml-56">
             <div class="bg-white relative shadow-md sm:rounded-lg overflow-hidden">
                 <div

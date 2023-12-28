@@ -14,12 +14,10 @@ class GalleryController extends Controller
     public function index()
     {
         return view('gallery_page', [
-
-            "TabTitle" => "Gallery Lisahwan Snacks Surabaya",
+            "TabTitle" => "Galeri Lisahwan",
+            "active_3" => "text-yellow-500 rounded md:bg-transparent md:p-0",
             "pageTitle" => '<mark class="px-2 text-yellow-500 bg-gray-900 rounded dark:bg-gray-900">Galeri</mark> Lisahwan',
             'pageDescription' => 'Kisah Rasa <span class="underline underline-offset-2 decoration-4 decoration-yellow-500">Autentik, Lokal, Homemade,</span> dan <span class="underline underline-offset-2 decoration-4 decoration-yellow-500">Premium</span>',
-            "active_3" => "text-white rounded md:bg-transparent md:text-yellow-500 md:p-0 md:dark:text-yellow-500",
-
             "galleries" => Gallery::all(),
         ]);
     }

@@ -145,6 +145,7 @@ class CartController extends Controller
                 'customer.edit_orderdetail',
                 [
                     "TabTitle" => $cart_detail->product->name,
+                    "active_2" => "text-yellow-500 rounded md:bg-transparent md:p-0",
                     "total_product" => $total_product,
                     "testimonies" => $testimonies,
                     "products_bestseller" => $products_bestseller,

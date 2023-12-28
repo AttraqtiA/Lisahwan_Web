@@ -29,11 +29,11 @@ class OrderController extends Controller
                 ->orderByDesc('total_quantity')
                 ->take(4)
                 ->get();
-
             $shipment_price = $cart->getShipmentPrice();
             $address = Address::where('user_id', Auth::user()->id)->get();
             return view('customer.checkout', [
                 "TabTitle" => "Checkout",
+                "active_2" => "text-yellow-500 rounded md:bg-transparent md:p-0",
                 "products_bestseller" => $products_bestseller,
                 "carts" => $cart->cart_detail,
                 "shipment_price" => $shipment_price,
@@ -68,9 +68,9 @@ class OrderController extends Controller
                 'customer.orderhistory',
                 [
                     "TabTitle" => "Riwayat Pemesanan",
-                    "pageTitle" => '<mark class="px-2 text-yellow-500 bg-gray-800 rounded dark:bg-gray-800">Riwayat</mark> Pemesanan',
+                    "active_history" => "text-yellow-500 rounded md:bg-transparent md:p-0",
+                    "pageTitle" => '<mark class="px-2 text-yellow-500 bg-gray-900 rounded">Riwayat</mark> Pemesanan',
                     'pageDescription' => 'Lacak pesanan anda <span class="underline underline-offset-2 decoration-4 decoration-yellow-500">di sini!</span>',
-                    "active_history" => "text-white rounded md:bg-transparent md:text-yellow-500 md:p-0",
                     "orders" => $orders,
                     "carts" => $carts
                 ]
@@ -192,7 +192,7 @@ class OrderController extends Controller
 
         $cart->delete();
 
-        return redirect()->route('products')->with('order_success', 'Pemesanan anda berhasil! <br><a href="'.route('member.orderhistory').'" class="inline-flex items-center font-bold text-yellow-500">Check Status Pesanan <svg class="ml-1 w-4 h-4 text-yellow-500" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10"> <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M1 5h12m0 0L9 1m4 4L9 9" /> </svg></a>');
+        return redirect()->route('products')->with('order_success', 'Pemesanan anda berhasil! <br><a href="' . route('member.orderhistory') . '" class="inline-flex items-center font-bold text-yellow-500">Check Status Pesanan <svg class="ml-1 w-4 h-4 text-yellow-500" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10"> <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M1 5h12m0 0L9 1m4 4L9 9" /> </svg></a>');
     }
 
     /**

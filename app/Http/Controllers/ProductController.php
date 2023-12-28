@@ -4,13 +4,31 @@ namespace App\Http\Controllers;
 
 use App\Models\Cart;
 use App\Models\Product;
-use App\Models\Production;
+use App\Models\OrderDetail;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Storage;
 
 class ProductController extends Controller
 {
+    public function home()
+    {
+        $products_bestseller = OrderDetail::select('product_id', DB::raw('SUM(quantity) as total_quantity'))
+            ->groupBy('product_id')
+            ->orderByDesc('total_quantity')
+            ->take(4)
+            ->get();
+        return view('index', [
+            "TabTitle" => "Lisahwan Snacks Surabaya",
+            "active_1" => "text-yellow-500 rounded md:bg-transparent md:p-0",
+            "carousel_1" => "/images/fotoproduk/GalleryCarousel_12.jpeg",
+            "carousel_2" => "/images/fotoproduk/GalleryCarousel_10.jpg",
+            "carousel_3" => "/images/fotoproduk/GalleryCarousel_8.jpg",
+            "carousel_4" => "/images/fotoproduk/GalleryCarousel_13.jpeg",
+            "products_bestseller" => $products_bestseller,
+        ]);
+    }
+
     /**
      * Display a listing of the resource.
      */
@@ -25,34 +43,21 @@ class ProductController extends Controller
             }
             return view('customer.products', [
                 "TabTitle" => "Produk Lisahwan",
-                "pageTitle" => '<mark class="px-2 text-yellow-500 bg-gray-800 rounded dark:bg-gray-800">Produk</mark> Kami',
+                "active_2" => "text-yellow-500 rounded md:bg-transparent md:p-0",
+                "pageTitle" => '<mark class="px-2 text-yellow-500 bg-gray-900 rounded">Produk</mark> Kami',
                 'pageDescription' => 'Jelajahi camilan terbaik di <span class="underline underline-offset-2 decoration-4 decoration-yellow-500">Lisahwan</span> dan pilih favorit Anda sekarang!',
-                "active_2" => "text-white rounded md:bg-transparent md:text-yellow-500 md:p-0 md:dark:text-yellow-500",
                 "products" => Product::all(),
                 "carts" => $carts
             ]);
         } else {
             return view('customer.products', [
                 "TabTitle" => "Produk Lisahwan",
-                "pageTitle" => '<mark class="px-2 text-yellow-500 bg-gray-800 rounded dark:bg-gray-800">Produk</mark> Kami',
+                "active_2" => "text-yellow-500 rounded md:bg-transparent md:p-0",
+                "pageTitle" => '<mark class="px-2 text-yellow-500 bg-gray-900 rounded">Produk</mark> Kami',
                 'pageDescription' => 'Jelajahi camilan terbaik di <span class="underline underline-offset-2 decoration-4 decoration-yellow-500">Lisahwan</span> dan pilih favorit Anda sekarang!',
-                "active_2" => "text-white rounded md:bg-transparent md:text-yellow-500 md:p-0 md:dark:text-yellow-500",
                 "products" => Product::all()
             ]);
         }
-    }
-
-    public function best_seller()
-    {
-        return view('index', [
-            "carousel_1" => "/images/fotoproduk/GalleryCarousel_12.jpeg",
-            "carousel_2" => "/images/fotoproduk/GalleryCarousel_3.jpg",
-            "carousel_3" => "/images/fotoproduk/GalleryCarousel_10.jpg",
-            "carousel_4" => "/images/fotoproduk/GalleryCarousel_11.jpg",
-            "TabTitle" => "Lisahwan Snacks Surabaya",
-            "active_1" => "text-white rounded md:bg-transparent md:text-yellow-500 md:p-0",
-            // "products" => Product::where('best_seller', true)->get(),
-        ]);
     }
 
     public function admin_products(Request $request)

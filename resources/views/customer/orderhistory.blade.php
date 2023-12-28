@@ -3,7 +3,7 @@
 @section('content_page')
     <div class="flex flex-col items-center">
         @if (session('deleteCart_success'))
-            <div class="w-8/12 sm:w-5/12 md:w-4/12 lg:w-3/12 flex justify-center items-center p-4 mt-8 text-sm text-green-800 rounded-lg bg-green-50 dark:bg-gray-900 dark:text-green-400"
+            <div class="w-8/12 sm:w-5/12 md:w-4/12 lg:w-3/12 flex justify-center items-center p-4 mt-8 text-sm rounded-lg  bg-gray-900 text-green-400"
                 role="alert">
                 <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
                     fill="currentColor" viewBox="0 0 20 20">
@@ -123,14 +123,15 @@
                                         </p>
                                         <p class="mt-2 text-sm font-normal text-gray-600">
                                             ({{ $order_detail->product->weight }}
-                                            gram)</p>
+                                            gram)
+                                        </p>
                                     </div>
                                     <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center">
                                         <div class="flex flex-col justify-center">
                                             <a href="{{ route('member.products.show', $order_detail->product_id) }}">
                                                 <button type="button"
                                                     class="cursor-pointer text-white bg-yellow-500 hover:bg-yellow-600 font-medium rounded-md text-sm sm:text-sm md:text-sm lg:text-sm px-2 py-1 inline-flex items-center">
-                                                    <svg class="w-4 h-4 mr-1 text-white dark:text-white" aria-hidden="true"
+                                                    <svg class="w-4 h-4 mr-1 text-white" aria-hidden="true"
                                                         xmlns="http://www.w3.org/2000/svg" fill="currentColor"
                                                         viewBox="0 0 18 20">
                                                         <path
@@ -150,7 +151,7 @@
                                         </div>
                                         <span
                                             class="mt-5 sm:mt-0 inline-flex justify-center items-center bg-yellow-100 text-yellow-800 sm:text-xs md:text-sm font-medium px-3 py-1.5 rounded border border-yellow-500"><svg
-                                                class="w-3 h-3 mr-1 text-yellow-800 dark:text-yellow-800" aria-hidden="true"
+                                                class="w-3 h-3 mr-1 text-yellow-800" aria-hidden="true"
                                                 xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 18">
                                                 <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
                                                     stroke-width="2" d="M9 1v16M1 9h16" />

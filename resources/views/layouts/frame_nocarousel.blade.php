@@ -33,7 +33,7 @@
 
         <div class="bg-neutral-200">
             @yield('content_page')
-            </div>
+        </div>
 
         @include('layouts.contact_src')
 
