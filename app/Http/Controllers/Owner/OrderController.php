@@ -50,15 +50,24 @@ class OrderController extends Controller
     public function history(Request $request)
     {
         if ($request->has('search')) {
-            $orders = Order::where('order_date', 'like', '%' . $request->search . '%')->orWhere('acceptbyAdmin_status', 'like', '%' . $request->search . '%')->orWhere('shipment_status', 'like', '%' . $request->search . '%')->orWhere('acceptbyCustomer_status', 'like', '%' . $request->search . '%')
-                ->orWhere('total_price', 'like', '%' . $request->search . '%')
-                ->orWhereHas('user', function ($query) use ($request) {
-                    $query->where('name', 'like', '%' . $request->search . '%');
-                    $query->where('phone_number', 'like', '%' . $request->search . '%');
-                })
-                ->paginate(10)->withQueryString();
+            $searchTerm = $request->search;
+
+            $findUser = User::where('name', 'like', '%' . $searchTerm . '%')->orWhere('phone_number', 'like', '%' . $searchTerm . '%')->first();
+
+            $orders = Order::where(function ($query) use ($searchTerm) {
+                $query->where('order_date', 'like', '%' . $searchTerm . '%')
+                    ->orWhere('acceptbyAdmin_status', 'like', '%' . $searchTerm . '%')
+                    ->orWhere('shipment_status', 'like', '%' . $searchTerm . '%')
+                    ->orWhere('acceptbyCustomer_status', 'like', '%' . $searchTerm . '%')
+                    ->orWhere('total_price', 'like', '%' . $searchTerm . '%')
+                    ->orWhere('user_id', 'like', '%' . $searchTerm . '%');
+                 })
+                ->paginate(10)
+                ->withQueryString();
         } else {
-            $orders = Order::paginate(10);
+            $orders = Order::whereDate('order_date', Carbon::today())
+                ->orWhereDate('order_date', Carbon::yesterday())
+                ->paginate(10);
         }
 
         return view('admin.order_history', [
@@ -102,14 +111,40 @@ class OrderController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Order $order)
+    public function updateToday(Request $request, Order $order)
     {
         $validatedData = $request->validate([ // TANPA ORDER DATE YAA
             'acceptbyAdmin_status' => 'required',
             'shipment_status' => 'required',
             'acceptbyCustomer_status' => 'required',
-            'shipment_date' => 'nullable|date_format:Y-m-d\TH:i',
-            'arrived_date' => 'nullable|date_format:Y-m-d\TH:i',
+            'shipment_date' => 'required|date_format:Y-m-d\TH:i',
+            'arrived_date' => 'required|date_format:Y-m-d\TH:i',
+            'note' => 'nullable',
+            'is_print' => 'required',
+        ]);
+
+        $order->update([
+            'acceptbyAdmin_status' => $validatedData['acceptbyAdmin_status'],
+            'shipment_status' => $validatedData['shipment_status'],
+            'acceptbyCustomer_status' => $validatedData['acceptbyCustomer_status'],
+            'shipment_date' => $validatedData['shipment_date'],
+            'arrived_date' => $validatedData['arrived_date'],
+            'note' => $validatedData['note'],
+            'is_print' => $validatedData['is_print'],
+        ]);
+
+
+        return redirect()->route('owner.admin');
+    }
+
+    public function updateHistory(Request $request, Order $order)
+    {
+        $validatedData = $request->validate([ // TANPA ORDER DATE YAA
+            'acceptbyAdmin_status' => 'required',
+            'shipment_status' => 'required',
+            'acceptbyCustomer_status' => 'required',
+            'shipment_date' => 'required|date_format:Y-m-d\TH:i',
+            'arrived_date' => 'required|date_format:Y-m-d\TH:i',
             'note' => 'nullable',
             'is_print' => 'required',
         ]);

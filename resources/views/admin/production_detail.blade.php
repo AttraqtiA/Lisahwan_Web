@@ -83,6 +83,10 @@
                                     <input type="number" name="stock" id="stock"
                                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
                                         placeholder="Contoh: 10" required="">
+                                    @error('stock')
+                                        <p class="mt-2 text-sm text-red-500"><span class="font-medium">{{ $message }}
+                                        </p>
+                                    @enderror
                                 </div>
 
                                 <button type="submit"
@@ -198,6 +202,10 @@
                                     </p>
                                 </div>
                             </label>
+                            @error('image')
+                                <p class="mt-2 text-sm text-red-500"><span class="font-medium">{{ $message }}
+                                </p>
+                            @enderror
                         </div>
 
 

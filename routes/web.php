@@ -75,10 +75,10 @@ Route::group([
     'as' => 'owner.'
 ], function () {
     Route::get('/admin', [OwnerOrderController::class, 'index'])->name('admin');
-    Route::put('/admin/update/{order}', [OwnerOrderController::class, 'update'])->name('admin.update');
+    Route::put('/admin/update/{order}', [OwnerOrderController::class, 'updateToday'])->name('admin.update');
 
     Route::get('/order_history', [OwnerOrderController::class, 'history'])->name('order_history');
-    Route::put('/order_history/update/{order}', [OwnerOrderController::class, 'update'])->name('order_history.update');
+    Route::put('/order_history/update/{order}', [OwnerOrderController::class, 'updateHistory'])->name('order_history.update');
 
     Route::get('/admin_products', [OwnerProductController::class, 'admin_products'])->name('admin_products');
     Route::post('/admin_products', [OwnerProductController::class, 'store'])->name('admin_products.store');
@@ -100,10 +100,10 @@ Route::group([
     'as' => 'admin.'
 ], function () {
     Route::get('/admin', [AdminOrderController::class, 'index'])->name('admin');
-    Route::put('/admin/update/{order}', [OwnerOrderController::class, 'update'])->name('admin.update');
+    Route::put('/admin/update/{order}', [AdminOrderController::class, 'updateToday'])->name('admin.update');
 
     Route::get('/order_history', [AdminOrderController::class, 'history'])->name('order_history');
-    Route::put('/order_history/update/{order}', [AdminOrderController::class, 'update'])->name('order_history.update');
+    Route::put('/order_history/update/{order}', [AdminOrderController::class, 'updateHistory'])->name('order_history.update');
 });
 //====================================================================================================
 

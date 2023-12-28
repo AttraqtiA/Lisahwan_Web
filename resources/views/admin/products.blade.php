@@ -30,17 +30,8 @@
                             <div class="tooltip-arrow" data-popper-arrow=""></div>
                         </div>
                     </div>
-                    <div
-                        class="flex-shrink-0 flex flex-col items-start md:flex-row md:items-center lg:justify-end space-y-3 md:space-y-0 md:space-x-3">
-                        <button type="button"
-                            class="flex-shrink-0 inline-flex items-center justify-center py-2 px-3 text-xs font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-primary-700 focus:z-10 focus:ring-4 focus:ring-gray-200">
-                            <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 24 24" fill="currentColor"
-                                class="mr-2 w-4 h-4" aria-hidden="true">
-                                <path fill-rule="evenodd" clip-rule="evenodd"
-                                    d="M11.828 2.25c-.916 0-1.699.663-1.85 1.567l-.091.549a.798.798 0 01-.517.608 7.45 7.45 0 00-.478.198.798.798 0 01-.796-.064l-.453-.324a1.875 1.875 0 00-2.416.2l-.243.243a1.875 1.875 0 00-.2 2.416l.324.453a.798.798 0 01.064.796 7.448 7.448 0 00-.198.478.798.798 0 01-.608.517l-.55.092a1.875 1.875 0 00-1.566 1.849v.344c0 .916.663 1.699 1.567 1.85l.549.091c.281.047.508.25.608.517.06.162.127.321.198.478a.798.798 0 01-.064.796l-.324.453a1.875 1.875 0 00.2 2.416l.243.243c.648.648 1.67.733 2.416.2l.453-.324a.798.798 0 01.796-.064c.157.071.316.137.478.198.267.1.47.327.517.608l.092.55c.15.903.932 1.566 1.849 1.566h.344c.916 0 1.699-.663 1.85-1.567l.091-.549a.798.798 0 01.517-.608 7.52 7.52 0 00.478-.198.798.798 0 01.796.064l.453.324a1.875 1.875 0 002.416-.2l.243-.243c.648-.648.733-1.67.2-2.416l-.324-.453a.798.798 0 01-.064-.796c.071-.157.137-.316.198-.478.1-.267.327-.47.608-.517l.55-.091a1.875 1.875 0 001.566-1.85v-.344c0-.916-.663-1.699-1.567-1.85l-.549-.091a.798.798 0 01-.608-.517 7.507 7.507 0 00-.198-.478.798.798 0 01.064-.796l.324-.453a1.875 1.875 0 00-.2-2.416l-.243-.243a1.875 1.875 0 00-2.416-.2l-.453.324a.798.798 0 01-.796.064 7.462 7.462 0 00-.478-.198.798.798 0 01-.517-.608l-.091-.55a1.875 1.875 0 00-1.85-1.566h-.344zM12 15.75a3.75 3.75 0 100-7.5 3.75 3.75 0 000 7.5z" />
-                            </svg>
-                            Table settings
-                        </button>
+                    <div class="text-lg font-bold text-gray-800">
+                        Daftar Produk
                     </div>
                 </div>
                 <div
@@ -285,6 +276,11 @@
                                                             <input type="text" name="name" id="name"
                                                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
                                                                 value="{{ $product->name }}" required="">
+                                                            @error('name')
+                                                                <p class="mt-2 text-sm text-red-500"><span
+                                                                        class="font-medium">{{ $message }}
+                                                                </p>
+                                                            @enderror
                                                         </div>
 
                                                         <div>
@@ -295,6 +291,11 @@
                                                             <input type="number" name="price" id="price"
                                                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
                                                                 value="{{ $product->price }}" required="">
+                                                            @error('price')
+                                                                <p class="mt-2 text-sm text-red-500"><span
+                                                                        class="font-medium">{{ $message }}
+                                                                </p>
+                                                            @enderror
                                                         </div>
                                                         <div>
                                                             <label for="weight"
@@ -304,6 +305,11 @@
                                                             <input type="number" name="weight" id="weight"
                                                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
                                                                 value="{{ $product->weight }}" required="">
+                                                            @error('weight')
+                                                                <p class="mt-2 text-sm text-red-500"><span
+                                                                        class="font-medium">{{ $message }}
+                                                                </p>
+                                                            @enderror
                                                         </div>
 
                                                         <div>
@@ -313,6 +319,11 @@
                                                             <input type="number" name="discount" id="discount"
                                                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
                                                                 value="{{ $product->discount }}" required="">
+                                                            @error('discount')
+                                                                <p class="mt-2 text-sm text-red-500"><span
+                                                                        class="font-medium">{{ $message }}
+                                                                </p>
+                                                            @enderror
                                                         </div>
 
 
@@ -322,6 +333,11 @@
                                                             <textarea name="description" id="description" rows="4"
                                                                 class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-primary-500 focus:border-primary-500">{{ $product->description }}
                                                             </textarea>
+                                                            @error('description')
+                                                                <p class="mt-2 text-sm text-red-500"><span
+                                                                        class="font-medium">{{ $message }}
+                                                                </p>
+                                                            @enderror
                                                         </div>
 
                                                         <p
@@ -403,6 +419,10 @@
                             <input type="text" name="name" id="name"
                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
                                 placeholder="(Contoh: Teri Oven)" required="">
+                            @error('name')
+                                <p class="mt-2 text-sm text-red-500"><span class="font-medium">{{ $message }}
+                                </p>
+                            @enderror
                         </div>
 
                         <div>
@@ -410,6 +430,10 @@
                             <input type="number" name="price" id="price"
                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
                                 placeholder="(Contoh: 42000)" required="">
+                            @error('price')
+                                <p class="mt-2 text-sm text-red-500"><span class="font-medium">{{ $message }}
+                                </p>
+                            @enderror
                         </div>
 
                         <div class="grid gap-4 sm:col-span-2 md:gap-6 sm:grid-cols-4">
@@ -419,12 +443,20 @@
                                 <input type="number" name="weight" id="weight"
                                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
                                     placeholder="" required="">
+                                @error('weight')
+                                    <p class="mt-2 text-sm text-red-500"><span class="font-medium">{{ $message }}
+                                    </p>
+                                @enderror
                             </div>
                             <div>
                                 <label for="stock" class="block mb-2 text-sm font-medium text-gray-900">Stok</label>
                                 <input type="number" name="stock" id="stock"
                                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
                                     placeholder="" required="">
+                                @error('stock')
+                                    <p class="mt-2 text-sm text-red-500"><span class="font-medium">{{ $message }}
+                                    </p>
+                                @enderror
                             </div>
                             <div>
                                 <label for="discount" class="block mb-2 text-sm font-medium text-gray-900">Diskon
@@ -432,14 +464,23 @@
                                 <input type="number" name="discount" id="discount"
                                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
                                     placeholder="" required="">
+                                @error('discount')
+                                    <p class="mt-2 text-sm text-red-500"><span class="font-medium">{{ $message }}
+                                    </p>
+                                @enderror
                             </div>
                         </div>
 
-                        <div class="sm:col-span-2"><label for="description"
+                        <div class="sm:col-span-2">
+                            <label for="description"
                                 class="block mb-2 text-sm font-medium text-gray-900">Description</label>
                             <textarea name="description" id="description" rows="4"
                                 class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-primary-500 focus:border-primary-500"
                                 placeholder="Tuliskan deskripsi produk" required=""></textarea>
+                            @error('description')
+                                <p class="mt-2 text-sm text-red-500"><span class="font-medium">{{ $message }}
+                                </p>
+                            @enderror
                         </div>
                     </div>
 
@@ -465,6 +506,11 @@
                                 </p>
                             </div>
                         </label>
+
+                        @error('image')
+                            <p class="mt-2 text-sm text-red-500"><span class="font-medium">{{ $message }}
+                            </p>
+                        @enderror
                     </div>
 
                     <div class="items-center space-y-4 sm:flex sm:space-y-0 sm:space-x-4">
