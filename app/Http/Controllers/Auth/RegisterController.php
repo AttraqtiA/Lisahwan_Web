@@ -55,7 +55,7 @@ class RegisterController extends Controller
             'phone_number' => ['required', 'string', 'max:50'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
-            'profile_picture' => ['nullable', 'image', 'mimes:jpeg,png,jpg', 'max:5000'],
+            'profile_picture' => ['nullable', 'image', 'mimes:jpeg,png,jpg', 'max:10000'],
         ]);
     }
 
@@ -93,9 +93,39 @@ class RegisterController extends Controller
     {
         // $request['phone_number'] = strval($request['phone_number']);
 
-        $this->validator($request->all())->validate();
+        // $this->validator($request->all())->validate();
 
-        $user = $this->create($request->all());
+
+        $validatedData = $request->validate([
+            'name' => ['required', 'string', 'max:255'],
+            'phone_number' => ['required', 'string', 'max:50'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'profile_picture' => ['nullable', 'image', 'mimes:jpeg,png,jpg', 'max:10000'],
+        ]);
+
+        if($request->file('profile_picture')) {
+            $validatedData['profile_picture'] = $request->file('profile_picture')->store('upload_images', ['disk' => 'public']);
+
+            $user = User::create([
+                'name' => $validatedData['name'],
+                'phone_number' => $validatedData['phone_number'],
+                'role_id' => 3,
+                'is_active' => '1',
+                'email' => $validatedData['email'],
+                'password' => Hash::make($validatedData['password']),
+                'profile_picture' => $validatedData['profile_picture'],
+            ]);
+        } else {
+            $user = User::create([
+                'name' => $validatedData['name'],
+                'phone_number' => $validatedData['phone_number'],
+                'role_id' => 3,
+                'is_active' => '1',
+                'email' => $validatedData['email'],
+                'password' => Hash::make($validatedData['password']),
+            ]);
+        }
 
         if (empty($user)) {
             return redirect()->route('register');
