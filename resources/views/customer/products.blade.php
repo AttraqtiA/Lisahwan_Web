@@ -122,7 +122,11 @@
         <div class = "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 px-12 py-12 mx-auto">
             @foreach ($products as $product)
                 <div class="relative hover:shadow-xl transform transition duration-500 hover:-translate-y-4 hover:z-40">
+                @if (Auth::user()->isAdmin() || Auth::user()->isOwner())
+                    <a href="{{ route('products') }}">
+                @else
                     <a href="{{ route('member.products.show', $product->id) }}">
+                @endif
                         <div class="relative w-full h-full rounded-lg bg-gray-900 border-gray-800 mx-auto shadow">
                             <img class="h-3/4 rounded-t-lg w-full object-cover"
                                 src="/images/fotoproduk/{{ $product->image }}" alt="{{ $product->image }}" />

@@ -36,6 +36,9 @@
                             </a>
                         </li>
                     @endif
+
+                    @if (Auth::user()->isMember())
+                    {{-- cartnya hanya bisa diklik/show kalo member, kalo guest/admin/owner ga bisa jg --}}
                     <li>
                         <button type="button" data-drawer-target="drawer-right-example"
                             data-drawer-show="drawer-right-example" data-drawer-placement="right"
@@ -50,6 +53,7 @@
                             </div>
                         </button>
                     </li>
+                    @endif
 
                     <!-- drawer component -->
                     <div id="drawer-right-example"
@@ -299,6 +303,7 @@
                 </li>
 
                 @auth
+                    @if (Auth::user()->isMember())
                     <li>
                         <a href="{{ route('member.wishlist') }}"
                             class="block py-2 pl-3 pr-4 {{ $active_wishlist ?? 'text-white rounded hover:bg-yellow-500 md:hover:bg-transparent md:hover:text-yellow-500 md:p-0 md:hover:bg-transparent' }}"
@@ -310,6 +315,7 @@
                             class="block py-2 pl-3 pr-4 {{ $active_history ?? 'text-white rounded hover:bg-yellow-500 md:hover:bg-transparent md:hover:text-yellow-500 md:p-0 md:hover:bg-transparent' }}"
                             aria-current="page">Order History</a>
                     </li>
+                    @endif
                 @endauth
 
                 <li>
