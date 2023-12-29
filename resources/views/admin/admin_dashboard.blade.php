@@ -336,7 +336,6 @@
                                                     @method('put')
                                                     @csrf
 
-
                                                     <div class="grid gap-4 mb-4 grid-cols-3">
                                                         <p class="text-center font-semibold col-span-3">Order Status</p>
 
