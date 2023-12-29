@@ -44,21 +44,28 @@ class LoginController extends Controller
 
     public function login(Request $request)
     {
+        $validatedData = $request->validate([
+
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'password' => ['required', 'string', 'min:8', 'confirmed'],
+
+        ]);
+
         $owner = [ // set syarat buat dapetin rolenya
-            'email' => $request->email,
-            'password' => $request->password,
+            'email' => $validatedData['email'],
+            'password' => $validatedData['password'],
             'role_id' => 1,
             'is_active' => '1'
         ];
         $admin = [
-            'email' => $request->email,
-            'password' => $request->password,
+            'email' => $validatedData['email'],
+            'password' => $validatedData['password'],
             'role_id' => 2,
             'is_active' => '1'
         ];
         $member = [
-            'email' => $request->email,
-            'password' => $request->password,
+            'email' => $validatedData['email'],
+            'password' => $validatedData['password'],
             'role_id' => 3,
             'is_active' => '1'
         ];
