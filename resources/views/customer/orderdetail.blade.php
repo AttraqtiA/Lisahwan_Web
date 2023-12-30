@@ -378,9 +378,18 @@
                         @foreach ($testimonies as $testimony)
                             <div class="flex flex-row gap-x-3 mt-3 w-full">
                                 <div class="flex-none">
-                                    <img class="w-12 h-12 object-top object-cover rounded-full overflow-hidden"
-                                        src="{{ asset('storage/' . $testimony->user->profile_picture) }}"
-                                        alt="{{ $testimony->user->name }}">
+                                    @if (Auth::user()->profile_picture == null)
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                            stroke-width="1.5" stroke="currentColor"
+                                            class="w-12 h-12 rounded-full text-gray-900">
+                                            <path stroke-linecap="round" stroke-linejoin="round"
+                                                d="M17.982 18.725A7.488 7.488 0 0012 15.75a7.488 7.488 0 00-5.982 2.975m11.963 0a9 9 0 10-11.963 0m11.963 0A8.966 8.966 0 0112 21a8.966 8.966 0 01-5.982-2.275M15 9.75a3 3 0 11-6 0 3 3 0 016 0z" />
+                                        </svg>
+                                    @else
+                                        <img class="w-12 h-12 object-top object-cover rounded-full overflow-hidden"
+                                            src="{{ asset('storage/' . $testimony->user->profile_picture) }}"
+                                            alt="{{ $testimony->user->name }}">
+                                    @endif
                                 </div>
                                 <div class="flex flex-col mt-1 w-full">
                                     <div class="flex flex-row justify-between items-center">
@@ -571,14 +580,14 @@
         // Tentukan harga berdasarkan apakah produk memiliki diskon atau tidak
         $price = $product->countDiscount() ?? $product->price;
     @endphp
-    <script language="javascript">
-        document.addEventListener('DOMContentLoaded', function() {
-            var inputElement = document.getElementById('input-{{ $product->id }}');
+    <script>
+        $(document).ready(function() {
+            var inputElement = $('#input-{{ $product->id }}');
             var price = '{{ $price }}';
 
             // Fungsi untuk mengupdate subtotal
             function updateSubtotal() {
-                var qty = parseInt(inputElement.value);
+                var qty = parseInt(inputElement.val());
                 qty = isNaN(qty) ? 0 : qty; // Pastikan qty adalah angka
 
                 // Pastikan qty tidak kurang dari 1
@@ -590,7 +599,7 @@
                 var formattedTotal = numberFormat(total_price);
 
                 // Mengatur nilai elemen HTML
-                document.getElementById("cost").value = formattedTotal;
+                $('#cost').val(formattedTotal);
             }
 
             // Fungsi untuk memformat uang dengan pemisah ribuan
@@ -599,25 +608,25 @@
             }
 
             // Menambahkan event listener untuk event input
-            inputElement.addEventListener('input', function() {
+            inputElement.on('input', function() {
                 updateSubtotal();
             });
 
             // Menambahkan event listener untuk tombol decrement
-            document.getElementById('input-decrement-{{ $product->id }}').addEventListener('click', function() {
+            $('#input-decrement-{{ $product->id }}').on('click', function() {
                 changeQuantity(-1);
                 updateSubtotal();
             });
 
             // Menambahkan event listener untuk tombol increment
-            document.getElementById('input-increment-{{ $product->id }}').addEventListener('click', function() {
+            $('#input-increment-{{ $product->id }}').on('click', function() {
                 changeQuantity(1);
                 updateSubtotal();
             });
 
             // Fungsi untuk mengubah kuantitas
             function changeQuantity(change) {
-                var currentQuantity = parseInt(inputElement.value);
+                var currentQuantity = parseInt(inputElement.val());
 
                 // Periksa apakah nilai input adalah NaN
                 if (isNaN(currentQuantity)) {
@@ -626,59 +635,52 @@
 
                 var newQuantity = Math.max(currentQuantity + change, 1);
 
-                inputElement.value = newQuantity;
+                inputElement.val(newQuantity);
             }
         });
 
         function setSubmitButton(buttonId) {
-            document.getElementById('submitButton').value = buttonId;
+            $('#submitButton').val(buttonId);
         }
 
         function displayImagePreview_UlasProduk(input) {
-            var preview = document.getElementById('existingImagePreviewId');
+            var preview = $('#existingImagePreviewId');
 
             // Remove existing image
-            while (preview.firstChild) {
-                preview.removeChild(preview.firstChild);
-            }
+            preview.empty();
 
             // Display newly uploaded image
             if (input.files && input.files[0]) {
                 var reader = new FileReader();
                 reader.onload = function(e) {
-                    var img = document.createElement('img');
-                    img.src = e.target.result;
-                    img.classList.add('w-6/12', 'mx-auto', 'rounded-lg', 'object-cover');
-                    preview.appendChild(img);
+                    var img = $('<img>').attr('src', e.target.result).addClass(
+                        'w-6/12 mx-auto rounded-lg object-cover');
+                    preview.append(img);
                 };
                 reader.readAsDataURL(input.files[0]);
             }
         }
 
         function displayImagePreview_EditProduk(input, existingImageUrl, existingImagePreviewId) {
-            var preview = document.getElementById(existingImagePreviewId);
+            var preview = $('#' + existingImagePreviewId);
 
             // Remove existing image
-            while (preview.firstChild) {
-                preview.removeChild(preview.firstChild);
-            }
+            preview.empty();
 
             // Display newly uploaded image
             if (input.files && input.files[0]) {
                 var reader = new FileReader();
                 reader.onload = function(e) {
-                    var img = document.createElement('img');
-                    img.src = e.target.result;
-                    img.classList.add('w-6/12', 'mx-auto', 'rounded-lg', 'object-cover');
-                    preview.appendChild(img);
+                    var img = $('<img>').attr('src', e.target.result).addClass(
+                        'w-6/12 mx-auto rounded-lg object-cover');
+                    preview.append(img);
                 };
                 reader.readAsDataURL(input.files[0]);
             } else if (existingImageUrl) {
                 // Display existing image if available
-                var existingImg = document.createElement('img');
-                existingImg.src = '{{ asset('') }}' + existingImageUrl; // Use asset function
-                existingImg.classList.add('w-6/12', 'mx-auto', 'rounded-lg', 'object-cover');
-                preview.appendChild(existingImg);
+                var existingImg = $('<img>').attr('src', '{{ asset('') }}' + existingImageUrl).addClass(
+                    'w-6/12 mx-auto rounded-lg object-cover');
+                preview.append(existingImg);
             }
         }
     </script>

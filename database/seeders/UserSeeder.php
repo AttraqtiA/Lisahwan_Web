@@ -28,11 +28,11 @@ class UserSeeder extends Seeder
         ]);
 
         User::create([
-            'name' => 'Opi',
+            'name' => 'Oppy',
             'role_id' => 2,
             'is_login' => '0',
             'is_active' => '1',
-            'email' => 'opi_lisahwan@gmail.com',
+            'email' => 'admin_lisahwan@gmail.com',
             'email_verified_at' => now(),
             'password' => bcrypt('adminLisahwan88'),
             'phone_number' => '082230308030',

@@ -220,7 +220,7 @@
                             class="flex text-sm bg-gray-800 rounded-full focus:ring focus:ring-gray-500"
                             aria-expanded="false" data-dropdown-toggle="dropdown-user">
                             <span class="sr-only">Open user menu</span>
-                            @if (Auth::user()->profile_picture == null)
+                                @if (Auth::user()->profile_picture == null)
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                         stroke-width="1.5" stroke="currentColor" class="w-10 h-10 rounded-full text-white">
                                         <path stroke-linecap="round" stroke-linejoin="round"

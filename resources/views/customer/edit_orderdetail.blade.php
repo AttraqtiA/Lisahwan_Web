@@ -282,14 +282,15 @@
         // Tentukan harga berdasarkan apakah produk memiliki diskon atau tidak
         $price = $cart_detail->product->countDiscount() ?? $cart_detail->product->price;
     @endphp
-    <script language="javascript">
-        document.addEventListener('DOMContentLoaded', function() {
-            var inputElement = document.getElementById('input-{{ $cart_detail->product->id }}');
+
+    <script>
+        $(document).ready(function() {
+            var inputElement = $('#input-{{ $cart_detail->product->id }}');
             var price = '{{ $price }}';
 
             // Fungsi untuk mengupdate subtotal
             function updateSubtotal() {
-                var qty = parseInt(inputElement.value);
+                var qty = parseInt(inputElement.val());
                 qty = isNaN(qty) ? 0 : qty; // Pastikan qty adalah angka
 
                 // Pastikan qty tidak kurang dari 1
@@ -301,7 +302,7 @@
                 var formattedTotal = numberFormat(total_price);
 
                 // Mengatur nilai elemen HTML
-                document.getElementById("cost").value = formattedTotal;
+                $('#cost').val(formattedTotal);
             }
 
             // Fungsi untuk memformat uang dengan pemisah ribuan
@@ -310,27 +311,25 @@
             }
 
             // Menambahkan event listener untuk event input
-            inputElement.addEventListener('input', function() {
+            inputElement.on('input', function() {
                 updateSubtotal();
             });
 
             // Menambahkan event listener untuk tombol decrement
-            document.getElementById('input-decrement-{{ $cart_detail->product->id }}').addEventListener('click',
-                function() {
-                    changeQuantity(-1);
-                    updateSubtotal();
-                });
+            $('#input-decrement-{{ $cart_detail->product->id }}').on('click', function() {
+                changeQuantity(-1);
+                updateSubtotal();
+            });
 
             // Menambahkan event listener untuk tombol increment
-            document.getElementById('input-increment-{{ $cart_detail->product->id }}').addEventListener('click',
-                function() {
-                    changeQuantity(1);
-                    updateSubtotal();
-                });
+            $('#input-increment-{{ $cart_detail->product->id }}').on('click', function() {
+                changeQuantity(1);
+                updateSubtotal();
+            });
 
             // Fungsi untuk mengubah kuantitas
             function changeQuantity(change) {
-                var currentQuantity = parseInt(inputElement.value);
+                var currentQuantity = parseInt(inputElement.val());
 
                 // Periksa apakah nilai input adalah NaN
                 if (isNaN(currentQuantity)) {
@@ -339,7 +338,7 @@
 
                 var newQuantity = Math.max(currentQuantity + change, 1);
 
-                inputElement.value = newQuantity;
+                inputElement.val(newQuantity);
             }
         });
     </script>

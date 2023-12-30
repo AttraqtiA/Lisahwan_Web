@@ -10,25 +10,10 @@
                     class="flex flex-col md:flex-row md:items-center md:justify-between space-y-3 md:space-y-0 md:space-x-4 p-4">
                     <div class="flex-1 flex items-center space-x-2">
                         <h5>
-                            <span class="text-gray-500">All Orders:</span>
+                            <span class="text-gray-500">Semua Order:</span>
                             <span class="text-gray-500">{{ $orders->count() }}</span>
                         </h5>
                         <h5 class="text-gray-500 ml-1">(1-{{ (int) ceil($orders->count() / 10) }})</h5>
-                        <button type="button" class="group" data-tooltip-target="results-tooltip">
-                            <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
-                                class="h-4 w-4 text-gray-400 group-hover:text-gray-900" viewbox="0 0 20 20"
-                                fill="currentColor">
-                                <path fill-rule="evenodd"
-                                    d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z"
-                                    clip-rule="evenodd" />
-                            </svg>
-                            <span class="sr-only">More info</span>
-                        </button>
-                        <div id="results-tooltip" role="tooltip"
-                            class="absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-white transition-opacity duration-300 bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip">
-                            Showing 1-20 of 50 results
-                            <div class="tooltip-arrow" data-popper-arrow=""></div>
-                        </div>
                     </div>
                     <div class="text-lg font-bold text-gray-800">
                         Daftar Order Hari Ini dan Kemarin
@@ -71,25 +56,16 @@
                                 <path clip-rule="evenodd" fill-rule="evenodd"
                                     d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" />
                             </svg>
-
                         </button>
                     </div>
                 </div>
                 <div class="overflow-x-auto">
-                    <table class="w-full text-sm text-left text-gray-500">
-                        <thead class="text-xs text-gray-700 uppercase bg-gray-50">
+                    <table class="w-full text-sm text-center text-gray-500">
+                        <thead class="text-xs text-center text-gray-700 uppercase bg-gray-50">
                             <tr>
-                                <th scope="col" class="p-4">
-                                    <div class="flex items-center">
-                                        <input id="checkbox-all" type="checkbox"
-                                            class="w-4 h-4 text-primary-600 bg-gray-100 rounded border-gray-300 focus:ring-primary-500 focus:ring-2">
-                                        <label for="checkbox-all" class="sr-only">checkbox</label>
-                                    </div>
-                                </th>
+                                <th scope="col" class="p-4">No.</th>
                                 <th scope="col" class="p-4">Customer</th>
-
-                                <th scope="col" class="p-4"></th>
-
+                                <th scope="col" class="p-4 text-yellow-500">Cek</th>
                                 <th scope="col" class="p-4">Masuk</th>
                                 <th scope="col" class="p-4">Tanggal</th>
                                 <th scope="col" class="p-4">Dikirim</th>
@@ -116,12 +92,7 @@
                                 @foreach ($orders as $order)
                                     <tr class="border-b hover:bg-gray-100">
                                         <td class="p-4 w-4">
-                                            <div class="flex items-center">
-                                                <input id="checkbox-table-search-1" type="checkbox"
-                                                    onclick="event.stopPropagation()"
-                                                    class="w-4 h-4 text-primary-600 bg-gray-100 rounded border-gray-300 focus:ring-primary-500 focus:ring-2">
-                                                <label for="checkbox-table-search-1" class="sr-only">checkbox</label>
-                                            </div>
+                                            {{ $orderNumber }}
                                         </td>
                                         <td scope="row"
                                             class="mr-4 px-4 py-3 font-medium text-gray-900 whitespace-nowrap">
@@ -329,12 +300,17 @@
                                                 </div>
                                                 <!-- Modal body -->
 
-                                                <form id="update-form"
-                                                    action="@if (Auth::user()->isOwner()) {{ route('owner.admin.update', $order) }}                                                 @elseif (Auth::user()->isAdmin())
-                                                    @else {{ route('admin.admin.update', $order) }} @endif"
+                                                @if (Auth::user()->isOwner())
+                                                <form id="update-form" action="{{ route('owner.admin.update', $order) }}"
                                                     method="POST" enctype="multipart/form-data">
                                                     @method('put')
                                                     @csrf
+                                                @else
+                                                <form id="update-form" action="{{ route('admin.admin.update', $order) }}"
+                                                    method="POST" enctype="multipart/form-data">
+                                                    @method('put')
+                                                    @csrf
+                                                @endif
 
                                                     <div class="grid gap-4 mb-4 grid-cols-3">
                                                         <p class="text-center font-semibold col-span-3">Order Status</p>
@@ -344,7 +320,7 @@
                                                                 class="block mb-2 text-sm font-medium text-gray-900">Order
                                                                 Masuk</label>
                                                             <select name="acceptbyAdmin_status" id="acceptbyAdmin_status"
-                                                                class="bg-gray-50 border border-gray-300 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
+                                                                class="{{ $errors->has('acceptbyAdmin_status') ? 'bg-red-100 border-red-400 text-red-500 placeholder-red-700' : 'bg-white border-yellow-500 text-gray-900 placeholder-gray-400  focus:ring-yellow-500 focus:border-yellow-500' }} rounded-lg border-1 text-sm mt-3 block w-full p-2.5"
                                                                 required>
                                                                 <option class="text-red-700" value="pending"
                                                                     {{ $order->acceptbyAdmin_status === 'pending' ? 'selected' : '' }}>
@@ -365,7 +341,7 @@
                                                                 class="block mb-2 text-sm font-medium text-gray-900">Dikirim
                                                                 Kurir</label>
                                                             <select name="shipment_status" id="shipment_status"
-                                                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
+                                                                class="{{ $errors->has('shipment_status') ? 'bg-red-100 border-red-400 text-red-500 placeholder-red-700' : 'bg-white border-yellow-500 text-gray-900 placeholder-gray-400  focus:ring-yellow-500 focus:border-yellow-500' }} rounded-lg border-1 text-sm mt-3 block w-full p-2.5"
                                                                 required>
                                                                 <option class="text-red-700" value="pending"
                                                                     {{ $order->shipment_status === 'pending' ? 'selected' : '' }}>
@@ -387,7 +363,7 @@
                                                                 Tujuan</label>
                                                             <select name="acceptbyCustomer_status"
                                                                 id="acceptbyCustomer_status"
-                                                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
+                                                                class="{{ $errors->has('acceptbyCustomer_status') ? 'bg-red-100 border-red-400 text-red-500 placeholder-red-700' : 'bg-white border-yellow-500 text-gray-900 placeholder-gray-400  focus:ring-yellow-500 focus:border-yellow-500' }} rounded-lg border-1 text-sm mt-3 block w-full p-2.5"
                                                                 required>
                                                                 <option class="text-red-700" value="pending"
                                                                     {{ $order->acceptbyCustomer_status === 'pending' ? 'selected' : '' }}>
@@ -420,7 +396,7 @@
                                                                 Dikirim</label>
                                                             <input type="datetime-local" name="shipment_date"
                                                                 id="shipment_date"
-                                                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
+                                                                class="{{ $errors->has('shipment_date') ? 'bg-red-100 border-red-400 text-red-500 placeholder-red-700' : 'bg-white border-yellow-500 text-gray-900 placeholder-gray-400  focus:ring-yellow-500 focus:border-yellow-500' }} rounded-lg border-1 text-sm mt-3 block w-full p-2.5"
                                                                 value="{{ $order->shipment_date ? \Carbon\Carbon::parse($order->shipment_date)->format('Y-m-d\TH:i') : '' }}">
                                                             @error('shipment_date')
                                                                 <p class="mt-2 text-sm text-red-500"><span
@@ -435,7 +411,7 @@
                                                                 Sampai</label>
                                                             <input type="datetime-local" name="arrived_date"
                                                                 id="arrived_date"
-                                                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
+                                                                class="{{ $errors->has('arrived_date') ? 'bg-red-100 border-red-400 text-red-500 placeholder-red-700' : 'bg-white border-yellow-500 text-gray-900 placeholder-gray-400  focus:ring-yellow-500 focus:border-yellow-500' }} rounded-lg border-1 text-sm mt-3 block w-full p-2.5"
                                                                 value="{{ $order->arrived_date ? \Carbon\Carbon::parse($order->arrived_date)->format('Y-m-d\TH:i') : '' }}">
                                                             @error('arrived_date')
                                                                 <p class="mt-2 text-sm text-red-500"><span
@@ -448,7 +424,7 @@
                                                             <label for="note"
                                                                 class="block mb-2 text-sm font-medium text-gray-900">Note</label>
                                                             <textarea name="note" id="note" rows="4"
-                                                                class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-primary-500 focus:border-primary-500">{{ $order->note }}
+                                                                class="{{ $errors->has('note') ? 'bg-red-100 border-red-400 text-red-500 placeholder-red-700' : 'bg-white border-yellow-500 text-gray-900 placeholder-gray-400  focus:ring-yellow-500 focus:border-yellow-500' }} rounded-lg border-1 text-sm mt-3 block w-full p-2.5">{{ $order->note }}
                                                                 </textarea>
                                                             @error('note')
                                                                 <p class="mt-2 text-sm text-red-500"><span
@@ -462,7 +438,7 @@
                                                                 class="block mb-2 text-sm font-medium text-gray-900">Print
                                                                 Status</label>
                                                             <select name="is_print" id="is_print"
-                                                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
+                                                                class="{{ $errors->has('is_print') ? 'bg-red-100 border-red-400 text-red-500 placeholder-red-700' : 'bg-white border-yellow-500 text-gray-900 placeholder-gray-400  focus:ring-yellow-500 focus:border-yellow-500' }} rounded-lg border-1 text-sm mt-3 block w-full p-2.5"
                                                                 required>
                                                                 <option class="text-red-700" value="pending"
                                                                     {{ $order->is_print === 'pending' ? 'selected' : '' }}>
@@ -559,10 +535,11 @@
                                             </div>
                                         </div>
                                     </div>
+                                    @php
+                                        $orderNumber++;
+                                    @endphp
                                 @endforeach
                             @endif
-
-
                         </tbody>
                     </table>
                 </div>

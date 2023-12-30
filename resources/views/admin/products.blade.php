@@ -139,8 +139,8 @@
                                         <td class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap">
                                             <div class="flex items-center">
                                                 @for ($i = 1; $i <= 5; $i++)
-                                                    @if ($i <= $product->testimony->pluck('review')->average())
-                                                        <svg class="w-4 h-4 text-yellow-300 me-1" aria-hidden="true"
+                                                    @if ($i <= $product->testimony->pluck('rating')->average())
+                                                        <svg class="w-5 h-5 text-yellow-500" aria-hidden="true"
                                                             xmlns="http://www.w3.org/2000/svg" fill="currentColor"
                                                             viewBox="0 0 22 20">
                                                             <path
@@ -160,7 +160,7 @@
 
                                                 @if ($product->testimony->isNotEmpty())
                                                     <span
-                                                        class="text-gray-500 ml-2">{{ number_format($product->testimony->pluck('review')->average(), 2) }}</span>
+                                                        class="text-gray-500 ml-2">{{ number_format($product->testimony->pluck('rating')->average(), 2) }}</span>
                                                 @else
                                                     <span class="text-gray-500 ml-2">No reviews yet.</span>
                                                 @endif
@@ -274,7 +274,7 @@
                                                                 class="block mb-2 text-sm font-medium text-gray-900">Product
                                                                 Name</label>
                                                             <input type="text" name="name" id="name"
-                                                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
+                                                                class="{{ $errors->has('name') ? 'bg-red-100 border-red-400 text-red-500 placeholder-red-700' : 'bg-white border-yellow-500 text-gray-900 placeholder-gray-400  focus:ring-yellow-500 focus:border-yellow-500' }} rounded-lg border-1 text-sm mt-3 block w-full p-2.5"
                                                                 value="{{ $product->name }}" required="">
                                                             @error('name')
                                                                 <p class="mt-2 text-sm text-red-500"><span
@@ -289,7 +289,7 @@
                                                                 (Rp)
                                                             </label>
                                                             <input type="number" name="price" id="price"
-                                                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
+                                                                class="{{ $errors->has('price') ? 'bg-red-100 border-red-400 text-red-500 placeholder-red-700' : 'bg-white border-yellow-500 text-gray-900 placeholder-gray-400  focus:ring-yellow-500 focus:border-yellow-500' }} rounded-lg border-1 text-sm mt-3 block w-full p-2.5"
                                                                 value="{{ $product->price }}" required="">
                                                             @error('price')
                                                                 <p class="mt-2 text-sm text-red-500"><span
@@ -303,7 +303,7 @@
                                                                 (gram)
                                                             </label>
                                                             <input type="number" name="weight" id="weight"
-                                                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
+                                                                class="{{ $errors->has('weight') ? 'bg-red-100 border-red-400 text-red-500 placeholder-red-700' : 'bg-white border-yellow-500 text-gray-900 placeholder-gray-400  focus:ring-yellow-500 focus:border-yellow-500' }} rounded-lg border-1 text-sm mt-3 block w-full p-2.5"
                                                                 value="{{ $product->weight }}" required="">
                                                             @error('weight')
                                                                 <p class="mt-2 text-sm text-red-500"><span
@@ -317,7 +317,7 @@
                                                                 class="block mb-2 text-sm font-medium text-gray-900">Diskon
                                                                 (%)</label>
                                                             <input type="number" name="discount" id="discount"
-                                                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
+                                                                class="{{ $errors->has('discount') ? 'bg-red-100 border-red-400 text-red-500 placeholder-red-700' : 'bg-white border-yellow-500 text-gray-900 placeholder-gray-400  focus:ring-yellow-500 focus:border-yellow-500' }} rounded-lg border-1 text-sm mt-3 block w-full p-2.5"
                                                                 value="{{ $product->discount }}" required="">
                                                             @error('discount')
                                                                 <p class="mt-2 text-sm text-red-500"><span
@@ -331,7 +331,7 @@
                                                             <label for="description"
                                                                 class="block mb-2 text-sm font-medium text-gray-900">Description</label>
                                                             <textarea name="description" id="description" rows="4"
-                                                                class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-primary-500 focus:border-primary-500">{{ $product->description }}
+                                                                class="{{ $errors->has('description') ? 'bg-red-100 border-red-400 text-red-500 placeholder-red-700' : 'bg-white border-yellow-500 text-gray-900 placeholder-gray-400  focus:ring-yellow-500 focus:border-yellow-500' }} rounded-lg border-1 text-sm mt-3 block w-full p-2.5">{{ $product->description }}
                                                             </textarea>
                                                             @error('description')
                                                                 <p class="mt-2 text-sm text-red-500"><span
@@ -417,7 +417,7 @@
                             <label for="name" class="block mb-2 text-sm font-medium text-gray-900">Product
                                 Name</label>
                             <input type="text" name="name" id="name"
-                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
+                                class="{{ $errors->has('name') ? 'bg-red-100 border-red-400 text-red-500 placeholder-red-700' : 'bg-white border-yellow-500 text-gray-900 placeholder-gray-400  focus:ring-yellow-500 focus:border-yellow-500' }} rounded-lg border-1 text-sm mt-3 block w-full p-2.5"
                                 placeholder="(Contoh: Teri Oven)" required="">
                             @error('name')
                                 <p class="mt-2 text-sm text-red-500"><span class="font-medium">{{ $message }}
@@ -428,7 +428,7 @@
                         <div>
                             <label for="price" class="block mb-2 text-sm font-medium text-gray-900">Harga (Rp)</label>
                             <input type="number" name="price" id="price"
-                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
+                                class="{{ $errors->has('price') ? 'bg-red-100 border-red-400 text-red-500 placeholder-red-700' : 'bg-white border-yellow-500 text-gray-900 placeholder-gray-400  focus:ring-yellow-500 focus:border-yellow-500' }} rounded-lg border-1 text-sm mt-3 block w-full p-2.5"
                                 placeholder="(Contoh: 42000)" required="">
                             @error('price')
                                 <p class="mt-2 text-sm text-red-500"><span class="font-medium">{{ $message }}
@@ -441,7 +441,7 @@
                                 <label for="weight" class="block mb-2 text-sm font-medium text-gray-900">Berat
                                     (gram)</label>
                                 <input type="number" name="weight" id="weight"
-                                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
+                                    class="{{ $errors->has('weight') ? 'bg-red-100 border-red-400 text-red-500 placeholder-red-700' : 'bg-white border-yellow-500 text-gray-900 placeholder-gray-400  focus:ring-yellow-500 focus:border-yellow-500' }} rounded-lg border-1 text-sm mt-3 block w-full p-2.5"
                                     placeholder="" required="">
                                 @error('weight')
                                     <p class="mt-2 text-sm text-red-500"><span class="font-medium">{{ $message }}
@@ -451,7 +451,7 @@
                             <div>
                                 <label for="stock" class="block mb-2 text-sm font-medium text-gray-900">Stok</label>
                                 <input type="number" name="stock" id="stock"
-                                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
+                                    class="{{ $errors->has('stock') ? 'bg-red-100 border-red-400 text-red-500 placeholder-red-700' : 'bg-white border-yellow-500 text-gray-900 placeholder-gray-400  focus:ring-yellow-500 focus:border-yellow-500' }} rounded-lg border-1 text-sm mt-3 block w-full p-2.5"
                                     placeholder="" required="">
                                 @error('stock')
                                     <p class="mt-2 text-sm text-red-500"><span class="font-medium">{{ $message }}
@@ -462,7 +462,7 @@
                                 <label for="discount" class="block mb-2 text-sm font-medium text-gray-900">Diskon
                                     (%)</label>
                                 <input type="number" name="discount" id="discount"
-                                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
+                                    class="{{ $errors->has('discount') ? 'bg-red-100 border-red-400 text-red-500 placeholder-red-700' : 'bg-white border-yellow-500 text-gray-900 placeholder-gray-400  focus:ring-yellow-500 focus:border-yellow-500' }} rounded-lg border-1 text-sm mt-3 block w-full p-2.5"
                                     placeholder="" required="">
                                 @error('discount')
                                     <p class="mt-2 text-sm text-red-500"><span class="font-medium">{{ $message }}
@@ -475,7 +475,7 @@
                             <label for="description"
                                 class="block mb-2 text-sm font-medium text-gray-900">Description</label>
                             <textarea name="description" id="description" rows="4"
-                                class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-primary-500 focus:border-primary-500"
+                                class="{{ $errors->has('description') ? 'bg-red-100 border-red-400 text-red-500 placeholder-red-700' : 'bg-white border-yellow-500 text-gray-900 placeholder-gray-400  focus:ring-yellow-500 focus:border-yellow-500' }} rounded-lg border-1 text-sm mt-3 block w-full p-2.5"
                                 placeholder="Tuliskan deskripsi produk" required=""></textarea>
                             @error('description')
                                 <p class="mt-2 text-sm text-red-500"><span class="font-medium">{{ $message }}
@@ -583,58 +583,52 @@
 
     <script>
         // buat display input file image preview
+
+
         function displayImagePreview_Add(input) {
-
-            var preview = document.getElementById('existingImagePreviewId');
-            while (preview.firstChild) {
-                preview.removeChild(preview.firstChild);
-            }
-
-            if (input.files && input.files[0]) {
-                var reader = new FileReader();
-
-                reader.onload = function(e) {
-                    var img = document.createElement('img');
-                    img.src = e.target.result;
-                    img.classList.add('w-1/2', 'md:w-1/4', 'mx-auto', 'rounded-lg', 'object-cover');
-                    preview.appendChild(img);
-                };
-
-                reader.readAsDataURL(input.files[0]);
-            }
-        }
-
-
-
-        function displayImagePreview_Update(input, existingImageUrl, existingImagePreviewId) {
-            var preview = document.getElementById(existingImagePreviewId);
+            var preview = $('#existingImagePreviewId');
 
             // Remove existing image
-            while (preview.firstChild) {
-                preview.removeChild(preview.firstChild);
-            }
+            preview.empty();
 
             // Display newly uploaded image
             if (input.files && input.files[0]) {
                 var reader = new FileReader();
                 reader.onload = function(e) {
-                    var img = document.createElement('img');
-                    img.src = e.target.result;
-                    img.classList.add('w-1/2', 'md:w-1/4', 'mx-auto', 'rounded-lg', 'object-cover');
-                    preview.appendChild(img);
+                    var img = $('<img>').attr('src', e.target.result).addClass(
+                        'w-1/2 md:w-1/4 mx-auto rounded-lg object-cover');
+                    preview.append(img);
+                };
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+
+
+        function displayImagePreview_Update(input, existingImageUrl, existingImagePreviewId) {
+            var preview = $('#' + existingImagePreviewId);
+
+            // Remove existing image
+            preview.empty();
+
+            // Display newly uploaded image
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+                reader.onload = function(e) {
+                    var img = $('<img>').attr('src', e.target.result).addClass(
+                        'w-1/2 md:w-1/4 mx-auto rounded-lg object-cover');
+                    preview.append(img);
                 };
                 reader.readAsDataURL(input.files[0]);
             } else if (existingImageUrl) {
                 // Display existing image if available
-                var existingImg = document.createElement('img');
-                existingImg.src = '{{ asset('') }}' + existingImageUrl; // Use asset function
-                existingImg.classList.add('w-1/2', 'md:w-1/4', 'mx-auto', 'rounded-lg', 'object-cover');
-                preview.appendChild(existingImg);
+                var existingImg = $('<img>').attr('src', '{{ asset('') }}' + existingImageUrl).addClass(
+                    'w-1/2 md:w-1/4 mx-auto rounded-lg object-cover');
+                preview.append(existingImg);
             }
         }
 
         function changeDeleteModal(url) {
-            var deleteForm = document.getElementById('delete-form');
+            var deleteForm = $('#delete-form');
             deleteForm.action = url;
         }
     </script>

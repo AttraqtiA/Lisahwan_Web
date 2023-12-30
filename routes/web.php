@@ -40,6 +40,21 @@ Route::get('/contactus', function () {
 //=====================================================================================================
 
 
+//=================================== BISA DIAKSES ROLE ADMIN SAJA ===================================
+Route::group([
+    'middleware' => 'admin',
+    'prefix' => 'admin',
+    'as' => 'admin.'
+], function () {
+    Route::get('/admin', [AdminOrderController::class, 'index'])->name('admin');
+    Route::put('/admin/update/{order}', [AdminOrderController::class, 'updateToday'])->name('admin.update');
+
+    Route::get('/order_history', [AdminOrderController::class, 'history'])->name('order_history');
+    Route::put('/order_history/update/{order}', [AdminOrderController::class, 'updateHistory'])->name('order_history.update');
+});
+//====================================================================================================
+
+
 //=================================== BISA DIAKSES ROLE MEMBER SAJA ===================================
 Route::group([
     'middleware' => 'member',
@@ -89,21 +104,6 @@ Route::group([
     Route::delete('/admin_products/destroy/{product}', [OwnerProductController::class, 'destroy'])->name('admin_products.destroy');
 
     Route::get('/admin_users', [UserController::class, 'index'])->name('admin_users');
-});
-//====================================================================================================
-
-
-//=================================== BISA DIAKSES ROLE ADMIN SAJA ===================================
-Route::group([
-    'middleware' => 'admin',
-    'prefix' => 'admin',
-    'as' => 'admin.'
-], function () {
-    Route::get('/admin', [AdminOrderController::class, 'index'])->name('admin');
-    Route::put('/admin/update/{order}', [AdminOrderController::class, 'updateToday'])->name('admin.update');
-
-    Route::get('/order_history', [AdminOrderController::class, 'history'])->name('order_history');
-    Route::put('/order_history/update/{order}', [AdminOrderController::class, 'updateHistory'])->name('order_history.update');
 });
 //====================================================================================================
 

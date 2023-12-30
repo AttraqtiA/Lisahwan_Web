@@ -16,8 +16,8 @@ class OrderDetailController extends Controller
      */
     public function index(Request $request)
     {
-        if($request->has('search')) {
-            $order_details = OrderDetail::where('name', 'like', '%'.$request->search.'%')->orWhere('price', 'like', '%'.$request->search.'%')->paginate(10)->withQueryString();
+        if ($request->has('search')) {
+            $order_details = OrderDetail::where('name', 'like', '%' . $request->search . '%')->orWhere('price', 'like', '%' . $request->search . '%')->paginate(10)->withQueryString();
         } else {
             $order_details = OrderDetail::paginate(10);
         }

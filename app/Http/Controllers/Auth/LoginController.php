@@ -70,13 +70,13 @@ class LoginController extends Controller
             'is_active' => '1'
         ];
 
-        if (Auth::attempt($owner)) {
+        if (Auth::attempt($owner, true)) {
             $this->isLogin(Auth::id());
             return redirect()->route('owner.admin'); // bisa buat ke halaman khusus admin aja
-        } else if (Auth::attempt($admin)) {
+        } else if (Auth::attempt($admin, true)) {
             $this->isLogin(Auth::id());
             return redirect()->route('admin.admin'); // TIDAK PERLU SLASH / soalnya udah ->name('home') di routes/web.php, mau ke student_list udh kuset sih
-        } else if (Auth::attempt($member)) {
+        } else if (Auth::attempt($member, true)) {
             $this->isLogin(Auth::id());
             return redirect()->route('products');
         }
@@ -84,22 +84,30 @@ class LoginController extends Controller
         return redirect()->route('login')->with('error', 'Email atau password salah!');
     }
 
-    private function isLogin(int $id) { // private
+    private function isLogin(int $id)
+    { // private
         $user = User::findOrFail($id);
         return $user->update([
             'is_login' => '1'
         ]);
     }
 
-    public function logout(Request $request) { // yg ini public yaaa jan lupa
+    public function logout(Request $request)
+    { // yg ini public yaaa jan lupa
         // nama logout itu jangan diubah soalnya ngikutin templatenya aja
-        $user = User::findOrFail(Auth::id());
-        $user->update([
-            'is_login' => '0'
-        ]);
+        // $user = User::findOrFail(Auth::id());
+        // $user->update([
+        //     'is_login' => '0'
+        // ]);
 
-        $request->session()->invalidate();
-        return $this->loggedOut($request) ?: redirect('login');
+        // $request->session()->invalidate();
+        // return $this->loggedOut($request) ?: redirect('login');
+        $user = User::findOrFail(Auth::id());
+        $user->update(['is_login' => '0']);
+
+        Auth::logout();
+
+        return redirect('login');
     }
 
     // https://www.youtube.com/watch?v=jqshjXab_1A

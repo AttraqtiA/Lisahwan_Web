@@ -1,6 +1,5 @@
 @extends('layouts.frame_auth')
 
-
 @section('content_page')
     <div class="">
         <div class="row justify-center">
@@ -21,7 +20,7 @@
                                     <div>
                                         <label for="name" class="block mb-2 text-sm font-medium text-white">Nama</label>
                                         <input type="text" name="name" id="name"
-                                            class="@error('name') is-invalid @enderror border sm:text-sm rounded-lg block w-full p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-yellow-500 focus:border-yellow-500"
+                                            class="{{ $errors->has('name') ? 'bg-red-100 border-red-400 text-red-500 placeholder-red-700' : 'bg-white border-yellow-500 text-gray-900 placeholder-gray-400  focus:ring-yellow-500 focus:border-yellow-500' }} rounded-lg border-1 text-sm mt-3 block w-full p-2.5"
                                             placeholder="" value="{{ old('name') }}" required autocomplete="name"
                                             autofocus>
                                         @error('name')
@@ -34,7 +33,7 @@
                                         <label for="phone_number" class="block mb-2 text-sm font-medium text-white">No
                                             Telp/WA</label>
                                         <input type="text" name="phone_number" id="phone_number"
-                                            class="@error('phone_number') is-invalid @enderror border sm:text-sm rounded-lg block w-full p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-yellow-500 focus:border-yellow-500"
+                                            class="{{ $errors->has('phone_number') ? 'bg-red-100 border-red-400 text-red-500 placeholder-red-700' : 'bg-white border-yellow-500 text-gray-900 placeholder-gray-400  focus:ring-yellow-500 focus:border-yellow-500' }} rounded-lg border-1 text-sm mt-3 block w-full p-2.5"
                                             placeholder="" value="{{ old('phone_number') }}" required
                                             autocomplete="phone_number" autofocus>
                                         @error('phone_number')
@@ -46,7 +45,7 @@
                                 <div>
                                     <label for="email" class="block mb-2 text-sm font-medium text-white">Email</label>
                                     <input type="email" name="email" id="email"
-                                        class="@error('email') is-invalid @enderror border sm:text-sm rounded-lg block w-full p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-yellow-500 focus:border-yellow-500"
+                                        class="{{ $errors->has('email') ? 'bg-red-100 border-red-400 text-red-500 placeholder-red-700' : 'bg-white border-yellow-500 text-gray-900 placeholder-gray-400  focus:ring-yellow-500 focus:border-yellow-500' }} rounded-lg border-1 text-sm mt-3 block w-full p-2.5"
                                         placeholder="" value="{{ old('email') }}" required autocomplete="email" autofocus>
                                     @error('email')
                                         <p class="mt-2 text-sm text-red-500"><span class="font-medium">{{ $message }}
@@ -60,7 +59,7 @@
                                         <label for="password"
                                             class="block mb-2 text-sm font-medium text-white">Password</label>
                                         <input type="password" name="password" id="password" placeholder="••••••••"
-                                            class="@error('password') is-invalid @enderror border sm:text-sm rounded-lg block w-full p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-yellow-500 focus:border-yellow-500"
+                                            class="{{ $errors->has('password') ? 'bg-red-100 border-red-400 text-red-500 placeholder-red-700' : 'bg-white border-yellow-500 text-gray-900 placeholder-gray-400  focus:ring-yellow-500 focus:border-yellow-500' }} rounded-lg border-1 text-sm mt-3 block w-full p-2.5"
                                             required autocomplete="new-password">
                                         @error('password')
                                             <p class="mt-2 text-sm text-red-500"><span class="font-medium">{{ $message }}
@@ -74,7 +73,7 @@
                                             password</label>
                                         <input type="password" name="password_confirmation" id="confirm-password"
                                             placeholder="••••••••"
-                                            class="border sm:text-sm rounded-lg block w-full p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500"
+                                            class="{{ $errors->has('address') ? 'bg-red-100 border-red-400 text-red-500 placeholder-red-700' : 'bg-white border-yellow-500 text-gray-900 placeholder-gray-400  focus:ring-yellow-500 focus:border-yellow-500' }} rounded-lg border-1 text-sm mt-3 block w-full p-2.5"
                                             required>
                                         @error('confirm-password')
                                             <p class="mt-2 text-sm text-red-500"><span class="font-medium">{{ $message }}
@@ -107,8 +106,8 @@
                                         </div>
                                     </label>
                                     @error('profile_picture')
-                                            <p class="mt-2 text-sm text-red-500"><span class="font-medium">{{ $message }}
-                                            </p>
+                                        <p class="mt-2 text-sm text-red-500"><span class="font-medium">{{ $message }}
+                                        </p>
                                     @enderror
                                 </div>
 
@@ -131,22 +130,19 @@
     <script>
         // buat display input file image preview
         function displayImagePreview_Add(input) {
+            var preview = $('#existingImagePreviewId');
 
-            var preview = document.getElementById('existingImagePreviewId');
-            while (preview.firstChild) {
-                preview.removeChild(preview.firstChild);
-            }
+            // Remove existing image
+            preview.empty();
 
+            // Display newly uploaded image
             if (input.files && input.files[0]) {
                 var reader = new FileReader();
-
                 reader.onload = function(e) {
-                    var img = document.createElement('img');
-                    img.src = e.target.result;
-                    img.classList.add('w-1/2', 'mx-auto', 'rounded-lg', 'object-cover');
-                    preview.appendChild(img);
+                    var img = $('<img>').attr('src', e.target.result).addClass(
+                        'w-1/2 mx-auto rounded-lg object-cover');
+                    preview.append(img);
                 };
-
                 reader.readAsDataURL(input.files[0]);
             }
         }

@@ -17,31 +17,29 @@
                                 <div>
                                     <label for="email" class="block mb-2 text-sm font-medium text-white">Email</label>
                                     <input type="email" name="email" id="email"
-                                        class="@error('email') is-invalid @enderror border sm:text-sm rounded-lg block w-full p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-yellow-500 focus:border-yellow-500"
+                                        class="{{ $errors->has('email') ? 'bg-red-100 border-red-400 text-red-500 placeholder-red-700' : 'bg-white border-yellow-500 text-gray-900 placeholder-gray-400  focus:ring-yellow-500 focus:border-yellow-500' }} rounded-lg border-1 text-sm mt-3 block w-full p-2.5"
                                         placeholder="{{ old('email') }}" required autocomplete="email" autofocus>
 
                                     @error('email')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
+                                        <p class="mt-2 text-sm text-red-500"><span class="font-medium">{{ $message }}
+                                        </p>
                                     @enderror
                                 </div>
                                 <div>
                                     <label for="password" class="block mb-2 text-sm font-medium text-white">Password</label>
                                     <input type="password" name="password" id="password" placeholder="••••••••"
-                                        class="@error('password') is-invalid @enderror border sm:text-sm rounded-lg block w-full p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-yellow-500 focus:border-yellow-500"
+                                        class="{{ $errors->has('password') ? 'bg-red-100 border-red-400 text-red-500 placeholder-red-700' : 'bg-white border-yellow-500 text-gray-900 placeholder-gray-400  focus:ring-yellow-500 focus:border-yellow-500' }} rounded-lg border-1 text-sm mt-3 block w-full p-2.5"
                                         required autocomplete="current-password">
 
                                     @error('password')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
+                                        <p class="mt-2 text-sm text-red-500"><span class="font-medium">{{ $message }}
+                                        </p>
                                     @enderror
                                 </div>
-                                {{-- <div class="flex items-center justify-between">
+                                <div class="flex items-center justify-between">
                                     <div class="flex items-start">
                                         <div class="flex items-center h-5">
-                                            <input id="remember" {{ old('remember') ? 'checked' : '' }}
+                                            <input id="remember" name="remember"
                                                 aria-describedby="remember" type="checkbox"
                                                 class="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-primary-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-primary-600 dark:ring-offset-gray-800">
                                         </div>
@@ -51,11 +49,11 @@
                                         </div>
                                     </div>
 
-                                    @if (Route::has('password.request'))
+                                    {{-- @if (Route::has('password.request'))
                                         <a href="{{ route('password.request') }}"
                                             class="text-sm font-medium text-yellow-500 hover:underline">Lupa password?</a>
-                                    @endif
-                                </div> --}}
+                                    @endif --}}
+                                </div>
 
                                 <button type="submit"
                                     class="w-full text-white bg-yellow-500 hover:bg-yellow-600 focus:ring-4 focus:outline-none focus:ring-yellow-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">Masuk</button>

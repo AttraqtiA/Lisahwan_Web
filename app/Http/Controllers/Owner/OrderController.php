@@ -15,64 +15,86 @@ class OrderController extends Controller
      */
     public function index(Request $request)
     {
+        $ordersQuery = Order::query();
+
         if ($request->has('search')) {
             $searchTerm = $request->search;
 
-            $findUser = User::where('name', 'like', '%' . $searchTerm . '%')->orWhere('phone_number', 'like', '%' . $searchTerm . '%')->first();
-
-            $orders = Order::where(function ($query) use ($searchTerm) {
+            $ordersQuery->where(function ($query) use ($searchTerm) {
                 $query->where('order_date', 'like', '%' . $searchTerm . '%')
-                    ->orWhere('acceptbyAdmin_status', 'like', '%' . $searchTerm . '%')
+                    ->orWhere('shipment_date', 'like', '%' . $searchTerm . '%')
+                    ->orWhere('arrived_date', 'like', '%' . $searchTerm . '%')
+                    ->orWhere('is_print', 'like', '%' . $searchTerm . '%')
                     ->orWhere('shipment_status', 'like', '%' . $searchTerm . '%')
+                    ->orWhere('acceptbyAdmin_status', 'like', '%' . $searchTerm . '%')
                     ->orWhere('acceptbyCustomer_status', 'like', '%' . $searchTerm . '%')
                     ->orWhere('total_price', 'like', '%' . $searchTerm . '%')
-                    ->orWhere('user_id', 'like', '%' . $searchTerm . '%');
-            })
-                ->where(function ($query) {
-                    $query->whereDate('order_date', Carbon::today())
-                        ->orWhereDate('order_date', Carbon::yesterday());
-                })
-                ->paginate(10)
-                ->withQueryString();
-        } else {
-            $orders = Order::whereDate('order_date', Carbon::today())
-                ->orWhereDate('order_date', Carbon::yesterday())
-                ->paginate(10);
+                    ->orWhere('note', 'like', '%' . $searchTerm . '%');
+
+                $query->orWhereHas('user', function ($userQuery) use ($searchTerm) {
+                    $userQuery->where('name', 'like', '%' . $searchTerm . '%')
+                        ->orWhere('phone_number', 'like', '%' . $searchTerm . '%');
+                });
+
+                $query->orWhereHas('address', function ($addressQuery) use ($searchTerm) {
+                    $addressQuery->where('address', 'like', '%' . $searchTerm . '%');
+                });
+            });
         }
 
+        $orders = $ordersQuery->where(function ($query) {
+            $query->whereDate('order_date', Carbon::today())
+                ->orWhereDate('order_date', Carbon::yesterday());
+        })->paginate(10);
+
+        // Menginisialisasi variabel nomor urut
+        $orderNumber = $orders->firstItem();
 
         return view('admin.admin_dashboard', [
             "active_1" => "text-yellow-500",
             "orders" => $orders,
+            "orderNumber" => $orderNumber,
         ]);
     }
 
     public function history(Request $request)
     {
+        $ordersQuery = Order::query();
+
         if ($request->has('search')) {
             $searchTerm = $request->search;
 
-            $findUser = User::where('name', 'like', '%' . $searchTerm . '%')->orWhere('phone_number', 'like', '%' . $searchTerm . '%')->first();
-
-            $orders = Order::where(function ($query) use ($searchTerm) {
+            $ordersQuery->where(function ($query) use ($searchTerm) {
                 $query->where('order_date', 'like', '%' . $searchTerm . '%')
-                    ->orWhere('acceptbyAdmin_status', 'like', '%' . $searchTerm . '%')
+                    ->orWhere('shipment_date', 'like', '%' . $searchTerm . '%')
+                    ->orWhere('arrived_date', 'like', '%' . $searchTerm . '%')
+                    ->orWhere('is_print', 'like', '%' . $searchTerm . '%')
                     ->orWhere('shipment_status', 'like', '%' . $searchTerm . '%')
+                    ->orWhere('acceptbyAdmin_status', 'like', '%' . $searchTerm . '%')
                     ->orWhere('acceptbyCustomer_status', 'like', '%' . $searchTerm . '%')
                     ->orWhere('total_price', 'like', '%' . $searchTerm . '%')
-                    ->orWhere('user_id', 'like', '%' . $searchTerm . '%');
-                 })
-                ->paginate(10)
-                ->withQueryString();
-        } else {
-            $orders = Order::whereDate('order_date', Carbon::today())
-                ->orWhereDate('order_date', Carbon::yesterday())
-                ->paginate(10);
+                    ->orWhere('note', 'like', '%' . $searchTerm . '%');
+
+                $query->orWhereHas('user', function ($userQuery) use ($searchTerm) {
+                    $userQuery->where('name', 'like', '%' . $searchTerm . '%')
+                        ->orWhere('phone_number', 'like', '%' . $searchTerm . '%');
+                });
+
+                $query->orWhereHas('address', function ($addressQuery) use ($searchTerm) {
+                    $addressQuery->where('address', 'like', '%' . $searchTerm . '%');
+                });
+            });
         }
+
+        $orders = $ordersQuery->paginate(10);
+
+        // Menginisialisasi variabel nomor urut
+        $orderNumber = $orders->firstItem();
 
         return view('admin.order_history', [
             "active_2" => "text-yellow-500",
             "orders" => $orders,
+            "orderNumber" => $orderNumber,
         ]);
     }
 
@@ -117,8 +139,8 @@ class OrderController extends Controller
             'acceptbyAdmin_status' => 'required',
             'shipment_status' => 'required',
             'acceptbyCustomer_status' => 'required',
-            'shipment_date' => 'required|date_format:Y-m-d\TH:i',
-            'arrived_date' => 'required|date_format:Y-m-d\TH:i',
+            'shipment_date' => 'nullable|date_format:Y-m-d\TH:i',
+            'arrived_date' => 'nullable|date_format:Y-m-d\TH:i',
             'note' => 'nullable',
             'is_print' => 'required',
         ]);
@@ -143,8 +165,8 @@ class OrderController extends Controller
             'acceptbyAdmin_status' => 'required',
             'shipment_status' => 'required',
             'acceptbyCustomer_status' => 'required',
-            'shipment_date' => 'required|date_format:Y-m-d\TH:i',
-            'arrived_date' => 'required|date_format:Y-m-d\TH:i',
+            'shipment_date' => 'nullable|date_format:Y-m-d\TH:i',
+            'arrived_date' => 'nullable|date_format:Y-m-d\TH:i',
             'note' => 'nullable',
             'is_print' => 'required',
         ]);

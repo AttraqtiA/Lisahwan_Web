@@ -104,7 +104,7 @@ class RegisterController extends Controller
             'profile_picture' => ['nullable', 'image', 'mimes:jpeg,png,jpg', 'max:10000'],
         ]);
 
-        if($request->file('profile_picture')) {
+        if ($request->file('profile_picture')) {
             $validatedData['profile_picture'] = $request->file('profile_picture')->store('upload_images', ['disk' => 'public']);
 
             $user = User::create([

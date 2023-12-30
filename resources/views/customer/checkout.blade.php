@@ -358,8 +358,8 @@
     </div>
     <script language="javascript">
         function toggleInputAddress() {
-            var selectAddress = document.getElementById('address_id');
-            var inputAddress = document.getElementById('address');
+            var selectAddress = $('#address_id');
+            var inputAddress = $('#address');
 
             if (selectAddress.value != '0') {
                 inputAddress.style.display = 'none';
@@ -370,17 +370,18 @@
 
         // buat display input file image preview
         function displayImagePreview(input) {
-            var preview = document.getElementById('imagePreview');
-            while (preview.firstChild) {
-                preview.removeChild(preview.firstChild);
-            }
+            var preview = $('#imagePreview');
+
+            // Remove existing image
+            preview.empty();
+
+            // Display newly uploaded image
             if (input.files && input.files[0]) {
                 var reader = new FileReader();
                 reader.onload = function(e) {
-                    var img = document.createElement('img');
-                    img.src = e.target.result;
-                    img.classList.add('w-6/12', 'mx-auto', 'rounded-lg', 'object-cover');
-                    preview.appendChild(img);
+                    var img = $('<img>').attr('src', e.target.result).addClass(
+                        'w-6/12 mx-auto rounded-lg object-cover');
+                    preview.append(img);
                 };
                 reader.readAsDataURL(input.files[0]);
             }

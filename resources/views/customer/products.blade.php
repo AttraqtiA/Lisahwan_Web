@@ -122,90 +122,91 @@
         <div class = "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 px-12 py-12 mx-auto">
             @foreach ($products as $product)
                 <div class="relative hover:shadow-xl transform transition duration-500 hover:-translate-y-4 hover:z-40">
-                @if (Auth::user()->isAdmin() || Auth::user()->isOwner())
-                    <a href="{{ route('products') }}">
-                @else
-                    <a href="{{ route('member.products.show', $product->id) }}">
-                @endif
-                        <div class="relative w-full h-full rounded-lg bg-gray-900 border-gray-800 mx-auto shadow">
-                            <img class="h-3/4 rounded-t-lg w-full object-cover"
-                                src="/images/fotoproduk/{{ $product->image }}" alt="{{ $product->image }}" />
-                            <div class="h-1/4 px-8 pb-2 flex flex-col justify-center items-center">
-                                <h5
-                                    class="sm:leading-6 md:leading-normal lg:leading-normal text-xl sm:text-2xl md:text-2xl lg:text-xl font-bold tracking-tight text-yellow-500 text-center">
-                                    {{ $product->name }}
-                                </h5>
-                                <div class="flex flex-row w-full justify-center items-center">
-                                    @if ($product->discount != 0)
-                                        <p
-                                            class="text-base sm:text-sm md:text-lg lg:text-sm font-normal text-white text-center">
-                                            Rp.
-                                            {{ number_format($product->price, 0, ',', '.') }}</p>
-                                        <p
-                                            class="ml-2 flex items-center text-base sm:text-sm md:text-lg lg:text-sm font-bold text-red-600 text-center">
-                                            <svg class="w-4 h-4 mr-2 text-red-600" aria-hidden="true"
-                                                xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
-                                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                                                    stroke-width="2" d="M1 5h12m0 0L9 1m4 4L9 9" />
-                                            </svg>
-                                            (Rp. {{ number_format($product->countDiscount(), 0, ',', '.') }})
-                                        </p>
-                                    @else
-                                        <p
-                                            class="text-base sm:text-sm md:text-lg lg:text-base font-normal text-white text-center">
-                                            Rp.
-                                            {{ number_format($product->price, 0, ',', '.') }}</p>
-                                    @endif
-                                </div>
-                                @if ($product->stock == 0)
+                    @if (Auth::check() && (Auth::user()->isAdmin() || Auth::user()->isOwner()))
+                        <a href="{{ route('products') }}">
+                        @else
+                            <a href="{{ route('member.products.show', $product->id) }}">
+                    @endif
+                    <div class="relative w-full h-full rounded-lg bg-gray-900 border-gray-800 mx-auto shadow">
+                        <img class="h-3/4 rounded-t-lg w-full object-cover" src="/images/fotoproduk/{{ $product->image }}"
+                            alt="{{ $product->image }}" />
+                        <div class="h-1/4 px-8 pb-2 flex flex-col justify-center items-center">
+                            <h5
+                                class="sm:leading-6 md:leading-normal lg:leading-normal text-xl sm:text-2xl md:text-2xl lg:text-xl font-bold tracking-tight text-yellow-500 text-center">
+                                {{ $product->name }}
+                            </h5>
+                            <div class="flex flex-row w-full justify-center items-center">
+                                @if ($product->discount != 0)
                                     <p
-                                        class="text-sm sm:text-base md:text-base lg:text-sm font-normal text-red-600 text-center mt-2">
-                                        Stock Habis!</p>
+                                        class="text-base sm:text-sm md:text-lg lg:text-sm font-normal text-white text-center">
+                                        Rp.
+                                        {{ number_format($product->price, 0, ',', '.') }}</p>
+                                    <p
+                                        class="ml-2 flex items-center text-base sm:text-sm md:text-lg lg:text-sm font-bold text-red-600 text-center">
+                                        <svg class="w-4 h-4 mr-2 text-red-600" aria-hidden="true"
+                                            xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
+                                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                                stroke-width="2" d="M1 5h12m0 0L9 1m4 4L9 9" />
+                                        </svg>
+                                        (Rp. {{ number_format($product->countDiscount(), 0, ',', '.') }})
+                                    </p>
                                 @else
                                     <p
-                                        class="text-sm sm:text-base md:text-base lg:text-sm font-normal text-lime-500 text-center mt-2">
-                                        Tersisa {{ $product->stock }}
-                                        stock
-                                        lagi!</p>
+                                        class="text-base sm:text-sm md:text-lg lg:text-base font-normal text-white text-center">
+                                        Rp.
+                                        {{ number_format($product->price, 0, ',', '.') }}</p>
                                 @endif
                             </div>
-                    </a>
+                            @if ($product->stock == 0)
+                                <p
+                                    class="text-sm sm:text-base md:text-base lg:text-sm font-normal text-red-600 text-center mt-2">
+                                    Stock Habis!</p>
+                            @else
+                                <p
+                                    class="text-sm sm:text-base md:text-base lg:text-sm font-normal text-lime-500 text-center mt-2">
+                                    Tersisa {{ $product->stock }}
+                                    stock
+                                    lagi!</p>
+                            @endif
+                        </div>
+                        </a>
 
-                    <!-- SVG icon di kanan bawah dari gambar -->
-                    <form action="{{ route('member.wishlist.store', $product->id) }}" method="POST">
-                        @csrf
-                        @if ($product->favorite_status == 0)
-                            <button type="submit">
-                                <svg class="cursor-pointer absolute w-6 h-6 text-white bottom-4 right-4 hover:text-red-600"
-                                    aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
-                                    viewBox="0 0 20 18">
-                                    <path
-                                        d="M17.947 2.053a5.209 5.209 0 0 0-3.793-1.53A6.414 6.414 0 0 0 10 2.311 6.482 6.482 0 0 0 5.824.5a5.2 5.2 0 0 0-3.8 1.521c-1.915 1.916-2.315 5.392.625 8.333l7 7a.5.5 0 0 0 .708 0l7-7a6.6 6.6 0 0 0 2.123-4.508 5.179 5.179 0 0 0-1.533-3.793Z" />
-                                </svg>
-                            </button>
-                        @else
-                            <button type="submit">
-                                <svg class="cursor-pointer absolute w-6 h-6 text-red-600 bottom-4 right-4 hover:text-white"
-                                    aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
-                                    viewBox="0 0 20 18">
-                                    <path
-                                        d="M17.947 2.053a5.209 5.209 0 0 0-3.793-1.53A6.414 6.414 0 0 0 10 2.311 6.482 6.482 0 0 0 5.824.5a5.2 5.2 0 0 0-3.8 1.521c-1.915 1.916-2.315 5.392.625 8.333l7 7a.5.5 0 0 0 .708 0l7-7a6.6 6.6 0 0 0 2.123-4.508 5.179 5.179 0 0 0-1.533-3.793Z" />
-                                </svg>
-                            </button>
+                        <!-- SVG icon di kanan bawah dari gambar -->
+                        <form action="{{ route('member.wishlist.store', $product->id) }}" method="POST">
+                            @csrf
+                            @if ($product->favorite_status == 0)
+                                <button type="submit">
+                                    <svg class="cursor-pointer absolute w-6 h-6 text-white bottom-4 right-4 hover:text-red-600"
+                                        aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
+                                        viewBox="0 0 20 18">
+                                        <path
+                                            d="M17.947 2.053a5.209 5.209 0 0 0-3.793-1.53A6.414 6.414 0 0 0 10 2.311 6.482 6.482 0 0 0 5.824.5a5.2 5.2 0 0 0-3.8 1.521c-1.915 1.916-2.315 5.392.625 8.333l7 7a.5.5 0 0 0 .708 0l7-7a6.6 6.6 0 0 0 2.123-4.508 5.179 5.179 0 0 0-1.533-3.793Z" />
+                                    </svg>
+                                </button>
+                            @else
+                                <button type="submit">
+                                    <svg class="cursor-pointer absolute w-6 h-6 text-red-600 bottom-4 right-4 hover:text-white"
+                                        aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
+                                        viewBox="0 0 20 18">
+                                        <path
+                                            d="M17.947 2.053a5.209 5.209 0 0 0-3.793-1.53A6.414 6.414 0 0 0 10 2.311 6.482 6.482 0 0 0 5.824.5a5.2 5.2 0 0 0-3.8 1.521c-1.915 1.916-2.315 5.392.625 8.333l7 7a.5.5 0 0 0 .708 0l7-7a6.6 6.6 0 0 0 2.123-4.508 5.179 5.179 0 0 0-1.533-3.793Z" />
+                                    </svg>
+                                </button>
+                            @endif
+                        </form>
+
+                        <!-- Diskon di pojok kanan atas -->
+                        @if ($product->discount != 0)
+                            <div
+                                class="absolute top-0 right-0 m-4 text-lg text-red-600 rounded-lg font-bold bg-gray-900 p-2">
+                                {{ $product->discount }}%</div>
                         @endif
-                    </form>
-
-                    <!-- Diskon di pojok kanan atas -->
-                    @if ($product->discount != 0)
-                        <div class="absolute top-0 right-0 m-4 text-lg text-red-600 rounded-lg font-bold bg-gray-900 p-2">
-                            {{ $product->discount }}%</div>
-                    @endif
+                    </div>
                 </div>
+            @endforeach
         </div>
-        @endforeach
-    </div>
-    @guest
-        @include('layouts.contact_src')
-    @endguest
+        @guest
+            @include('layouts.contact_src')
+        @endguest
     </div>
 @endsection

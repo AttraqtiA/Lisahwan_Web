@@ -220,7 +220,7 @@ class OrderController extends Controller
         $arrived_date = now();
         $order->update([
             'arrived_date' => $arrived_date,
-            'acceptbyCustomer_status' => 1
+            'acceptbyCustomer_status' => 'sudah'
         ]);
         return back();
     }
