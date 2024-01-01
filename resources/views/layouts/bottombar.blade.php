@@ -7,7 +7,7 @@
                 </a>
             </div>
             <div class="w-full md:w-1/2">
-                <h2 class="mb-6 text-lg font-semibold uppercase">Lisahwan Snacks Surabaya</h2>
+                <h2 class="mb-6 text-lg font-semibold uppercase">Lisahwan Surabaya</h2>
                 <p>Premium, Teri Oven, Balado, Kerupuk, Kentang, Dendeng, Snacks, Cemilan, Kualitas, Homemade, Terlaris,
                     Fast
                     Respon, Enak</p>

@@ -10,25 +10,10 @@
                     class="flex flex-col md:flex-row md:items-center md:justify-between space-y-3 md:space-y-0 md:space-x-4 p-4">
                     <div class="flex-1 flex items-center space-x-2">
                         <h5>
-                            <span class="text-gray-500">All User:</span>
+                            <span class="text-gray-500">Semua User:</span>
                             <span class="text-gray-500">{{ $users->count() }}</span>
                         </h5>
                         <h5 class="text-gray-500 ml-1">(1-{{ (int) ceil($users->count() / 10) }})</h5>
-                        <button type="button" class="group" data-tooltip-target="results-tooltip">
-                            <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
-                                class="h-4 w-4 text-gray-400 group-hover:text-gray-900" viewbox="0 0 20 20"
-                                fill="currentColor">
-                                <path fill-rule="evenodd"
-                                    d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z"
-                                    clip-rule="evenodd" />
-                            </svg>
-                            <span class="sr-only">More info</span>
-                        </button>
-                        <div id="results-tooltip" role="tooltip"
-                            class="absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-white transition-opacity duration-300 bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip">
-                            Showing 1-20 of 50 results
-                            <div class="tooltip-arrow" data-popper-arrow=""></div>
-                        </div>
                     </div>
                     <div class="text-lg font-bold text-gray-800">
                         Daftar User
@@ -56,7 +41,6 @@
                             <button type="submit" class="bg-yellow-500 ml-2 p-2 rounded-lg text-sm">
                                 <p class="font-semibold text-white px-2">Search</p>
                             </button>
-
                         </form>
                     </div>
                     <div
@@ -75,16 +59,10 @@
                     </div>
                 </div>
                 <div class="overflow-x-auto">
-                    <table class="w-full text-sm text-left text-gray-500">
-                        <thead class="text-xs text-gray-700 uppercase bg-gray-50">
+                    <table class="w-full text-sm text-center text-gray-500">
+                        <thead class="text-xs text-center text-gray-700 uppercase bg-gray-50">
                             <tr>
-                                <th scope="col" class="p-4">
-                                    <div class="flex items-center">
-                                        <input id="checkbox-all" type="checkbox"
-                                            class="w-4 h-4 text-primary-600 bg-gray-100 rounded border-gray-300 focus:ring-primary-500 focus:ring-2">
-                                        <label for="checkbox-all" class="sr-only">checkbox</label>
-                                    </div>
-                                </th>
+                                <th scope="col" class="p-4">No.</th>
                                 <th scope="col" class="p-4">Nama</th>
                                 <th scope="col" class="p-4">Role</th>
                                 <th scope="col" class="p-4">Status</th>
@@ -105,12 +83,7 @@
                                 @foreach ($users as $user)
                                     <tr class="border-b hover:bg-gray-100">
                                         <td class="p-4 w-4">
-                                            <div class="flex items-center">
-                                                <input id="checkbox-table-search-1" type="checkbox"
-                                                    onclick="event.stopPropagation()"
-                                                    class="w-4 h-4 text-primary-600 bg-gray-100 rounded border-gray-300 focus:ring-primary-500 focus:ring-2">
-                                                <label for="checkbox-table-search-1" class="sr-only">checkbox</label>
-                                            </div>
+                                            {{ $loop->index + ($users->currentPage() - 1) * $users->perPage() + 1 }}
                                         </td>
                                         <th scope="row" class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap">
                                             <div class="flex items-center mr-3">
@@ -134,7 +107,6 @@
                                                 <p>{{ $user->name }}</p>
                                             </div>
                                         </th>
-
                                         @if ($user->role_id == 1)
                                             <td class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap">
                                                 Owner</td>
@@ -170,7 +142,8 @@
 
                                         @if ($user->address->isNotEmpty())
                                             <td class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap">
-                                                {{ $user->address->first()->address }}, {{ $user->address->first()->city }},
+                                                {{ $user->address->first()->address }},
+                                                {{ $user->address->first()->city }},
                                                 {{ $user->address->first()->province }},
                                                 {{ $user->address->first()->postal_code }}
                                             </td>

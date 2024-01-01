@@ -74,8 +74,8 @@
                     </span>
                 @else
                     <span
-                        class="inline-flex items-center bg-red-100 text-red-800 text-xs font-medium px-2 py-1.5 rounded-lg">
-                        <span class="w-2.5 h-2 mr-2 bg-red-500 rounded-full"></span>
+                        class="inline-flex items-center bg-gray-300 text-gray-600 text-xs font-medium px-2 py-1.5 rounded-lg">
+                        <span class="w-2.5 h-2 mr-2 bg-gray-600 rounded-full"></span>
                         Belum Diterima
                     </span>
                 @endif
@@ -89,8 +89,8 @@
                     </span>
                 @else
                     <span
-                        class="inline-flex items-center bg-red-100 text-red-800 text-xs font-medium px-2 py-1.5 rounded-lg">
-                        <span class="w-2.5 h-2 mr-2 bg-red-500 rounded-full"></span>
+                        class="inline-flex items-center bg-gray-300 text-gray-600 text-xs font-medium px-2 py-1.5 rounded-lg">
+                        <span class="w-2.5 h-2 mr-2 bg-gray-600 rounded-full"></span>
                         Belum Dikirim
                     </span>
                 @endif
@@ -104,8 +104,8 @@
                     </span>
                 @else
                     <span
-                        class="inline-flex items-center bg-red-100 text-red-800 text-xs font-medium px-2 py-1.5 rounded-lg">
-                        <span class="w-2.5 h-2 mr-2 bg-red-500 rounded-full"></span>
+                        class="inline-flex items-center bg-gray-300 text-gray-600 text-xs font-medium px-2 py-1.5 rounded-lg">
+                        <span class="w-2.5 h-2 mr-2 bg-gray-600 rounded-full"></span>
                         Belum Sampai
                     </span>
                 @endif

@@ -19,7 +19,7 @@ class ProductController extends Controller
             ->take(4)
             ->get();
         return view('index', [
-            "TabTitle" => "Lisahwan Snacks Surabaya",
+            "TabTitle" => "Lisahwan Surabaya",
             "active_1" => "text-yellow-500 rounded md:bg-transparent md:p-0",
             "carousel_1" => "/images/fotoproduk/GalleryCarousel_12.jpeg",
             "carousel_2" => "/images/fotoproduk/GalleryCarousel_10.jpg",

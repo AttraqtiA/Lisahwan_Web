@@ -38,21 +38,21 @@
                     @endif
 
                     @if (Auth::user()->isMember())
-                    {{-- cartnya hanya bisa diklik/show kalo member, kalo guest/admin/owner ga bisa jg --}}
-                    <li>
-                        <button type="button" data-drawer-target="drawer-right-example"
-                            data-drawer-show="drawer-right-example" data-drawer-placement="right"
-                            aria-controls="drawer-right-example" class="mt-1">
-                            <div class="rounded-lg border border-white border-0.5 p-2">
-                                <svg class="w-6 h-6 text-white " aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
-                                    fill="none" viewBox="0 0 18 20">
-                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                                        stroke-width="1"
-                                        d="M6 15a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm0 0h8m-8 0-1-4m9 4a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm-9-4h10l2-7H3m2 7L3 4m0 0-.792-3H1" />
-                                </svg>
-                            </div>
-                        </button>
-                    </li>
+                        {{-- cartnya hanya bisa diklik/show kalo member, kalo guest/admin/owner ga bisa jg --}}
+                        <li>
+                            <button type="button" data-drawer-target="drawer-right-example"
+                                data-drawer-show="drawer-right-example" data-drawer-placement="right"
+                                aria-controls="drawer-right-example" class="mt-1">
+                                <div class="rounded-lg border border-white border-0.5 p-2">
+                                    <svg class="w-6 h-6 text-white " aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                                        fill="none" viewBox="0 0 18 20">
+                                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                            stroke-width="1"
+                                            d="M6 15a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm0 0h8m-8 0-1-4m9 4a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm-9-4h10l2-7H3m2 7L3 4m0 0-.792-3H1" />
+                                    </svg>
+                                </div>
+                            </button>
+                        </li>
                     @endif
 
                     <!-- drawer component -->
@@ -220,19 +220,19 @@
                             class="flex text-sm bg-gray-800 rounded-full focus:ring focus:ring-gray-500"
                             aria-expanded="false" data-dropdown-toggle="dropdown-user">
                             <span class="sr-only">Open user menu</span>
-                                @if (Auth::user()->profile_picture == null)
-                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                        stroke-width="1.5" stroke="currentColor" class="w-10 h-10 rounded-full text-white">
-                                        <path stroke-linecap="round" stroke-linejoin="round"
-                                            d="M17.982 18.725A7.488 7.488 0 0012 15.75a7.488 7.488 0 00-5.982 2.975m11.963 0a9 9 0 10-11.963 0m11.963 0A8.966 8.966 0 0112 21a8.966 8.966 0 01-5.982-2.275M15 9.75a3 3 0 11-6 0 3 3 0 016 0z" />
-                                    </svg>
-                                @elseif (Auth::user()->isAdmin() || Auth::user()->isOwner())
-                                    <img class="w-10 h-10 rounded-full object-cover"
-                                        src="{{ asset('images/' . Auth::user()->profile_picture) }}" alt="user photo">
-                                @else
-                                    <img class="w-10 h-10 rounded-full object-cover"
-                                        src="{{ asset('storage/' . Auth::user()->profile_picture) }}" alt="user photo">
-                                @endif
+                            @if (Auth::user()->profile_picture == null)
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                    stroke-width="1.5" stroke="currentColor" class="w-10 h-10 rounded-full text-white">
+                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                        d="M17.982 18.725A7.488 7.488 0 0012 15.75a7.488 7.488 0 00-5.982 2.975m11.963 0a9 9 0 10-11.963 0m11.963 0A8.966 8.966 0 0112 21a8.966 8.966 0 01-5.982-2.275M15 9.75a3 3 0 11-6 0 3 3 0 016 0z" />
+                                </svg>
+                            @elseif (Auth::user()->isAdmin() || Auth::user()->isOwner())
+                                <img class="w-10 h-10 rounded-full object-cover"
+                                    src="{{ asset('images/' . Auth::user()->profile_picture) }}" alt="user photo">
+                            @else
+                                <img class="w-10 h-10 rounded-full object-cover"
+                                    src="{{ asset('storage/' . Auth::user()->profile_picture) }}" alt="user photo">
+                            @endif
                         </button>
                     </div>
                     <div class="z-50 hidden my-4 text-base list-none bg-white divide-y divide-gray-100 rounded shadow"
@@ -304,17 +304,17 @@
 
                 @auth
                     @if (Auth::user()->isMember())
-                    <li>
-                        <a href="{{ route('member.wishlist') }}"
-                            class="block py-2 pl-3 pr-4 {{ $active_wishlist ?? 'text-white rounded hover:bg-yellow-500 md:hover:bg-transparent md:hover:text-yellow-500 md:p-0 md:hover:bg-transparent' }}"
-                            aria-current="page">Wishlist</a>
-                    </li>
+                        <li>
+                            <a href="{{ route('member.wishlist') }}"
+                                class="block py-2 pl-3 pr-4 {{ $active_wishlist ?? 'text-white rounded hover:bg-yellow-500 md:hover:bg-transparent md:hover:text-yellow-500 md:p-0 md:hover:bg-transparent' }}"
+                                aria-current="page">Wishlist</a>
+                        </li>
 
-                    <li>
-                        <a href="{{ route('member.orderhistory') }}"
-                            class="block py-2 pl-3 pr-4 {{ $active_history ?? 'text-white rounded hover:bg-yellow-500 md:hover:bg-transparent md:hover:text-yellow-500 md:p-0 md:hover:bg-transparent' }}"
-                            aria-current="page">Order History</a>
-                    </li>
+                        <li>
+                            <a href="{{ route('member.orderhistory') }}"
+                                class="block py-2 pl-3 pr-4 {{ $active_history ?? 'text-white rounded hover:bg-yellow-500 md:hover:bg-transparent md:hover:text-yellow-500 md:p-0 md:hover:bg-transparent' }}"
+                                aria-current="page">Order History</a>
+                        </li>
                     @endif
                 @endauth
 

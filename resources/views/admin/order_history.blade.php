@@ -300,256 +300,247 @@
                                                 <!-- Modal body -->
 
                                                 <@if (Auth::user()->isOwner())
-                                                <form id="update-form" action="{{ route('owner.order_history.update', $order) }}"
-                                                    method="POST" enctype="multipart/form-data">
-                                                    @method('put')
-                                                    @csrf
-                                                @else
-                                                <form id="update-form" action="{{ route('admin.order_history.update', $order) }}"
-                                                    method="POST" enctype="multipart/form-data">
-                                                    @method('put')
-                                                    @csrf
-                                                @endif
+                                                    <form id="update-form"
+                                                        action="{{ route('owner.order_history.update', $order) }}"
+                                                        method="POST" enctype="multipart/form-data">
+                                                        @method('put')
+                                                        @csrf
+                                                    @else
+                                                        <form id="update-form"
+                                                            action="{{ route('admin.order_history.update', $order) }}"
+                                                            method="POST" enctype="multipart/form-data">
+                                                            @method('put')
+                                                            @csrf
+                                @endif
 
-                                                    <div class="grid gap-4 mb-4 grid-cols-3">
-                                                        <p class="text-center font-semibold col-span-3">Order Status</p>
+                                <div class="grid gap-4 mb-4 grid-cols-3">
+                                    <p class="text-center font-semibold col-span-3">Order Status</p>
 
-                                                        <div>
-                                                            <label for="acceptbyAdmin_status"
-                                                                class="block mb-2 text-sm font-medium text-gray-900">Order
-                                                                Masuk</label>
-                                                            <select name="acceptbyAdmin_status" id="acceptbyAdmin_status"
-                                                                class="{{ $errors->has('acceptbyAdmin_status') ? 'bg-red-100 border-red-400 text-red-500 placeholder-red-700' : 'bg-white border-yellow-500 text-gray-900 placeholder-gray-400  focus:ring-yellow-500 focus:border-yellow-500' }} rounded-lg border-1 text-sm mt-3 block w-full p-2.5"
-                                                                required>
-                                                                <option class="text-red-700" value="pending"
-                                                                    {{ $order->acceptbyAdmin_status === 'pending' ? 'selected' : '' }}>
-                                                                    Pending</option>
-                                                                <option class="text-green-400" value="sudah"
-                                                                    {{ $order->acceptbyAdmin_status === 'sudah' ? 'selected' : '' }}>
-                                                                    Sudah</option>
-                                                            </select>
-                                                            @error('is_print')
-                                                                <p class="mt-2 text-sm text-red-500"><span
-                                                                        class="font-medium">{{ $message }}
-                                                                </p>
-                                                            @enderror
-                                                        </div>
+                                    <div>
+                                        <label for="acceptbyAdmin_status"
+                                            class="block mb-2 text-sm font-medium text-gray-900">Order
+                                            Masuk</label>
+                                        <select name="acceptbyAdmin_status" id="acceptbyAdmin_status"
+                                            class="{{ $errors->has('acceptbyAdmin_status') ? 'bg-red-100 border-red-400 text-red-500 placeholder-red-700' : 'bg-white border-yellow-500 text-gray-900 placeholder-gray-400  focus:ring-yellow-500 focus:border-yellow-500' }} rounded-lg border-1 text-sm mt-3 block w-full p-2.5"
+                                            required>
+                                            <option class="text-red-700" value="pending"
+                                                {{ $order->acceptbyAdmin_status === 'pending' ? 'selected' : '' }}>
+                                                Pending</option>
+                                            <option class="text-green-400" value="sudah"
+                                                {{ $order->acceptbyAdmin_status === 'sudah' ? 'selected' : '' }}>
+                                                Sudah</option>
+                                        </select>
+                                        @error('is_print')
+                                            <p class="mt-2 text-sm text-red-500"><span
+                                                    class="font-medium">{{ $message }}
+                                            </p>
+                                        @enderror
+                                    </div>
 
-                                                        <div>
-                                                            <label for="shipment_status"
-                                                                class="block mb-2 text-sm font-medium text-gray-900">Dikirim
-                                                                Kurir</label>
-                                                            <select name="shipment_status" id="shipment_status"
-                                                                class="{{ $errors->has('shipment_status') ? 'bg-red-100 border-red-400 text-red-500 placeholder-red-700' : 'bg-white border-yellow-500 text-gray-900 placeholder-gray-400  focus:ring-yellow-500 focus:border-yellow-500' }} rounded-lg border-1 text-sm mt-3 block w-full p-2.5"
-                                                                required>
-                                                                <option class="text-red-700" value="pending"
-                                                                    {{ $order->shipment_status === 'pending' ? 'selected' : '' }}>
-                                                                    Pending</option>
-                                                                <option class="text-green-400" value="sudah"
-                                                                    {{ $order->shipment_status === 'sudah' ? 'selected' : '' }}>
-                                                                    Sudah</option>
-                                                            </select>
-                                                            @error('shipment_status')
-                                                                <p class="mt-2 text-sm text-red-500"><span
-                                                                        class="font-medium">{{ $message }}
-                                                                </p>
-                                                            @enderror
-                                                        </div>
+                                    <div>
+                                        <label for="shipment_status"
+                                            class="block mb-2 text-sm font-medium text-gray-900">Dikirim
+                                            Kurir</label>
+                                        <select name="shipment_status" id="shipment_status"
+                                            class="{{ $errors->has('shipment_status') ? 'bg-red-100 border-red-400 text-red-500 placeholder-red-700' : 'bg-white border-yellow-500 text-gray-900 placeholder-gray-400  focus:ring-yellow-500 focus:border-yellow-500' }} rounded-lg border-1 text-sm mt-3 block w-full p-2.5"
+                                            required>
+                                            <option class="text-red-700" value="pending"
+                                                {{ $order->shipment_status === 'pending' ? 'selected' : '' }}>
+                                                Pending</option>
+                                            <option class="text-green-400" value="sudah"
+                                                {{ $order->shipment_status === 'sudah' ? 'selected' : '' }}>
+                                                Sudah</option>
+                                        </select>
+                                        @error('shipment_status')
+                                            <p class="mt-2 text-sm text-red-500"><span
+                                                    class="font-medium">{{ $message }}
+                                            </p>
+                                        @enderror
+                                    </div>
 
-                                                        <div>
-                                                            <label for="acceptbyCustomer_status"
-                                                                class="block mb-2 text-sm font-medium text-gray-900">Sampai
-                                                                Tujuan</label>
-                                                            <select name="acceptbyCustomer_status"
-                                                                id="acceptbyCustomer_status"
-                                                                class="{{ $errors->has('acceptbyCustomer_status') ? 'bg-red-100 border-red-400 text-red-500 placeholder-red-700' : 'bg-white border-yellow-500 text-gray-900 placeholder-gray-400  focus:ring-yellow-500 focus:border-yellow-500' }} rounded-lg border-1 text-sm mt-3 block w-full p-2.5"
-                                                                required>
-                                                                <option class="text-red-700" value="pending"
-                                                                    {{ $order->acceptbyCustomer_status === 'pending' ? 'selected' : '' }}>
-                                                                    Pending</option>
-                                                                <option class="text-green-400" value="sudah"
-                                                                    {{ $order->acceptbyCustomer_status === 'sudah' ? 'selected' : '' }}>
-                                                                    Sudah</option>
-                                                            </select>
-                                                            @error('acceptbyCustomer_status')
-                                                                <p class="mt-2 text-sm text-red-500"><span
-                                                                        class="font-medium">{{ $message }}
-                                                                </p>
-                                                            @enderror
-                                                        </div>
+                                    <div>
+                                        <label for="acceptbyCustomer_status"
+                                            class="block mb-2 text-sm font-medium text-gray-900">Sampai
+                                            Tujuan</label>
+                                        <select name="acceptbyCustomer_status" id="acceptbyCustomer_status"
+                                            class="{{ $errors->has('acceptbyCustomer_status') ? 'bg-red-100 border-red-400 text-red-500 placeholder-red-700' : 'bg-white border-yellow-500 text-gray-900 placeholder-gray-400  focus:ring-yellow-500 focus:border-yellow-500' }} rounded-lg border-1 text-sm mt-3 block w-full p-2.5"
+                                            required>
+                                            <option class="text-red-700" value="pending"
+                                                {{ $order->acceptbyCustomer_status === 'pending' ? 'selected' : '' }}>
+                                                Pending</option>
+                                            <option class="text-green-400" value="sudah"
+                                                {{ $order->acceptbyCustomer_status === 'sudah' ? 'selected' : '' }}>
+                                                Sudah</option>
+                                        </select>
+                                        @error('acceptbyCustomer_status')
+                                            <p class="mt-2 text-sm text-red-500"><span
+                                                    class="font-medium">{{ $message }}
+                                            </p>
+                                        @enderror
+                                    </div>
 
-                                                        <p class="mt-4 text-center font-semibold col-span-3">Tanggal</p>
+                                    <p class="mt-4 text-center font-semibold col-span-3">Tanggal</p>
 
-                                                        <div>
-                                                            <label
-                                                                for="order_date"class="block mb-2 text-sm font-medium text-gray-900">Order
-                                                                Masuk</label>
-                                                            <p
-                                                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5">
-                                                                {{ $order->order_date }}</p>
-                                                        </div>
+                                    <div>
+                                        <label for="order_date"class="block mb-2 text-sm font-medium text-gray-900">Order
+                                            Masuk</label>
+                                        <p
+                                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5">
+                                            {{ $order->order_date }}</p>
+                                    </div>
 
-                                                        <div>
-                                                            <label for="shipment_date"
-                                                                class="block mb-2 text-sm font-medium text-gray-900">Order
-                                                                Dikirim</label>
-                                                            <input type="datetime-local" name="shipment_date"
-                                                                id="shipment_date"
-                                                                class="{{ $errors->has('shipment_date') ? 'bg-red-100 border-red-400 text-red-500 placeholder-red-700' : 'bg-white border-yellow-500 text-gray-900 placeholder-gray-400  focus:ring-yellow-500 focus:border-yellow-500' }} rounded-lg border-1 text-sm mt-3 block w-full p-2.5"
-                                                                value="{{ $order->shipment_date ? \Carbon\Carbon::parse($order->shipment_date)->format('Y-m-d\TH:i') : '' }}">
-                                                            @error('shipment_date')
-                                                                <p class="mt-2 text-sm text-red-500"><span
-                                                                        class="font-medium">{{ $message }}
-                                                                </p>
-                                                            @enderror
-                                                        </div>
+                                    <div>
+                                        <label for="shipment_date"
+                                            class="block mb-2 text-sm font-medium text-gray-900">Order
+                                            Dikirim</label>
+                                        <input type="datetime-local" name="shipment_date" id="shipment_date"
+                                            class="{{ $errors->has('shipment_date') ? 'bg-red-100 border-red-400 text-red-500 placeholder-red-700' : 'bg-white border-yellow-500 text-gray-900 placeholder-gray-400  focus:ring-yellow-500 focus:border-yellow-500' }} rounded-lg border-1 text-sm mt-3 block w-full p-2.5"
+                                            value="{{ $order->shipment_date ? \Carbon\Carbon::parse($order->shipment_date)->format('Y-m-d\TH:i') : '' }}">
+                                        @error('shipment_date')
+                                            <p class="mt-2 text-sm text-red-500"><span
+                                                    class="font-medium">{{ $message }}
+                                            </p>
+                                        @enderror
+                                    </div>
 
-                                                        <div>
-                                                            <label for="arrived_date"
-                                                                class="block mb-2 text-sm font-medium text-gray-900">Order
-                                                                Sampai</label>
-                                                            <input type="datetime-local" name="arrived_date"
-                                                                id="arrived_date"
-                                                                class="{{ $errors->has('arrived_date') ? 'bg-red-100 border-red-400 text-red-500 placeholder-red-700' : 'bg-white border-yellow-500 text-gray-900 placeholder-gray-400  focus:ring-yellow-500 focus:border-yellow-500' }} rounded-lg border-1 text-sm mt-3 block w-full p-2.5"
-                                                                value="{{ $order->arrived_date ? \Carbon\Carbon::parse($order->arrived_date)->format('Y-m-d\TH:i') : '' }}">
-                                                            @error('arrived_date')
-                                                                <p class="mt-2 text-sm text-red-500"><span
-                                                                        class="font-medium">{{ $message }}
-                                                                </p>
-                                                            @enderror
-                                                        </div>
+                                    <div>
+                                        <label for="arrived_date"
+                                            class="block mb-2 text-sm font-medium text-gray-900">Order
+                                            Sampai</label>
+                                        <input type="datetime-local" name="arrived_date" id="arrived_date"
+                                            class="{{ $errors->has('arrived_date') ? 'bg-red-100 border-red-400 text-red-500 placeholder-red-700' : 'bg-white border-yellow-500 text-gray-900 placeholder-gray-400  focus:ring-yellow-500 focus:border-yellow-500' }} rounded-lg border-1 text-sm mt-3 block w-full p-2.5"
+                                            value="{{ $order->arrived_date ? \Carbon\Carbon::parse($order->arrived_date)->format('Y-m-d\TH:i') : '' }}">
+                                        @error('arrived_date')
+                                            <p class="mt-2 text-sm text-red-500"><span
+                                                    class="font-medium">{{ $message }}
+                                            </p>
+                                        @enderror
+                                    </div>
 
-                                                        <div class="col-span-2">
-                                                            <label for="note"
-                                                                class="block mb-2 text-sm font-medium text-gray-900">Note</label>
-                                                            <textarea name="note" id="note" rows="4"
-                                                                class="{{ $errors->has('note') ? 'bg-red-100 border-red-400 text-red-500 placeholder-red-700' : 'bg-white border-yellow-500 text-gray-900 placeholder-gray-400  focus:ring-yellow-500 focus:border-yellow-500' }} rounded-lg border-1 text-sm mt-3 block w-full p-2.5">
+                                    <div class="col-span-2">
+                                        <label for="note"
+                                            class="block mb-2 text-sm font-medium text-gray-900">Note</label>
+                                        <textarea name="note" id="note" rows="4"
+                                            class="{{ $errors->has('note') ? 'bg-red-100 border-red-400 text-red-500 placeholder-red-700' : 'bg-white border-yellow-500 text-gray-900 placeholder-gray-400  focus:ring-yellow-500 focus:border-yellow-500' }} rounded-lg border-1 text-sm mt-3 block w-full p-2.5">
                                                             {{ $order->note }}
                                                                 </textarea>
-                                                            @error('note')
-                                                                <p class="mt-2 text-sm text-red-500"><span
-                                                                        class="font-medium">{{ $message }}
-                                                                </p>
-                                                            @enderror
-                                                        </div>
-
-                                                        <div>
-                                                            <label for="is_print"
-                                                                class="block mb-2 text-sm font-medium text-gray-900">Print
-                                                                Status</label>
-                                                            <select name="is_print" id="is_print"
-                                                                class="{{ $errors->has('is_print') ? 'bg-red-100 border-red-400 text-red-500 placeholder-red-700' : 'bg-white border-yellow-500 text-gray-900 placeholder-gray-400  focus:ring-yellow-500 focus:border-yellow-500' }} rounded-lg border-1 text-sm mt-3 block w-full p-2.5"
-                                                                required>
-                                                                <option class="text-red-700" value="pending"
-                                                                    {{ $order->is_print === 'pending' ? 'selected' : '' }}>
-                                                                    Pending</option>
-                                                                <option class="text-green-400" value="sudah"
-                                                                    {{ $order->is_print === 'sudah' ? 'selected' : '' }}>
-                                                                    Sudah</option>
-                                                            </select>
-                                                            @error('is_print')
-                                                                <p class="mt-2 text-sm text-red-500"><span
-                                                                        class="font-medium">{{ $message }}
-                                                                </p>
-                                                            @enderror
-                                                        </div>
-
-                                                    </div>
-
-
-                                                    <div class="items-center space-y-4 sm:flex sm:space-y-0 sm:space-x-4">
-                                                        <button type="submit"
-                                                            class="w-full sm:w-auto justify-center text-white inline-flex bg-yellow-500 hover:bg-yellow-600 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">Update
-                                                            Order</button>
-
-                                                        <button data-modal-toggle="update-modal{{ $order->id }}"
-                                                            type="button"
-                                                            class="w-full justify-center sm:w-auto text-white inline-flex items-center bg-red-500 hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-primary-300 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10">
-                                                            <svg class="mr-1 -ml-1 w-5 h-5" fill="currentColor"
-                                                                viewbox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                                                                <path fill-rule="evenodd"
-                                                                    d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
-                                                                    clip-rule="evenodd" />
-                                                            </svg>
-                                                            Batal
-                                                        </button>
-                                                    </div>
-                                                </form>
-                                            </div>
-                                        </div>
+                                        @error('note')
+                                            <p class="mt-2 text-sm text-red-500"><span
+                                                    class="font-medium">{{ $message }}
+                                            </p>
+                                        @enderror
                                     </div>
 
-                                    <div id="payment{{ $order->id }}" tabindex="-1" aria-hidden="true"
-                                        class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] md:h-full">
-                                        <div class="relative p-4 w-full max-w-3xl h-full md:h-auto">
-                                            <!-- Modal content -->
-                                            <div id="update-modal-content"
-                                                class="relative p-4 bg-white rounded-lg shadow sm:p-5">
-                                                <!-- Modal header -->
-
-                                                <div
-                                                    class="flex justify-between items-center pb-4 mb-4 rounded-t border-b sm:mb-5">
-                                                    <div class="flex items-center mr-3">
-                                                        @if ($order->user->profile_picture == null)
-                                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none"
-                                                                viewBox="0 0 24 24" stroke-width="1.5"
-                                                                stroke="currentColor"
-                                                                class="w-8 h-8 mr-3 rounded-full text-gray-700">
-                                                                <path stroke-linecap="round" stroke-linejoin="round"
-                                                                    d="M17.982 18.725A7.488 7.488 0 0012 15.75a7.488 7.488 0 00-5.982 2.975m11.963 0a9 9 0 10-11.963 0m11.963 0A8.966 8.966 0 0112 21a8.966 8.966 0 01-5.982-2.275M15 9.75a3 3 0 11-6 0 3 3 0 016 0z" />
-                                                            </svg>
-                                                        @elseif (strlen($order->user->profile_picture) > 25)
-                                                            <img src="{{ asset('storage/' . $order->user->profile_picture) }}"
-                                                                alt="profile picture"
-                                                                class="w-8 h-8 mr-3 object-cover object-center rounded-full">
-                                                        @else
-                                                            <img src="/images/profile_picture/{{ $order->user->profile_picture }}"
-                                                                alt="profile picture"
-                                                                class="w-8 h-8 mr-3 object-cover object-center rounded-full">
-                                                        @endif
-                                                        <h3 class="text-lg font-semibold text-gray-900">
-                                                            Payment oleh customer: {{ $order->user->name }}</h3>
-                                                    </div>
-                                                    <button type="button"
-                                                        class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center"
-                                                        data-modal-toggle="payment{{ $order->id }}">
-                                                        <svg aria-hidden="true" class="w-5 h-5" fill="currentColor"
-                                                            viewbox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                                                            <path fill-rule="evenodd"
-                                                                d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
-                                                                clip-rule="evenodd" />
-                                                        </svg>
-                                                        <span class="sr-only">Close modal</span>
-                                                    </button>
-                                                </div>
-                                                <!-- Modal body -->
-
-                                                @if ($order->payment != null || $order->payment != '')
-                                                    <img src="{{ asset('storage/' . $order->payment) }}"
-                                                        alt="{{ asset('storage/' . $order->payment) }}"
-                                                        class="mt-3 w-96 mx-auto rounded-lg object-cover">
-                                                @else
-                                                    <p class="mt-3 text-red-700 text-center font-semibold text-gray-900">
-                                                        Belum ada bukti pembayaran</p>
-                                                @endif
-                                            </div>
-                                        </div>
+                                    <div>
+                                        <label for="is_print" class="block mb-2 text-sm font-medium text-gray-900">Print
+                                            Status</label>
+                                        <select name="is_print" id="is_print"
+                                            class="{{ $errors->has('is_print') ? 'bg-red-100 border-red-400 text-red-500 placeholder-red-700' : 'bg-white border-yellow-500 text-gray-900 placeholder-gray-400  focus:ring-yellow-500 focus:border-yellow-500' }} rounded-lg border-1 text-sm mt-3 block w-full p-2.5"
+                                            required>
+                                            <option class="text-red-700" value="pending"
+                                                {{ $order->is_print === 'pending' ? 'selected' : '' }}>
+                                                Pending</option>
+                                            <option class="text-green-400" value="sudah"
+                                                {{ $order->is_print === 'sudah' ? 'selected' : '' }}>
+                                                Sudah</option>
+                                        </select>
+                                        @error('is_print')
+                                            <p class="mt-2 text-sm text-red-500"><span
+                                                    class="font-medium">{{ $message }}
+                                            </p>
+                                        @enderror
                                     </div>
-                                    @php
-                                        $orderNumber++;
-                                    @endphp
-                                @endforeach
-                            @endif
-                        </tbody>
-                    </table>
+
+                                </div>
+
+
+                                <div class="items-center space-y-4 sm:flex sm:space-y-0 sm:space-x-4">
+                                    <button type="submit"
+                                        class="w-full sm:w-auto justify-center text-white inline-flex bg-yellow-500 hover:bg-yellow-600 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">Update
+                                        Order</button>
+
+                                    <button data-modal-toggle="update-modal{{ $order->id }}" type="button"
+                                        class="w-full justify-center sm:w-auto text-white inline-flex items-center bg-red-500 hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-primary-300 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10">
+                                        <svg class="mr-1 -ml-1 w-5 h-5" fill="currentColor" viewbox="0 0 20 20"
+                                            xmlns="http://www.w3.org/2000/svg">
+                                            <path fill-rule="evenodd"
+                                                d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                                                clip-rule="evenodd" />
+                                        </svg>
+                                        Batal
+                                    </button>
+                                </div>
+                                </form>
                 </div>
-                <nav class="flex flex-col md:flex-row justify-end items-center space-y-3 md:space-y-0 p-4"
-                    aria-label="Table navigation">
-
-                    {{ $orders->links('vendor.pagination.tailwind') }}
-
-                </nav>
             </div>
+        </div>
+
+        <div id="payment{{ $order->id }}" tabindex="-1" aria-hidden="true"
+            class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] md:h-full">
+            <div class="relative p-4 w-full max-w-3xl h-full md:h-auto">
+                <!-- Modal content -->
+                <div id="update-modal-content" class="relative p-4 bg-white rounded-lg shadow sm:p-5">
+                    <!-- Modal header -->
+
+                    <div class="flex justify-between items-center pb-4 mb-4 rounded-t border-b sm:mb-5">
+                        <div class="flex items-center mr-3">
+                            @if ($order->user->profile_picture == null)
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                    stroke-width="1.5" stroke="currentColor"
+                                    class="w-8 h-8 mr-3 rounded-full text-gray-700">
+                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                        d="M17.982 18.725A7.488 7.488 0 0012 15.75a7.488 7.488 0 00-5.982 2.975m11.963 0a9 9 0 10-11.963 0m11.963 0A8.966 8.966 0 0112 21a8.966 8.966 0 01-5.982-2.275M15 9.75a3 3 0 11-6 0 3 3 0 016 0z" />
+                                </svg>
+                            @elseif (strlen($order->user->profile_picture) > 25)
+                                <img src="{{ asset('storage/' . $order->user->profile_picture) }}" alt="profile picture"
+                                    class="w-8 h-8 mr-3 object-cover object-center rounded-full">
+                            @else
+                                <img src="/images/profile_picture/{{ $order->user->profile_picture }}"
+                                    alt="profile picture" class="w-8 h-8 mr-3 object-cover object-center rounded-full">
+                            @endif
+                            <h3 class="text-lg font-semibold text-gray-900">
+                                Payment oleh customer: {{ $order->user->name }}</h3>
+                        </div>
+                        <button type="button"
+                            class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center"
+                            data-modal-toggle="payment{{ $order->id }}">
+                            <svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewbox="0 0 20 20"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd"
+                                    d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                                    clip-rule="evenodd" />
+                            </svg>
+                            <span class="sr-only">Close modal</span>
+                        </button>
+                    </div>
+                    <!-- Modal body -->
+
+                    @if ($order->payment != null || $order->payment != '')
+                        <img src="{{ asset('storage/' . $order->payment) }}"
+                            alt="{{ asset('storage/' . $order->payment) }}"
+                            class="mt-3 w-96 mx-auto rounded-lg object-cover">
+                    @else
+                        <p class="mt-3 text-red-700 text-center font-semibold text-gray-900">
+                            Belum ada bukti pembayaran</p>
+                    @endif
+                </div>
+            </div>
+        </div>
+        @php
+            $orderNumber++;
+        @endphp
+        @endforeach
+        @endif
+        </tbody>
+        </table>
+        </div>
+        <nav class="flex flex-col md:flex-row justify-end items-center space-y-3 md:space-y-0 p-4"
+            aria-label="Table navigation">
+
+            {{ $orders->links('vendor.pagination.tailwind') }}
+
+        </nav>
+        </div>
         </div>
     </section>
     <!-- End block -->

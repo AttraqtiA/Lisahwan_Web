@@ -85,8 +85,8 @@
                                     </span>
                                 @else
                                     <span
-                                        class="text-center inline-flex items-center bg-red-100 text-red-800 text-xs font-medium px-3 py-1.5 rounded-lg">
-                                        <span class="w-2 h-2 me-1 bg-red-500 rounded-full"></span>
+                                        class="text-center inline-flex items-center bg-gray-300 text-gray-600 text-xs font-medium px-3 py-1.5 rounded-lg">
+                                        <span class="w-2 h-2 me-1 bg-gray-600 rounded-full"></span>
                                         Pesanan Belum Diterima
                                     </span>
                                 @endif
@@ -100,8 +100,8 @@
                                     </span>
                                 @else
                                     <span
-                                        class="inline-flex items-center bg-red-100 text-red-800 text-xs font-medium px-3 py-1.5 rounded-lg">
-                                        <span class="w-2 h-2 me-1 bg-red-500 rounded-full"></span>
+                                        class="inline-flex items-center bg-gray-300 text-gray-600 text-xs font-medium px-3 py-1.5 rounded-lg">
+                                        <span class="w-2 h-2 me-1 bg-gray-600 rounded-full"></span>
                                         Belum Dikirim
                                     </span>
                                 @endif
@@ -171,7 +171,6 @@
                                         d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Zm3.707 8.207-4 4a1 1 0 0 1-1.414 0l-2-2a1 1 0 0 1 1.414-1.414L9 10.586l3.293-3.293a1 1 0 0 1 1.414 1.414Z" />
                                 </svg>
                                 <span class="sm:inline-block">Pesanan Selesai</span>
-
                             </div>
                         @else
                             <div class="flex flex-col items-center justify-center">

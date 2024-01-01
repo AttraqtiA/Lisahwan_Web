@@ -35,7 +35,7 @@ class ProductController extends Controller
 
         return view('admin.products', [
             "active_3" => "text-yellow-500",
-            "products" => $products,
+            "products" => $products
         ]);
     }
 

@@ -277,7 +277,5 @@
                 preview.append(existingImg);
             }
         }
-
-
     </script>
 @endsection
