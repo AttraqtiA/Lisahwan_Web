@@ -1,10 +1,11 @@
 <?php
 
+use App\Models\Cart;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\GalleryController;
-use App\Http\Controllers\Owner\UserController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\Owner\UserController;
 use App\Http\Controllers\Admin\OrderController as AdminOrderController;
 use App\Http\Controllers\Member\CartController as MemberCartController;
 use App\Http\Controllers\Owner\OrderController as OwnerOrderController;
@@ -25,18 +26,27 @@ use App\Http\Controllers\Member\TestimonyController as MemberTestimonyController
 |
 */
 
-
+// Route::get('/foo', function () {
+//   Artisan::call('storage:link');
+// });
 //====================================== BISA DIAKSES SEMUA ROLE ======================================
 Route::get('/', [ProductController::class, 'home']); // HOME PAGE (CHECKED)
 Route::get('/products', [ProductController::class, 'index'])->name('products'); // PRODUCTS PAGE (CHECKED)
 Route::get('/gallery', [GalleryController::class, 'index']); // GALLERY PAGE (CHECKED)
 Route::get('/contactus', function () {
+    $cart_user = Cart::where('user_id', Auth::user()->id)->first();
+    if (empty($cart_user)) {
+        $carts = null;
+    } else {
+        $carts = $cart_user->cart_detail;
+    }
     $data = [
         "TabTitle" => "Kontak Lisahwan",
         "active_4" => "text-yellow-500 rounded md:bg-transparent md:p-0",
+        "carts" => $carts
     ];
     return view('contact', $data);
-});// CONTACT PAGE (CHECKED)
+}); // CONTACT PAGE (CHECKED)
 //=====================================================================================================
 
 

@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Cart;
 use App\Models\Gallery;
+use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\StoreGalleryRequest;
 use App\Http\Requests\UpdateGalleryRequest;
 
@@ -13,12 +15,19 @@ class GalleryController extends Controller
      */
     public function index()
     {
+        $cart_user= Cart::where('user_id', Auth::user()->id)->first();
+        if (empty($cart_user)) {
+            $carts = null;
+        } else {
+            $carts = $cart_user->cart_detail;
+        }
         return view('gallery_page', [
             "TabTitle" => "Galeri Lisahwan",
             "active_3" => "text-yellow-500 rounded md:bg-transparent md:p-0",
             "pageTitle" => '<mark class="px-2 text-yellow-500 bg-gray-900 rounded dark:bg-gray-900">Galeri</mark> Lisahwan',
             'pageDescription' => 'Kisah Rasa <span class="underline underline-offset-2 decoration-4 decoration-yellow-500">Autentik, Lokal, Homemade,</span> dan <span class="underline underline-offset-2 decoration-4 decoration-yellow-500">Premium</span>',
             "galleries" => Gallery::all(),
+            "carts" => $carts
         ]);
     }
 

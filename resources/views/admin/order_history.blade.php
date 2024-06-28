@@ -299,7 +299,7 @@
                                                 </div>
                                                 <!-- Modal body -->
 
-                                                <@if (Auth::user()->isOwner())
+                                                @if (Auth::user()->isOwner())
                                                 <form id="update-form" action="{{ route('owner.order_history.update', $order) }}"
                                                     method="POST" enctype="multipart/form-data">
                                                     @method('put')

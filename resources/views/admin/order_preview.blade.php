@@ -74,8 +74,8 @@
                     </span>
                 @else
                     <span
-                        class="inline-flex items-center bg-red-100 text-red-800 text-xs font-medium px-2 py-1.5 rounded-lg">
-                        <span class="w-2.5 h-2 mr-2 bg-red-500 rounded-full"></span>
+                        class="inline-flex items-center bg-gray-300 text-gray-600 text-xs font-medium px-2 py-1.5 rounded-lg">
+                        <span class="w-2.5 h-2 mr-2 bg-gray-600 rounded-full"></span>
                         Belum Diterima
                     </span>
                 @endif
@@ -89,8 +89,8 @@
                     </span>
                 @else
                     <span
-                        class="inline-flex items-center bg-red-100 text-red-800 text-xs font-medium px-2 py-1.5 rounded-lg">
-                        <span class="w-2.5 h-2 mr-2 bg-red-500 rounded-full"></span>
+                        class="inline-flex items-center bg-gray-300 text-gray-600 text-xs font-medium px-2 py-1.5 rounded-lg">
+                        <span class="w-2.5 h-2 mr-2 bg-gray-600 rounded-full"></span>
                         Belum Dikirim
                     </span>
                 @endif
@@ -104,8 +104,8 @@
                     </span>
                 @else
                     <span
-                        class="inline-flex items-center bg-red-100 text-red-800 text-xs font-medium px-2 py-1.5 rounded-lg">
-                        <span class="w-2.5 h-2 mr-2 bg-red-500 rounded-full"></span>
+                        class="inline-flex items-center bg-gray-300 text-gray-600 text-xs font-medium px-2 py-1.5 rounded-lg">
+                        <span class="w-2.5 h-2 mr-2 bg-gray-600 rounded-full"></span>
                         Belum Sampai
                     </span>
                 @endif
@@ -132,18 +132,6 @@
                     </div>
                     <div class="flex flex-row justify-between items-center">
                         <div class="flex flex-col justify-center">
-                            <a href="/products/{{ $order_detail->product_id }}">
-                                <button type="button"
-                                    class="cursor-pointer text-white bg-yellow-500 hover:bg-yellow-600 font-medium rounded-md text-sm sm:text-sm md:text-sm lg:text-sm px-2 py-1 inline-flex items-center">
-                                    <svg class="w-4 h-4 text-white" aria-hidden="true"
-                                        xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 18 20">
-                                        <path
-                                            d="M17 5.923A1 1 0 0 0 16 5h-3V4a4 4 0 1 0-8 0v1H2a1 1 0 0 0-1 .923L.086 17.846A2 2 0 0 0 2.08 20h13.84a2 2 0 0 0 1.994-2.153L17 5.923ZM7 9a1 1 0 0 1-2 0V7h2v2Zm0-5a2 2 0 1 1 4 0v1H7V4Zm6 5a1 1 0 1 1-2 0V7h2v2Z" />
-                                    </svg>
-                                    <span class="ml-2 md:ml-1 sm:inline-block">Lihat
-                                        Produk</span>
-                                </button>
-                            </a>
                             @if ($order_detail->product->discount != 0)
                                 <p class="mt-1 text-base font-semibold text-gray-900">
                                     Rp.

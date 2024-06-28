@@ -48,21 +48,22 @@ class WishlistController extends Controller
     {
         $user_id = Auth::user()->id;
         $wishlist = Wishlist::where('product_id', $id)->first();
-        $product = Product::where('id', $id)->first();
+        // $product = Product::where('id', $id)->first();
         if ($wishlist) {
             $wishlist->delete();
-            $product->update([
+            $wishlist->update([
                 'favorite_status' => '0'
             ]);
             return back()->with('deleteWishlist_success', 'Produk berhasil dihapus dari Wishlist!');
         } else {
             Wishlist::create([
                 'user_id' =>  $user_id,
-                'product_id' => $id
-            ]);
-            $product->update([
+                'product_id' => $id,
                 'favorite_status' => '1'
             ]);
+            // $product->update([
+            //     'favorite_status' => '1'
+            // ]);
             return redirect()->route('member.wishlist')->with('addWishlist_success', 'Produk berhasil ditambahkan ke Wishlist!');
         }
     }

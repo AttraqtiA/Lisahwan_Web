@@ -19,7 +19,6 @@ return new class extends Migration
             $table->integer('stock')->nullable(false);
             $table->integer('weight')->nullable(false);
             $table->integer('discount')->nullable(true)->default(0);
-            $table->enum('favorite_status', ['0', '1'])->default('0');
             $table->string('image')->nullable(true);
             $table->timestamps();
         });

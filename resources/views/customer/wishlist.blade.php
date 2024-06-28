@@ -3,7 +3,7 @@
 @section('content_page')
     <div class="flex flex-col items-center">
         @if (session('deleteCart_success'))
-            <div class="w-8/12 sm:w-5/12 md:w-4/12 lg:w-3/12 flex justify-center items-center p-4 mt-8 text-sm rounded-lg bg-gray-900 text-green-400"
+            <div class="w-10/12 sm:w-5/12 md:w-4/12 lg:w-3/12 flex justify-center items-center p-4 mt-8 text-sm rounded-lg bg-gray-900 text-green-400"
                 role="alert">
                 <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
                     fill="currentColor" viewBox="0 0 20 20">
@@ -39,11 +39,17 @@
             @if ($wishlists->isNotEmpty())
                 @foreach ($wishlists as $wishlist)
                     <div class="relative hover:shadow-xl transform transition duration-500 hover:-translate-y-4 hover:z-40">
-                        <a href="{{ route('member.wishlist.store', $wishlist->product->id) }}">
+                        <a href="{{ route('member.products.show', $wishlist->product->id) }}">
                             <div class="relative w-full h-full rounded-lg bg-gray-900 border-gray-800 mx-auto shadow">
-                                <img class="h-3/4 rounded-t-lg w-full object-cover"
-                                    src="/images/fotoproduk/{{ $wishlist->product->image }}"
-                                    alt="{{ $wishlist->product->image }}" />
+                                @if (strlen($wishlist->product->image) > 30)
+                                    <img class="h-3/4 rounded-t-lg w-full object-cover"
+                                        src="{{ asset('storage/' . $wishlist->product->image) }}"
+                                        alt="{{ $wishlist->product->image }}" />
+                                @else
+                                    <img class="h-3/4 rounded-t-lg w-full object-cover"
+                                        src="/images/fotoproduk/{{ $wishlist->product->image }}"
+                                        alt="{{ $wishlist->product->image }}" />
+                                @endif
                                 <div class="h-1/4 px-8 pb-2 flex flex-col justify-center items-center">
                                     <h5
                                         class="sm:leading-6 md:leading-normal lg:leading-normal text-xl sm:text-2xl md:text-2xl lg:text-xl font-bold tracking-tight text-yellow-500 text-center">
@@ -88,9 +94,9 @@
 
                         <form action="{{ route('member.wishlist.store', $wishlist->product->id) }}" method="POST">
                             @csrf
-                            @if ($wishlist->product->favorite_status == 0)
+                            @if ($wishlist->favorite_status = '1')
                                 <button type="submit">
-                                    <svg class="cursor-pointer absolute w-6 h-6 text-white bottom-4 right-4 hover:text-red-600"
+                                    <svg class="cursor-pointer absolute w-6 h-6 text-red-600 bottom-4 right-4 hover:text-white"
                                         aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
                                         viewBox="0 0 20 18">
                                         <path
@@ -99,7 +105,7 @@
                                 </button>
                             @else
                                 <button type="submit">
-                                    <svg class="cursor-pointer absolute w-6 h-6 text-red-600 bottom-4 right-4 hover:text-white"
+                                    <svg class="cursor-pointer absolute w-6 h-6 text-white bottom-4 right-4 hover:text-red-600"
                                         aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
                                         viewBox="0 0 20 18">
                                         <path

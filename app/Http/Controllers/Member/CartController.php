@@ -135,7 +135,7 @@ class CartController extends Controller
                 ->take(4)
                 ->get();
             $total_product = Product::count();
-            $cart_user = Cart::where('user_id', 1)->first();
+            $cart_user= Cart::where('user_id', Auth::user()->id)->first();
             if (empty($cart_user)) {
                 $carts = null;
             } else {

@@ -28,6 +28,10 @@ class User extends Authenticatable
         'profile_picture'
     ];
 
+    // protected $except = [
+    //     'COOKIE_NAME',
+    // ];
+    
     /**
      * The attributes that should be hidden for serialization.
      *

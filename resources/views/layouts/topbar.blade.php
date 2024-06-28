@@ -38,21 +38,26 @@
                     @endif
 
                     @if (Auth::user()->isMember())
-                    {{-- cartnya hanya bisa diklik/show kalo member, kalo guest/admin/owner ga bisa jg --}}
-                    <li>
-                        <button type="button" data-drawer-target="drawer-right-example"
-                            data-drawer-show="drawer-right-example" data-drawer-placement="right"
-                            aria-controls="drawer-right-example" class="mt-1">
-                            <div class="rounded-lg border border-white border-0.5 p-2">
-                                <svg class="w-6 h-6 text-white " aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
-                                    fill="none" viewBox="0 0 18 20">
-                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                                        stroke-width="1"
-                                        d="M6 15a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm0 0h8m-8 0-1-4m9 4a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm-9-4h10l2-7H3m2 7L3 4m0 0-.792-3H1" />
-                                </svg>
-                            </div>
-                        </button>
-                    </li>
+                        {{-- cartnya hanya bisa diklik/show kalo member, kalo guest/admin/owner ga bisa jg --}}
+                        <li>
+                            <button type="button" data-drawer-target="drawer-right-example"
+                                data-drawer-show="drawer-right-example" data-drawer-placement="right"
+                                aria-controls="drawer-right-example" class="mt-1">
+                                <div class="rounded-lg border border-yellow-500 border-0.5 p-2 relative">
+                                    <svg class="w-6 h-6 text-yellow-500 " aria-hidden="true"
+                                        xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 18 20">
+                                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                            stroke-width="1"
+                                            d="M6 15a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm0 0h8m-8 0-1-4m9 4a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm-9-4h10l2-7H3m2 7L3 4m0 0-.792-3H1" />
+                                    </svg>
+                                    @if (!empty($carts))
+                                        <div
+                                            class="absolute inline-flex items-center justify-center w-6 h-6 text-xs font-bold text-white bg-red-500 border-2 border-white rounded-full -top-2 -end-2 dark:border-gray-900">
+                                            {{ $carts->sum('quantity') }}</div>
+                                    @endif
+                                </div>
+                            </button>
+                        </li>
                     @endif
 
                     <!-- drawer component -->
@@ -71,7 +76,7 @@
                             </h5>
                             <button type="button" data-drawer-hide="drawer-right-example"
                                 aria-controls="drawer-right-example"
-                                class="cursor-pointer text-gray-400 bg-transparent rounded-lg text-sm w-8 h-8 inline-flex items-center justify-center hover:bg-gray-200 hover:text-gray-400">
+                                class="cursor-pointer text-gray-400 bg-transparent rounded-lg text-sm w-8 h-8 inline-flex items-center justify-center hover:bg-yellow-500 hover:text-white">
                                 <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
                                     viewBox="0 0 14 14">
                                     <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
@@ -87,46 +92,53 @@
                             @endphp
                             @if (!empty($carts))
                                 @foreach ($carts as $cart)
-                                    <div class="flex flex-row items-center w-full">
-                                        <img class="h-28 w-28 object-bottom object-cover rounded-lg drop-shadow-md"
+                                     <div class="flex flex-row items-center w-full">
+                                         @if(strlen($cart->product->image) > 30)
+                                            <img class="h-40 w-44 object-cover object-bottom rounded-lg drop-shadow-md" src="{{ asset('storage/' . $cart->product->image) }}"
+                                                    alt="{{ $cart->product->image }}" />
+                                        @else
+                                             <img class="h-40 w-44 object-cover object-bottom rounded-lg drop-shadow-md"
                                             src="/images/fotoproduk/{{ $cart->product->image }}"
                                             alt="{{ $cart->product->name }}">
-                                        <div class="flex flex-col ml-3 justify-center">
-                                            <p class="text-lg font-medium text-white">{{ $cart->product->name }}</p>
-                                            <p class="text-sm font-normal text-gray-400">{{ $cart->quantity }} buah
-                                                ({{ $cart->weight }} gram)
-                                            </p>
-                                            <p class="mt-2 text-base font-medium text-white">Rp.
-                                                {{ number_format($cart->price, 0, ',', '.') }}
-                                            </p>
-                                            <div
-                                                class="flex flex-row items-center gap-x-16 sm:gap-x-6 md:gap-x-24 lg:gap-x-40 mt-1 mb-1">
-                                                <form action="{{ route('member.carts.edit', $cart->product_id) }}"
-                                                    method="GET">
-                                                    @csrf
-                                                    <button type="submit"
-                                                        class="cursor-pointer text-white bg-yellow-500 hover:bg-yellow-600 font-medium rounded-md text-sm sm:text-sm md:text-sm lg:text-sm px-2 py-1 inline-flex items-center">
-                                                        <svg class="w-4 h-4 sm:mr-1 text-white" aria-hidden="true"
-                                                            xmlns="http://www.w3.org/2000/svg" fill="currentColor"
-                                                            viewBox="0 0 20 18">
-                                                            <path
-                                                                d="M12.687 14.408a3.01 3.01 0 0 1-1.533.821l-3.566.713a3 3 0 0 1-3.53-3.53l.713-3.566a3.01 3.01 0 0 1 .821-1.533L10.905 2H2.167A2.169 2.169 0 0 0 0 4.167v11.666A2.169 2.169 0 0 0 2.167 18h11.666A2.169 2.169 0 0 0 16 15.833V11.1l-3.313 3.308Zm5.53-9.065.546-.546a2.518 2.518 0 0 0 0-3.56 2.576 2.576 0 0 0-3.559 0l-.547.547 3.56 3.56Z" />
-                                                            <path
-                                                                d="M13.243 3.2 7.359 9.081a.5.5 0 0 0-.136.256L6.51 12.9a.5.5 0 0 0 .59.59l3.566-.713a.5.5 0 0 0 .255-.136L16.8 6.757 13.243 3.2Z" />
-                                                        </svg>
-                                                        <span class="sm:inline-block">Ubah Pesanan</span>
-                                                    </button>
-                                                </form>
-                                                <form action="{{ route('member.carts.destroy', $cart->id) }}"
-                                                    method="POST">
-                                                    @method('delete')
-                                                    @csrf
-                                                    <button type="submit"
-                                                        class="cursor-pointer text-sm font-medium text-yellow-500 hover:text-yellow-600"
-                                                        onclick="return confirm('Apakah anda ingin menghapus pesanan ini?')">
-                                                        Hapus
-                                                    </button>
-                                                </form>
+                                        @endif
+                                        <div class="flex flex-col ml-4 justify-center w-full space-y-8">
+                                            <div>
+                                                <p class="text-base sm:text-lg font-semibold text-white">{{ $cart->product->name }}</p>
+                                                <p class="text-xs sm:text-sm font-normal text-gray-400">{{ $cart->quantity }} buah
+                                                    ({{ $cart->weight }} gram)
+                                                </p>
+                                                <p class="text-sm sm:text-base font-medium text-white">Rp.
+                                                    {{ number_format($cart->price, 0, ',', '.') }}
+                                                </p>
+                                            </div>
+                                            <div>
+                                                <div class="flex flex-col sm:flex-row items-start sm:items-center sm:justify-between">
+                                                    <form action="{{ route('member.carts.edit', $cart->product_id) }}"
+                                                        method="GET">
+                                                        @csrf
+                                                        <button type="submit"
+                                                            class="cursor-pointer text-white bg-yellow-500 hover:bg-yellow-600 font-medium rounded-md text-xs sm:text-sm px-2 py-1 inline-flex items-center">
+                                                            <svg class="w-4 h-4 sm:mr-1 text-white" aria-hidden="true"
+                                                                xmlns="http://www.w3.org/2000/svg" fill="currentColor"
+                                                                viewBox="0 0 20 18">
+                                                                <path
+                                                                    d="M12.687 14.408a3.01 3.01 0 0 1-1.533.821l-3.566.713a3 3 0 0 1-3.53-3.53l.713-3.566a3.01 3.01 0 0 1 .821-1.533L10.905 2H2.167A2.169 2.169 0 0 0 0 4.167v11.666A2.169 2.169 0 0 0 2.167 18h11.666A2.169 2.169 0 0 0 16 15.833V11.1l-3.313 3.308Zm5.53-9.065.546-.546a2.518 2.518 0 0 0 0-3.56 2.576 2.576 0 0 0-3.559 0l-.547.547 3.56 3.56Z" />
+                                                                <path
+                                                                    d="M13.243 3.2 7.359 9.081a.5.5 0 0 0-.136.256L6.51 12.9a.5.5 0 0 0 .59.59l3.566-.713a.5.5 0 0 0 .255-.136L16.8 6.757 13.243 3.2Z" />
+                                                            </svg>
+                                                            <span class="sm:inline-block">Ubah Pesanan</span>
+                                                        </button>
+                                                    </form>
+                                                    <form action="{{ route('member.carts.destroy', $cart->id) }}" method="POST">
+                                                        @method('delete')
+                                                        @csrf
+                                                        <button type="submit"
+                                                            class="cursor-pointer text-xs sm:text-sm font-medium text-yellow-500 hover:text-yellow-600"
+                                                            onclick="return confirm('Apakah anda ingin menghapus pesanan ini?')">
+                                                            Hapus
+                                                        </button>
+                                                    </form>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -220,19 +232,19 @@
                             class="flex text-sm bg-gray-800 rounded-full focus:ring focus:ring-gray-500"
                             aria-expanded="false" data-dropdown-toggle="dropdown-user">
                             <span class="sr-only">Open user menu</span>
-                                @if (Auth::user()->profile_picture == null)
-                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                        stroke-width="1.5" stroke="currentColor" class="w-10 h-10 rounded-full text-white">
-                                        <path stroke-linecap="round" stroke-linejoin="round"
-                                            d="M17.982 18.725A7.488 7.488 0 0012 15.75a7.488 7.488 0 00-5.982 2.975m11.963 0a9 9 0 10-11.963 0m11.963 0A8.966 8.966 0 0112 21a8.966 8.966 0 01-5.982-2.275M15 9.75a3 3 0 11-6 0 3 3 0 016 0z" />
-                                    </svg>
-                                @elseif (Auth::user()->isAdmin() || Auth::user()->isOwner())
-                                    <img class="w-10 h-10 rounded-full object-cover"
-                                        src="{{ asset('images/' . Auth::user()->profile_picture) }}" alt="user photo">
-                                @else
-                                    <img class="w-10 h-10 rounded-full object-cover"
-                                        src="{{ asset('storage/' . Auth::user()->profile_picture) }}" alt="user photo">
-                                @endif
+                            @if (Auth::user()->profile_picture == null)
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                    stroke-width="1.5" stroke="currentColor" class="w-10 h-10 rounded-full text-white">
+                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                        d="M17.982 18.725A7.488 7.488 0 0012 15.75a7.488 7.488 0 00-5.982 2.975m11.963 0a9 9 0 10-11.963 0m11.963 0A8.966 8.966 0 0112 21a8.966 8.966 0 01-5.982-2.275M15 9.75a3 3 0 11-6 0 3 3 0 016 0z" />
+                                </svg>
+                            @elseif (Auth::user()->isAdmin() || Auth::user()->isOwner())
+                                <img class="w-10 h-10 rounded-full object-cover"
+                                    src="{{ asset('images/' . Auth::user()->profile_picture) }}" alt="user photo">
+                            @else
+                                <img class="w-10 h-10 rounded-full object-cover"
+                                    src="{{ asset('storage/' . Auth::user()->profile_picture) }}" alt="user photo">
+                            @endif
                         </button>
                     </div>
                     <div class="z-50 hidden my-4 text-base list-none bg-white divide-y divide-gray-100 rounded shadow"
@@ -304,17 +316,17 @@
 
                 @auth
                     @if (Auth::user()->isMember())
-                    <li>
-                        <a href="{{ route('member.wishlist') }}"
-                            class="block py-2 pl-3 pr-4 {{ $active_wishlist ?? 'text-white rounded hover:bg-yellow-500 md:hover:bg-transparent md:hover:text-yellow-500 md:p-0 md:hover:bg-transparent' }}"
-                            aria-current="page">Wishlist</a>
-                    </li>
+                        <li>
+                            <a href="{{ route('member.wishlist') }}"
+                                class="block py-2 pl-3 pr-4 {{ $active_wishlist ?? 'text-white rounded hover:bg-yellow-500 md:hover:bg-transparent md:hover:text-yellow-500 md:p-0 md:hover:bg-transparent' }}"
+                                aria-current="page">Wishlist</a>
+                        </li>
 
-                    <li>
-                        <a href="{{ route('member.orderhistory') }}"
-                            class="block py-2 pl-3 pr-4 {{ $active_history ?? 'text-white rounded hover:bg-yellow-500 md:hover:bg-transparent md:hover:text-yellow-500 md:p-0 md:hover:bg-transparent' }}"
-                            aria-current="page">Order History</a>
-                    </li>
+                        <li>
+                            <a href="{{ route('member.orderhistory') }}"
+                                class="block py-2 pl-3 pr-4 {{ $active_history ?? 'text-white rounded hover:bg-yellow-500 md:hover:bg-transparent md:hover:text-yellow-500 md:p-0 md:hover:bg-transparent' }}"
+                                aria-current="page">Order History</a>
+                        </li>
                     @endif
                 @endauth
 

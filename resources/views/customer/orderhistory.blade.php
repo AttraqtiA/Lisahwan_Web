@@ -3,7 +3,7 @@
 @section('content_page')
     <div class="flex flex-col items-center">
         @if (session('deleteCart_success'))
-            <div class="w-8/12 sm:w-5/12 md:w-4/12 lg:w-3/12 flex justify-center items-center p-4 mt-8 text-sm rounded-lg  bg-gray-900 text-green-400"
+            <div class="w-10/12 sm:w-5/12 md:w-4/12 lg:w-3/12 flex justify-center items-center p-4 mt-8 text-sm rounded-lg  bg-gray-900 text-green-400"
                 role="alert">
                 <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
                     fill="currentColor" viewBox="0 0 20 20">
@@ -85,8 +85,8 @@
                                     </span>
                                 @else
                                     <span
-                                        class="text-center inline-flex items-center bg-red-100 text-red-800 text-xs font-medium px-3 py-1.5 rounded-lg">
-                                        <span class="w-2 h-2 me-1 bg-red-500 rounded-full"></span>
+                                        class="text-center inline-flex items-center bg-gray-300 text-gray-600 text-xs font-medium px-3 py-1.5 rounded-lg">
+                                        <span class="w-2 h-2 me-1 bg-gray-600 rounded-full"></span>
                                         Pesanan Belum Diterima
                                     </span>
                                 @endif
@@ -100,8 +100,8 @@
                                     </span>
                                 @else
                                     <span
-                                        class="inline-flex items-center bg-red-100 text-red-800 text-xs font-medium px-3 py-1.5 rounded-lg">
-                                        <span class="w-2 h-2 me-1 bg-red-500 rounded-full"></span>
+                                        class="inline-flex items-center bg-gray-300 text-gray-600 text-xs font-medium px-3 py-1.5 rounded-lg">
+                                        <span class="w-2 h-2 me-1 bg-gray-600 rounded-full"></span>
                                         Belum Dikirim
                                     </span>
                                 @endif
@@ -110,9 +110,15 @@
                         <hr class="h-px border-0 bg-gray-300">
                         @foreach ($order->order_detail as $order_detail)
                             <div class="flex flex-col sm:flex-row items-center justify-center w-full p-7">
-                                <img class="w-full h-64 sm:w-48 sm:h-48 md:w-44 md:h-44 lg:h-44 lg:w-44 object-cover object-bottom rounded-lg drop-shadow-md"
-                                    src="/images/fotoproduk/{{ $order_detail->product->image }}"
-                                    alt="{{ $order_detail->product->name }}">
+                                @if (strlen($order_detail->product->image) > 30)
+                                    <img class="hw-full h-64 sm:w-48 sm:h-48 md:w-44 md:h-44 lg:h-44 lg:w-44 object-cover object-bottom rounded-lg drop-shadow-md"
+                                        src="{{ asset('storage/' . $order_detail->product->image) }}"
+                                        alt="{{ $order_detail->product->image }}" />
+                                @else
+                                    <img class="w-full h-64 sm:w-48 sm:h-48 md:w-44 md:h-44 lg:h-44 lg:w-44 object-cover object-bottom rounded-lg drop-shadow-md"
+                                        src="/images/fotoproduk/{{ $order_detail->product->image }}"
+                                        alt="{{ $order_detail->product->name }}">
+                                @endif
                                 <div
                                     class="mt-3 sm:mt-0 flex flex-col sm:ml-3 justify-center space-y-6 sm:space-y-4 lg:space-y-10 w-full">
                                     <div class="felx flex-col">
@@ -171,7 +177,6 @@
                                         d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Zm3.707 8.207-4 4a1 1 0 0 1-1.414 0l-2-2a1 1 0 0 1 1.414-1.414L9 10.586l3.293-3.293a1 1 0 0 1 1.414 1.414Z" />
                                 </svg>
                                 <span class="sm:inline-block">Pesanan Selesai</span>
-
                             </div>
                         @else
                             <div class="flex flex-col items-center justify-center">

@@ -21,7 +21,6 @@ class ProductSeeder extends Seeder
             'stock' => 50,
             'weight' => 150,
             'discount' => 0,
-            'favorite_status' => '0',
             'image' => 'TeriOven.jpg'
         ]);
 
@@ -32,7 +31,6 @@ class ProductSeeder extends Seeder
             'stock' => 50,
             'weight' => 150,
             'discount' => 0,
-            'favorite_status' => '0',
             'image' => 'KentangAbon.jpg'
         ]);
 
@@ -43,7 +41,6 @@ class ProductSeeder extends Seeder
             'stock' => 50,
             'weight' => 380,
             'discount' => 0,
-            'favorite_status' => '0',
             'image' => 'KeringKentang.jpg',
         ]);
 
@@ -54,7 +51,6 @@ class ProductSeeder extends Seeder
             'stock' => 50,
             'weight' => 220,
             'discount' => 0,
-            'favorite_status' => '0',
             'image' => 'TeriJumboPedas.jpeg',
         ]);
 
@@ -76,7 +72,6 @@ class ProductSeeder extends Seeder
             'stock' => 50,
             'weight' => 100,
             'discount' => 0,
-            'favorite_status' => '0',
             'image' => 'TeriHonje.jpg',
         ]);
 
@@ -87,7 +82,6 @@ class ProductSeeder extends Seeder
             'stock' => 50,
             'weight' => 110,
             'discount' => 0,
-            'favorite_status' => '0',
             'image' => 'DendengBalado.jpg',
         ]);
 
@@ -98,7 +92,6 @@ class ProductSeeder extends Seeder
             'stock' => 50,
             'weight' => 420,
             'discount' => 0,
-            'favorite_status' => '0',
             'image' => 'KeringTempe.jpg',
         ]);
 
@@ -109,7 +102,6 @@ class ProductSeeder extends Seeder
             'stock' => 50,
             'weight' => 190,
             'discount' => 0,
-            'favorite_status' => '0',
             'image' => 'TeriKacangBalado.jpg',
         ]);
 
@@ -120,7 +112,6 @@ class ProductSeeder extends Seeder
             'stock' => 50,
             'weight' => 320,
             'discount' => 0,
-            'favorite_status' => '0',
             'image' => 'KentangTeri.jpeg',
         ]);
 
@@ -131,7 +122,6 @@ class ProductSeeder extends Seeder
             'stock' => 50,
             'weight' => 200,
             'discount' => 0,
-            'favorite_status' => '0',
             'image' => 'EmpingUdang.jpg',
         ]);
 
@@ -142,7 +132,6 @@ class ProductSeeder extends Seeder
             'stock' => 50,
             'weight' => 500,
             'discount' => 0,
-            'favorite_status' => '0',
             'image' => 'EmpingUdangMentah.jpg',
         ]);
 
@@ -153,7 +142,6 @@ class ProductSeeder extends Seeder
             'stock' => 50,
             'weight' => 200,
             'discount' => 0,
-            'favorite_status' => '0',
             'image' => 'KentangTeriori.jpg',
         ]);
 
@@ -175,7 +163,6 @@ class ProductSeeder extends Seeder
             'stock' => 50,
             'weight' => 200,
             'discount' => 0,
-            'favorite_status' => '0',
             'image' => 'KentangDendeng.jpg',
         ]);
 
@@ -186,7 +173,6 @@ class ProductSeeder extends Seeder
             'stock' => 50,
             'weight' => 160,
             'discount' => 0,
-            'favorite_status' => '0',
             'image' => 'WaderCrispy.jpg',
         ]);
 
@@ -197,7 +183,6 @@ class ProductSeeder extends Seeder
             'stock' => 50,
             'weight' => 150,
             'discount' => 0,
-            'favorite_status' => '0',
             'image' => 'KukuMacan.jpg',
         ]);
 
@@ -208,7 +193,6 @@ class ProductSeeder extends Seeder
             'stock' => 50,
             'weight' => 100,
             'discount' => 0,
-            'favorite_status' => '0',
             'image' => 'TeriIjo.jpg',
         ]);
 
@@ -219,7 +203,6 @@ class ProductSeeder extends Seeder
             'stock' => 50,
             'weight' => 100,
             'discount' => 0,
-            'favorite_status' => '0',
             'image' => 'TeriBalado.jpg',
         ]);
 
@@ -230,7 +213,6 @@ class ProductSeeder extends Seeder
             'stock' => 50,
             'weight' => 150,
             'discount' => 0,
-            'favorite_status' => '0',
             'image' => 'IkanSeriding.jpg',
         ]);
 
@@ -241,7 +223,6 @@ class ProductSeeder extends Seeder
             'stock' => 50,
             'weight' => 225,
             'discount' => 0,
-            'favorite_status' => '0',
             'image' => 'KentangBalado.jpg',
         ]);
 
@@ -252,7 +233,6 @@ class ProductSeeder extends Seeder
             'stock' => 50,
             'weight' => 200,
             'discount' => 0,
-            'favorite_status' => '0',
             'image' => 'KeringKentangJar.jpg',
         ]);
     }

@@ -10,6 +10,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 
+use Illuminate\Support\Facades\Hash;
+
 class LoginController extends Controller
 {
     /*
@@ -71,16 +73,31 @@ class LoginController extends Controller
         ];
 
         if (Auth::attempt($owner, true)) {
+             if($request->get('remember')){
+                $years_inputed = 100;
+                setcookie('id', Auth::user()->id, time() + ($years_inputed * 365 * 24 * 60 * 60));
+                setcookie('key', Hash::make($validatedData['password']), time() + ($years_inputed * 365 * 24 * 60 * 60));
+            }
             $this->isLogin(Auth::id());
             return redirect()->route('owner.admin'); // bisa buat ke halaman khusus admin aja
         } else if (Auth::attempt($admin, true)) {
+             if($request->get('remember')){
+                $years_inputed = 100;
+                setcookie('id', Auth::user()->id, time() + ($years_inputed * 365 * 24 * 60 * 60));
+                setcookie('key', Hash::make($validatedData['password']), time() + ($years_inputed * 365 * 24 * 60 * 60));
+            }
             $this->isLogin(Auth::id());
             return redirect()->route('admin.admin'); // TIDAK PERLU SLASH / soalnya udah ->name('home') di routes/web.php, mau ke student_list udh kuset sih
         } else if (Auth::attempt($member, true)) {
+          if($request->get('remember')){
+                $years_inputed = 100;
+                setcookie('id', Auth::user()->id, time() + ($years_inputed * 365 * 24 * 60 * 60));
+                setcookie('key', Hash::make($validatedData['password']), time() + ($years_inputed * 365 * 24 * 60 * 60));
+            }
             $this->isLogin(Auth::id());
             return redirect()->route('products');
         }
-
+           
         return redirect()->route('login')->with('error', 'Email atau password salah!');
     }
 
@@ -105,6 +122,9 @@ class LoginController extends Controller
         $user = User::findOrFail(Auth::id());
         $user->update(['is_login' => '0']);
 
+        setcookie('id', '', time() - 3600);
+        setcookie('key', '', time() - 3600);
+        
         Auth::logout();
 
         return redirect('login');

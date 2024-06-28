@@ -3,7 +3,7 @@
 @section('content_page')
     <div class="flex flex-col items-center">
         @if (session('deleteCart_success'))
-            <div class="w-8/12 sm:w-5/12 md:w-4/12 lg:w-3/12 flex justify-center items-center p-4 mt-8 text-sm rounded-lg bg-gray-900 text-green-400"
+            <div class="w-10/12 sm:w-5/12 md:w-4/12 lg:w-3/12 flex justify-center items-center p-4 mt-8 text-sm rounded-lg bg-gray-900 text-green-400"
                 role="alert">
                 <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
                     fill="currentColor" viewBox="0 0 20 20">
@@ -17,7 +17,7 @@
             </div>
         @endif
         @if (session('empty_stock'))
-            <div class="w-8/12 sm:w-5/12 md:w-4/12 lg:w-3/12 flex justify-center items-center p-4 mt-8 text-sm rounded-lg bg-gray-900 text-red-400"
+            <div class="w-10/12 sm:w-5/12 md:w-4/12 lg:w-3/12 flex justify-center items-center p-4 mt-8 text-sm rounded-lg bg-gray-900 text-red-400"
                 role="alert">
                 <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
                     fill="currentColor" viewBox="0 0 20 20">
@@ -59,7 +59,7 @@
             </div>
         @endif
         @if (session('addCart_success'))
-            <div class="w-11/12 sm:w-8/12 md:w-6/12 lg:w-4/12 flex justify-center items-center p-4 mt-8 text-sm rounded-lg bg-gray-900 text-green-400"
+            <div class="w-10/12 sm:w-8/12 md:w-6/12 lg:w-4/12 flex justify-center items-center p-4 mt-8 text-sm rounded-lg bg-gray-900 text-green-400"
                 role="alert">
                 <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
                     fill="currentColor" viewBox="0 0 20 20">
@@ -73,7 +73,7 @@
             </div>
         @endif
         @if (session('updateCart_success'))
-            <div class="w-8/12 sm:w-5/12 md:w-4/12 lg:w-3/12 flex justify-center items-center p-4 mt-8 text-sm rounded-lg bg-gray-900 text-green-400"
+            <div class="w-10/12 sm:w-5/12 md:w-4/12 lg:w-3/12 flex justify-center items-center p-4 mt-8 text-sm rounded-lg bg-gray-900 text-green-400"
                 role="alert">
                 <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
                     fill="currentColor" viewBox="0 0 20 20">
@@ -87,7 +87,7 @@
             </div>
         @endif
         @if (session('order_success'))
-            <div class="w-8/12 sm:w-6/12 md:w-5/12 lg:w-4/12 flex justify-center items-center p-4 mt-8 text-sm rounded-lg bg-gray-900 text-green-400"
+            <div class="w-10/12 sm:w-6/12 md:w-5/12 lg:w-4/12 flex justify-center items-center p-4 mt-8 text-sm rounded-lg bg-gray-900 text-green-400"
                 role="alert">
                 <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
                     fill="currentColor" viewBox="0 0 20 20">
@@ -128,8 +128,14 @@
                             <a href="{{ route('member.products.show', $product->id) }}">
                     @endif
                     <div class="relative w-full h-full rounded-lg bg-gray-900 border-gray-800 mx-auto shadow">
-                        <img class="h-3/4 rounded-t-lg w-full object-cover" src="/images/fotoproduk/{{ $product->image }}"
-                            alt="{{ $product->image }}" />
+                        @if (strlen($product->image) > 30)
+                            <img class="h-3/4 rounded-t-lg w-full object-cover"
+                                src="{{ asset('storage/' . $product->image) }}" alt="{{ $product->image }}" />
+                        @else
+                            <img class="h-3/4 rounded-t-lg w-full object-cover"
+                                src="/images/fotoproduk/{{ $product->image }}" alt="{{ $product->image }}" />
+                        @endif
+
                         <div class="h-1/4 px-8 pb-2 flex flex-col justify-center items-center">
                             <h5
                                 class="sm:leading-6 md:leading-normal lg:leading-normal text-xl sm:text-2xl md:text-2xl lg:text-xl font-bold tracking-tight text-yellow-500 text-center">
@@ -171,10 +177,33 @@
                         </div>
                         </a>
 
-                        <!-- SVG icon di kanan bawah dari gambar -->
+                        <!--SVG icon di kanan bawah dari gambar -->
                         <form action="{{ route('member.wishlist.store', $product->id) }}" method="POST">
                             @csrf
-                            @if ($product->favorite_status == 0)
+                            @auth
+                                @if (
+                                    $product->wishlist->where('user_id', Auth::user()->id)->first() &&
+                                        $product->wishlist->where('user_id', Auth::user()->id)->first()->favorite_status == '1')
+                                    <button type="submit">
+                                        <svg class="cursor-pointer absolute w-6 h-6 text-red-600 bottom-4 right-4 hover:text-white"
+                                            aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
+                                            viewBox="0 0 20 18">
+                                            <path
+                                                d="M17.947 2.053a5.209 5.209 0 0 0-3.793-1.53A6.414 6.414 0 0 0 10 2.311 6.482 6.482 0 0 0 5.824.5a5.2 5.2 0 0 0-3.8 1.521c-1.915 1.916-2.315 5.392.625 8.333l7 7a.5.5 0 0 0 .708 0l7-7a6.6 6.6 0 0 0 2.123-4.508 5.179 5.179 0 0 0-1.533-3.793Z" />
+                                        </svg>
+                                    </button>
+                                @else
+                                    <button type="submit">
+                                        <svg class="cursor-pointer absolute w-6 h-6 text-white bottom-4 right-4 hover:text-red-600"
+                                            aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
+                                            viewBox="0 0 20 18">
+                                            <path
+                                                d="M17.947 2.053a5.209 5.209 0 0 0-3.793-1.53A6.414 6.414 0 0 0 10 2.311 6.482 6.482 0 0 0 5.824.5a5.2 5.2 0 0 0-3.8 1.521c-1.915 1.916-2.315 5.392.625 8.333l7 7a.5.5 0 0 0 .708 0l7-7a6.6 6.6 0 0 0 2.123-4.508 5.179 5.179 0 0 0-1.533-3.793Z" />
+                                        </svg>
+                                    </button>
+                                @endif
+                            @endauth
+                            @guest
                                 <button type="submit">
                                     <svg class="cursor-pointer absolute w-6 h-6 text-white bottom-4 right-4 hover:text-red-600"
                                         aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
@@ -183,16 +212,7 @@
                                             d="M17.947 2.053a5.209 5.209 0 0 0-3.793-1.53A6.414 6.414 0 0 0 10 2.311 6.482 6.482 0 0 0 5.824.5a5.2 5.2 0 0 0-3.8 1.521c-1.915 1.916-2.315 5.392.625 8.333l7 7a.5.5 0 0 0 .708 0l7-7a6.6 6.6 0 0 0 2.123-4.508 5.179 5.179 0 0 0-1.533-3.793Z" />
                                     </svg>
                                 </button>
-                            @else
-                                <button type="submit">
-                                    <svg class="cursor-pointer absolute w-6 h-6 text-red-600 bottom-4 right-4 hover:text-white"
-                                        aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
-                                        viewBox="0 0 20 18">
-                                        <path
-                                            d="M17.947 2.053a5.209 5.209 0 0 0-3.793-1.53A6.414 6.414 0 0 0 10 2.311 6.482 6.482 0 0 0 5.824.5a5.2 5.2 0 0 0-3.8 1.521c-1.915 1.916-2.315 5.392.625 8.333l7 7a.5.5 0 0 0 .708 0l7-7a6.6 6.6 0 0 0 2.123-4.508 5.179 5.179 0 0 0-1.533-3.793Z" />
-                                    </svg>
-                                </button>
-                            @endif
+                            @endguest
                         </form>
 
                         <!-- Diskon di pojok kanan atas -->
@@ -205,8 +225,6 @@
                 </div>
             @endforeach
         </div>
-        @guest
-            @include('layouts.contact_src')
-        @endguest
+
     </div>
 @endsection

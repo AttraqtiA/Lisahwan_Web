@@ -3,7 +3,7 @@
 @section('content_page')
     <div class="flex flex-col items-center">
         @if (session('deleteCart_success'))
-            <div class="w-8/12 sm:w-5/12 md:w-4/12 lg:w-3/12 flex justify-center items-center p-4 mt-8 text-sm rounded-lg bg-gray-900 text-green-400"
+            <div class="w-10/12 sm:w-5/12 md:w-4/12 lg:w-3/12 flex justify-center items-center p-4 mt-8 text-sm rounded-lg bg-gray-900 text-green-400"
                 role="alert">
                 <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
                     fill="currentColor" viewBox="0 0 20 20">
@@ -17,7 +17,7 @@
             </div>
         @endif
         @if (session('addTestimony_success'))
-            <div class="w-8/12 sm:w-5/12 md:w-4/12 lg:w-3/12 flex justify-center items-center p-4 mt-8 text-sm rounded-lg bg-gray-900 text-green-400"
+            <div class="w-10/12 sm:w-5/12 md:w-4/12 lg:w-3/12 flex justify-center items-center p-4 mt-8 text-sm rounded-lg bg-gray-900 text-green-400"
                 role="alert">
                 <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
                     fill="currentColor" viewBox="0 0 20 20">
@@ -31,7 +31,7 @@
             </div>
         @endif
         @if (session('updateTestimony_success'))
-            <div class="w-8/12 sm:w-5/12 md:w-4/12 lg:w-3/12 flex justify-center items-center p-4 mt-8 text-sm rounded-lg bg-gray-900 text-green-400"
+            <div class="w-10/12 sm:w-5/12 md:w-4/12 lg:w-3/12 flex justify-center items-center p-4 mt-8 text-sm rounded-lg bg-gray-900 text-green-400"
                 role="alert">
                 <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
                     fill="currentColor" viewBox="0 0 20 20">
@@ -59,7 +59,7 @@
             </div>
         @endif
         @error('review')
-            <div class="w-8/12 sm:w-5/12 md:w-4/12 lg:w-3/12 flex justify-center items-center p-4 mt-8 text-sm rounded-lg bg-gray-900 text-red-400"
+            <div class="w-10/12 sm:w-5/12 md:w-4/12 lg:w-3/12 flex justify-center items-center p-4 mt-8 text-sm rounded-lg bg-gray-900 text-red-400"
                 role="alert">
                 <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
                     fill="currentColor" viewBox="0 0 20 20">
@@ -73,7 +73,7 @@
             </div>
         @enderror
         @error('rating')
-            <div class="w-8/12 sm:w-5/12 md:w-4/12 lg:w-3/12 flex justify-center items-center p-4 mt-8 text-sm rounded-lg bg-gray-900 text-red-400"
+            <div class="w-10/12 sm:w-5/12 md:w-4/12 lg:w-3/12 flex justify-center items-center p-4 mt-8 text-sm rounded-lg bg-gray-900 text-red-400"
                 role="alert">
                 <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
                     fill="currentColor" viewBox="0 0 20 20">
@@ -87,7 +87,7 @@
             </div>
         @enderror
         @error('image')
-            <div class="w-8/12 sm:w-5/12 md:w-4/12 lg:w-3/12 flex justify-center items-center p-4 mt-8 text-sm rounded-lg bg-gray-900 text-red-400"
+            <div class="w-10/12 sm:w-5/12 md:w-4/12 lg:w-3/12 flex justify-center items-center p-4 mt-8 text-sm rounded-lg bg-gray-900 text-red-400"
                 role="alert">
                 <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
                     fill="currentColor" viewBox="0 0 20 20">
@@ -103,8 +103,13 @@
         <div
             class="grid grid-cols-1 sm:grid-cols-1 lg:grid-cols-2 gap-x-8 gap-y-8 sm:gap-y-8 lg:gap-y-12 p-8 sm:p-12 mx-auto">
             <div class="flex flex-col lg:justify-center">
-                <img class="lg:h-screen lg:w-screen lg:object-bottom object-cover rounded-lg drop-shadow-md"
-                    src="/images/fotoproduk/{{ $product->image }}" alt="{{ $product->name }}">
+                @if (strlen($product->image) > 30)
+                    <img class="lg:h-screen lg:w-screen lg:object-bottom object-cover rounded-lg drop-shadow-md"
+                        src="{{ asset('storage/' . $product->image) }}" alt="{{ $product->image }}" />
+                @else
+                    <img class="lg:h-screen lg:w-screen lg:object-bottom object-cover rounded-lg drop-shadow-md"
+                        src="/images/fotoproduk/{{ $product->image }}" alt="{{ $product->name }}">
+                @endif
             </div>
             <div class="flex flex-col justify-center">
                 <div class="h-full flex flex-col justify-center">
@@ -331,7 +336,7 @@
                                                     (Opsional)</span>
                                                 <div id="existingImagePreviewId" class="mb-3">
                                                     @if ($check_testimonies->image)
-                                                        <img src="{{ asset('') . $check_testimonies->image }}"
+                                                        <img src="{{ asset('storage/' . $check_testimonies->image) }}"
                                                             class="w-6/12 mx-auto rounded-lg object-cover" />
                                                     @endif
                                                 </div>
@@ -472,7 +477,7 @@
                 <div class="flex flex-row justify-between items-center">
                     <h1 class="text-xl sm:text-2xl lg:text-3xl font-semibold text-gray-900">Produk Lainnya</h1>
                     <a href="{{ route('products') }}">
-                        <p class="text-sm font-medium text-yellow-500 hover:text-yellow-600">Lihat semua</p>
+                        <p class="text-base font-medium text-yellow-500 hover:text-yellow-600">Lihat semua</p>
                     </a>
                 </div>
                 <hr class="h-px my-2 border-0 bg-gray-400">
@@ -485,9 +490,15 @@
                                 <a href="{{ route('member.products.show', $bestseller->product->id) }}">
                                     <div
                                         class="relative w-full h-full rounded-lg bg-gray-900 border-gray-800 mx-auto shadow">
-                                        <img class="h-3/4 rounded-t-lg w-full object-center object-cover"
-                                            src="/images/fotoproduk/{{ $bestseller->product->image }}"
-                                            alt="{{ $bestseller->product->name }}" />
+                                        @if (strlen($bestseller->product->image) > 30)
+                                            <img class="hh-3/4 rounded-t-lg w-full object-center object-cover"
+                                                src="{{ asset('storage/' . $bestseller->product->image) }}"
+                                                alt="{{ $bestseller->product->image }}" />
+                                        @else
+                                            <img class="h-3/4 rounded-t-lg w-full object-center object-cover"
+                                                src="/images/fotoproduk/{{ $bestseller->product->image }}"
+                                                alt="{{ $bestseller->product->name }}" />
+                                        @endif
                                         <div class="h-1/4 px-8 pb-2 flex flex-col justify-center items-center">
                                             <h5
                                                 class="sm:leading-6 md:leading-normal lg:leading-normal text-xl sm:text-3xl md:text-2xl lg:text-xl font-bold tracking-tight text-yellow-500 text-center">
@@ -536,9 +547,11 @@
                                 <form action="{{ route('member.wishlist.store', $bestseller->product->id) }}"
                                     method="POST">
                                     @csrf
-                                    @if ($bestseller->product->favorite_status == 0)
+                                    @if (
+                                        $bestseller->product->wishlist->where('user_id', Auth::user()->id)->first() &&
+                                            $bestseller->product->wishlist->where('user_id', Auth::user()->id)->first()->favorite_status == '1')
                                         <button type="submit">
-                                            <svg class="cursor-pointer absolute w-6 h-6 text-white bottom-4 right-4 hover:text-red-600"
+                                            <svg class="cursor-pointer absolute w-6 h-6 text-red-600 bottom-4 right-4 hover:text-white"
                                                 aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
                                                 viewBox="0 0 20 18">
                                                 <path
@@ -547,7 +560,7 @@
                                         </button>
                                     @else
                                         <button type="submit">
-                                            <svg class="cursor-pointer absolute w-6 h-6 text-red-600 bottom-4 right-4 hover:text-white"
+                                            <svg class="cursor-pointer absolute w-6 h-6 text-white bottom-4 right-4 hover:text-red-600"
                                                 aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
                                                 viewBox="0 0 20 18">
                                                 <path

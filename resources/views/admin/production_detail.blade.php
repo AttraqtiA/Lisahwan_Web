@@ -180,7 +180,7 @@
 
                             <div id="existingImagePreviewId" class="mb-3">
                                 @if ($productDetail->image)
-                                    <img src="{{ asset('') . $productDetail->image }}"
+                                    <img src="{{ asset('storage/' . $productDetail->image) }}"
                                         class="w-1/2 md:w-1/4 mx-auto rounded-lg object-cover" />
                                 @endif
                             </div>

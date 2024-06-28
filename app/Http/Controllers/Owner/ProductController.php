@@ -60,7 +60,7 @@ class ProductController extends Controller
             'weight' => 'required|numeric',
             'discount' => 'required|numeric',
             'description' => 'required',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg|max:5000', // ini untuk validasi file image
+            'image' => 'nullable|image|mimes:jpeg,png,jpg|max:10000', // ini untuk validasi file image
         ]);
 
         // cek apakah ada inputan file berupa image, kalau ada file image dimasukkan ke folder image di public lalu pathnya masuk ke database

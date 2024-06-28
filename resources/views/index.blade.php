@@ -8,19 +8,30 @@
                 </h2>
                 <p class="mb-4">Dengan komitmen kami akan kualitas, kami menyediakan rangkaian camilan yang diolah dengan
                     penuh dedikasi sehingga customer selalu mendapatkan cita rasa yang khas dari camilan Lisahwan.</p>
-                <a href="{{ route('register') }}"
-                    class="mr-1 cursor-pointer text-white bg-yellow-500 hover:bg-yellow-600 font-medium rounded-lg text-base px-5 py-2.5 text-center inline-flex items-center">
-                    Jadi Member
-                    <svg class="w-5 h-5 ml-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                        <path fill-rule="evenodd"
-                            d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z"
-                            clip-rule="evenodd"></path>
-                    </svg>
-                </a>
-                <a href="/products"
-                    class="cursor-pointer border font-medium rounded-lg text-base px-5 py-3 border-yellow-500 text-yellow-500 hover:text-white hover:bg-yellow-500">
-                    Lihat Produk
-                </a>
+                <div class="flex flex-col sm:flex-row gap-y-2 sm:gap-y-0">
+                    @if (!Auth::check())
+                        <a href="{{ route('register') }}"
+                            class="sm:mr-2 cursor-pointer text-white bg-yellow-500 hover:bg-yellow-600 font-medium rounded-lg text-base px-5 py-3 text-center inline-flex items-center justify-center">
+                            Jadi Member
+                            <svg class="w-5 h-5 ml-1" fill="currentColor" viewBox="0 0 20 20"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd"
+                                    d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z"
+                                    clip-rule="evenodd"></path>
+                            </svg>
+                        </a>
+                    @endif
+                    <a href="/products"
+                        class="cursor-pointer text-white bg-yellow-500 hover:bg-yellow-600 font-medium rounded-lg text-base px-5 py-3 text-center inline-flex items-center justify-center">
+                        Lihat Produk
+                        <svg class="w-5 h-5 ml-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
+                            viewBox="0 0 24 24">
+                            <path fill-rule="evenodd"
+                                d="M14 7h-4v3a1 1 0 0 1-2 0V7H6a1 1 0 0 0-.997.923l-.917 11.924A2 2 0 0 0 6.08 22h11.84a2 2 0 0 0 1.994-2.153l-.917-11.924A1 1 0 0 0 18 7h-2v3a1 1 0 1 1-2 0V7Zm-2-3a2 2 0 0 0-2 2v1H8V6a4 4 0 0 1 8 0v1h-2V6a2 2 0 0 0-2-2Z"
+                                clip-rule="evenodd" />
+                        </svg>
+                    </a>
+                </div>
             </div>
             <div class="grid grid-cols-2 gap-x-2 sm:gap-x-4 mt-8 lg:mt-0">
                 <img class="mb-2 sm:mb-4 lg:mb-0 w-full rounded-lg" src="/images/fotoproduk/GalleryCarousel_2.jpg"
@@ -127,21 +138,27 @@
         <div class="flex flex-row justify-between items-center">
             <h1 class="text-xl lg:text-3xl font-extrabold text-gray-900">Produk Best Seller</h1>
             <a href="{{ route('products') }}">
-                <p class="text-sm lg:text-base font-medium text-yellow-500 hover:text-yellow-600">Lihat semua</p>
+                <p class="text-base font-medium text-yellow-500 hover:text-yellow-600">Lihat semua</p>
             </a>
         </div>
         <hr class="h-px my-2 border-0 bg-gray-400">
         <div
-            class = "md:w-full lg:w-4/6 grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6 p-4 mx-auto @if (count($products_bestseller) == 0) h-full justify-center items-center @endif">
+            class = "md:w-full lg:w-4/6 grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6 mt-4 mx-auto @if (count($products_bestseller) == 0) h-full justify-center items-center @endif">
             @if (count($products_bestseller) > 0)
                 @foreach ($products_bestseller as $bestseller)
                     <div
                         class="w-full relative hover:shadow-xl transform transition duration-500 hover:-translate-y-4 hover:z-40 mx-auto">
                         <a href="{{ route('member.products.show', $bestseller->product->id) }}">
                             <div class="relative w-full h-full rounded-lg bg-gray-900 border-gray-800 mx-auto shadow">
-                                <img class="h-3/4 rounded-t-lg w-full object-center object-cover"
-                                    src="/images/fotoproduk/{{ $bestseller->product->image }}"
-                                    alt="{{ $bestseller->product->name }}" />
+                                @if (strlen($bestseller->product->image) > 30)
+                                    <img class="h-3/4 rounded-t-lg w-full object-center object-cover"
+                                        src="{{ asset('storage/' . $bestseller->product->image) }}"
+                                        alt="{{ $bestseller->product->image }}" />
+                                @else
+                                    <img class="h-3/4 rounded-t-lg w-full object-center object-cover"
+                                        src="/images/fotoproduk/{{ $bestseller->product->image }}"
+                                        alt="{{ $bestseller->product->image }}" />
+                                @endif
                                 <div class="h-1/4 px-8 pb-2 flex flex-col justify-center items-center">
                                     <h5
                                         class="sm:leading-6 md:leading-normal lg:leading-normal text-xl sm:text-3xl md:text-2xl lg:text-xl font-bold tracking-tight text-yellow-500 text-center">
@@ -156,7 +173,8 @@
                                             <p
                                                 class="ml-2 flex items-center text-base sm:text-sm md:text-lg lg:text-sm font-bold text-red-600 text-center">
                                                 <svg class="w-4 h-4 mr-2 text-red-600" aria-hidden="true"
-                                                    xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
+                                                    xmlns="http://www.w3.org/2000/svg" fill="none"
+                                                    viewBox="0 0 14 10">
                                                     <path stroke="currentColor" stroke-linecap="round"
                                                         stroke-linejoin="round" stroke-width="2"
                                                         d="M1 5h12m0 0L9 1m4 4L9 9" />
@@ -185,29 +203,43 @@
                                 </div>
                         </a>
 
-                        <!-- SVG icon di kanan bawah dari gambar -->
-                        <form action="{{ route('member.wishlist.store', $bestseller->product->id) }}" method="POST">
-                            @csrf
-                            @if ($bestseller->product->favorite_status == 0)
-                                <button type="submit">
-                                    <svg class="cursor-pointer absolute w-6 h-6 text-white bottom-4 right-4 hover:text-red-600"
-                                        aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
-                                        viewBox="0 0 20 18">
-                                        <path
-                                            d="M17.947 2.053a5.209 5.209 0 0 0-3.793-1.53A6.414 6.414 0 0 0 10 2.311 6.482 6.482 0 0 0 5.824.5a5.2 5.2 0 0 0-3.8 1.521c-1.915 1.916-2.315 5.392.625 8.333l7 7a.5.5 0 0 0 .708 0l7-7a6.6 6.6 0 0 0 2.123-4.508 5.179 5.179 0 0 0-1.533-3.793Z" />
-                                    </svg>
-                                </button>
-                            @else
-                                <button type="submit">
-                                    <svg class="cursor-pointer absolute w-6 h-6 text-red-600 bottom-4 right-4 hover:text-white"
-                                        aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
-                                        viewBox="0 0 20 18">
-                                        <path
-                                            d="M17.947 2.053a5.209 5.209 0 0 0-3.793-1.53A6.414 6.414 0 0 0 10 2.311 6.482 6.482 0 0 0 5.824.5a5.2 5.2 0 0 0-3.8 1.521c-1.915 1.916-2.315 5.392.625 8.333l7 7a.5.5 0 0 0 .708 0l7-7a6.6 6.6 0 0 0 2.123-4.508 5.179 5.179 0 0 0-1.533-3.793Z" />
-                                    </svg>
-                                </button>
-                            @endif
-                        </form>
+                        @auth
+                            <!-- SVG icon di kanan bawah dari gambar -->
+                            <form action="{{ route('member.wishlist.store', $bestseller->product->id) }}" method="POST">
+                                @csrf
+                                @if (
+                                    $bestseller->product->wishlist->where('user_id', Auth::user()->id)->first() &&
+                                        $bestseller->product->wishlist->where('user_id', Auth::user()->id)->first()->favorite_status == '1')
+                                    <button type="submit">
+                                        <svg class="cursor-pointer absolute w-6 h-6 text-red-600 bottom-4 right-4 hover:text-white"
+                                            aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
+                                            viewBox="0 0 20 18">
+                                            <path
+                                                d="M17.947 2.053a5.209 5.209 0 0 0-3.793-1.53A6.414 6.414 0 0 0 10 2.311 6.482 6.482 0 0 0 5.824.5a5.2 5.2 0 0 0-3.8 1.521c-1.915 1.916-2.315 5.392.625 8.333l7 7a.5.5 0 0 0 .708 0l7-7a6.6 6.6 0 0 0 2.123-4.508 5.179 5.179 0 0 0-1.533-3.793Z" />
+                                        </svg>
+                                    </button>
+                                @else
+                                    <button type="submit">
+                                        <svg class="cursor-pointer absolute w-6 h-6 text-white bottom-4 right-4 hover:text-red-600"
+                                            aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
+                                            viewBox="0 0 20 18">
+                                            <path
+                                                d="M17.947 2.053a5.209 5.209 0 0 0-3.793-1.53A6.414 6.414 0 0 0 10 2.311 6.482 6.482 0 0 0 5.824.5a5.2 5.2 0 0 0-3.8 1.521c-1.915 1.916-2.315 5.392.625 8.333l7 7a.5.5 0 0 0 .708 0l7-7a6.6 6.6 0 0 0 2.123-4.508 5.179 5.179 0 0 0-1.533-3.793Z" />
+                                        </svg>
+                                    </button>
+                                @endif
+                            </form>
+                        @endauth
+                        @guest
+                            <button type="submit">
+                                <svg class="cursor-pointer absolute w-6 h-6 text-white bottom-4 right-4 hover:text-red-600"
+                                    aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
+                                    viewBox="0 0 20 18">
+                                    <path
+                                        d="M17.947 2.053a5.209 5.209 0 0 0-3.793-1.53A6.414 6.414 0 0 0 10 2.311 6.482 6.482 0 0 0 5.824.5a5.2 5.2 0 0 0-3.8 1.521c-1.915 1.916-2.315 5.392.625 8.333l7 7a.5.5 0 0 0 .708 0l7-7a6.6 6.6 0 0 0 2.123-4.508 5.179 5.179 0 0 0-1.533-3.793Z" />
+                                </svg>
+                            </button>
+                        @endguest
 
                         <!-- Diskon di pojok kanan atas -->
                         @if ($bestseller->product->discount != 0)
