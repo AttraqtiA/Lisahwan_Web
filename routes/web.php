@@ -61,6 +61,11 @@ Route::group([
 
     Route::get('/order_history', [AdminOrderController::class, 'history'])->name('order_history');
     Route::put('/order_history/update/{order}', [AdminOrderController::class, 'updateHistory'])->name('order_history.update');
+
+    Route::get('/admin/productlist', [AdminOrderController::class, 'showAllProducts'])->name('products');
+    Route::post('/admin/productlist/add/{product_id}', [AdminOrderController::class, 'addProduct'])->name('products.add');
+
+    Route::get('/admin/carts', [AdminOrderController::class, 'showCarts'])->name('carts');
 });
 //====================================================================================================
 

@@ -16,7 +16,7 @@ class UserSeeder extends Seeder
     {
         User::create([
             'name' => 'Hendra',
-            'role_id' => 1, // DI USER FACTORY ROLENYA 3, member
+            'role_id' => 1,
             'is_login' => '0',
             'is_active' => '1',
             'email' => 'owner_lisahwan@gmail.com',

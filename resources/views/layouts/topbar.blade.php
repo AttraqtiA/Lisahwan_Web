@@ -38,31 +38,31 @@
                     @endif
 
                     @if (Auth::user()->isMember())
-                        {{-- cartnya hanya bisa diklik/show kalo member, kalo guest/admin/owner ga bisa jg --}}
-                        <li>
-                            <button type="button" data-drawer-target="drawer-right-example"
-                                data-drawer-show="drawer-right-example" data-drawer-placement="right"
-                                aria-controls="drawer-right-example" class="mt-1">
-                                <div class="rounded-lg border border-yellow-500 border-0.5 p-2 relative">
-                                    <svg class="w-6 h-6 text-yellow-500 " aria-hidden="true"
-                                        xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 18 20">
-                                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                                            stroke-width="1"
-                                            d="M6 15a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm0 0h8m-8 0-1-4m9 4a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm-9-4h10l2-7H3m2 7L3 4m0 0-.792-3H1" />
-                                    </svg>
-                                    @if (!empty($carts))
-                                        <div
-                                            class="absolute inline-flex items-center justify-center w-6 h-6 text-xs font-bold text-white bg-red-500 border-2 border-white rounded-full -top-2 -end-2 dark:border-gray-900">
-                                            {{ $carts->sum('quantity') }}</div>
-                                    @endif
-                                </div>
-                            </button>
-                        </li>
+                    {{-- cartnya hanya bisa diklik/show kalo member, kalo guest/admin/owner ga bisa jg --}}
+                    <li>
+                        <button type="button" data-drawer-target="drawer-right-example"
+                            data-drawer-show="drawer-right-example" data-drawer-placement="right"
+                            aria-controls="drawer-right-example" class="mt-1">
+                            <div class="rounded-lg border border-yellow-500 border-0.5 p-2 relative">
+                                <svg class="w-6 h-6 text-yellow-500 " aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                                    fill="currentColor" viewBox="0 0 18 20">
+                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                        stroke-width="1"
+                                        d="M6 15a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm0 0h8m-8 0-1-4m9 4a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm-9-4h10l2-7H3m2 7L3 4m0 0-.792-3H1" />
+                                </svg>
+                                @if (!empty($carts))
+                                    <div
+                                        class="absolute inline-flex items-center justify-center w-6 h-6 text-xs font-bold text-white bg-red-500 border-2 border-white rounded-full -top-2 -end-2 dark:border-gray-900">
+                                        {{ $carts->sum('quantity') }}</div>
+                                @endif
+                            </div>
+                        </button>
+                    </li>
                     @endif
 
                     <!-- drawer component -->
                     <div id="drawer-right-example"
-                        class="fixed top-0 right-0 z-40 w-full sm:w-7/12 lg:w-5/12 h-screen pt-6 p-5 overflow-y-auto transition-transform translate-x-full bg-gray-800"
+                        class="fixed top-0 right-0 z-40 w-full sm:w-7/12 lg:w-5/12 h-screen pt-6 p-5 overflow-y-auto transition-transform translate-x-full bg-gray-900"
                         tabindex="-1" aria-labelledby="drawer-right-label">
                         <div class="flex flex-row items-center mb-4 justify-between">
                             <h5 id="drawer-right-label"
@@ -92,19 +92,22 @@
                             @endphp
                             @if (!empty($carts))
                                 @foreach ($carts as $cart)
-                                     <div class="flex flex-row items-center w-full">
-                                         @if(strlen($cart->product->image) > 30)
-                                            <img class="h-40 w-44 object-cover object-bottom rounded-lg drop-shadow-md" src="{{ asset('storage/' . $cart->product->image) }}"
-                                                    alt="{{ $cart->product->image }}" />
+                                    <div class="flex flex-row items-center w-full">
+                                        @if (strlen($cart->product->image) > 30)
+                                            <img class="h-40 w-44 object-cover object-bottom rounded-lg drop-shadow-md"
+                                                src="{{ asset('storage/' . $cart->product->image) }}"
+                                                alt="{{ $cart->product->image }}" />
                                         @else
-                                             <img class="h-40 w-44 object-cover object-bottom rounded-lg drop-shadow-md"
-                                            src="/images/fotoproduk/{{ $cart->product->image }}"
-                                            alt="{{ $cart->product->name }}">
+                                            <img class="h-40 w-44 object-cover object-bottom rounded-lg drop-shadow-md"
+                                                src="/images/fotoproduk/{{ $cart->product->image }}"
+                                                alt="{{ $cart->product->name }}">
                                         @endif
                                         <div class="flex flex-col ml-4 justify-center w-full space-y-8">
                                             <div>
-                                                <p class="text-base sm:text-lg font-semibold text-white">{{ $cart->product->name }}</p>
-                                                <p class="text-xs sm:text-sm font-normal text-gray-400">{{ $cart->quantity }} buah
+                                                <p class="text-base sm:text-lg font-semibold text-white">
+                                                    {{ $cart->product->name }}</p>
+                                                <p class="text-xs sm:text-sm font-normal text-gray-400">
+                                                    {{ $cart->quantity }} buah
                                                     ({{ $cart->weight }} gram)
                                                 </p>
                                                 <p class="text-sm sm:text-base font-medium text-white">Rp.
@@ -112,7 +115,8 @@
                                                 </p>
                                             </div>
                                             <div>
-                                                <div class="flex flex-col sm:flex-row items-start sm:items-center sm:justify-between">
+                                                <div
+                                                    class="flex flex-col sm:flex-row items-start sm:items-center sm:justify-between">
                                                     <form action="{{ route('member.carts.edit', $cart->product_id) }}"
                                                         method="GET">
                                                         @csrf
@@ -129,7 +133,8 @@
                                                             <span class="sm:inline-block">Ubah Pesanan</span>
                                                         </button>
                                                     </form>
-                                                    <form action="{{ route('member.carts.destroy', $cart->id) }}" method="POST">
+                                                    <form action="{{ route('member.carts.destroy', $cart->id) }}"
+                                                        method="POST">
                                                         @method('delete')
                                                         @csrf
                                                         <button type="submit"
@@ -307,13 +312,11 @@
                     <a href="/"
                         class="block py-2 pl-3 pr-4 {{ $active_1 ?? 'text-white rounded hover:bg-yellow-500 md:hover:bg-transparent md:hover:text-yellow-500 md:p-0 md:hover:bg-transparent' }}">Home</a>
                 </li>
-
                 <li>
                     <a href="/products"
                         class="block py-2 pl-3 pr-4 {{ $active_2 ?? 'text-white rounded hover:bg-yellow-500 md:hover:bg-transparent md:hover:text-yellow-500 md:p-0 md:hover:bg-transparent' }}"
                         aria-current="page">Products</a>
                 </li>
-
                 @auth
                     @if (Auth::user()->isMember())
                         <li>
@@ -321,7 +324,6 @@
                                 class="block py-2 pl-3 pr-4 {{ $active_wishlist ?? 'text-white rounded hover:bg-yellow-500 md:hover:bg-transparent md:hover:text-yellow-500 md:p-0 md:hover:bg-transparent' }}"
                                 aria-current="page">Wishlist</a>
                         </li>
-
                         <li>
                             <a href="{{ route('member.orderhistory') }}"
                                 class="block py-2 pl-3 pr-4 {{ $active_history ?? 'text-white rounded hover:bg-yellow-500 md:hover:bg-transparent md:hover:text-yellow-500 md:p-0 md:hover:bg-transparent' }}"

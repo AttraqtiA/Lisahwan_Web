@@ -168,7 +168,7 @@
                             @error('quantity')
                                 <p class="mt-1 text-sm text-red-500"><span class="font-medium">{{ $message }}</p>
                             @enderror
-                            @if (session('over_quantity'))
+                            @if (session('F'))
                                 <p class="mt-1 text-sm text-red-500"><span
                                         class="font-medium">{{ session('over_quantity') }}</p>
                             @endif

@@ -124,8 +124,8 @@
 <aside id="logo-sidebar"
     class="fixed top-0 left-0 z-40 w-56 h-screen pt-24 transition-transform -translate-x-full border-r sm:translate-x-0 bg-gray-900 border-gray-700"
     aria-label="Sidebar">
-    <div class="h-full px-3 py-4 overflow-y-auto bg-gray-900">
-        <ul class="space-y-2 font-medium">
+    <div class="h-full px-3 py-8 overflow-y-auto bg-gray-900">
+        <ul class="space-y-6 font-medium">
             @auth
                 @if (Auth::user()->isOwner())
                     <li>
@@ -185,6 +185,35 @@
                 @endif
                 @if (Auth::user()->isAdmin())
                     <li>
+                        <a href="{{ route('admin.products') }}"
+                            class="flex items-center p-2 pl-1.5 text-gray-900 rounded-lg hover:bg-gray-700 group">
+                            <svg class="{{ $active_3 ?? 'text-gray-500' }} flex-shrink-0 w-7 h-7 transition duration-75 group-hover:{{ $active_3 ?? 'text-gray-100' }}"
+                                aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
+                                viewBox="0 0 24 24">
+                                <path fill-rule="evenodd"
+                                    d="M14 7h-4v3a1 1 0 0 1-2 0V7H6a1 1 0 0 0-.997.923l-.917 11.924A2 2 0 0 0 6.08 22h11.84a2 2 0 0 0 1.994-2.153l-.917-11.924A1 1 0 0 0 18 7h-2v3a1 1 0 1 1-2 0V7Zm-2-3a2 2 0 0 0-2 2v1H8V6a4 4 0 0 1 8 0v1h-2V6a2 2 0 0 0-2-2Z"
+                                    clip-rule="evenodd" />
+                            </svg>
+                            <span class="text-gray-100 flex-1 ms-1 whitespace-nowrap {{ $active_3 ?? '' }}">Cashier</span>
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="{{ route('admin.carts') }}"
+                            class="flex items-center p-2 pl-1.5 text-gray-900 rounded-lg hover:bg-gray-700 group">
+                            <svg class="{{ $active_4 ?? 'text-gray-500' }} flex-shrink-0 w-7 h-7 transition duration-75 group-hover:{{ $active_4 ?? 'text-gray-100' }}"
+                                aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
+                                viewBox="0 0 24 24">
+                                <path
+                                    d="M12.268 6A2 2 0 0 0 14 9h1v1a2 2 0 0 0 3.04 1.708l-.311 1.496a1 1 0 0 1-.979.796H8.605l.208 1H16a3 3 0 1 1-2.83 2h-2.34a3 3 0 1 1-4.009-1.76L4.686 5H4a1 1 0 0 1 0-2h1.5a1 1 0 0 1 .979.796L6.939 6h5.329Z" />
+                                <path
+                                    d="M18 4a1 1 0 1 0-2 0v2h-2a1 1 0 1 0 0 2h2v2a1 1 0 1 0 2 0V8h2a1 1 0 1 0 0-2h-2V4Z" />
+                            </svg>
+                            <span class="text-gray-100 flex-1 ms-1 whitespace-nowrap {{ $active_4 ?? '' }}">Carts</span>
+                        </a>
+                    </li>
+
+                    <li>
                         <a href="{{ route('admin.admin') }}"
                             class="flex items-center p-2 text-gray-900 rounded-lg hover:bg-gray-700 group">
                             <svg class="{{ $active_1 ?? 'text-gray-500' }} flex-shrink-0 w-5 h-5 transition duration-75 group-hover:{{ $active_1 ?? 'text-gray-100' }}"
@@ -221,7 +250,7 @@
                         <path stroke-linecap="round" stroke-linejoin="round"
                             d="M12 21a9.004 9.004 0 008.716-6.747M12 21a9.004 9.004 0 01-8.716-6.747M12 21c2.485 0 4.5-4.03 4.5-9S14.485 3 12 3m0 18c-2.485 0-4.5-4.03-4.5-9S9.515 3 12 3m0 0a8.997 8.997 0 017.843 4.582M12 3a8.997 8.997 0 00-7.843 4.582m15.686 0A11.953 11.953 0 0112 10.5c-2.998 0-5.74-1.1-7.843-2.918m15.686 0A8.959 8.959 0 0121 12c0 .778-.099 1.533-.284 2.253m0 0A17.919 17.919 0 0112 16.5c-3.162 0-6.133-.815-8.716-2.247m0 0A9.015 9.015 0 013 12c0-1.605.42-3.113 1.157-4.418" />
                     </svg>
-                    <span class="text-gray-100 flex-1 ms-3 whitespace-nowrap">Website</span>
+                    <span class="text-gray-100 flex-1 ms-2 whitespace-nowrap">Website</span>
                 </a>
             </li>
 
