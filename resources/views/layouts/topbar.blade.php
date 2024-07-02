@@ -1,7 +1,7 @@
 <nav class="bg-gray-900 w-full z-20 top-0 left-0 border-b border-black">
     <div class="flex flex-wrap items-center justify-between mx-auto py-4 px-4 md:px-8">
         <a href="/" class="flex items-center">
-            <img src="/images/lisahwan_logo.crdownload" class="mr-3 w-16" alt="Lisahwan Logo" />
+            <img src="/images/lisahwan_logo.png" class="mr-3 w-16" alt="Lisahwan Logo" />
         </a>
         <div class="flex md:order-2">
 
@@ -38,26 +38,26 @@
                     @endif
 
                     @if (Auth::user()->isMember())
-                    {{-- cartnya hanya bisa diklik/show kalo member, kalo guest/admin/owner ga bisa jg --}}
-                    <li>
-                        <button type="button" data-drawer-target="drawer-right-example"
-                            data-drawer-show="drawer-right-example" data-drawer-placement="right"
-                            aria-controls="drawer-right-example" class="mt-1">
-                            <div class="rounded-lg border border-yellow-500 border-0.5 p-2 relative">
-                                <svg class="w-6 h-6 text-yellow-500 " aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
-                                    fill="currentColor" viewBox="0 0 18 20">
-                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                                        stroke-width="1"
-                                        d="M6 15a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm0 0h8m-8 0-1-4m9 4a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm-9-4h10l2-7H3m2 7L3 4m0 0-.792-3H1" />
-                                </svg>
-                                @if (!empty($carts))
-                                    <div
-                                        class="absolute inline-flex items-center justify-center w-6 h-6 text-xs font-bold text-white bg-red-500 border-2 border-white rounded-full -top-2 -end-2 dark:border-gray-900">
-                                        {{ $carts->sum('quantity') }}</div>
-                                @endif
-                            </div>
-                        </button>
-                    </li>
+                        {{-- cartnya hanya bisa diklik/show kalo member, kalo guest/admin/owner ga bisa jg --}}
+                        <li>
+                            <button type="button" data-drawer-target="drawer-right-example"
+                                data-drawer-show="drawer-right-example" data-drawer-placement="right"
+                                aria-controls="drawer-right-example" class="mt-1">
+                                <div class="rounded-lg border border-yellow-500 border-0.5 p-2 relative">
+                                    <svg class="w-6 h-6 text-yellow-500 " aria-hidden="true"
+                                        xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 18 20">
+                                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                            stroke-width="1"
+                                            d="M6 15a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm0 0h8m-8 0-1-4m9 4a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm-9-4h10l2-7H3m2 7L3 4m0 0-.792-3H1" />
+                                    </svg>
+                                    @if (!empty($carts))
+                                        <div
+                                            class="absolute inline-flex items-center justify-center w-6 h-6 text-xs font-bold text-white bg-red-500 border-2 border-white rounded-full -top-2 -end-2 dark:border-gray-900">
+                                            {{ $carts->sum('quantity') }}</div>
+                                    @endif
+                                </div>
+                            </button>
+                        </li>
                     @endif
 
                     <!-- drawer component -->

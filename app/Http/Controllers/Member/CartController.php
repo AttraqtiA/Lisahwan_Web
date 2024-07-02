@@ -188,10 +188,17 @@ class CartController extends Controller
                 'stock' => $cart_detail->product->stock - $quantity_difference
             ]);
             $production = Production::where('product_id', $product->id)->first();
-            $production->update([
-                'quantity' => $quantity_difference,
-                'type' => 'tambah'
-            ]);
+            if ($validatedData['quantity'] < $cart_detail->quantity) {
+                $production->update([
+                    'quantity' => -1 * ($quantity_difference),
+                    'type' => 'tambah'
+                ]);
+            } else {
+                $production->update([
+                    'quantity' => $quantity_difference,
+                    'type' => 'kurang'
+                ]);
+            }
             $cart_detail->update([
                 'quantity' => $validatedData['quantity'],
                 'price' => $price_afterConverted,

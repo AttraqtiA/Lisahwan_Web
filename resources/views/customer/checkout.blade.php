@@ -93,7 +93,7 @@
                         </div>
                         <div id="payment-modal" tabindex="-1"
                             class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
-                            <div class="relative p-4 w-full max-w-md max-h-full">
+                            <div class="relative p-4 w-full max-w-lg max-h-full">
                                 <div class="relative rounded-lg shadow bg-white">
                                     <button type="button"
                                         class="cursor-pointer absolute top-3 end-2.5 text-gray-400 bg-transparent rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center hover:bg-gray-600 hover:text-white"

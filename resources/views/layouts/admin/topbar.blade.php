@@ -14,7 +14,7 @@
                     </svg>
                 </button>
                 <a href="/" class="flex items-center">
-                    <img src="/images/lisahwan_logo.crdownload" class="ml-3 md:ml-0 w-16" alt="Lisahwan Logo" />
+                    <img src="/images/lisahwan_logo.png" class="ml-3 md:ml-0 w-16" alt="Lisahwan Logo" />
                 </a>
             </div>
 

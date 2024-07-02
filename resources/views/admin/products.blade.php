@@ -23,7 +23,6 @@
                     class="flex flex-col md:flex-row items-stretch md:items-center md:space-x-3 space-y-3 md:space-y-0 justify-between mx-4 py-4 border-t">
                     <div class="w-full md:w-1/3">
                         <form class="flex items-center" action="{{ route('owner.admin_products') }}" method="GET">
-
                             <label for="simple-search" class="sr-only">Search</label>
                             <div class="relative w-full">
                                 <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
@@ -90,12 +89,10 @@
                                         <th scope="row" class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap">
                                             <div class="flex items-center mr-3">
                                                 @if (strlen($product->image) > 25)
-                                                    <img src="{{ asset('storage/' . $product->image) }}"
-                                                        alt="product image"
+                                                    <img src="{{ asset('storage/' . $product->image) }}" alt="product image"
                                                         class="w-8 h-8 mr-3 object-cover object-center rounded-md">
                                                 @else
-                                                    <img src="/images/fotoproduk/{{ $product->image }}"
-                                                        alt="product image"
+                                                    <img src="/images/fotoproduk/{{ $product->image }}" alt="product image"
                                                         class="w-8 h-8 mr-3 object-cover object-center rounded-md">
                                                 @endif
 

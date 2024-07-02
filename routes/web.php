@@ -64,8 +64,12 @@ Route::group([
 
     Route::get('/admin/productlist', [AdminOrderController::class, 'showAllProducts'])->name('products');
     Route::post('/admin/productlist/add/{product_id}', [AdminOrderController::class, 'addProduct'])->name('products.add');
+    Route::put('/admin/produclist/edit/{cartdetail_id}', [AdminOrderController::class, 'editProduct'])->name('products.edit');
+    Route::delete('/admin/produclist/delete/{cartdetail_id}', [AdminOrderController::class, 'deleteProduct'])->name('products.delete');
 
     Route::get('/admin/carts', [AdminOrderController::class, 'showCarts'])->name('carts');
+
+    Route::post('/admin/checkout', [AdminOrderController::class, 'checkout'])->name('checkout');
 });
 //====================================================================================================
 

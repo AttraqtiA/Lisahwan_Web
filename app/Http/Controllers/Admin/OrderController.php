@@ -6,9 +6,11 @@ use Carbon\Carbon;
 use App\Models\Cart;
 use App\Models\User;
 use App\Models\Order;
+use App\Models\Address;
 use App\Models\Product;
 use App\Models\CartDetail;
 use App\Models\Production;
+use App\Models\OrderDetail;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller; // tambah ini buat yg folder per role
@@ -61,6 +63,8 @@ class OrderController extends Controller
             "orderNumber" => $orderNumber,
         ]);
     }
+
+
 
     // ====================================== CASHIER MANAGEMENT SYSTEM ======================================
     public function showAllProducts()
@@ -164,7 +168,136 @@ class OrderController extends Controller
             ]
         );
     }
+
+    public function editProduct(Request $request, $id)
+    {
+        $cart_detail = CartDetail::where('id', $id)->first();
+
+        $validatedData = $request->validate([
+            "quantity" => "required|not_in:0"
+        ], [
+            'quantity.required' => 'Oops! Anda lupa mengisikan jumlah pemesanan!',
+            'quantity.not_in' => 'Oops! Anda lupa mengisikan jumlah pemesanan!'
+        ]);
+
+        $total_price = $validatedData['quantity'] * $cart_detail->product->price;
+
+        $total_weight = $cart_detail->product->weight * $validatedData['quantity'];
+
+        if ($validatedData['quantity'] <= $cart_detail->product->stock) {
+            $quantity_difference = $validatedData['quantity'] - $cart_detail->quantity;
+            $product = $cart_detail->product;
+            $product->update([
+                'stock' => $cart_detail->product->stock - $quantity_difference
+            ]);
+            $production = Production::where('product_id', $product->id)->first();
+            if ($validatedData['quantity'] < $cart_detail->quantity) {
+                $production->update([
+                    'quantity' => -1 * ($quantity_difference),
+                    'type' => 'tambah'
+                ]);
+            } else {
+                $production->update([
+                    'quantity' => $quantity_difference,
+                    'type' => 'kurang'
+                ]);
+            }
+            $cart_detail->update([
+                'quantity' => $validatedData['quantity'],
+                'price' => $total_price,
+                'weight' => $total_weight
+            ]);
+            return back()->with('updateCart_success', 'Pesanan berhasil diperbarui!');
+        } else {
+            return back()->with('over_quantity', 'Mohon maaf, pesanan anda melebihi stok!');
+        }
+    }
+
+    public function deleteProduct($id)
+    {
+        $cartDetail = CartDetail::find($id);
+        if ($cartDetail) {
+            // Temukan Cart yang sesuai dengan relasi
+            $cart = $cartDetail->cart;
+
+            // Update stock produk yang dihapus
+            $cartDetail->product->update([
+                'stock' => $cartDetail->product->stock + $cartDetail->quantity
+            ]);
+
+            // Hapus CartDetail
+            $cartDetail->delete();
+
+            // Periksa apakah setelah menghapus CartDetail, tidak ada lagi cart_detail dalam keranjang
+            if ($cart && $cart->cart_detail->isEmpty()) {
+                // Jika tidak ada cart_detail, hapus juga keranjangnya
+                $cart->delete();
+            }
+            return back()->with('deleteCart_success', 'Pesanan berhasil dihapus!');
+        }
+    }
+
+    public function checkout(Request $request)
+    {
+        if ($request->cash_payment) {
+            // NONE
+        } else if ($request->payment_upload) {
+            var_dump($request->payment_upload);
+            $validatedData = $request->validate([
+                'payment_upload' => 'required|image|file|max:5000',
+            ], [
+                'payment_upload.required' => 'Mohon upload bukti pembayaran anda!',
+                'payment_upload.image' => 'File wajib berupa gambar!',
+                'payment_upload.max' => 'Maksimal ukuran gambar 5MB!',
+            ]);
+
+            if ($request->file('payment_upload')) {
+                $validatedData['payment'] = $request->file('payment_upload')->store('bukti_transfer', ['disk' => 'public']);
+            }
+        }
+
+        $order_date = now();
+
+        $cart = Cart::where('user_id', Auth::user()->id)->first();
+        $cart_details = $cart->cart_detail;
+
+        $total_price = ($cart_details->sum('price'));
+        $total_weight = $cart_details->sum('weight');
+
+        $address = Address::create([
+            'user_id' => Auth::user()->id,
+            'address' => "Jalan Jemur Andayani XIII. No. 6",
+            'city' => "Surabaya",
+            'province' => "Jawa Timur",
+            'postal_code' => 60237
+        ]);
+        $order = Order::create([
+            'user_id' => Auth::user()->id,
+            'address_id' => $address->id,
+            'order_date' => $order_date,
+            'total_price' => $total_price,
+            'total_weight' => $total_weight,
+            'payment' => $validatedData['payment'] ?? $request->cash_payment,
+            'note' => "Transaksi dilakukan oleh " . Auth::user()->name
+        ]);
+
+        foreach ($cart_details as $cart_detail) {
+            OrderDetail::create([
+                'order_id' => $order->id,
+                'product_id' => $cart_detail->product_id,
+                'quantity' => $cart_detail->quantity,
+                'price' => $cart_detail->price,
+                'weight' => $cart_detail->weight
+            ]);
+        }
+
+        $cart->delete();
+
+        return redirect()->route('admin.products')->with('order_success', 'Pemesanan anda berhasil! <br><a href="' . route('admin.admin') . '" class="inline-flex items-center font-bold text-yellow-500">Check Detail Pesanan <svg class="ml-1 w-4 h-4 text-yellow-500" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10"> <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M1 5h12m0 0L9 1m4 4L9 9" /> </svg></a>');
+    }
     // ========================================================================================================
+
+
 
     public function history(Request $request)
     {
