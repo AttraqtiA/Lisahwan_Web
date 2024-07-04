@@ -71,7 +71,8 @@ Route::group([
 
     Route::post('/admin/checkout', [AdminOrderController::class, 'checkout'])->name('checkout');
 
-    Route::get('/admin/print/{order_id}', [AdminOrderController::class, 'generatePDF'])->name('print');
+    Route::get('/admin/print_struk/order/{order_id}', [AdminOrderController::class, 'generateReceipt_ORDER'])->name('printStrukOrder');
+    Route::get('/admin/print_struk/cart/{user_id}', [AdminOrderController::class, 'generateReceipt_CART'])->name('printStrukCart');
 });
 //====================================================================================================
 

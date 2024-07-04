@@ -166,18 +166,25 @@
                         </tbody>
                     </table>
                 </div>
+                <form action="{{ route('admin.printStrukCart', ['user_id' => Auth::user()->id]) }}" method="GET"
+                    class="w-full">
+                    <button type="submit"
+                        class="cursor-pointer mt-7 w-full text-white bg-green-500 hover:bg-green-600 font-medium rounded-lg text-sm md:text-base px-5 py-2.5 text-center items-center">
+                        Cetak Struk
+                    </button>
+                </form>
                 <div class="flex flex-col md:flex-row md:space-x-2 w-full">
                     <form action="{{ route('admin.checkout') }}" method="POST" class="w-full">
                         @csrf
                         <input type="hidden" value="lisahwan_logo.png" name="cash_payment">
                         <button type="submit"
                             onclick="return confirm('Apakah anda sudah yakin dengan detail pemesanan anda?')"
-                            class="cursor-pointer mt-7 w-full text-yellow-500 bg-gray-900 hover:bg-gray-950 font-medium rounded-lg text-sm md:text-base px-5 py-2.5 text-center items-center">
+                            class="cursor-pointer mt-2 w-full text-yellow-500 bg-gray-900 hover:bg-gray-950 font-medium rounded-lg text-sm md:text-base px-5 py-2.5 text-center items-center">
                             Pembayaran Tunai
                         </button>
                     </form>
                     <button type="button" data-modal-target="payment-modal" data-modal-toggle="payment-modal"
-                        class="cursor-pointer mt-2 md:mt-7 w-full text-yellow-500 bg-gray-900 hover:bg-gray-950 font-medium rounded-lg text-sm md:text-base px-5 py-2.5 text-center items-center">
+                        class="cursor-pointer mt-2 w-full text-yellow-500 bg-gray-900 hover:bg-gray-950 font-medium rounded-lg text-sm md:text-base px-5 py-2.5 text-center items-center">
                         Pembayaran QRIS BCA
                     </button>
                     <div id="payment-modal" tabindex="-1"
@@ -268,5 +275,8 @@
                 reader.readAsDataURL(input.files[0]);
             }
         }
+        // function openReceipt(url) {
+        //     window.open(url, '_blank');
+        // }
     </script>
 @endsection

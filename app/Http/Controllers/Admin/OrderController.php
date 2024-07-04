@@ -301,12 +301,12 @@ class OrderController extends Controller
         return redirect()->route('admin.products')->with('order_success', 'Pemesanan anda berhasil! <br><a href="' . route('admin.admin') . '" class="inline-flex items-center font-bold text-yellow-500">Check Detail Pesanan <svg class="ml-1 w-4 h-4 text-yellow-500" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10"> <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M1 5h12m0 0L9 1m4 4L9 9" /> </svg></a>');
     }
 
-    public function generatePDF($id)
+    public function generateReceipt_CART($id)
     {
-        $order = Order::where('id', $id)->first();
+        $cart = Cart::where('user_id', $id)->first();
 
         $mpdf = new \Mpdf\Mpdf([
-            'mode' => 'utf-8', 'format' => 'A6',
+            'mode' => 'utf-8', 'format' => [58, 210],
             'margin_left' => 0,
             'margin_right' => 0,
             'margin_top' => 0,
@@ -315,7 +315,29 @@ class OrderController extends Controller
             'margin_footer' => 0
         ]);
 
-        $mpdf->WriteHTML(view("admin.receipt", ['order' => $order]));
+        $mpdf->WriteHTML(view("admin.receiptCart", ['cart' => $cart]));
+
+        // Set session untuk menandai bahwa struk sudah dicetak
+        session(['printed' => true]);
+
+        $mpdf->Output();
+    }
+
+    public function generateReceipt_ORDER($id)
+    {
+        $order = Order::where('id', $id)->first();
+
+        $mpdf = new \Mpdf\Mpdf([
+            'mode' => 'utf-8', 'format' => [58, 210],
+            'margin_left' => 0,
+            'margin_right' => 0,
+            'margin_top' => 0,
+            'margin_bottom' => 0,
+            'margin_header' => 0,
+            'margin_footer' => 0
+        ]);
+
+        $mpdf->WriteHTML(view("admin.receiptOrder", ['order' => $order]));
 
         $mpdf->Output();
     }

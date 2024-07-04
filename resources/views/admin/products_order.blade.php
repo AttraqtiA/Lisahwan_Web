@@ -165,7 +165,7 @@
                                         value="{{ $product->cart_detail->where('product_id', $product->id)->sum('quantity') > 0 ? $product->cart_detail->where('product_id', $product->id)->sum('quantity') : 0 }}"
                                         min="0" required />
                                     <button type="submit"
-                                        class="flex flex-row items-center justify-center bg-yellow-500 rounded-md p-2 pl-3 space-x-1">
+                                        class="flex flex-row items-center justify-center bg-yellow-500 hover:bg-yellow-600 rounded-md p-2 pl-3 space-x-1">
                                         <span class="text-gray-900 text-base">Tambah</span>
                                         <svg class="w-6 h-6 text-gray-900" aria-hidden="true"
                                             xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">

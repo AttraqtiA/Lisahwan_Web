@@ -40,7 +40,6 @@
                             <button type="submit" class="bg-yellow-500 ml-2 p-2 rounded-lg text-sm">
                                 <p class="font-semibold text-white px-2">Search</p>
                             </button>
-
                         </form>
                     </div>
                     <div
@@ -54,7 +53,6 @@
                             </svg>
 
                             <p class="text-gray-500">+ Tambah Produk</p>
-
                         </button>
                     </div>
                 </div>
