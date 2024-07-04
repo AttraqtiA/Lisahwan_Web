@@ -70,6 +70,8 @@ Route::group([
     Route::get('/admin/carts', [AdminOrderController::class, 'showCarts'])->name('carts');
 
     Route::post('/admin/checkout', [AdminOrderController::class, 'checkout'])->name('checkout');
+
+    Route::get('/admin/print/{order_id}', [AdminOrderController::class, 'generatePDF'])->name('print');
 });
 //====================================================================================================
 

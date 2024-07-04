@@ -275,10 +275,15 @@ class OrderController extends Controller
             'user_id' => Auth::user()->id,
             'address_id' => $address->id,
             'order_date' => $order_date,
+            'shipment_date' => $order_date,
+            'arrived_date' => $order_date,
             'total_price' => $total_price,
             'total_weight' => $total_weight,
             'payment' => $validatedData['payment'] ?? $request->cash_payment,
-            'note' => "Transaksi dilakukan oleh " . Auth::user()->name
+            'note' => "Transaksi dilakukan oleh " . Auth::user()->name,
+            'acceptbyAdmin_status' => "sudah",
+            'acceptbyCustomer_status' => "sudah",
+            'shipment_status' => "sudah"
         ]);
 
         foreach ($cart_details as $cart_detail) {
@@ -294,6 +299,25 @@ class OrderController extends Controller
         $cart->delete();
 
         return redirect()->route('admin.products')->with('order_success', 'Pemesanan anda berhasil! <br><a href="' . route('admin.admin') . '" class="inline-flex items-center font-bold text-yellow-500">Check Detail Pesanan <svg class="ml-1 w-4 h-4 text-yellow-500" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10"> <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M1 5h12m0 0L9 1m4 4L9 9" /> </svg></a>');
+    }
+
+    public function generatePDF($id)
+    {
+        $order = Order::where('id', $id)->first();
+
+        $mpdf = new \Mpdf\Mpdf([
+            'mode' => 'utf-8', 'format' => 'A6',
+            'margin_left' => 0,
+            'margin_right' => 0,
+            'margin_top' => 0,
+            'margin_bottom' => 0,
+            'margin_header' => 0,
+            'margin_footer' => 0
+        ]);
+
+        $mpdf->WriteHTML(view("admin.receipt", ['order' => $order]));
+
+        $mpdf->Output();
     }
     // ========================================================================================================
 
@@ -377,27 +401,19 @@ class OrderController extends Controller
      */
     public function updateToday(Request $request, Order $order)
     {
-
         $validatedData = $request->validate([ // TANPA ORDER DATE YAA
             'acceptbyAdmin_status' => 'required',
             'shipment_status' => 'required',
-            'acceptbyCustomer_status' => 'required',
-            'shipment_date' => 'nullable|date_format:Y-m-d\TH:i',
-            'arrived_date' => 'nullable|date_format:Y-m-d\TH:i',
-            'note' => 'nullable',
-            'is_print' => 'required',
+            'shipment_date' => 'required|date_format:Y-m-d\TH:i',
+            'arrived_date' => 'required|date_format:Y-m-d\TH:i'
         ]);
 
         $order->update([
             'acceptbyAdmin_status' => $validatedData['acceptbyAdmin_status'],
             'shipment_status' => $validatedData['shipment_status'],
-            'acceptbyCustomer_status' => $validatedData['acceptbyCustomer_status'],
             'shipment_date' => $validatedData['shipment_date'],
-            'arrived_date' => $validatedData['arrived_date'],
-            'note' => $validatedData['note'],
-            'is_print' => $validatedData['is_print'],
+            'arrived_date' => $validatedData['arrived_date']
         ]);
-
 
         return redirect()->route('admin.admin');
     }
