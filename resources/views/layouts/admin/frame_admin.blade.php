@@ -27,8 +27,8 @@
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 </head>
 
-<body>
-    <div class="flex flex-col" style="font-family: 'Montserrat';">
+<body class="flex flex-col h-full bg-neutral-200">
+    <div class="flex flex-col h-full bg-neutral-200" style="font-family: 'Montserrat';">
         <div>
             @include('layouts.admin.topbar')
         </div>

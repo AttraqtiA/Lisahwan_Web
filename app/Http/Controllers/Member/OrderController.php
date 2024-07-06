@@ -2,15 +2,16 @@
 
 namespace App\Http\Controllers\Member;
 
-use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
 use Carbon\Carbon;
+use App\Models\Cart;
+use App\Models\User;
 
 use App\Models\Order;
-use App\Models\Cart;
 use App\Models\Address;
 use App\Models\OrderDetail;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 
 class OrderController extends Controller
@@ -122,7 +123,18 @@ class OrderController extends Controller
         $cart = Cart::where('user_id', Auth::user()->id)->first();
         $cart_details = $cart->cart_detail;
 
-        $total_price = ($cart_details->sum('price')) + $cart->getShipmentPrice();
+        $total_price = ($cart_details->sum('price'));
+
+        // REWARD POIN SYSTEM
+        $total_poin = floor($total_price / 10000);
+        $poin_to_money = $total_poin * 5000;
+
+        $customer = User::where('id', Auth::user()->id)->first();
+        $customer->update([
+            'reward' => $poin_to_money
+        ]);
+        //
+
         $total_weight = $cart_details->sum('weight');
 
         if ($request->file('payment_upload')) {
@@ -190,9 +202,11 @@ class OrderController extends Controller
             ]);
         }
 
+
+
         $cart->delete();
 
-        return redirect()->route('products')->with('order_success', 'Pemesanan anda berhasil! <br><a href="' . route('member.orderhistory') . '" class="inline-flex items-center font-bold text-yellow-500">Check Status Pesanan <svg class="ml-1 w-4 h-4 text-yellow-500" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10"> <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M1 5h12m0 0L9 1m4 4L9 9" /> </svg></a>');
+        return redirect()->route('products')->with('order_success', 'Pemesanan anda berhasil! <br><a href="' . route('member.orderhistory') . '" class="inline-flex items-center font-bold text-yellow-500 hover:underline">Check Status Pesanan <svg class="ml-1 w-4 h-4 text-yellow-500" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10"> <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M1 5h12m0 0L9 1m4 4L9 9" /> </svg></a>');
     }
 
     /**

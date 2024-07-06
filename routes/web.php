@@ -126,6 +126,18 @@ Route::group([
     Route::delete('/admin_products/destroy/{product}', [OwnerProductController::class, 'destroy'])->name('admin_products.destroy');
 
     Route::get('/admin_users', [UserController::class, 'index'])->name('admin_users');
+
+    Route::get('/admin/productlist', [OwnerOrderController::class, 'showAllProducts'])->name('products');
+    Route::post('/admin/productlist/add/{product_id}', [OwnerOrderController::class, 'addProduct'])->name('products.add');
+    Route::put('/admin/produclist/edit/{cartdetail_id}', [OwnerOrderController::class, 'editProduct'])->name('products.edit');
+    Route::delete('/admin/produclist/delete/{cartdetail_id}', [OwnerOrderController::class, 'deleteProduct'])->name('products.delete');
+
+    Route::get('/admin/carts', [OwnerOrderController::class, 'showCarts'])->name('carts');
+
+    Route::post('/admin/checkout', [OwnerOrderController::class, 'checkout'])->name('checkout');
+
+    Route::get('/admin/print_struk/order/{order_id}', [OwnerOrderController::class, 'generateReceipt_ORDER'])->name('printStrukOrder');
+    Route::get('/admin/print_struk/cart/{user_id}', [OwnerOrderController::class, 'generateReceipt_CART'])->name('printStrukCart');
 });
 //====================================================================================================
 

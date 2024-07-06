@@ -3,7 +3,7 @@
         <div class="w-full text-white flex flex-col md:flex-row justify-center gap-6 px-4 md:px-0">
             <div class="mt-6 md:mt-0 w-32">
                 <a href="/" class="">
-                    <img src="/images/lisahwan_logo.crdownload" class="mr-3 w-16 sm:w-24" alt="Gosyen Logo" />
+                    <img src="/images/lisahwan_logo.png" class="mr-3 w-16 sm:w-24" alt="Gosyen Logo" />
                 </a>
             </div>
             <div class="w-full md:w-1/2">

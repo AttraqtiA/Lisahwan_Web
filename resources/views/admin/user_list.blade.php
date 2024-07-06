@@ -13,7 +13,6 @@
                             <span class="text-gray-500">Semua User:</span>
                             <span class="text-gray-500">{{ $users->count() }}</span>
                         </h5>
-                        <h5 class="text-gray-500 ml-1">(1-{{ (int) ceil($users->count() / 10) }})</h5>
                     </div>
                     <div class="text-lg font-bold text-gray-800">
                         Daftar User
@@ -23,7 +22,6 @@
                     class="flex flex-col md:flex-row items-stretch md:items-center md:space-x-3 space-y-3 md:space-y-0 justify-between mx-4 py-4 border-t">
                     <div class="w-full md:w-1/3">
                         <form class="flex items-center" action="{{ route('owner.admin_users') }}" method="GET">
-
                             <label for="simple-search" class="sr-only">Search</label>
                             <div class="relative w-full">
                                 <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
@@ -85,8 +83,8 @@
                                         <td class="p-4 w-4">
                                             {{ $loop->index + ($users->currentPage() - 1) * $users->perPage() + 1 }}
                                         </td>
-                                        <th scope="row" class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap">
-                                            <div class="flex items-center mr-3">
+                                        <td scope="row" class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap">
+                                             <div class="ml-4 flex items-center">
                                                 @if ($user->profile_picture == null)
                                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none"
                                                         viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
@@ -103,10 +101,11 @@
                                                         alt="profile picture"
                                                         class="w-8 h-8 mr-3 object-cover object-center rounded-full">
                                                 @endif
-
-                                                <p>{{ $user->name }}</p>
+                                                <p class="truncate hover:overflow-visible hover:whitespace-nowrap">
+                                                    {{ $user->name }}
+                                                </p>
                                             </div>
-                                        </th>
+                                        </td>
                                         @if ($user->role_id == 1)
                                             <td class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap">
                                                 Owner</td>

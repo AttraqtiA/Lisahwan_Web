@@ -13,7 +13,6 @@
                             <span class="text-gray-500">Semua Produk:</span>
                             <span class="text-gray-500">{{ $products->count() }}</span>
                         </h5>
-                        <h5 class="text-gray-500 ml-1">(1-{{ (int) ceil($products->count() / 10) }})</h5>
                     </div>
                     <div class="text-lg font-bold text-gray-800">
                         Daftar Produk

@@ -12,7 +12,9 @@ use App\Models\CartDetail;
 use App\Models\Production;
 use App\Models\OrderDetail;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
 use App\Http\Controllers\Controller; // tambah ini buat yg folder per role
 
 class OrderController extends Controller
@@ -20,52 +22,88 @@ class OrderController extends Controller
     /**
      * Display a listing of the resource.
      */
+
+
+
     public function index(Request $request)
     {
         $ordersQuery = Order::query();
 
+        // Initialize $parsedDate to null
+        $parsedDate = null;
+
         if ($request->has('search')) {
             $searchTerm = $request->search;
 
-            $ordersQuery->where(function ($query) use ($searchTerm) {
-                $query->where('order_date', 'like', '%' . $searchTerm . '%')
-                    ->orWhere('shipment_date', 'like', '%' . $searchTerm . '%')
-                    ->orWhere('arrived_date', 'like', '%' . $searchTerm . '%')
-                    ->orWhere('is_print', 'like', '%' . $searchTerm . '%')
-                    ->orWhere('shipment_status', 'like', '%' . $searchTerm . '%')
-                    ->orWhere('acceptbyAdmin_status', 'like', '%' . $searchTerm . '%')
-                    ->orWhere('acceptbyCustomer_status', 'like', '%' . $searchTerm . '%')
-                    ->orWhere('total_price', 'like', '%' . $searchTerm . '%')
-                    ->orWhere('note', 'like', '%' . $searchTerm . '%');
+            // Attempt to parse the search term as a date
+            try {
+                // Parse the search term to find date range or month-year
+                $parsedDate = Carbon::parse($searchTerm, config('app.timezone'));
 
-                $query->orWhereHas('user', function ($userQuery) use ($searchTerm) {
-                    $userQuery->where('name', 'like', '%' . $searchTerm . '%')
-                        ->orWhere('phone_number', 'like', '%' . $searchTerm . '%');
-                });
+                // Format the parsed date for comparison with database date fields
+                $formattedDate = $parsedDate->format('Y-m-d');
 
-                $query->orWhereHas('address', function ($addressQuery) use ($searchTerm) {
-                    $addressQuery->where('address', 'like', '%' . $searchTerm . '%');
+                $ordersQuery->where(function ($query) use ($formattedDate, $parsedDate) {
+                    // Check if search term is a full date
+                    if ($parsedDate->day != 1 && $parsedDate->month != 1) {
+                        $query->whereDate('order_date', $formattedDate);
+                    } else {
+                        // Check if search term is a month-year
+                        $query->where(DB::raw('DATE_FORMAT(order_date, "%Y-%m")'), $formattedDate);
+
+                        // Check if search term is a month only
+                        $query->orWhere(DB::raw('DATE_FORMAT(order_date, "%M")'), 'like', '%' . $parsedDate->format('F') . '%');
+
+                        // Check if search term is a year only
+                        $query->orWhere(DB::raw('YEAR(order_date)'), 'like', '%' . $parsedDate->format('Y') . '%');
+                    }
                 });
-            });
+            } catch (\Exception $e) {
+                // Handle non-date search term (search in other fields)
+                $ordersQuery->where(function ($query) use ($searchTerm) {
+                    $query->orWhere('is_print', 'like', '%' . $searchTerm . '%')
+                        ->orWhere('shipment_status', 'like', '%' . $searchTerm . '%')
+                        ->orWhere('acceptbyAdmin_status', 'like', '%' . $searchTerm . '%')
+                        ->orWhere('acceptbyCustomer_status', 'like', '%' . $searchTerm . '%')
+                        ->orWhere('total_price', 'like', '%' . $searchTerm . '%')
+                        ->orWhere('note', 'like', '%' . $searchTerm . '%');
+
+                    $query->orWhereHas('user', function ($userQuery) use ($searchTerm) {
+                        $userQuery->where('name', 'like', '%' . $searchTerm . '%')
+                            ->orWhere('phone_number', 'like', '%' . $searchTerm . '%');
+                    });
+
+                    $query->orWhereHas('address', function ($addressQuery) use ($searchTerm) {
+                        $addressQuery->where('address', 'like', '%' . $searchTerm . '%');
+                    });
+                });
+            }
         }
 
+        // Query orders by date criteria
         $orders = $ordersQuery->where(function ($query) {
             $query->whereDate('order_date', Carbon::today())
                 ->orWhereDate('order_date', Carbon::yesterday());
-        })->paginate(10);
+        })->orderBy('created_at', 'desc')->paginate(10);
 
-        // Menginisialisasi variabel nomor urut
+        // Initialize order number for pagination
         $orderNumber = $orders->firstItem();
+
+        // Count total orders
+        $totalOrders = $ordersQuery->count();
+
+        // Fetch user cart details
+        $cart_user = Cart::where('user_id', Auth::user()->id)->first();
+        $carts = $cart_user ? $cart_user->cart_detail : null;
 
         return view('admin.admin_dashboard', [
             "active_1" => "text-yellow-500",
             "orders" => $orders,
             "orderNumber" => $orderNumber,
+            "totalOrders" => $totalOrders,
+            'carts' =>  $carts
         ]);
     }
-
-
-
     // ====================================== CASHIER MANAGEMENT SYSTEM ======================================
     public function showAllProducts()
     {
@@ -87,7 +125,13 @@ class OrderController extends Controller
 
     public function addProduct(Request $request, $id)
     {
-        var_dump($request->all());
+        $last_quantity = 0;
+        if (Session::has('last_quantity_' . $id)) {
+            $last_quantity = Session::get('last_quantity_' . $id);
+        }
+        // dd($last_quantity);
+
+        Session::put('last_quantity_' . $id, $request->quantity);
         $cart = Cart::where('user_id', Auth::user()->id)->first();
         $product = Product::find($id);
 
@@ -99,10 +143,11 @@ class OrderController extends Controller
         ]);
 
         $total_price = $validatedData['quantity'] * $product->price;
-
         $total_weight = $product->weight * $validatedData['quantity'];
 
-        if ($validatedData['quantity'] <= $product->stock) {
+        $quantity_final = $validatedData['quantity'] - $last_quantity;
+
+        if ($quantity_final <= $product->stock) {
             if (!$cart) {
                 $cart_new = Cart::create([
                     'user_id' => Auth::user()->id
@@ -114,15 +159,41 @@ class OrderController extends Controller
                     'price' => $total_price,
                     'weight' => $total_weight
                 ]);
+                $product->update([
+                    'stock' =>  $product->stock - $validatedData['quantity']
+                ]);
             } else {
                 $cart_detail = $cart->cart_detail;
                 $check_product = $cart_detail->where('product_id', $id)->first();
 
                 if ($check_product) {
+                    if ($check_product->quantity < $validatedData['quantity']) {
+                        $total_quantity =  -1 * ($check_product->quantity - $validatedData['quantity']);
+                        $product->update([
+                            'stock' =>  $product->stock - $total_quantity
+                        ]);
+                        Production::create([
+                            'date' => now(),
+                            'product_id' => $id,
+                            'quantity' => $total_quantity,
+                            'type' => 'kurang'
+                        ]);
+                    } else {
+                        $total_quantity =  $check_product->quantity - $validatedData['quantity'];
+                        $product->update([
+                            'stock' =>  $product->stock + $total_quantity
+                        ]);
+                        Production::create([
+                            'date' => now(),
+                            'product_id' => $id,
+                            'quantity' => $total_quantity,
+                            'type' => 'tambah'
+                        ]);
+                    }
                     $check_product->update([
-                        'quantity' => $check_product->quantity + $validatedData['quantity'],
-                        'price' => $check_product->price + $total_price,
-                        'weight' => $check_product->weight + $total_weight
+                        'quantity' => $validatedData['quantity'],
+                        'price' => $total_price,
+                        'weight' => $total_weight
                     ]);
                 } else {
                     CartDetail::create([
@@ -132,17 +203,11 @@ class OrderController extends Controller
                         'price' => $total_price,
                         'weight' => $total_weight
                     ]);
+                    $product->update([
+                        'stock' =>  $product->stock - $validatedData['quantity']
+                    ]);
                 }
             }
-            $product->update([
-                'stock' =>  $product->stock - $validatedData['quantity']
-            ]);
-            Production::create([
-                'date' => now(),
-                'product_id' => $id,
-                'quantity' => $validatedData['quantity'],
-                'type' => 'kurang'
-            ]);
             return redirect()->route('admin.products')->with('addCart_success', 'Pesanan ditambahkan ke keranjang!');
         } else {
             return back()->with('over_quantity', 'Mohon maaf, pesanan anda melebihi stok!');
@@ -172,7 +237,7 @@ class OrderController extends Controller
     public function editProduct(Request $request, $id)
     {
         $cart_detail = CartDetail::where('id', $id)->first();
-
+        Session::put('last_quantity_' . $cart_detail->product->id, $request->quantity);
         $validatedData = $request->validate([
             "quantity" => "required|not_in:0"
         ], [
@@ -216,6 +281,8 @@ class OrderController extends Controller
     public function deleteProduct($id)
     {
         $cartDetail = CartDetail::find($id);
+        $productId = $cartDetail->product->id;
+        Session::forget('last_quantity_' . $productId);
         if ($cartDetail) {
             // Temukan Cart yang sesuai dengan relasi
             $cart = $cartDetail->cart;
@@ -239,21 +306,24 @@ class OrderController extends Controller
 
     public function checkout(Request $request)
     {
-        if ($request->cash_payment) {
-            // NONE
-        } else if ($request->payment_upload) {
-            var_dump($request->payment_upload);
+        $validatedData = [];
+
+        if ($request->has('cash_payment')) {
+            // Pembayaran tunai
+            $validatedData['payment'] = $request->cash_payment;
+        } elseif ($request->hasFile('payment_upload')) {
+            // Pembayaran dengan upload bukti
             $validatedData = $request->validate([
-                'payment_upload' => 'required|image|file|max:5000',
+                'payment_upload' => 'image|file|max:5000',
             ], [
-                'payment_upload.required' => 'Mohon upload bukti pembayaran anda!',
                 'payment_upload.image' => 'File wajib berupa gambar!',
                 'payment_upload.max' => 'Maksimal ukuran gambar 5MB!',
             ]);
 
-            if ($request->file('payment_upload')) {
-                $validatedData['payment'] = $request->file('payment_upload')->store('bukti_transfer', ['disk' => 'public']);
-            }
+            $validatedData['payment'] = $request->file('payment_upload')->store('bukti_transfer', ['disk' => 'public']);
+        } else {
+            // Jika tidak ada cash_payment atau payment_upload
+            return redirect()->back()->withErrors(['payment_upload.required' => 'Mohon upload bukti pembayaran anda!']);
         }
 
         $order_date = now();
@@ -261,7 +331,7 @@ class OrderController extends Controller
         $cart = Cart::where('user_id', Auth::user()->id)->first();
         $cart_details = $cart->cart_detail;
 
-        $total_price = ($cart_details->sum('price'));
+        $total_price = $cart_details->sum('price');
         $total_weight = $cart_details->sum('weight');
 
         $address = Address::create([
@@ -271,6 +341,7 @@ class OrderController extends Controller
             'province' => "Jawa Timur",
             'postal_code' => 60237
         ]);
+
         $order = Order::create([
             'user_id' => Auth::user()->id,
             'address_id' => $address->id,
@@ -279,7 +350,7 @@ class OrderController extends Controller
             'arrived_date' => $order_date,
             'total_price' => $total_price,
             'total_weight' => $total_weight,
-            'payment' => $validatedData['payment'] ?? $request->cash_payment,
+            'payment' => $validatedData['payment'],
             'note' => "Transaksi dilakukan oleh " . Auth::user()->name,
             'acceptbyAdmin_status' => "sudah",
             'acceptbyCustomer_status' => "sudah",
@@ -287,6 +358,8 @@ class OrderController extends Controller
         ]);
 
         foreach ($cart_details as $cart_detail) {
+            $productId = $cart_detail->product->id;
+            Session::forget('last_quantity_' . $productId);
             OrderDetail::create([
                 'order_id' => $order->id,
                 'product_id' => $cart_detail->product_id,
@@ -298,7 +371,7 @@ class OrderController extends Controller
 
         $cart->delete();
 
-        return redirect()->route('admin.products')->with('order_success', 'Pemesanan anda berhasil! <br><a href="' . route('admin.admin') . '" class="inline-flex items-center font-bold text-yellow-500">Check Detail Pesanan <svg class="ml-1 w-4 h-4 text-yellow-500" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10"> <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M1 5h12m0 0L9 1m4 4L9 9" /> </svg></a>');
+        return redirect()->route('admin.products')->with('order_success', 'Pemesanan anda berhasil! <br><a href="' . route('admin.admin') . '" class="inline-flex items-center font-bold text-yellow-500 hover:underline">Check Detail Pesanan <svg class="ml-1 w-4 h-4 text-yellow-500" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10"> <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M1 5h12m0 0L9 1m4 4L9 9" /> </svg></a>');
     }
 
     public function generateReceipt_CART($id)
@@ -349,40 +422,76 @@ class OrderController extends Controller
     {
         $ordersQuery = Order::query();
 
+        // Initialize $parsedDate to null
+        $parsedDate = null;
+
         if ($request->has('search')) {
             $searchTerm = $request->search;
 
-            $ordersQuery->where(function ($query) use ($searchTerm) {
-                $query->where('order_date', 'like', '%' . $searchTerm . '%')
-                    ->orWhere('shipment_date', 'like', '%' . $searchTerm . '%')
-                    ->orWhere('arrived_date', 'like', '%' . $searchTerm . '%')
-                    ->orWhere('is_print', 'like', '%' . $searchTerm . '%')
-                    ->orWhere('shipment_status', 'like', '%' . $searchTerm . '%')
-                    ->orWhere('acceptbyAdmin_status', 'like', '%' . $searchTerm . '%')
-                    ->orWhere('acceptbyCustomer_status', 'like', '%' . $searchTerm . '%')
-                    ->orWhere('total_price', 'like', '%' . $searchTerm . '%')
-                    ->orWhere('note', 'like', '%' . $searchTerm . '%');
+            // Attempt to parse the search term as a date
+            try {
+                // Parse the search term to find date range or month-year
+                $parsedDate = Carbon::parse($searchTerm, config('app.timezone'));
 
-                $query->orWhereHas('user', function ($userQuery) use ($searchTerm) {
-                    $userQuery->where('name', 'like', '%' . $searchTerm . '%')
-                        ->orWhere('phone_number', 'like', '%' . $searchTerm . '%');
-                });
+                // Format the parsed date for comparison with database date fields
+                $formattedDate = $parsedDate->format('Y-m-d');
 
-                $query->orWhereHas('address', function ($addressQuery) use ($searchTerm) {
-                    $addressQuery->where('address', 'like', '%' . $searchTerm . '%');
+                $ordersQuery->where(function ($query) use ($formattedDate, $parsedDate) {
+                    // Check if search term is a full date
+                    if ($parsedDate->day != 1 && $parsedDate->month != 1) {
+                        $query->whereDate('order_date', $formattedDate);
+                    } else {
+                        // Check if search term is a month-year
+                        $query->where(DB::raw('DATE_FORMAT(order_date, "%Y-%m")'), $formattedDate);
+
+                        // Check if search term is a month only
+                        $query->orWhere(DB::raw('DATE_FORMAT(order_date, "%M")'), 'like', '%' . $parsedDate->format('F') . '%');
+
+                        // Check if search term is a year only
+                        $query->orWhere(DB::raw('YEAR(order_date)'), 'like', '%' . $parsedDate->format('Y') . '%');
+                    }
                 });
-            });
+            } catch (\Exception $e) {
+                // Handle non-date search term (search in other fields)
+                $ordersQuery->where(function ($query) use ($searchTerm) {
+                    $query->orWhere('is_print', 'like', '%' . $searchTerm . '%')
+                        ->orWhere('shipment_status', 'like', '%' . $searchTerm . '%')
+                        ->orWhere('acceptbyAdmin_status', 'like', '%' . $searchTerm . '%')
+                        ->orWhere('acceptbyCustomer_status', 'like', '%' . $searchTerm . '%')
+                        ->orWhere('total_price', 'like', '%' . $searchTerm . '%')
+                        ->orWhere('note', 'like', '%' . $searchTerm . '%');
+
+                    $query->orWhereHas('user', function ($userQuery) use ($searchTerm) {
+                        $userQuery->where('name', 'like', '%' . $searchTerm . '%')
+                            ->orWhere('phone_number', 'like', '%' . $searchTerm . '%');
+                    });
+
+                    $query->orWhereHas('address', function ($addressQuery) use ($searchTerm) {
+                        $addressQuery->where('address', 'like', '%' . $searchTerm . '%');
+                    });
+                });
+            }
         }
 
-        $orders = $ordersQuery->paginate(10);
+        // Query orders by date criteria
+        $orders = $ordersQuery->orderBy('created_at', 'desc')->paginate(10);
 
-        // Menginisialisasi variabel nomor urut
+        // Initialize order number for pagination
         $orderNumber = $orders->firstItem();
+
+        // Count total orders
+        $totalOrders = $ordersQuery->count();
+
+        // Fetch user cart details
+        $cart_user = Cart::where('user_id', Auth::user()->id)->first();
+        $carts = $cart_user ? $cart_user->cart_detail : null;
 
         return view('admin.order_history', [
             "active_2" => "text-yellow-500",
             "orders" => $orders,
             "orderNumber" => $orderNumber,
+            "totalOrders" => $totalOrders,
+            'carts' => $carts
         ]);
     }
 

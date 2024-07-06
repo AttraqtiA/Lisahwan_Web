@@ -144,17 +144,17 @@
                             <div class="flex flex-row w-full justify-center items-center">
                                 @if ($product->discount != 0)
                                     <p
-                                        class="text-base sm:text-sm md:text-lg lg:text-sm font-normal text-white text-center">
+                                        class="text-base sm:text-sm md:text-lg lg:text-sm text-red-500 text-center font-bold line-through	">
                                         Rp.
                                         {{ number_format($product->price, 0, ',', '.') }}</p>
                                     <p
-                                        class="ml-2 flex items-center text-base sm:text-sm md:text-lg lg:text-sm font-bold text-red-600 text-center">
-                                        <svg class="w-4 h-4 mr-2 text-red-600" aria-hidden="true"
+                                        class="ml-2 flex items-center text-base sm:text-sm md:text-lg lg:text-sm font-bold text-green-500 text-center">
+                                        <svg class="w-4 h-4 mr-2 text-green-500" aria-hidden="true"
                                             xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
                                             <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
                                                 stroke-width="2" d="M1 5h12m0 0L9 1m4 4L9 9" />
                                         </svg>
-                                        (Rp. {{ number_format($product->countDiscount(), 0, ',', '.') }})
+                                        Rp. {{ number_format($product->countDiscount(), 0, ',', '.') }}
                                     </p>
                                 @else
                                     <p

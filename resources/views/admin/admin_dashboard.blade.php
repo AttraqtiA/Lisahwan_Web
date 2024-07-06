@@ -1,19 +1,17 @@
 @extends('layouts.admin.frame_admin')
 
 @section('content_page')
-
     <!-- Start block -->
-    <section class="bg-neutral-200 p-2 sm:p-4 antialiased h-full">
-        <div class="mx-auto max-w-screen-2xl pt-24 sm:ml-56">
-            <div class="bg-white relative shadow-md sm:rounded-lg overflow-hidden">
+    <section class="bg-neutral-200 p-2 sm:p-4 antialiased">
+        <div class="bg-neutral-200 mx-auto max-w-screen-2xl pt-24 sm:ml-56">
+            <div class="bg-white relative shadow-md rounded-md sm:rounded-lg overflow-hidden">
                 <div
                     class="flex flex-col md:flex-row md:items-center md:justify-between space-y-3 md:space-y-0 md:space-x-4 p-4">
                     <div class="flex-1 flex items-center space-x-2">
                         <h5>
                             <span class="text-gray-500">Semua Order:</span>
-                            <span class="text-gray-500">{{ $orders->count() }}</span>
+                            <span class="text-gray-500">{{ $totalOrders }}</span>
                         </h5>
-                        <h5 class="text-gray-500 ml-1">(1-{{ (int) ceil($orders->count() / 10) }})</h5>
                     </div>
                     <div class="text-lg font-bold text-gray-800">
                         Daftar Order Hari Ini dan Kemarin
@@ -21,7 +19,7 @@
                 </div>
                 <div
                     class="flex flex-col md:flex-row items-stretch md:items-center md:space-x-3 space-y-3 md:space-y-0 justify-between mx-4 py-4 border-t">
-                    <div class="w-full md:w-1/3">
+                    <div class="flex flex-col lg:flex-row justify-between w-full">
                         <form class="flex items-center"
                             action="@if (Auth::user()->isOwner()) {{ route('owner.admin') }}                                                 @elseif (Auth::user()->isAdmin())
                                 @else {{ route('admin.admin') }} @endif"
@@ -44,19 +42,13 @@
                             <button type="submit" class="bg-yellow-500 ml-2 p-2 rounded-lg text-sm">
                                 <p class="font-semibold text-white px-2">Search</p>
                             </button>
-
                         </form>
-                    </div>
-                    <div
-                        class="w-full md:w-auto flex flex-col md:flex-row space-y-2 md:space-y-0 items-stretch md:items-center justify-end md:space-x-3 flex-shrink-0">
-                        <button type="button" id="createProductButton" data-modal-toggle="createProductModal"
-                            class="flex items-center justify-center text-white bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 font-medium rounded-lg text-sm px-4 py-2 focus:outline-none">
-                            <svg class="h-3.5 w-3.5 mr-1.5 -ml-1" fill="currentColor" viewbox="0 0 20 20"
-                                xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                                <path clip-rule="evenodd" fill-rule="evenodd"
-                                    d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" />
-                            </svg>
-                        </button>
+
+                        <span
+                            class="mt-2 lg:mt-0 flex flex-row justify-center items-center bg-green-300 text-green-900 text-sm text-center font-medium px-3 py-2 rounded-full">
+                            <span class="w-2 h-2 me-2 bg-green-500 rounded-full"></span>
+                            Total Penjualan: Rp.{{ number_format($orders->sum('total_price'), 0, ',', '.') }}
+                        </span>
                     </div>
                 </div>
                 <div class="overflow-x-auto">
@@ -88,9 +80,8 @@
                                         <td class="p-4 w-4">
                                             {{ $orderNumber }}
                                         </td>
-                                        <td scope="row"
-                                            class="mr-4 px-4 py-3 font-medium text-gray-900 whitespace-nowrap">
-                                            <div class="flex items-center mr-3">
+                                        <td scope="row" class="font-medium text-gray-900 whitespace-nowrap">
+                                            <div class="ml-4 flex items-center">
                                                 @if ($order->user->profile_picture == null)
                                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none"
                                                         viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
@@ -107,15 +98,14 @@
                                                         alt="profile picture"
                                                         class="w-8 h-8 mr-3 object-cover object-center rounded-full">
                                                 @endif
-
-                                                <p>{{ $order->user->name }}</p>
+                                                <p
+                                                    class="text-left truncate hover:overflow-visible hover:whitespace-nowrap">
+                                                    {{ $order->user->name }}
+                                                </p>
                                             </div>
                                         </td>
-
-
-                                        <td class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap">
-                                            <div class="flex items-center space-x-4">
-
+                                        <td class="font-medium text-gray-900 whitespace-nowrap">
+                                            <div class="flex justify-center items-center space-x-2">
                                                 <button type="button" data-drawer-target="order-detail{{ $order->id }}"
                                                     data-drawer-show="order-detail{{ $order->id }}"
                                                     aria-controls="order-detail{{ $order->id }}"
@@ -133,11 +123,10 @@
                                                     <button type="button"
                                                         data-modal-target="update-modal{{ $order->id }}"
                                                         data-modal-toggle="update-modal{{ $order->id }}"
-                                                        class="py-2 px-3 flex items-center text-sm font-medium text-center text-gray-600 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-primary-700 focus:z-10 focus:ring-4 focus:ring-gray-200"
+                                                        class="py-2 px-3 flex items-center text-sm font-medium text-center text-white focus:outline-none bg-gray-300 rounded-lg hover:bg-gray-300 hover:text-primary-700 focus:z-10 focus:ring-4 focus:ring-gray-300"
                                                         disabled>
-                                                        <svg xmlns="http://www.w3.org/2000/svg"
-                                                            class="h-4 w-4 mr-2 -ml-0.5" viewBox="0 0 20 20"
-                                                            fill="currentColor" aria-hidden="true">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2 -ml-0.5"
+                                                            viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
                                                             <path
                                                                 d="M17.414 2.586a2 2 0 00-2.828 0L7 10.172V13h2.828l7.586-7.586a2 2 0 000-2.828z" />
                                                             <path fill-rule="evenodd"
@@ -150,7 +139,7 @@
                                                     <button type="button"
                                                         data-modal-target="update-modal{{ $order->id }}"
                                                         data-modal-toggle="update-modal{{ $order->id }}"
-                                                        class="py-2 px-3 flex items-center text-sm font-medium text-center text-gray-700 bg-primary-700 rounded-lg hover:bg-primary-800 focus:ring-4 focus:outline-none focus:ring-primary-300">
+                                                        class="py-2 px-3 flex items-center text-sm font-medium text-center text-gray-600 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-primary-700 focus:z-10 focus:ring-4 focus:ring-gray-200">
                                                         <svg xmlns="http://www.w3.org/2000/svg"
                                                             class="h-4 w-4 mr-2 -ml-0.5" viewBox="0 0 20 20"
                                                             fill="currentColor" aria-hidden="true">
@@ -167,60 +156,63 @@
                                         </td>
 
                                         @if ($order->acceptbyAdmin_status == 'sudah')
-                                            <td class="px-4 py-3 font-medium text-green-400 whitespace-nowrap">
+                                            <td class="font-medium text-green-400 whitespace-nowrap">
                                                 Sudah</td>
                                         @else
-                                            <td class="px-4 py-3 font-medium text-red-700 whitespace-nowrap">
+                                            <td class="font-medium text-red-700 whitespace-nowrap">
                                                 Pending</td>
                                         @endif
 
                                         @if ($order->shipment_status == 'sudah')
-                                            <td class="px-4 py-3 font-medium text-green-400 whitespace-nowrap">
+                                            <td class="font-medium text-green-400 whitespace-nowrap">
                                                 Sudah</td>
                                         @else
-                                            <td class="px-4 py-3 font-medium text-red-700 whitespace-nowrap">
+                                            <td class="font-medium text-red-700 whitespace-nowrap">
                                                 Pending</td>
                                         @endif
 
                                         @if ($order->acceptbyCustomer_status == 'sudah')
-                                            <td class="px-4 py-3 font-medium text-green-400 whitespace-nowrap">
+                                            <td class="font-medium text-green-400 whitespace-nowrap">
                                                 Sudah</td>
                                         @else
-                                            <td class="px-4 py-3 font-medium text-red-700 whitespace-nowrap">
+                                            <td class="font-medium text-red-700 whitespace-nowrap">
                                                 Pending</td>
                                         @endif
 
-                                        <td class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap">
+                                        <td class="font-medium text-gray-900 whitespace-nowrap">
                                             {{ substr($order->user->phone_number, 0, 4) . '-' . substr($order->user->phone_number, 4, 4) . '-' . substr($order->user->phone_number, 8) }}
                                         </td>
 
-                                        <td>
+                                        <td class="px-3 lg:px-0">
                                             @if ($order->user_id == 1 || $order->user_id == 2)
-                                                <button type="button" data-modal-target="address-modal"
-                                                    data-modal-toggle="address-modal"
-                                                    class="py-2 px-3 flex items-center text-sm font-medium text-center text-gray-600 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-primary-700 focus:z-10 focus:ring-4 focus:ring-gray-200"
-                                                    disabled>
-                                                    <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 24 24"
-                                                        fill="currentColor" class="w-4 h-4 mr-2 -ml-0.5">
-                                                        <path d="M12 15a3 3 0 100-6 3 3 0 000 6z" />
-                                                        <path fill-rule="evenodd" clip-rule="evenodd"
-                                                            d="M1.323 11.447C2.811 6.976 7.028 3.75 12.001 3.75c4.97 0 9.185 3.223 10.675 7.69.12.362.12.752 0 1.113-1.487 4.471-5.705 7.697-10.677 7.697-4.97 0-9.186-3.223-10.675-7.69a1.762 1.762 0 010-1.113zM17.25 12a5.25 5.25 0 11-10.5 0 5.25 5.25 0 0110.5 0z" />
-                                                    </svg>
-                                                    Alamat
-                                                </button>
+                                                <div class="flex justify-center">
+                                                    <button type="button" data-modal-target="address-modal"
+                                                        data-modal-toggle="address-modal"
+                                                        class="py-2 px-3 flex items-center text-sm font-medium text-center text-white focus:outline-none bg-gray-300 rounded-lg hover:bg-gray-300 hover:text-primary-700 focus:z-10 focus:ring-4 focus:ring-gray-300"
+                                                        disabled>
+                                                        <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 24 24"
+                                                            fill="currentColor" class="w-4 h-4 mr-2 -ml-0.5">
+                                                            <path d="M12 15a3 3 0 100-6 3 3 0 000 6z" />
+                                                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                                                d="M1.323 11.447C2.811 6.976 7.028 3.75 12.001 3.75c4.97 0 9.185 3.223 10.675 7.69.12.362.12.752 0 1.113-1.487 4.471-5.705 7.697-10.677 7.697-4.97 0-9.186-3.223-10.675-7.69a1.762 1.762 0 010-1.113zM17.25 12a5.25 5.25 0 11-10.5 0 5.25 5.25 0 0110.5 0z" />
+                                                        </svg>
+                                                        Alamat
+                                                    </button>
+                                                </div>
                                             @else
-                                                <button type="button" data-modal-target="address-modal"
-                                                    data-modal-toggle="address-modal"
-                                                    class="py-2 px-3 flex items-center text-sm font-medium text-center text-gray-600 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-primary-700 focus:z-10 focus:ring-4 focus:ring-gray-200"
-                                                    disabled>
-                                                    <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 24 24"
-                                                        fill="currentColor" class="w-4 h-4 mr-2 -ml-0.5">
-                                                        <path d="M12 15a3 3 0 100-6 3 3 0 000 6z" />
-                                                        <path fill-rule="evenodd" clip-rule="evenodd"
-                                                            d="M1.323 11.447C2.811 6.976 7.028 3.75 12.001 3.75c4.97 0 9.185 3.223 10.675 7.69.12.362.12.752 0 1.113-1.487 4.471-5.705 7.697-10.677 7.697-4.97 0-9.186-3.223-10.675-7.69a1.762 1.762 0 010-1.113zM17.25 12a5.25 5.25 0 11-10.5 0 5.25 5.25 0 0110.5 0z" />
-                                                    </svg>
-                                                    Alamat
-                                                </button>
+                                                <div class="flex justify-center">
+                                                    <button type="button" data-modal-target="address-modal"
+                                                        data-modal-toggle="address-modal"
+                                                        class="py-2 px-3 flex items-center text-sm font-medium text-center text-gray-600 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-primary-700 focus:z-10 focus:ring-4 focus:ring-gray-200">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 24 24"
+                                                            fill="currentColor" class="w-4 h-4 mr-2 -ml-0.5">
+                                                            <path d="M12 15a3 3 0 100-6 3 3 0 000 6z" />
+                                                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                                                d="M1.323 11.447C2.811 6.976 7.028 3.75 12.001 3.75c4.97 0 9.185 3.223 10.675 7.69.12.362.12.752 0 1.113-1.487 4.471-5.705 7.697-10.677 7.697-4.97 0-9.186-3.223-10.675-7.69a1.762 1.762 0 010-1.113zM17.25 12a5.25 5.25 0 11-10.5 0 5.25 5.25 0 0110.5 0z" />
+                                                        </svg>
+                                                        Alamat
+                                                    </button>
+                                                </div>
                                             @endif
                                         </td>
 
@@ -285,34 +277,99 @@
                                             </div>
                                         </div>
 
-                                        <td>
-                                            <button type="button" data-modal-target="payment{{ $order->id }}"
-                                                data-modal-toggle="payment{{ $order->id }}"
-                                                class="py-2 px-3 flex items-center text-sm font-medium text-center text-gray-600 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-primary-700 focus:z-10 focus:ring-4 focus:ring-gray-200">
-                                                <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 24 24"
-                                                    fill="currentColor" class="w-4 h-4 mr-2 -ml-0.5">
-                                                    <path d="M12 15a3 3 0 100-6 3 3 0 000 6z" />
-                                                    <path fill-rule="evenodd" clip-rule="evenodd"
-                                                        d="M1.323 11.447C2.811 6.976 7.028 3.75 12.001 3.75c4.97 0 9.185 3.223 10.675 7.69.12.362.12.752 0 1.113-1.487 4.471-5.705 7.697-10.677 7.697-4.97 0-9.186-3.223-10.675-7.69a1.762 1.762 0 010-1.113zM17.25 12a5.25 5.25 0 11-10.5 0 5.25 5.25 0 0110.5 0z" />
-                                                </svg>
-                                                Pembayaran
-                                            </button>
-                                        </td>
-                                        <td class="p-4">
-                                            <form action="{{ route('admin.printStrukOrder', $order->id) }}"
-                                                method="GET">
-                                                @csrf
-                                                <button
-                                                    class="py-2 px-3 flex items-center text-sm font-medium text-center text-white focus:outline-none bg-green-500 rounded-lg hover:bg-green-600 hover:text-primary-700 focus:z-10 focus:ring-4 focus:ring-green-600">
+                                        <td class="px-3 lg:px-0">
+                                            <div class="flex justify-center">
+                                                <button type="button" data-modal-target="payment{{ $order->id }}"
+                                                    data-modal-toggle="payment{{ $order->id }}"
+                                                    class="py-2 px-3 flex items-center text-sm font-medium text-center text-gray-600 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-primary-700 focus:z-10 focus:ring-4 focus:ring-gray-200">
                                                     <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 24 24"
                                                         fill="currentColor" class="w-4 h-4 mr-2 -ml-0.5">
                                                         <path d="M12 15a3 3 0 100-6 3 3 0 000 6z" />
                                                         <path fill-rule="evenodd" clip-rule="evenodd"
                                                             d="M1.323 11.447C2.811 6.976 7.028 3.75 12.001 3.75c4.97 0 9.185 3.223 10.675 7.69.12.362.12.752 0 1.113-1.487 4.471-5.705 7.697-10.677 7.697-4.97 0-9.186-3.223-10.675-7.69a1.762 1.762 0 010-1.113zM17.25 12a5.25 5.25 0 11-10.5 0 5.25 5.25 0 0110.5 0z" />
                                                     </svg>
-                                                    Cetak
+                                                    Pembayaran
                                                 </button>
-                                            </form>
+                                            </div>
+                                        </td>
+                                        <td class="px-3 lg:px-0">
+                                            @if ($order->user_id == 1 || $order->user_id == 2)
+                                                <div class="flex justify-center">
+                                                    @if (Auth::user()->isAdmin())
+                                                        <form action="{{ route('admin.printStrukOrder', $order->id) }}"
+                                                            method="GET">
+                                                            @csrf
+                                                            <button
+                                                                class="py-2 px-3 flex items-center text-sm font-medium text-center text-white focus:outline-none bg-green-500 rounded-lg hover:bg-green-600 hover:text-primary-700 focus:z-10 focus:ring-4 focus:ring-green-600">
+                                                                <svg xmlns="http://www.w3.org/2000/svg"
+                                                                    viewbox="0 0 24 24" fill="currentColor"
+                                                                    class="w-4 h-4 mr-2 -ml-0.5">
+                                                                    <path d="M12 15a3 3 0 100-6 3 3 0 000 6z" />
+                                                                    <path fill-rule="evenodd" clip-rule="evenodd"
+                                                                        d="M1.323 11.447C2.811 6.976 7.028 3.75 12.001 3.75c4.97 0 9.185 3.223 10.675 7.69.12.362.12.752 0 1.113-1.487 4.471-5.705 7.697-10.677 7.697-4.97 0-9.186-3.223-10.675-7.69a1.762 1.762 0 010-1.113zM17.25 12a5.25 5.25 0 11-10.5 0 5.25 5.25 0 0110.5 0z" />
+                                                                </svg>
+                                                                Cetak
+                                                            </button>
+                                                        </form>
+                                                    @endif
+                                                    @if (Auth::user()->isOwner())
+                                                        <form action="{{ route('owner.printStrukOrder', $order->id) }}"
+                                                            method="GET">
+                                                            @csrf
+                                                            <button
+                                                                class="py-2 px-3 flex items-center text-sm font-medium text-center text-white focus:outline-none bg-green-500 rounded-lg hover:bg-green-600 hover:text-primary-700 focus:z-10 focus:ring-4 focus:ring-green-600">
+                                                                <svg xmlns="http://www.w3.org/2000/svg"
+                                                                    viewbox="0 0 24 24" fill="currentColor"
+                                                                    class="w-4 h-4 mr-2 -ml-0.5">
+                                                                    <path d="M12 15a3 3 0 100-6 3 3 0 000 6z" />
+                                                                    <path fill-rule="evenodd" clip-rule="evenodd"
+                                                                        d="M1.323 11.447C2.811 6.976 7.028 3.75 12.001 3.75c4.97 0 9.185 3.223 10.675 7.69.12.362.12.752 0 1.113-1.487 4.471-5.705 7.697-10.677 7.697-4.97 0-9.186-3.223-10.675-7.69a1.762 1.762 0 010-1.113zM17.25 12a5.25 5.25 0 11-10.5 0 5.25 5.25 0 0110.5 0z" />
+                                                                </svg>
+                                                                Cetak
+                                                            </button>
+                                                        </form>
+                                                    @endif
+                                                </div>
+                                            @else
+                                                <div class="flex justify-center">
+                                                    @if (Auth::user()->isAdmin())
+                                                        <form action="{{ route('admin.printStrukOrder', $order->id) }}"
+                                                            method="GET">
+                                                            @csrf
+                                                            <button
+                                                                class="py-2 px-3 flex items-center text-sm font-medium text-center text-white focus:outline-none bg-gray-300 rounded-lg hover:bg-gray-300 hover:text-primary-700 focus:z-10 focus:ring-4 focus:ring-gray-300"
+                                                                disabled>
+                                                                <svg xmlns="http://www.w3.org/2000/svg"
+                                                                    viewbox="0 0 24 24" fill="currentColor"
+                                                                    class="w-4 h-4 mr-2 -ml-0.5">
+                                                                    <path d="M12 15a3 3 0 100-6 3 3 0 000 6z" />
+                                                                    <path fill-rule="evenodd" clip-rule="evenodd"
+                                                                        d="M1.323 11.447C2.811 6.976 7.028 3.75 12.001 3.75c4.97 0 9.185 3.223 10.675 7.69.12.362.12.752 0 1.113-1.487 4.471-5.705 7.697-10.677 7.697-4.97 0-9.186-3.223-10.675-7.69a1.762 1.762 0 010-1.113zM17.25 12a5.25 5.25 0 11-10.5 0 5.25 5.25 0 0110.5 0z" />
+                                                                </svg>
+                                                                Cetak
+                                                            </button>
+                                                        </form>
+                                                    @endif
+                                                    @if (Auth::user()->isOwner())
+                                                        <form action="{{ route('owner.printStrukOrder', $order->id) }}"
+                                                            method="GET">
+                                                            @csrf
+                                                            <button
+                                                                class="py-2 px-3 flex items-center text-sm font-medium text-center text-white focus:outline-none bg-gray-300 rounded-lg hover:bg-gray-300 hover:text-primary-700 focus:z-10 focus:ring-4 focus:ring-gray-300"
+                                                                disabled>
+                                                                <svg xmlns="http://www.w3.org/2000/svg"
+                                                                    viewbox="0 0 24 24" fill="currentColor"
+                                                                    class="w-4 h-4 mr-2 -ml-0.5">
+                                                                    <path d="M12 15a3 3 0 100-6 3 3 0 000 6z" />
+                                                                    <path fill-rule="evenodd" clip-rule="evenodd"
+                                                                        d="M1.323 11.447C2.811 6.976 7.028 3.75 12.001 3.75c4.97 0 9.185 3.223 10.675 7.69.12.362.12.752 0 1.113-1.487 4.471-5.705 7.697-10.677 7.697-4.97 0-9.186-3.223-10.675-7.69a1.762 1.762 0 010-1.113zM17.25 12a5.25 5.25 0 11-10.5 0 5.25 5.25 0 0110.5 0z" />
+                                                                </svg>
+                                                                Cetak
+                                                            </button>
+                                                        </form>
+                                                    @endif
+                                                </div>
+                                            @endif
                                         </td>
                                     </tr>
 
@@ -554,8 +611,8 @@
                                                 <!-- Modal body -->
 
                                                 @if ($order->payment != null || $order->payment != '')
-                                                    @if ($order->payment == 'lisahwan_logo.png')
-                                                        <img src="/images/lisahwan_logo.png" alt="Lisahwan Logo"
+                                                    @if ($order->payment == 'paidcash')
+                                                        <img src="/images/paidcash_indicator.png" alt="Cash Payment"
                                                             class="mt-3 w-96 mx-auto rounded-lg object-cover">
                                                     @else
                                                         <img src="{{ asset('storage/' . $order->payment) }}"
@@ -587,6 +644,4 @@
         </div>
     </section>
     <!-- End block -->
-
-
 @endsection
