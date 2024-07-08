@@ -19,7 +19,6 @@ return new class extends Migration
             $table->string('city')->nullable(false);
             $table->string('province')->nullable(false);
             $table->bigInteger('postal_code')->nullable(false);
-            // $table->enum('is_main_address', ['0', '1'])->default('0'); // if address is empty for the user, set to 1 automatically by default
             $table->timestamps();
         });
     }

@@ -80,7 +80,7 @@
                 <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
                     fill="currentColor" viewBox="0 0 20 20">
                     <path
-                        d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Zm3.707 8.207-4 4a1 1 0 0 1-1.414 0l-2-2a1 1 0 0 1 1.414-1.414L9 10.586l3.293-3.293a1 1 0 0 1 1.414 1.414Z" />
+                        d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Zm3.707 11.793a1 1 0 1 1-1.414 1.414L10 11.414l-2.293 2.293a1 1 0 0 1-1.414-1.414L8.586 10 6.293 7.707a1 1 0 0 1 1.414-1.414L10 8.586l2.293-2.293a1 1 0 0 1 1.414 1.414L11.414 10l2.293 2.293Z" />
                 </svg>
                 <span class="sr-only">Info</span>
                 <div>
@@ -190,8 +190,8 @@
                                         <input type="number" id="number-input" name="quantity"
                                             aria-describedby="helper-text-explanation"
                                             class="w-4/12 bg-white border-2 border-yelllow-500 text-gray-900 text-base rounded-lg focus:ring-yellow-500 focus:border-yellow-500 p-2"
-                                            value="{{ isset($lastQuantity) ? $lastQuantity : 0 }}"
-                                            min="0" required />
+                                            value="{{ isset($lastQuantity) ? $lastQuantity : 0 }}" min="0"
+                                            required />
                                         <button type="submit"
                                             class="flex flex-row items-center justify-center bg-yellow-500 hover:bg-yellow-600 rounded-md p-2 pl-3 space-x-1">
                                             <span class="text-gray-900 text-base">Tambah</span>

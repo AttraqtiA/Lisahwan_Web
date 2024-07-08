@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers\Owner;
 
-use App\Http\Controllers\Controller; // tambah ini buat yg folder per role
-
 use App\Models\User;
+
+use App\Models\Point;
 use App\Models\Address;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller; // tambah ini buat yg folder per role
+use App\Models\Coupon;
 
 class UserController extends Controller
 {
@@ -18,9 +20,14 @@ class UserController extends Controller
             $users = User::paginate(10);
         }
 
+        $point = Point::first();
+        $coupons = Coupon::all();
+
         return view('admin.user_list', [
             "active_4" => "text-yellow-500",
             "users" => $users,
+            "point" => $point,
+            "coupons" => $coupons
         ]);
     }
 }

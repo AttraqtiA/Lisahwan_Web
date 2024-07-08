@@ -3,10 +3,11 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use App\Models\UserCoupon;
+use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
-use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
 {
@@ -31,7 +32,7 @@ class User extends Authenticatable
     // protected $except = [
     //     'COOKIE_NAME',
     // ];
-    
+
     /**
      * The attributes that should be hidden for serialization.
      *
@@ -75,6 +76,11 @@ class User extends Authenticatable
     public function order()
     {
         return $this->HasMany(Order::class, 'user_id', 'id');
+    }
+
+    public function usercoupon()
+    {
+        return $this->HasMany(UserCoupon::class, 'user_id', 'id');
     }
 
 

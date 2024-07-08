@@ -7,6 +7,7 @@ use App\Http\Controllers\GalleryController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\Owner\UserController;
 use App\Http\Controllers\Admin\OrderController as AdminOrderController;
+use App\Http\Controllers\CouponController;
 use App\Http\Controllers\Member\CartController as MemberCartController;
 use App\Http\Controllers\Owner\OrderController as OwnerOrderController;
 use App\Http\Controllers\Member\OrderController as MemberOrderController;
@@ -14,6 +15,7 @@ use App\Http\Controllers\Owner\ProductController as OwnerProductController;
 use App\Http\Controllers\Member\ProductController as MemberProductController;
 use App\Http\Controllers\Member\WishlistController as MemberWishlistController;
 use App\Http\Controllers\Member\TestimonyController as MemberTestimonyController;
+use App\Http\Controllers\PointController;
 
 /*
 |--------------------------------------------------------------------------
@@ -138,6 +140,13 @@ Route::group([
 
     Route::get('/admin/print_struk/order/{order_id}', [OwnerOrderController::class, 'generateReceipt_ORDER'])->name('printStrukOrder');
     Route::get('/admin/print_struk/cart/{user_id}', [OwnerOrderController::class, 'generateReceipt_CART'])->name('printStrukCart');
+
+    Route::post('/admin/atur_poin', [PointController::class, 'setPoint'])->name('aturPoin');
+    Route::put('/admin/ubah_poin', [PointController::class, 'editPoint'])->name('ubahPoin');
+
+    Route::post('/admin/atur_kupon', [CouponController::class, 'setCoupon'])->name('aturKupon');
+    Route::put('/admin/ubah_kupon/{coupon_id}', [CouponController::class, 'editCoupon'])->name('ubahKupon');
+    Route::delete('/admin/hapus_kupon/{coupon_id}', [CouponController::class, 'deleteCoupon'])->name('hapusKupon');
 });
 //====================================================================================================
 

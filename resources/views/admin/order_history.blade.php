@@ -80,8 +80,8 @@
                                         <td class="p-4 w-4">
                                             {{ $orderNumber }}
                                         </td>
-                                        <td scope="row" class="font-medium text-gray-900 whitespace-nowrap">
-                                            <div class="ml-4 flex items-center">
+                                        <td scope="row" class="pe-12 lg:pe-0 font-medium text-gray-900">
+                                            <div class="ml-4 flex items-center w-full">
                                                 @if ($order->user->profile_picture == null)
                                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none"
                                                         viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
@@ -98,9 +98,9 @@
                                                         alt="profile picture"
                                                         class="w-8 h-8 mr-3 object-cover object-center rounded-full">
                                                 @endif
-                                                <p class="truncate hover:overflow-visible hover:whitespace-nowrap">
+                                                <div class="text-left">
                                                     {{ $order->user->name }}
-                                                </p>
+                                                </div>
                                             </div>
                                         </td>
                                         <td class="font-medium text-gray-900 whitespace-nowrap">

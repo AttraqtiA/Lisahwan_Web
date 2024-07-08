@@ -104,6 +104,9 @@ class OrderController extends Controller
             'carts' =>  $carts
         ]);
     }
+
+
+
     // ====================================== CASHIER MANAGEMENT SYSTEM ======================================
     public function showAllProducts()
     {
@@ -131,7 +134,6 @@ class OrderController extends Controller
         }
         // dd($last_quantity);
 
-        Session::put('last_quantity_' . $id, $request->quantity);
         $cart = Cart::where('user_id', Auth::user()->id)->first();
         $product = Product::find($id);
 
@@ -148,6 +150,7 @@ class OrderController extends Controller
         $quantity_final = $validatedData['quantity'] - $last_quantity;
 
         if ($quantity_final <= $product->stock) {
+            Session::put('last_quantity_' . $id, $request->quantity);
             if (!$cart) {
                 $cart_new = Cart::create([
                     'user_id' => Auth::user()->id
@@ -162,13 +165,19 @@ class OrderController extends Controller
                 $product->update([
                     'stock' =>  $product->stock - $validatedData['quantity']
                 ]);
+                Production::create([
+                    'date' => now(),
+                    'product_id' => $id,
+                    'quantity' => $validatedData['quantity'],
+                    'type' => 'kurang'
+                ]);
             } else {
                 $cart_detail = $cart->cart_detail;
                 $check_product = $cart_detail->where('product_id', $id)->first();
 
                 if ($check_product) {
                     if ($check_product->quantity < $validatedData['quantity']) {
-                        $total_quantity =  -1 *($check_product->quantity - $validatedData['quantity']);
+                        $total_quantity =  -1 * ($check_product->quantity - $validatedData['quantity']);
                         $product->update([
                             'stock' =>  $product->stock - $total_quantity
                         ]);
@@ -178,8 +187,7 @@ class OrderController extends Controller
                             'quantity' => $total_quantity,
                             'type' => 'kurang'
                         ]);
-                    }
-                    else {
+                    } else {
                         $total_quantity =  $check_product->quantity - $validatedData['quantity'];
                         $product->update([
                             'stock' =>  $product->stock + $total_quantity
@@ -206,6 +214,12 @@ class OrderController extends Controller
                     ]);
                     $product->update([
                         'stock' =>  $product->stock - $validatedData['quantity']
+                    ]);
+                    Production::create([
+                        'date' => now(),
+                        'product_id' => $id,
+                        'quantity' => $validatedData['quantity'],
+                        'type' => 'kurang'
                     ]);
                 }
             }
@@ -238,7 +252,11 @@ class OrderController extends Controller
     public function editProduct(Request $request, $id)
     {
         $cart_detail = CartDetail::where('id', $id)->first();
-        Session::put('last_quantity_' . $cart_detail->product->id, $request->quantity);
+        $last_quantity = 0;
+        if (Session::has('last_quantity_' . $cart_detail->product->id)) {
+            $last_quantity = Session::get('last_quantity_' . $cart_detail->product->id);
+        }
+
         $validatedData = $request->validate([
             "quantity" => "required|not_in:0"
         ], [
@@ -247,10 +265,12 @@ class OrderController extends Controller
         ]);
 
         $total_price = $validatedData['quantity'] * $cart_detail->product->price;
-
         $total_weight = $cart_detail->product->weight * $validatedData['quantity'];
 
-        if ($validatedData['quantity'] <= $cart_detail->product->stock) {
+        $quantity_final = $validatedData['quantity'] - $last_quantity;
+
+        if ($quantity_final <= $cart_detail->product->stock) {
+            Session::put('last_quantity_' . $cart_detail->product->id, $request->quantity);
             $quantity_difference = $validatedData['quantity'] - $cart_detail->quantity;
             $product = $cart_detail->product;
             $product->update([

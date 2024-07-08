@@ -22,7 +22,7 @@
                 <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
                     fill="currentColor" viewBox="0 0 20 20">
                     <path
-                        d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Zm3.707 8.207-4 4a1 1 0 0 1-1.414 0l-2-2a1 1 0 0 1 1.414-1.414L9 10.586l3.293-3.293a1 1 0 0 1 1.414 1.414Z" />
+                        d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Zm3.707 11.793a1 1 0 1 1-1.414 1.414L10 11.414l-2.293 2.293a1 1 0 0 1-1.414-1.414L8.586 10 6.293 7.707a1 1 0 0 1 1.414-1.414L10 8.586l2.293-2.293a1 1 0 0 1 1.414 1.414L11.414 10l2.293 2.293Z" />
                 </svg>
                 <span class="sr-only">Info</span>
                 <div>
@@ -44,6 +44,20 @@
                 </div>
             </div>
         @endif
+        @error('quantity')
+            <div class="w-10/12 md:w-9/12 lg:w-6/12 flex justify-center items-center p-4 mb-12 text-sm rounded-lg bg-gray-900 text-red-400"
+                role="alert">
+                <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                    fill="currentColor" viewBox="0 0 20 20">
+                    <path
+                        d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Zm3.707 11.793a1 1 0 1 1-1.414 1.414L10 11.414l-2.293 2.293a1 1 0 0 1-1.414-1.414L8.586 10 6.293 7.707a1 1 0 0 1 1.414-1.414L10 8.586l2.293-2.293a1 1 0 0 1 1.414 1.414L11.414 10l2.293 2.293Z" />
+                </svg>
+                <span class="sr-only">Info</span>
+                <div>
+                    <span class="font-medium">{{ $message }}
+                </div>
+            </div>
+        @enderror
         @error('payment_upload')
             <div class="w-10/12 md:w-9/12 lg:w-6/12 flex justify-center items-center p-4 mb-12 text-sm rounded-lg bg-gray-900 text-red-400"
                 role="alert">
@@ -99,45 +113,46 @@
                                     Harga
                                 </th>
                                 <th scope="col" colspan="2" class="px-6 py-3 text-center">
-                                    Action
+                                    Aksi
                                 </th>
                             </tr>
                         </thead>
                         <tbody>
                             @foreach ($carts as $cart)
-                                <tr class="bg-white border-b hover:bg-slate-100">
+                                <tr class="bg-white border-b hover:bg-slate-100 text-center">
                                     <td class="p-4">
-                                        @if (strlen($cart->product->image) > 30)
-                                            <img src="{{ asset('storage/' . $cart->product->image) }}"
-                                                class="w-16 md:w-32 max-w-full max-h-full rounded-lg"
-                                                alt="{{ $cart->product->name }}">
-                                        @else
-                                            <img src="/images/fotoproduk/{{ $cart->product->image }}"
-                                                class="w-16 md:w-32 max-w-full max-h-full rounded-lg"
-                                                alt="{{ $cart->product->name }}">
-                                        @endif
-
+                                        <div class="flex justify-center items-center">
+                                            @if (strlen($cart->product->image) > 30)
+                                                <img src="{{ asset('storage/' . $cart->product->image) }}"
+                                                    class="w-16 md:w-32 max-w-full max-h-full rounded-lg"
+                                                    alt="{{ $cart->product->name }}">
+                                            @else
+                                                <img src="/images/fotoproduk/{{ $cart->product->image }}"
+                                                    class="w-16 md:w-32 max-w-full max-h-full rounded-lg"
+                                                    alt="{{ $cart->product->name }}">
+                                            @endif
+                                        </div>
                                     </td>
-                                    <td class="px-6 py-4 font-semibold text-gray-900">
+                                    <td class="font-semibold text-gray-900">
                                         {{ $cart->product->name }}
                                     </td>
                                     @if (Auth::user()->isAdmin())
                                         <form action="{{ route('admin.products.edit', $cart->id) }}" method="POST">
                                             @csrf
                                             @method('put')
-                                            <td class="px-6 py-4">
-                                                <div class="flex items-center">
+                                            <td class="">
+                                                <div class="flex justify-center items-center">
                                                     <div>
                                                         <input type="number" name="quantity"
                                                             class="bg-gray-200 w-14 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-yellow-500 focus:border-yellow-500 block px-2.5 py-1"
-                                                            value="{{ $cart->quantity }}" required />
+                                                            value="{{ $cart->quantity }}" required min="0" />
                                                     </div>
                                                 </div>
                                             </td>
-                                            <td class="px-6 py-4 font-semibold text-gray-900">
+                                            <td class="font-semibold text-gray-900">
                                                 {{ number_format($cart->price, 0, ',', '.') }}
                                             </td>
-                                            <td class="px-6 py-4">
+                                            <td class="">
                                                 <button type="submit"
                                                     class="cursor-pointer text-gray-900 bg-yellow-500 hover:bg-yellow-600 font-medium rounded-md text-xs sm:text-sm p-2.5 py-2 inline-flex items-center">
                                                     <svg class="w-4 h-4 sm:mr-1 text-gray-900" aria-hidden="true"
@@ -157,19 +172,19 @@
                                         <form action="{{ route('owner.products.edit', $cart->id) }}" method="POST">
                                             @csrf
                                             @method('put')
-                                            <td class="px-6 py-4">
-                                                <div class="flex items-center">
+                                            <td class="">
+                                                <div class="flex justify-center items-center">
                                                     <div>
                                                         <input type="number" name="quantity"
                                                             class="bg-gray-200 w-14 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-yellow-500 focus:border-yellow-500 block px-2.5 py-1"
-                                                            value="{{ $cart->quantity }}" required />
+                                                            value="{{ $cart->quantity }}" required min="0" />
                                                     </div>
                                                 </div>
                                             </td>
-                                            <td class="px-6 py-4 font-semibold text-gray-900">
+                                            <td class="font-semibold text-gray-900">
                                                 {{ number_format($cart->price, 0, ',', '.') }}
                                             </td>
-                                            <td class="px-6 py-4">
+                                            <td class="">
                                                 <button type="submit"
                                                     class="cursor-pointer text-gray-900 bg-yellow-500 hover:bg-yellow-600 font-medium rounded-md text-xs sm:text-sm p-2.5 py-2 inline-flex items-center">
                                                     <svg class="w-4 h-4 sm:mr-1 text-gray-900" aria-hidden="true"
@@ -185,7 +200,7 @@
                                             </td>
                                         </form>
                                     @endif
-                                    <td class="px-6 py-4">
+                                    <td class="pl-6 lg:pl-0 pr-6">
                                         @if (Auth::user()->isAdmin())
                                             <form action="{{ route('admin.products.delete', $cart->id) }}"
                                                 method="POST">

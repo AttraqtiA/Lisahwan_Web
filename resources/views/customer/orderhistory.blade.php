@@ -26,7 +26,7 @@
                 <form action="{{ route('member.orderhistory.update', $order->id) }}" method="POST">
                     @method('patch')
                     @csrf
-                    <div class="flex flex-col bg-white justify-center rounded-lg border border-gray-300 drop-shadow-md">
+                    <div class="flex flex-col bg-white justify-center rounded-md sm:rounded-lg border border-gray-300 drop-shadow-md">
                         <div
                             class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 p-6 justify-center items-center gap-x-3 sm:gap-x-2 gap-y-4">
                             <div class="flex flex-col justify-center items-center">

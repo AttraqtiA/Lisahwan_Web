@@ -27,11 +27,19 @@ class ProductController extends Controller
 
     public function admin_products(Request $request)
     {
-        if ($request->has('search')) {
-            $products = Product::where('name', 'like', '%' . $request->search . '%')->orWhere('price', 'like', '%' . $request->search . '%')->paginate(10)->withQueryString();
-        } else {
-            $products = Product::paginate(10);
-        }
+        $search = $request->input('search');
+
+        $products = Product::when($search, function ($query, $search) {
+            $query->where('name', 'like', '%' . $search . '%')
+                ->orWhere('price', 'like', '%' . $search . '%')
+                ->orWhere('weight', 'like', '%' . $search . '%')
+                ->orWhere('stock', 'like', '%' . $search . '%')
+                ->orWhere('discount', 'like', '%' . $search . '%')
+                ->orWhere('description', 'like', '%' . $search . '%')
+                ->orWhereHas('testimony', function ($query) use ($search) {
+                    $query->where('rating', 'like', '%' . $search . '%');
+                });
+        })->paginate(10)->withQueryString();
 
         return view('admin.products', [
             "active_3" => "text-yellow-500",

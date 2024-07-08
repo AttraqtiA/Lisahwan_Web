@@ -11,7 +11,7 @@
                     @if (Auth::user()->isOwner())
                         <li>
                             <a href="{{ route('owner.admin') }}"
-                                class="block py-2 pl-3 pr-4 {{ $active_5 ?? 'text-white rounded hover:bg-yellow-500 md:hover:bg-transparent md:hover:text-yellow-500 md:p-0 md:hover:bg-transparent' }}">
+                                class="block py-2 pl-3 pr-4 {{ $active_5 ?? 'text-white rounded md:hover:text-yellow-500 md:p-0' }}">
                                 <svg class="w-6 h-6 text-white hover:text-yellow-500" aria-hidden="true"
                                     xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
                                     <path
@@ -25,7 +25,7 @@
                     @if (Auth::user()->isAdmin())
                         <li>
                             <a href="{{ route('admin.admin') }}"
-                                class="block py-2 pl-3 pr-4 {{ $active_5 ?? 'text-white rounded hover:bg-yellow-500 md:hover:bg-transparent md:hover:text-yellow-500 md:p-0 md:hover:bg-transparent' }}">
+                                class="block py-2 pl-3 pr-4 {{ $active_5 ?? 'text-white rounded md:hover:text-yellow-500 md:p-0' }}">
                                 <svg class="w-6 h-6 text-white hover:text-yellow-500" aria-hidden="true"
                                     xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
                                     <path
@@ -310,23 +310,23 @@
 
                 <li>
                     <a href="/"
-                        class="block py-2 pl-3 pr-4 {{ $active_1 ?? 'text-white rounded hover:bg-yellow-500 md:hover:bg-transparent md:hover:text-yellow-500 md:p-0 md:hover:bg-transparent' }}">Home</a>
+                        class="block py-2 pl-3 pr-4 {{ $active_1 ?? 'text-white rounded md:hover:text-yellow-500 md:p-0' }}">Home</a>
                 </li>
                 <li>
                     <a href="/products"
-                        class="block py-2 pl-3 pr-4 {{ $active_2 ?? 'text-white rounded hover:bg-yellow-500 md:hover:bg-transparent md:hover:text-yellow-500 md:p-0 md:hover:bg-transparent' }}"
+                        class="block py-2 pl-3 pr-4 {{ $active_2 ?? 'text-white rounded md:hover:text-yellow-500 md:p-0' }}"
                         aria-current="page">Products</a>
                 </li>
                 @auth
                     @if (Auth::user()->isMember())
                         <li>
                             <a href="{{ route('member.wishlist') }}"
-                                class="block py-2 pl-3 pr-4 {{ $active_wishlist ?? 'text-white rounded hover:bg-yellow-500 md:hover:bg-transparent md:hover:text-yellow-500 md:p-0 md:hover:bg-transparent' }}"
+                                class="block py-2 pl-3 pr-4 {{ $active_wishlist ?? 'text-white rounded md:hover:text-yellow-500 md:p-0' }}"
                                 aria-current="page">Wishlist</a>
                         </li>
                         <li>
                             <a href="{{ route('member.orderhistory') }}"
-                                class="block py-2 pl-3 pr-4 {{ $active_history ?? 'text-white rounded hover:bg-yellow-500 md:hover:bg-transparent md:hover:text-yellow-500 md:p-0 md:hover:bg-transparent' }}"
+                                class="block py-2 pl-3 pr-4 {{ $active_history ?? 'text-white rounded md:hover:text-yellow-500 md:p-0' }}"
                                 aria-current="page">Order History</a>
                         </li>
                     @endif
@@ -334,12 +334,12 @@
 
                 <li>
                     <a href="/gallery"
-                        class="block py-2 pl-3 pr-4 {{ $active_3 ?? 'text-white rounded hover:bg-yellow-500 md:hover:bg-transparent md:hover:text-yellow-500 md:p-0 md:hover:bg-transparent' }}">Gallery</a>
+                        class="block py-2 pl-3 pr-4 {{ $active_3 ?? 'text-white rounded md:hover:text-yellow-500 md:p-0' }}">Gallery</a>
                 </li>
 
                 <li>
                     <a href="/contactus"
-                        class="block py-2 pl-3 pr-4 {{ $active_4 ?? 'text-white rounded hover:bg-yellow-500 md:hover:bg-transparent md:hover:text-yellow-500 md:p-0 md:hover:bg-transparent' }}">Contact
+                        class="block py-2 pl-3 pr-4 {{ $active_4 ?? 'text-white rounded md:hover:text-yellow-500 md:p-0' }}">Contact
                         us</a>
                 </li>
             </ul>

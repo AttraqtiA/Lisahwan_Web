@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('password');
             $table->string('phone_number')->nullable(false);
             $table->string('profile_picture')->nullable(true);
-            $table->bigInteger('reward')->nullable(false);
+            $table->bigInteger('reward')->nullable(true);
             $table->rememberToken();
             $table->timestamps();
         });
