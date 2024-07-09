@@ -121,11 +121,11 @@ Route::group([
 
     Route::get('/admin_products', [OwnerProductController::class, 'admin_products'])->name('admin_products');
     Route::post('/admin_products', [OwnerProductController::class, 'store'])->name('admin_products.store');
-    Route::get('/admin_products/detail/{product}', [OwnerProductController::class, 'detail'])->name('admin_products.detail');
-    Route::put('/admin_products/update/{product}', [OwnerProductController::class, 'update'])->name('admin_products.update');
-    Route::put('/admin_products/updateImage/{product}', [OwnerProductController::class, 'updateImage'])->name('admin_products.updateImage');
-    Route::put('/admin_products/addStock/{product}', [OwnerProductController::class, 'addStock'])->name('admin_products.addStock');
-    Route::delete('/admin_products/destroy/{product}', [OwnerProductController::class, 'destroy'])->name('admin_products.destroy');
+    Route::get('/admin_products/detail/{product_id}', [OwnerProductController::class, 'detail'])->name('admin_products.detail');
+    Route::put('/admin_products/update/{product_id}', [OwnerProductController::class, 'update'])->name('admin_products.update');
+    Route::put('/admin_products/updateImage/{product_id}', [OwnerProductController::class, 'updateImage'])->name('admin_products.updateImage');
+    Route::put('/admin_products/addStock/{product_id}', [OwnerProductController::class, 'addStock'])->name('admin_products.addStock');
+    Route::delete('/admin_products/destroy/{product_id}', [OwnerProductController::class, 'destroy'])->name('admin_products.destroy');
 
     Route::get('/admin_users', [UserController::class, 'index'])->name('admin_users');
 

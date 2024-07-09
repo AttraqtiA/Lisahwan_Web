@@ -3,9 +3,236 @@
 @section('content_page')
 
     <!-- Start block -->
-    <section class="bg-neutral-200 p-2 sm:p-4 antialiased h-full">
-        <div class="mx-auto max-w-screen-2xl pt-24 sm:ml-56">
-            <div class="bg-white relative shadow-md sm:rounded-lg overflow-hidden">
+    <section class="bg-neutral-200 p-2 sm:p-4 antialiased">
+        <div class="mx-auto max-w-screen-2xl pt-20 sm:pt-24 sm:ml-56">
+            <div
+                class="flex flex-col justify-center items-center w-full {{ session('addProduct_success') || session('updateProduct_success') || session('deleteProduct_success') || $errors->has('name') || $errors->has('price') || $errors->has('stock') || $errors->has('weight') || $errors->has('discount') || $errors->has('description') || $errors->has('name_edit') || $errors->has('price_edit') || $errors->has('stock_edit') || $errors->has('weight_edit') || $errors->has('discount_edit') || $errors->has('description_edit') || $errors->has('image') ? 'mb-10 mt-6' : '' }}">
+                @error('name')
+                    <div class="w-10/12 md:w-9/12 lg:w-6/12 flex justify-center items-center p-4 {{ $errors->has('name') ? 'mb-2' : '' }} text-sm rounded-lg bg-gray-900 text-red-400"
+                        role="alert">
+                        <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                            fill="currentColor" viewBox="0 0 20 20">
+                            <path
+                                d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Zm3.707 11.793a1 1 0 1 1-1.414 1.414L10 11.414l-2.293 2.293a1 1 0 0 1-1.414-1.414L8.586 10 6.293 7.707a1 1 0 0 1 1.414-1.414L10 8.586l2.293-2.293a1 1 0 0 1 1.414 1.414L11.414 10l2.293 2.293Z" />
+                        </svg>
+                        <span class="sr-only">Info</span>
+                        <div>
+                            <span class="font-medium">{{ $message }}
+                        </div>
+                    </div>
+                @enderror
+                @error('price')
+                    <div class="w-10/12 md:w-9/12 lg:w-6/12 flex justify-center items-center p-4 {{ $errors->has('price') ? 'mb-2' : '' }} text-sm rounded-lg bg-gray-900 text-red-400"
+                        role="alert">
+                        <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                            fill="currentColor" viewBox="0 0 20 20">
+                            <path
+                                d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Zm3.707 11.793a1 1 0 1 1-1.414 1.414L10 11.414l-2.293 2.293a1 1 0 0 1-1.414-1.414L8.586 10 6.293 7.707a1 1 0 0 1 1.414-1.414L10 8.586l2.293-2.293a1 1 0 0 1 1.414 1.414L11.414 10l2.293 2.293Z" />
+                        </svg>
+                        <span class="sr-only">Info</span>
+                        <div>
+                            <span class="font-medium">{{ $message }}
+                        </div>
+                    </div>
+                @enderror
+                @error('stock')
+                    <div class="w-10/12 md:w-9/12 lg:w-6/12 flex justify-center items-center p-4 {{ $errors->has('stock') ? 'mb-2' : '' }} text-sm rounded-lg bg-gray-900 text-red-400"
+                        role="alert">
+                        <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                            fill="currentColor" viewBox="0 0 20 20">
+                            <path
+                                d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Zm3.707 11.793a1 1 0 1 1-1.414 1.414L10 11.414l-2.293 2.293a1 1 0 0 1-1.414-1.414L8.586 10 6.293 7.707a1 1 0 0 1 1.414-1.414L10 8.586l2.293-2.293a1 1 0 0 1 1.414 1.414L11.414 10l2.293 2.293Z" />
+                        </svg>
+                        <span class="sr-only">Info</span>
+                        <div>
+                            <span class="font-medium">{{ $message }}
+                        </div>
+                    </div>
+                @enderror
+                @error('weight')
+                    <div class="w-10/12 md:w-9/12 lg:w-6/12 flex justify-center items-center p-4 {{ $errors->has('weight') ? 'mb-2' : '' }} text-sm rounded-lg bg-gray-900 text-red-400"
+                        role="alert">
+                        <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                            fill="currentColor" viewBox="0 0 20 20">
+                            <path
+                                d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Zm3.707 11.793a1 1 0 1 1-1.414 1.414L10 11.414l-2.293 2.293a1 1 0 0 1-1.414-1.414L8.586 10 6.293 7.707a1 1 0 0 1 1.414-1.414L10 8.586l2.293-2.293a1 1 0 0 1 1.414 1.414L11.414 10l2.293 2.293Z" />
+                        </svg>
+                        <span class="sr-only">Info</span>
+                        <div>
+                            <span class="font-medium">{{ $message }}
+                        </div>
+                    </div>
+                @enderror
+                @error('discount')
+                    <div class="w-10/12 md:w-9/12 lg:w-6/12 flex justify-center items-center p-4 {{ $errors->has('discount') ? 'mb-2' : '' }} text-sm rounded-lg bg-gray-900 text-red-400"
+                        role="alert">
+                        <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                            fill="currentColor" viewBox="0 0 20 20">
+                            <path
+                                d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Zm3.707 11.793a1 1 0 1 1-1.414 1.414L10 11.414l-2.293 2.293a1 1 0 0 1-1.414-1.414L8.586 10 6.293 7.707a1 1 0 0 1 1.414-1.414L10 8.586l2.293-2.293a1 1 0 0 1 1.414 1.414L11.414 10l2.293 2.293Z" />
+                        </svg>
+                        <span class="sr-only">Info</span>
+                        <div>
+                            <span class="font-medium">{{ $message }}
+                        </div>
+                    </div>
+                @enderror
+                @error('description')
+                    <div class="w-10/12 md:w-9/12 lg:w-6/12 flex justify-center items-center p-4 {{ $errors->has('description') ? 'mb-2' : '' }} text-sm rounded-lg bg-gray-900 text-red-400"
+                        role="alert">
+                        <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                            fill="currentColor" viewBox="0 0 20 20">
+                            <path
+                                d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Zm3.707 11.793a1 1 0 1 1-1.414 1.414L10 11.414l-2.293 2.293a1 1 0 0 1-1.414-1.414L8.586 10 6.293 7.707a1 1 0 0 1 1.414-1.414L10 8.586l2.293-2.293a1 1 0 0 1 1.414 1.414L11.414 10l2.293 2.293Z" />
+                        </svg>
+                        <span class="sr-only">Info</span>
+                        <div>
+                            <span class="font-medium">{{ $message }}
+                        </div>
+                    </div>
+                @enderror
+                @error('name_edit')
+                    <div class="w-10/12 md:w-9/12 lg:w-6/12 flex justify-center items-center p-4 {{ $errors->has('name_edit') ? 'mb-2' : '' }} text-sm rounded-lg bg-gray-900 text-red-400"
+                        role="alert">
+                        <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                            fill="currentColor" viewBox="0 0 20 20">
+                            <path
+                                d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Zm3.707 11.793a1 1 0 1 1-1.414 1.414L10 11.414l-2.293 2.293a1 1 0 0 1-1.414-1.414L8.586 10 6.293 7.707a1 1 0 0 1 1.414-1.414L10 8.586l2.293-2.293a1 1 0 0 1 1.414 1.414L11.414 10l2.293 2.293Z" />
+                        </svg>
+                        <span class="sr-only">Info</span>
+                        <div>
+                            <span class="font-medium">{{ $message }}
+                        </div>
+                    </div>
+                @enderror
+                @error('price_edit')
+                    <div class="w-10/12 md:w-9/12 lg:w-6/12 flex justify-center items-center p-4 {{ $errors->has('price_edit') ? 'mb-2' : '' }} text-sm rounded-lg bg-gray-900 text-red-400"
+                        role="alert">
+                        <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                            fill="currentColor" viewBox="0 0 20 20">
+                            <path
+                                d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Zm3.707 11.793a1 1 0 1 1-1.414 1.414L10 11.414l-2.293 2.293a1 1 0 0 1-1.414-1.414L8.586 10 6.293 7.707a1 1 0 0 1 1.414-1.414L10 8.586l2.293-2.293a1 1 0 0 1 1.414 1.414L11.414 10l2.293 2.293Z" />
+                        </svg>
+                        <span class="sr-only">Info</span>
+                        <div>
+                            <span class="font-medium">{{ $message }}
+                        </div>
+                    </div>
+                @enderror
+                @error('stock_edit')
+                    <div class="w-10/12 md:w-9/12 lg:w-6/12 flex justify-center items-center p-4 {{ $errors->has('stock_edit') ? 'mb-2' : '' }} text-sm rounded-lg bg-gray-900 text-red-400"
+                        role="alert">
+                        <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                            fill="currentColor" viewBox="0 0 20 20">
+                            <path
+                                d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Zm3.707 11.793a1 1 0 1 1-1.414 1.414L10 11.414l-2.293 2.293a1 1 0 0 1-1.414-1.414L8.586 10 6.293 7.707a1 1 0 0 1 1.414-1.414L10 8.586l2.293-2.293a1 1 0 0 1 1.414 1.414L11.414 10l2.293 2.293Z" />
+                        </svg>
+                        <span class="sr-only">Info</span>
+                        <div>
+                            <span class="font-medium">{{ $message }}
+                        </div>
+                    </div>
+                @enderror
+                @error('weight_edit')
+                    <div class="w-10/12 md:w-9/12 lg:w-6/12 flex justify-center items-center p-4 {{ $errors->has('weight_edit') ? 'mb-2' : '' }} text-sm rounded-lg bg-gray-900 text-red-400"
+                        role="alert">
+                        <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                            fill="currentColor" viewBox="0 0 20 20">
+                            <path
+                                d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Zm3.707 11.793a1 1 0 1 1-1.414 1.414L10 11.414l-2.293 2.293a1 1 0 0 1-1.414-1.414L8.586 10 6.293 7.707a1 1 0 0 1 1.414-1.414L10 8.586l2.293-2.293a1 1 0 0 1 1.414 1.414L11.414 10l2.293 2.293Z" />
+                        </svg>
+                        <span class="sr-only">Info</span>
+                        <div>
+                            <span class="font-medium">{{ $message }}
+                        </div>
+                    </div>
+                @enderror
+                @error('discount_edit')
+                    <div class="w-10/12 md:w-9/12 lg:w-6/12 flex justify-center items-center p-4 {{ $errors->has('discount_edit') ? 'mb-2' : '' }} text-sm rounded-lg bg-gray-900 text-red-400"
+                        role="alert">
+                        <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                            fill="currentColor" viewBox="0 0 20 20">
+                            <path
+                                d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Zm3.707 11.793a1 1 0 1 1-1.414 1.414L10 11.414l-2.293 2.293a1 1 0 0 1-1.414-1.414L8.586 10 6.293 7.707a1 1 0 0 1 1.414-1.414L10 8.586l2.293-2.293a1 1 0 0 1 1.414 1.414L11.414 10l2.293 2.293Z" />
+                        </svg>
+                        <span class="sr-only">Info</span>
+                        <div>
+                            <span class="font-medium">{{ $message }}
+                        </div>
+                    </div>
+                @enderror
+                @error('description_edit')
+                    <div class="w-10/12 md:w-9/12 lg:w-6/12 flex justify-center items-center p-4 {{ $errors->has('description_edit') ? 'mb-2' : '' }} text-sm rounded-lg bg-gray-900 text-red-400"
+                        role="alert">
+                        <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                            fill="currentColor" viewBox="0 0 20 20">
+                            <path
+                                d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Zm3.707 11.793a1 1 0 1 1-1.414 1.414L10 11.414l-2.293 2.293a1 1 0 0 1-1.414-1.414L8.586 10 6.293 7.707a1 1 0 0 1 1.414-1.414L10 8.586l2.293-2.293a1 1 0 0 1 1.414 1.414L11.414 10l2.293 2.293Z" />
+                        </svg>
+                        <span class="sr-only">Info</span>
+                        <div>
+                            <span class="font-medium">{{ $message }}
+                        </div>
+                    </div>
+                @enderror
+                @error('image')
+                    <div class="w-10/12 md:w-9/12 lg:w-6/12 flex justify-center items-center p-4 {{ $errors->has('image') ? 'mb-2' : '' }} text-sm rounded-lg bg-gray-900 text-red-400"
+                        role="alert">
+                        <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                            fill="currentColor" viewBox="0 0 20 20">
+                            <path
+                                d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Zm3.707 11.793a1 1 0 1 1-1.414 1.414L10 11.414l-2.293 2.293a1 1 0 0 1-1.414-1.414L8.586 10 6.293 7.707a1 1 0 0 1 1.414-1.414L10 8.586l2.293-2.293a1 1 0 0 1 1.414 1.414L11.414 10l2.293 2.293Z" />
+                        </svg>
+                        <span class="sr-only">Info</span>
+                        <div>
+                            <span class="font-medium">{{ $message }}
+                        </div>
+                    </div>
+                @enderror
+                @if (session('addProduct_success'))
+                    <div class="w-10/12 md:w-9/12 lg:w-6/12 flex justify-center items-center p-4 text-sm rounded-lg bg-gray-900 text-green-400"
+                        role="alert">
+                        <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true"
+                            xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                            <path
+                                d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Zm3.707 8.207-4 4a1 1 0 0 1-1.414 0l-2-2a1 1 0 0 1 1.414-1.414L9 10.586l3.293-3.293a1 1 0 0 1 1.414 1.414Z" />
+                        </svg>
+                        <span class="sr-only">Info</span>
+                        <div>
+                            <span class="font-medium">{{ session('addProduct_success') }}
+                        </div>
+                    </div>
+                @endif
+                @if (session('updateProduct_success'))
+                    <div class="w-10/12 md:w-9/12 lg:w-6/12 flex justify-center items-center p-4 text-sm rounded-lg bg-gray-900 text-green-400"
+                        role="alert">
+                        <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true"
+                            xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                            <path
+                                d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Zm3.707 8.207-4 4a1 1 0 0 1-1.414 0l-2-2a1 1 0 0 1 1.414-1.414L9 10.586l3.293-3.293a1 1 0 0 1 1.414 1.414Z" />
+                        </svg>
+                        <span class="sr-only">Info</span>
+                        <div>
+                            <span class="font-medium">{{ session('updateProduct_success') }}
+                        </div>
+                    </div>
+                @endif
+                @if (session('deleteProduct_success'))
+                    <div class="w-10/12 md:w-9/12 lg:w-6/12 flex justify-center items-center p-4 text-sm rounded-lg bg-gray-900 text-green-400"
+                        role="alert">
+                        <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true"
+                            xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                            <path
+                                d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Zm3.707 8.207-4 4a1 1 0 0 1-1.414 0l-2-2a1 1 0 0 1 1.414-1.414L9 10.586l3.293-3.293a1 1 0 0 1 1.414 1.414Z" />
+                        </svg>
+                        <span class="sr-only">Info</span>
+                        <div>
+                            <span class="font-medium">{{ session('deleteProduct_success') }}
+                        </div>
+                    </div>
+                @endif
+            </div>
+            <div class="bg-white relative shadow-md rounded-md sm:rounded-lg overflow-hidden m-2 sm:m-0">
                 <div
                     class="flex flex-col md:flex-row md:items-center md:justify-between space-y-3 md:space-y-0 md:space-x-4 p-4">
                     <div class="flex-1 flex items-center space-x-2">
@@ -32,7 +259,7 @@
                                     </svg>
                                 </div>
                                 <input type="search" name="search" id="simple-search" placeholder="Cari produk"
-                                    required=""
+                                    required
                                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full pl-10 p-2">
                             </div>
 
@@ -41,17 +268,17 @@
                             </button>
                         </form>
                     </div>
-                    <div
-                        class="w-full md:w-auto flex flex-col md:flex-row space-y-2 md:space-y-0 items-stretch md:items-center justify-end md:space-x-3 flex-shrink-0">
-                        <button type="button" id="createProductButton" data-modal-toggle="createProductModal"
-                            class="flex items-center justify-center text-white bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 font-medium rounded-lg text-sm px-4 py-2 focus:outline-none">
-                            <svg class="h-3.5 w-3.5 mr-1.5 -ml-1" fill="currentColor" viewbox="0 0 20 20"
-                                xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                                <path clip-rule="evenodd" fill-rule="evenodd"
-                                    d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" />
+                    <div class="flex flex-row justify-center mt-2 lg:mt-0">
+                        <button type="button" data-modal-target="createProductModal"
+                            data-modal-toggle="createProductModal"
+                            class="flex flex-row items-center justify-center w-44 cursor-pointer text-yellow-500 bg-gray-900 hover:bg-gray-950 font-medium rounded-lg text-xs md:text-sm px-3 py-2.5 text-center">
+                            <svg class="w-4 h-4 mr-2 text-yellow-500" aria-hidden="true"
+                                xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
+                                <path fill-rule="evenodd"
+                                    d="M2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10S2 17.523 2 12Zm11-4.243a1 1 0 1 0-2 0V11H7.757a1 1 0 1 0 0 2H11v3.243a1 1 0 1 0 2 0V13h3.243a1 1 0 1 0 0-2H13V7.757Z"
+                                    clip-rule="evenodd" />
                             </svg>
-
-                            <p class="text-gray-500">+ Tambah Produk</p>
+                            Tambah Produk
                         </button>
                     </div>
                 </div>
@@ -73,7 +300,7 @@
                         <tbody>
                             @if ($products->count() == 0)
                                 <tr>
-                                    <td colspan="6" class="p-4 text-center">
+                                    <td colspan="20" class="p-4 text-center">
                                         <p class="text-gray-400">Belum ada product yang terdaftar</p>
                                     </td>
                                 </tr>
@@ -86,10 +313,12 @@
                                         <th scope="row" class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap">
                                             <div class="flex items-center mr-3">
                                                 @if (strlen($product->image) > 25)
-                                                    <img src="{{ asset('storage/' . $product->image) }}" alt="product image"
+                                                    <img src="{{ asset('storage/' . $product->image) }}"
+                                                        alt="product image"
                                                         class="w-8 h-8 mr-3 object-cover object-center rounded-md">
                                                 @else
-                                                    <img src="/images/fotoproduk/{{ $product->image }}" alt="product image"
+                                                    <img src="/images/fotoproduk/{{ $product->image }}"
+                                                        alt="product image"
                                                         class="w-8 h-8 mr-3 object-cover object-center rounded-md">
                                                 @endif
 
@@ -129,12 +358,10 @@
                                                     <span
                                                         class="text-gray-500 ml-2">{{ number_format($product->testimony->pluck('rating')->average(), 2) }}</span>
                                                 @else
-                                                    <span class="text-gray-500 ml-2">No reviews yet.</span>
+                                                    <span class="text-gray-500 ml-2">Belum ada.</span>
                                                 @endif
                                             </div>
-
                                         </td>
-
 
                                         <td class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap">
                                             {{ $product->discount }}%</td>
@@ -147,14 +374,14 @@
                                                     <path
                                                         d="M2.25 2.25a.75.75 0 000 1.5h1.386c.17 0 .318.114.362.278l2.558 9.592a3.752 3.752 0 00-2.806 3.63c0 .414.336.75.75.75h15.75a.75.75 0 000-1.5H5.378A2.25 2.25 0 017.5 15h11.218a.75.75 0 00.674-.421 60.358 60.358 0 002.96-7.228.75.75 0 00-.525-.965A60.864 60.864 0 005.68 4.509l-.232-.867A1.875 1.875 0 003.636 2.25H2.25zM3.75 20.25a1.5 1.5 0 113 0 1.5 1.5 0 01-3 0zM16.5 20.25a1.5 1.5 0 113 0 1.5 1.5 0 01-3 0z" />
                                                 </svg>
-                                                {{ $product->production->where('type', 'kurang')->sum('quantity') }}
+                                                {{ $product->order_detail->sum('quantity') }}
                                             </div>
                                         </td>
 
                                         <td class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap">
                                             <div class="flex items-center space-x-4">
 
-                                                <a href="{{ route('owner.admin_products.detail', $product) }}">
+                                                <a href="{{ route('owner.admin_products.detail', $product->id) }}">
                                                     <button type="button"
                                                         class="py-2 px-3 flex items-center text-sm font-medium text-center text-gray-600 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-primary-700 focus:z-10 focus:ring-4 focus:ring-gray-200">
                                                         <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 24 24"
@@ -167,11 +394,10 @@
                                                     </button>
                                                 </a>
 
-                                                {{-- <a href="{{ route('owner.admin_products.edit', $product) }}"> --}}
                                                 <button type="button"
                                                     data-modal-target="update-modal{{ $product->id }}"
                                                     data-modal-toggle="update-modal{{ $product->id }}"
-                                                    class="py-2 px-3 flex items-center text-sm font-medium text-center text-gray-700 bg-primary-700 rounded-lg hover:bg-primary-800 focus:ring-4 focus:outline-none focus:ring-primary-300">
+                                                    class="py-2 px-3 flex items-center text-sm font-medium text-center text-gray-600 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-primary-700 focus:z-10 focus:ring-4 focus:ring-gray-200">
                                                     {{-- {{ $product_to_update = Product::where('id', $product->id)->first() }} --}}
                                                     <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2 -ml-0.5"
                                                         viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
@@ -184,32 +410,27 @@
                                                     Edit
                                                 </button>
 
-                                                {{-- </a> --}}
-
                                                 <button type="button" data-modal-target="delete-modal"
                                                     data-modal-toggle="delete-modal"
-                                                    class="flex items-center text-red-700 hover:text-white border border-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-3 py-2 text-center"
-                                                    onclick="changeDeleteModal('{{ route('owner.admin_products.destroy', $product) }}')">
+                                                    class="flex items-center text-red-500 hover:text-white border border-red-500 hover:bg-red-600 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-3 py-2 text-center"
+                                                    onclick="changeDeleteModal('{{ route('owner.admin_products.destroy', $product->id) }}')">
                                                     <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2 -ml-0.5"
                                                         viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
                                                         <path fill-rule="evenodd"
                                                             d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z"
                                                             clip-rule="evenodd" />
                                                     </svg>
-                                                    Delete
+                                                    Hapus
                                                 </button>
-
                                             </div>
                                         </td>
                                     </tr>
 
-
-
-                                    <form id="update-form" action="{{ route('owner.admin_products.update', $product) }}"
-                                        method="POST" enctype="multipart/form-data">
+                                    <form id="update-form"
+                                        action="{{ route('owner.admin_products.update', $product->id) }}" method="POST"
+                                        enctype="multipart/form-data">
                                         @method('put')
                                         @csrf
-
                                         <div id="update-modal{{ $product->id }}" tabindex="-1" aria-hidden="true"
                                             class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] md:h-full">
                                             <div class="relative p-4 w-full max-w-3xl h-full md:h-auto">
@@ -219,7 +440,7 @@
                                                     <!-- Modal header -->
                                                     <div
                                                         class="flex justify-between items-center pb-4 mb-4 rounded-t border-b sm:mb-5">
-                                                        <h3 class="text-lg font-semibold text-gray-900">Update Product</h3>
+                                                        <h3 class="text-lg font-semibold text-gray-900">Edit Produk</h3>
                                                         <button type="button"
                                                             class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center"
                                                             data-modal-toggle="update-modal{{ $product->id }}">
@@ -233,94 +454,61 @@
                                                         </button>
                                                     </div>
                                                     <!-- Modal body -->
-
-
                                                     <div class="grid gap-4 mb-4 sm:grid-cols-2">
                                                         <div>
-                                                            <label for="name"
-                                                                class="block mb-2 text-sm font-medium text-gray-900">Product
-                                                                Name</label>
-                                                            <input type="text" name="name" id="name"
-                                                                class="{{ $errors->has('name') ? 'bg-red-100 border-red-400 text-red-500 placeholder-red-700' : 'bg-white border-yellow-500 text-gray-900 placeholder-gray-400  focus:ring-yellow-500 focus:border-yellow-500' }} rounded-lg border-1 text-sm mt-3 block w-full p-2.5"
-                                                                value="{{ $product->name }}" required="">
-                                                            @error('name')
-                                                                <p class="mt-2 text-sm text-red-500"><span
-                                                                        class="font-medium">{{ $message }}
-                                                                </p>
-                                                            @enderror
+                                                            <label for="name_edit"
+                                                                class="block mb-2 text-sm font-medium text-gray-900">Nama
+                                                                Produk</label>
+                                                            <input type="text" name="name_edit" id="name_edit"
+                                                                class="{{ $errors->has('name_edit') ? 'bg-red-100 border-red-400 text-red-500 placeholder-red-700' : 'bg-white border-yellow-500 text-gray-900 placeholder-gray-400  focus:ring-yellow-500 focus:border-yellow-500' }} rounded-lg border-1 text-sm mt-3 block w-full p-2.5"
+                                                                value="{{ old('name_edit', $product->name) }}" required>
                                                         </div>
-
                                                         <div>
-                                                            <label for="price"
+                                                            <label for="price_edit"
                                                                 class="block mb-2 text-sm font-medium text-gray-900">Harga
                                                                 (Rp)
                                                             </label>
-                                                            <input type="number" name="price" id="price"
-                                                                class="{{ $errors->has('price') ? 'bg-red-100 border-red-400 text-red-500 placeholder-red-700' : 'bg-white border-yellow-500 text-gray-900 placeholder-gray-400  focus:ring-yellow-500 focus:border-yellow-500' }} rounded-lg border-1 text-sm mt-3 block w-full p-2.5"
-                                                                value="{{ $product->price }}" required="">
-                                                            @error('price')
-                                                                <p class="mt-2 text-sm text-red-500"><span
-                                                                        class="font-medium">{{ $message }}
-                                                                </p>
-                                                            @enderror
+                                                            <input type="number" name="price_edit" id="price_edit"
+                                                                class="{{ $errors->has('price_edit') ? 'bg-red-100 border-red-400 text-red-500 placeholder-red-700' : 'bg-white border-yellow-500 text-gray-900 placeholder-gray-400  focus:ring-yellow-500 focus:border-yellow-500' }} rounded-lg border-1 text-sm mt-3 block w-full p-2.5"
+                                                                value="{{ old('price_edit', $product->price) }}"
+                                                                min="0" required>
                                                         </div>
                                                         <div>
-                                                            <label for="weight"
+                                                            <label for="weight_edit"
                                                                 class="block mb-2 text-sm font-medium text-gray-900">Berat
                                                                 (gram)
                                                             </label>
-                                                            <input type="number" name="weight" id="weight"
-                                                                class="{{ $errors->has('weight') ? 'bg-red-100 border-red-400 text-red-500 placeholder-red-700' : 'bg-white border-yellow-500 text-gray-900 placeholder-gray-400  focus:ring-yellow-500 focus:border-yellow-500' }} rounded-lg border-1 text-sm mt-3 block w-full p-2.5"
-                                                                value="{{ $product->weight }}" required="">
-                                                            @error('weight')
-                                                                <p class="mt-2 text-sm text-red-500"><span
-                                                                        class="font-medium">{{ $message }}
-                                                                </p>
-                                                            @enderror
+                                                            <input type="number" name="weight_edit" id="weight_edit"
+                                                                class="{{ $errors->has('weight_edit') ? 'bg-red-100 border-red-400 text-red-500 placeholder-red-700' : 'bg-white border-yellow-500 text-gray-900 placeholder-gray-400  focus:ring-yellow-500 focus:border-yellow-500' }} rounded-lg border-1 text-sm mt-3 block w-full p-2.5"
+                                                                value="{{ old('weight_edit', $product->weight) }}"
+                                                                min="0" required>
                                                         </div>
-
                                                         <div>
-                                                            <label for="discount"
+                                                            <label for="discount_edit"
                                                                 class="block mb-2 text-sm font-medium text-gray-900">Diskon
                                                                 (%)</label>
-                                                            <input type="number" name="discount" id="discount"
-                                                                class="{{ $errors->has('discount') ? 'bg-red-100 border-red-400 text-red-500 placeholder-red-700' : 'bg-white border-yellow-500 text-gray-900 placeholder-gray-400  focus:ring-yellow-500 focus:border-yellow-500' }} rounded-lg border-1 text-sm mt-3 block w-full p-2.5"
-                                                                value="{{ $product->discount }}" required="">
-                                                            @error('discount')
-                                                                <p class="mt-2 text-sm text-red-500"><span
-                                                                        class="font-medium">{{ $message }}
-                                                                </p>
-                                                            @enderror
+                                                            <input type="number" name="discount_edit" id="discount_edit"
+                                                                class="{{ $errors->has('discount_edit') ? 'bg-red-100 border-red-400 text-red-500 placeholder-red-700' : 'bg-white border-yellow-500 text-gray-900 placeholder-gray-400  focus:ring-yellow-500 focus:border-yellow-500' }} rounded-lg border-1 text-sm mt-3 block w-full p-2.5"
+                                                                value="{{ old('discount_edit', $product->discount) }}"
+                                                                min="0" required>
                                                         </div>
-
-
                                                         <div class="sm:col-span-2">
-                                                            <label for="description"
-                                                                class="block mb-2 text-sm font-medium text-gray-900">Description</label>
-                                                            <textarea name="description" id="description" rows="4"
-                                                                class="{{ $errors->has('description') ? 'bg-red-100 border-red-400 text-red-500 placeholder-red-700' : 'bg-white border-yellow-500 text-gray-900 placeholder-gray-400  focus:ring-yellow-500 focus:border-yellow-500' }} rounded-lg border-1 text-sm mt-3 block w-full p-2.5">{{ $product->description }}
-                                                            </textarea>
-                                                            @error('description')
-                                                                <p class="mt-2 text-sm text-red-500"><span
-                                                                        class="font-medium">{{ $message }}
-                                                                </p>
-                                                            @enderror
+                                                            <label for="description_edit"
+                                                                class="block mb-2 text-sm font-medium text-gray-900">Deskripsi</label>
+                                                            <textarea name="description_edit" id="description_edit" rows="4"
+                                                                class="{{ $errors->has('description_edit') ? 'bg-red-100 border-red-400 text-red-500 placeholder-red-700' : 'bg-white border-yellow-500 text-gray-900 placeholder-gray-400  focus:ring-yellow-500 focus:border-yellow-500' }} rounded-lg border-1 text-sm mt-3 block w-full p-2.5"required>{{ old('description_edit', $product->description) }}</textarea>
                                                         </div>
-
                                                         <p
                                                             class="mb-4 text-red-700 text-xs text-center md:text-start sm:col-span-2">
-                                                            *Untuk edit foto produk, mohon ke halaman detail</p>
+                                                            *Untuk edit foto produk, mohon ke halaman 'Detail'!</p>
                                                     </div>
-
-
-                                                    <div class="items-center space-y-4 sm:flex sm:space-y-0 sm:space-x-4">
+                                                    <div class="items-center space-y-2 sm:flex sm:space-y-0 sm:space-x-2">
                                                         <button type="submit"
-                                                            class="w-full sm:w-auto justify-center text-white inline-flex bg-yellow-500 hover:bg-yellow-600 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">Update
-                                                            product</button>
-
+                                                            class="w-full sm:w-auto justify-center text-white inline-flex bg-yellow-500 hover:bg-yellow-600 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">Perbarui
+                                                            Produk</button>
                                                         <button data-modal-toggle="update-modal{{ $product->id }}"
                                                             type="button"
-                                                            class="w-full justify-center sm:w-auto text-white inline-flex items-center bg-red-500 hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-primary-300 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10">
+                                                            class="w-full sm:w-auto justify-center text-white inline-flex bg-red-500 hover:bg-red-600 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">
                                                             <svg class="mr-1 -ml-1 w-5 h-5" fill="currentColor"
                                                                 viewbox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                                                                 <path fill-rule="evenodd"
@@ -330,11 +518,188 @@
                                                             Batal
                                                         </button>
                                                     </div>
-
                                                 </div>
                                             </div>
                                         </div>
                                     </form>
+
+                                    <div id="createProductModal" tabindex="-1" aria-hidden="true"
+                                        class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] md:h-full">
+                                        <div class="relative p-4 w-full max-w-3xl h-full md:h-auto">
+                                            <!-- Modal content -->
+                                            <div class="relative p-4 bg-white rounded-lg shadow sm:p-5">
+                                                <!-- Modal header -->
+                                                <div
+                                                    class="flex justify-between items-center pb-4 mb-4 rounded-t border-b sm:mb-5">
+                                                    <h3 class="text-lg font-semibold text-gray-900">Tambah Produk</h3>
+                                                    <button type="button"
+                                                        class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center"
+                                                        data-modal-toggle="createProductModal">
+                                                        <svg aria-hidden="true" class="w-5 h-5" fill="currentColor"
+                                                            viewbox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                                            <path fill-rule="evenodd"
+                                                                d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                                                                clip-rule="evenodd" />
+                                                        </svg>
+                                                        <span class="sr-only">Close modal</span>
+                                                    </button>
+                                                </div>
+                                                <!-- Modal body -->
+                                                <form action="{{ route('owner.admin_products.store') }}" method="POST"
+                                                    enctype="multipart/form-data">
+                                                    @csrf
+                                                    <div class="grid gap-4 mb-4 sm:grid-cols-2">
+                                                        <div>
+                                                            <label for="name"
+                                                                class="block mb-2 text-sm font-medium text-gray-900">Nama
+                                                                Produk</label>
+                                                            <input type="text" name="name" id="name"
+                                                                class="{{ $errors->has('name') ? 'bg-red-100 border-red-400 text-red-500 placeholder-red-700' : 'bg-white border-yellow-500 text-gray-900 placeholder-gray-400  focus:ring-yellow-500 focus:border-yellow-500' }} rounded-lg border-1 text-sm mt-3 block w-full p-2.5"
+                                                                placeholder="(Contoh: Teri Oven)"
+                                                                value="{{ old('name') }}" required>
+                                                        </div>
+
+                                                        <div>
+                                                            <label for="price"
+                                                                class="block mb-2 text-sm font-medium text-gray-900">Harga
+                                                                (Rp)</label>
+                                                            <input type="number" name="price" id="price"
+                                                                class="{{ $errors->has('price') ? 'bg-red-100 border-red-400 text-red-500 placeholder-red-700' : 'bg-white border-yellow-500 text-gray-900 placeholder-gray-400  focus:ring-yellow-500 focus:border-yellow-500' }} rounded-lg border-1 text-sm mt-3 block w-full p-2.5"
+                                                                placeholder="(Contoh: 42000)" value="{{ old('price') }}"
+                                                                min="0" required>
+                                                        </div>
+
+                                                        <div class="grid gap-4 sm:col-span-2 md:gap-4 sm:grid-cols-4">
+                                                            <div>
+                                                                <label for="weight"
+                                                                    class="block mb-2 text-sm font-medium text-gray-900">Berat
+                                                                    (gram)</label>
+                                                                <input type="number" name="weight" id="weight"
+                                                                    class="{{ $errors->has('weight') ? 'bg-red-100 border-red-400 text-red-500 placeholder-red-700' : 'bg-white border-yellow-500 text-gray-900 placeholder-gray-400  focus:ring-yellow-500 focus:border-yellow-500' }} rounded-lg border-1 text-sm mt-3 block w-full p-2.5"
+                                                                    placeholder="(Contoh: 150)"
+                                                                    value="{{ old('weight') }}" min="0" required>
+                                                            </div>
+                                                            <div>
+                                                                <label for="stock"
+                                                                    class="block mb-2 text-sm font-medium text-gray-900">Stok</label>
+                                                                <input type="number" name="stock" id="stock"
+                                                                    class="{{ $errors->has('stock') ? 'bg-red-100 border-red-400 text-red-500 placeholder-red-700' : 'bg-white border-yellow-500 text-gray-900 placeholder-gray-400  focus:ring-yellow-500 focus:border-yellow-500' }} rounded-lg border-1 text-sm mt-3 block w-full p-2.5"
+                                                                    placeholder="(Contoh: 100)"
+                                                                    value="{{ old('stock') }}" min="0" required>
+                                                            </div>
+                                                            <div>
+                                                                <label for="discount"
+                                                                    class="block mb-2 text-sm font-medium text-gray-900">Diskon
+                                                                    (%)</label>
+                                                                <input type="number" name="discount" id="discount"
+                                                                    class="{{ $errors->has('discount') ? 'bg-red-100 border-red-400 text-red-500 placeholder-red-700' : 'bg-white border-yellow-500 text-gray-900 placeholder-gray-400  focus:ring-yellow-500 focus:border-yellow-500' }} rounded-lg border-1 text-sm mt-3 block w-full p-2.5"
+                                                                    placeholder="(Contoh: 10)"
+                                                                    value="{{ old('discount') }}" min="0"
+                                                                    required>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="sm:col-span-2">
+                                                            <label for="description"
+                                                                class="block mb-2 text-sm font-medium text-gray-900">Deskripsi</label>
+                                                            <textarea name="description" id="description" rows="4"
+                                                                class="{{ $errors->has('description') ? 'bg-red-100 border-red-400 text-red-500 placeholder-red-700' : 'bg-white border-yellow-500 text-gray-900 placeholder-gray-400  focus:ring-yellow-500 focus:border-yellow-500' }} rounded-lg border-1 text-sm mt-3 block w-full p-2.5"
+                                                                placeholder="Tuliskan deskripsi produk" required>{{ old('description') }}</textarea>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="mb-8">
+                                                        <span class="block mb-2 text-sm font-medium text-gray-900">Gambar
+                                                            Produk</span>
+                                                        <div id="existingImagePreviewId" class="mb-3"></div>
+                                                        <label for="image"
+                                                            class="flex flex-col justify-center items-center w-full h-44 bg-gray-50 rounded-lg border-1 border-gray-300 border-dashed cursor-pointer hover:bg-gray-100">
+                                                            <input type="file" name="image" id="image"
+                                                                class="hidden" onchange="displayImagePreview_Add(this)">
+                                                            <div
+                                                                class="flex flex-col justify-center items-center w-full pt-5 pb-6">
+                                                                <svg aria-hidden="true"
+                                                                    class="mb-3 w-10 h-10 text-gray-400" fill="none"
+                                                                    stroke="currentColor" viewBox="0 0 24 24"
+                                                                    xmlns="http://www.w3.org/2000/svg">
+                                                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                                                        stroke-width="2"
+                                                                        d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
+                                                                </svg>
+                                                                <p class="mb-2 text-sm text-gray-500">
+                                                                    <span class="font-semibold">Klik untuk upload</span>
+                                                                </p>
+                                                                <p class="text-xs text-gray-500">PNG, JPG atau JPEG (Ukuran
+                                                                    File MAX.
+                                                                    5MB)
+                                                                </p>
+                                                            </div>
+                                                        </label>
+                                                    </div>
+
+                                                    <div class="items-center space-y-2 sm:flex sm:space-y-0 sm:space-x-2">
+                                                        <button type="submit"
+                                                            class="w-full sm:w-auto justify-center text-white inline-flex bg-yellow-500 hover:bg-yellow-600 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">Tambah
+                                                            Produk</button>
+                                                        <button data-modal-toggle="createProductModal" type="button"
+                                                            class="w-full sm:w-auto justify-center text-white inline-flex bg-red-500 hover:bg-red-600 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">
+                                                            <svg class="mr-1 -ml-1 w-5 h-5" fill="currentColor"
+                                                                viewbox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                                                <path fill-rule="evenodd"
+                                                                    d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                                                                    clip-rule="evenodd" />
+                                                            </svg>
+                                                            Batal
+                                                        </button>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div id="delete-modal" tabindex="-1"
+                                        class="fixed top-0 left-0 right-0 z-50 hidden p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full">
+                                        <div class="relative w-full h-auto max-w-md max-h-full">
+                                            <div class="relative bg-white rounded-lg shadow">
+                                                <form id="delete-form"
+                                                    action="{{ route('owner.admin_products.destroy', $product->id) }}"
+                                                    method="POST">
+                                                    @csrf
+                                                    @method('delete')
+                                                    <button type="button"
+                                                        class="absolute top-3 right-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center"
+                                                        data-modal-toggle="delete-modal">
+                                                        <svg aria-hidden="true" class="w-5 h-5" fill="currentColor"
+                                                            viewbox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                                            <path fill-rule="evenodd"
+                                                                d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                                                                clip-rule="evenodd" />
+                                                        </svg>
+                                                        <span class="sr-only">Close modal</span>
+                                                    </button>
+                                                    <div class="p-6 text-center">
+                                                        <svg aria-hidden="true"
+                                                            class="mx-auto mb-4 text-gray-400 w-14 h-14" fill="none"
+                                                            stroke="currentColor" viewbox="0 0 24 24"
+                                                            xmlns="http://www.w3.org/2000/svg">
+                                                            <path stroke-linecap="round" stroke-linejoin="round"
+                                                                stroke-width="2"
+                                                                d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                                        </svg>
+                                                        <h3 class="mb-5 text-lg font-normal text-gray-500">Apakah anda
+                                                            yakin ingin menghapus produk ini?
+                                                        </h3>
+                                                        <button type="submit" id="delete" name="delete"
+                                                            class="w-full sm:w-auto justify-center text-white inline-flex bg-red-500 hover:bg-red-600 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2">Ya,
+                                                            yakin</button>
+                                                        <button data-modal-toggle="delete-modal" type="button"
+                                                            class="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10">Tidak,
+                                                            batal</button>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
                                 @endforeach
                             @endif
                         </tbody>
@@ -351,204 +716,8 @@
     </section>
     <!-- End block -->
 
-
-
-    <div id="createProductModal" tabindex="-1" aria-hidden="true"
-        class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] md:h-full">
-        <div class="relative p-4 w-full max-w-3xl h-full md:h-auto">
-            <!-- Modal content -->
-            <div class="relative p-4 bg-white rounded-lg shadow sm:p-5">
-                <!-- Modal header -->
-                <div class="flex justify-between items-center pb-4 mb-4 rounded-t border-b sm:mb-5">
-                    <h3 class="text-lg font-semibold text-gray-900">Add Product</h3>
-                    <button type="button"
-                        class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center"
-                        data-modal-toggle="createProductModal">
-                        <svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewbox="0 0 20 20"
-                            xmlns="http://www.w3.org/2000/svg">
-                            <path fill-rule="evenodd"
-                                d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
-                                clip-rule="evenodd" />
-                        </svg>
-                        <span class="sr-only">Close modal</span>
-                    </button>
-                </div>
-                <!-- Modal body -->
-                <form action="{{ route('owner.admin_products.store') }}" method="POST" enctype="multipart/form-data">
-                    @csrf
-
-                    <div class="grid gap-4 mb-4 sm:grid-cols-2">
-                        <div>
-                            <label for="name" class="block mb-2 text-sm font-medium text-gray-900">Product
-                                Name</label>
-                            <input type="text" name="name" id="name"
-                                class="{{ $errors->has('name') ? 'bg-red-100 border-red-400 text-red-500 placeholder-red-700' : 'bg-white border-yellow-500 text-gray-900 placeholder-gray-400  focus:ring-yellow-500 focus:border-yellow-500' }} rounded-lg border-1 text-sm mt-3 block w-full p-2.5"
-                                placeholder="(Contoh: Teri Oven)" required="">
-                            @error('name')
-                                <p class="mt-2 text-sm text-red-500"><span class="font-medium">{{ $message }}
-                                </p>
-                            @enderror
-                        </div>
-
-                        <div>
-                            <label for="price" class="block mb-2 text-sm font-medium text-gray-900">Harga (Rp)</label>
-                            <input type="number" name="price" id="price"
-                                class="{{ $errors->has('price') ? 'bg-red-100 border-red-400 text-red-500 placeholder-red-700' : 'bg-white border-yellow-500 text-gray-900 placeholder-gray-400  focus:ring-yellow-500 focus:border-yellow-500' }} rounded-lg border-1 text-sm mt-3 block w-full p-2.5"
-                                placeholder="(Contoh: 42000)" required="">
-                            @error('price')
-                                <p class="mt-2 text-sm text-red-500"><span class="font-medium">{{ $message }}
-                                </p>
-                            @enderror
-                        </div>
-
-                        <div class="grid gap-4 sm:col-span-2 md:gap-6 sm:grid-cols-4">
-                            <div>
-                                <label for="weight" class="block mb-2 text-sm font-medium text-gray-900">Berat
-                                    (gram)</label>
-                                <input type="number" name="weight" id="weight"
-                                    class="{{ $errors->has('weight') ? 'bg-red-100 border-red-400 text-red-500 placeholder-red-700' : 'bg-white border-yellow-500 text-gray-900 placeholder-gray-400  focus:ring-yellow-500 focus:border-yellow-500' }} rounded-lg border-1 text-sm mt-3 block w-full p-2.5"
-                                    placeholder="" required="">
-                                @error('weight')
-                                    <p class="mt-2 text-sm text-red-500"><span class="font-medium">{{ $message }}
-                                    </p>
-                                @enderror
-                            </div>
-                            <div>
-                                <label for="stock" class="block mb-2 text-sm font-medium text-gray-900">Stok</label>
-                                <input type="number" name="stock" id="stock"
-                                    class="{{ $errors->has('stock') ? 'bg-red-100 border-red-400 text-red-500 placeholder-red-700' : 'bg-white border-yellow-500 text-gray-900 placeholder-gray-400  focus:ring-yellow-500 focus:border-yellow-500' }} rounded-lg border-1 text-sm mt-3 block w-full p-2.5"
-                                    placeholder="" required="">
-                                @error('stock')
-                                    <p class="mt-2 text-sm text-red-500"><span class="font-medium">{{ $message }}
-                                    </p>
-                                @enderror
-                            </div>
-                            <div>
-                                <label for="discount" class="block mb-2 text-sm font-medium text-gray-900">Diskon
-                                    (%)</label>
-                                <input type="number" name="discount" id="discount"
-                                    class="{{ $errors->has('discount') ? 'bg-red-100 border-red-400 text-red-500 placeholder-red-700' : 'bg-white border-yellow-500 text-gray-900 placeholder-gray-400  focus:ring-yellow-500 focus:border-yellow-500' }} rounded-lg border-1 text-sm mt-3 block w-full p-2.5"
-                                    placeholder="" required="">
-                                @error('discount')
-                                    <p class="mt-2 text-sm text-red-500"><span class="font-medium">{{ $message }}
-                                    </p>
-                                @enderror
-                            </div>
-                        </div>
-
-                        <div class="sm:col-span-2">
-                            <label for="description"
-                                class="block mb-2 text-sm font-medium text-gray-900">Description</label>
-                            <textarea name="description" id="description" rows="4"
-                                class="{{ $errors->has('description') ? 'bg-red-100 border-red-400 text-red-500 placeholder-red-700' : 'bg-white border-yellow-500 text-gray-900 placeholder-gray-400  focus:ring-yellow-500 focus:border-yellow-500' }} rounded-lg border-1 text-sm mt-3 block w-full p-2.5"
-                                placeholder="Tuliskan deskripsi produk" required=""></textarea>
-                            @error('description')
-                                <p class="mt-2 text-sm text-red-500"><span class="font-medium">{{ $message }}
-                                </p>
-                            @enderror
-                        </div>
-                    </div>
-
-                    <div class="mb-4">
-                        <span class="block mb-2 text-sm font-medium text-gray-900">Product Image</span>
-
-                        <div id="existingImagePreviewId" class="mb-3"></div>
-                        <label for="image"
-                            class="flex flex-col justify-center items-center w-full h-44 bg-gray-50 rounded-lg border-1 border-gray-300 border-dashed cursor-pointer hover:bg-gray-100">
-                            <input type="file" name="image" id="image" class="hidden"
-                                onchange="displayImagePreview_Add(this)">
-                            <div class="flex flex-col justify-center items-center w-full pt-5 pb-6">
-                                <svg aria-hidden="true" class="mb-3 w-10 h-10 text-gray-400" fill="none"
-                                    stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
-                                </svg>
-                                <p class="mb-2 text-sm text-gray-500">
-                                    <span class="font-semibold">Klik untuk upload</span>
-                                </p>
-                                <p class="text-xs text-gray-500">PNG, JPG atau JPEG (Ukuran File MAX.
-                                    5MB)
-                                </p>
-                            </div>
-                        </label>
-
-                        @error('image')
-                            <p class="mt-2 text-sm text-red-500"><span class="font-medium">{{ $message }}
-                            </p>
-                        @enderror
-                    </div>
-
-                    <div class="items-center space-y-4 sm:flex sm:space-y-0 sm:space-x-4">
-                        <button type="submit"
-                            class="w-full sm:w-auto justify-center text-white inline-flex bg-yellow-500 hover:bg-yellow-600 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">Add
-                            product</button>
-
-                        <button data-modal-toggle="createProductModal" type="button"
-                            class="w-full justify-center sm:w-auto text-white inline-flex items-center bg-red-500 hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-primary-300 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10">
-                            <svg class="mr-1 -ml-1 w-5 h-5" fill="currentColor" viewbox="0 0 20 20"
-                                xmlns="http://www.w3.org/2000/svg">
-                                <path fill-rule="evenodd"
-                                    d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
-                                    clip-rule="evenodd" />
-                            </svg>
-                            Batal
-                        </button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-
-
-
-    <div id="delete-modal" tabindex="-1"
-        class="fixed top-0 left-0 right-0 z-50 hidden p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full">
-        <div class="relative w-full h-auto max-w-md max-h-full">
-            <div class="relative bg-white rounded-lg shadow">
-                <form id="delete-form" action="{{ route('owner.admin_products.destroy', $product) }}" method="POST">
-                    @method('delete')
-                    @csrf
-
-
-                    {{-- onclick="return confirm('Anda yakin hendak menghapus {{ $product->name }}?')" --}}
-                    <button type="button"
-                        class="absolute top-3 right-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center"
-                        data-modal-toggle="delete-modal">
-                        <svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewbox="0 0 20 20"
-                            xmlns="http://www.w3.org/2000/svg">
-                            <path fill-rule="evenodd"
-                                d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
-                                clip-rule="evenodd" />
-                        </svg>
-                        <span class="sr-only">Close modal</span>
-                    </button>
-                    <div class="p-6 text-center">
-                        <svg aria-hidden="true" class="mx-auto mb-4 text-gray-400 w-14 h-14" fill="none"
-                            stroke="currentColor" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                        </svg>
-                        <h3 class="mb-5 text-lg font-normal text-gray-500">Apakah anda yakin ingin menghapus produk ini?
-                        </h3>
-
-
-                        <button type="submit" id="delete" name="delete"
-                            class="text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center mr-2">Ya,
-                            yakin</button>
-
-                        <button data-modal-toggle="delete-modal" type="button"
-                            class="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10">Tidak,
-                            batal</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-
-
     <script>
         // buat display input file image preview
-
 
         function displayImagePreview_Add(input) {
             var preview = $('#existingImagePreviewId');
@@ -567,7 +736,6 @@
                 reader.readAsDataURL(input.files[0]);
             }
         }
-
 
         function displayImagePreview_Update(input, existingImageUrl, existingImagePreviewId) {
             var preview = $('#' + existingImagePreviewId);

@@ -60,15 +60,38 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-
         $validatedData = $request->validate([
-            'name' => 'required|unique:products',
-            'price' => 'required|numeric',
-            'stock' => 'required|numeric',
-            'weight' => 'required|numeric',
-            'discount' => 'required|numeric',
-            'description' => 'required',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg|max:10000', // ini untuk validasi file image
+            'name' => 'required|string|unique:products|max:20',
+            'price' => 'required|numeric|min:1000',
+            'stock' => 'required|numeric|min:1',
+            'weight' => 'required|numeric|min:1',
+            'discount' => 'required|numeric|between:1,100',
+            'description' => 'required|string|max:255',
+            'image' => 'required|image|mimes:jpeg,png,jpg|max:5000'
+        ], [
+            'name.required' => 'Nama produk wajib diisi!',
+            'name.string' => 'Nama produk wajib berupa karakter!',
+            'name.unique' => 'Nama produk wajib berbeda dari produk yang sudah ada!',
+            'name.max' => 'Nama produk maksimal 20 karakter!',
+            'price.required' => 'Harga wajib diisi!',
+            'price.numeric' => 'Harga wajib berupa angka!',
+            'price.min' => 'Harga minimal Rp. 1.000!',
+            'stock.required' => 'Stok wajib diisi!',
+            'stock.numeric' => 'Stok wajib berupa angka!',
+            'stock.min' => 'Stock minimal 1 buah!',
+            'weight.required' => 'Berat wajib diisi!',
+            'weight.numeric' => 'Berat wajib berupa angka!',
+            'weight.min' => 'Berat minimal 1 gram!',
+            'discount.required' => 'Diskon diisi!',
+            'discount.numeric' => 'Diskon berupa angka!',
+            'discount.between' => 'Diskon wajib berada dalam rentang 1 sampai 100!',
+            'description.required' => 'Deskripsi wajib diisi!',
+            'description.string' => 'Deskripsi wajib berupa karakter!',
+            'description.max' => 'Deskripsi maksimal 255 karakter!',
+            'image.required' => 'Gambar produk wajib diisi!',
+            'image.image' => 'File wajib berupa gambar!',
+            'image.mimes' => 'File gambar wajib berupa .jpeg, .jpg, .png!',
+            'image.max' => 'Maksimal ukuran gambar 5MB!',
         ]);
 
         // cek apakah ada inputan file berupa image, kalau ada file image dimasukkan ke folder image di public lalu pathnya masuk ke database
@@ -114,7 +137,7 @@ class ProductController extends Controller
             ]);
         }
 
-        return redirect()->route('owner.admin_products');
+        return redirect()->route('owner.admin_products')->with('addProduct_success', "{$product->name} berhasil ditambahkan!");
     }
 
     /**
@@ -131,9 +154,9 @@ class ProductController extends Controller
     }
 
 
-    public function detail(Product $product) // show buat for admin
+    public function detail($id) // show buat for admin
     {
-        $productDetail = Product::where('id', $product->id)->first();
+        $productDetail = Product::where('id', $id)->first();
 
         return view('admin.production_detail', [
             "active_3" => "text-yellow-500",
@@ -141,11 +164,21 @@ class ProductController extends Controller
         ]);
     }
 
-    public function addStock(Request $request, Product $product)
+    public function addStock(Request $request, $id)
     {
         $validatedData = $request->validate([
             'stock' => 'required|numeric',
         ]);
+
+        $validatedData = $request->validate([
+            'stock' => 'required|numeric|min:1',
+        ], [
+            'stock.required' => 'Jumlah stok wajib diisi!',
+            'stock.numeric' => 'Jumlah stok wajib berupa angka!',
+            'stock.min' => 'Jumlah stok minimal 1!',
+        ]);
+
+        $product = Product::find($id);
 
         $product->update([
             'stock' => $product->stock + $validatedData['stock'],
@@ -158,7 +191,7 @@ class ProductController extends Controller
             'type' => 'tambah'
         ]);
 
-        return redirect()->route('owner.admin_products.detail', $product);
+        return redirect()->route('owner.admin_products.detail', $product)->with('addStock_success', "Stok berhasil berhasil ditambahkan!");
     }
 
     /**
@@ -174,33 +207,54 @@ class ProductController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Product $product)
+    public function update(Request $request, $id)
     {
         $validatedData = $request->validate([
-            'name' => 'required',
-            'price' => 'required|numeric',
-            'weight' => 'required|numeric',
-            'discount' => 'required|numeric',
-            'description' => 'required',
+            'name_edit' => 'required|string|max:20',
+            'price_edit' => 'required|numeric|min:1000',
+            'weight_edit' => 'required|numeric|min:1',
+            'discount_edit' => 'required|numeric|between:1,100',
+            'description_edit' => 'required|string|max:255',
+        ], [
+            'name_edit.required' => 'Nama produk wajib diisi!',
+            'name_edit.string' => 'Nama produk wajib berupa karakter!',
+            'name_edit.max' => 'Nama produk maksimal 20 karakter!',
+            'price_edit.required' => 'Harga wajib diisi!',
+            'price_edit.numeric' => 'Harga wajib berupa angka!',
+            'price_edit.min' => 'Harga minimal Rp. 1.000!',
+            'weight_edit.required' => 'Berat wajib diisi!',
+            'weight_edit.numeric' => 'Berat wajib berupa angka!',
+            'weight_edit.min' => 'Berat minimal 1 gram!',
+            'discount_edit.required' => 'Diskon diisi!',
+            'discount_edit.numeric' => 'Diskon berupa angka!',
+            'discount_edit.between' => 'Diskon wajib berada dalam rentang 1 sampai 100!',
+            'description_edit.required' => 'Deskripsi wajib diisi!',
+            'description_edit.string' => 'Deskripsi wajib berupa karakter!',
+            'description_edit.max' => 'Deskripsi maksimal 255 karakter!',
         ]);
+
+        $product = Product::find($id);
 
         $product->update([
-            'name' => $validatedData['name'],
-            'description' => $validatedData['description'],
-            'price' => $validatedData['price'],
-            'weight' => $validatedData['weight'],
-            'discount' => $validatedData['discount'],
+            'name' => $validatedData['name_edit'],
+            'description' => $validatedData['description_edit'],
+            'price' => $validatedData['price_edit'],
+            'weight' => $validatedData['weight_edit'],
+            'discount' => $validatedData['discount_edit'],
         ]);
 
-
-        return redirect()->route('owner.admin_products');
+        return back()->with('updateProduct_success', "{$product->name} berhasil diperbarui!");
     }
 
-    public function updateImage(Request $request, Product $product)
+    public function updateImage(Request $request, $id)
     {
-
         $validatedData = $request->validate([
-            'image' => 'nullable|image|mimes:jpeg,png,jpg|max:5000', // ini untuk validasi file image
+            'image' => 'required|image|mimes:jpeg,png,jpg|max:5000'
+        ], [
+            'image.required' => 'Gambar produk wajib diisi!',
+            'image.image' => 'File wajib berupa gambar!',
+            'image.mimes' => 'File gambar wajib berupa .jpeg, .jpg, .png!',
+            'image.max' => 'Maksimal ukuran gambar 5MB!',
         ]);
 
         // cek apakah ada inputan file berupa image, kalau ada file image dimasukkan ke folder image di public lalu pathnya masuk ke database
@@ -214,21 +268,25 @@ class ProductController extends Controller
             // dengan nama file yang sudah merupakan string random sehingga memungkinkan kita untuk
             // memasukkan file gambar dengan nama yang sama tapii beda gambar.
 
+            $product = Product::find($id);
+
             $product->update([
                 'image' => $validatedData['image'],
             ]);
         }
 
-        return redirect()->route('owner.admin_products.detail', $product);
+        return back()->with('updateProductImage_success', "Gambar {$product->name} berhasil diperbarui!");
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Product $product)
+    public function destroy($id)
     {
+        $product = Product::find($id);
+        $product_name = $product->name;
         $product->delete();
 
-        return redirect()->route('owner.admin_products');
+        return redirect()->route('owner.admin_products')->with('deleteProduct_success', "{$product_name} berhasil dihapus!");
     }
 }

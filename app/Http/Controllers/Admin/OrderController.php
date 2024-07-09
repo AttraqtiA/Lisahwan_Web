@@ -22,9 +22,6 @@ class OrderController extends Controller
     /**
      * Display a listing of the resource.
      */
-
-
-
     public function index(Request $request)
     {
         $ordersQuery = Order::query();
@@ -46,23 +43,31 @@ class OrderController extends Controller
                 $ordersQuery->where(function ($query) use ($formattedDate, $parsedDate) {
                     // Check if search term is a full date
                     if ($parsedDate->day != 1 && $parsedDate->month != 1) {
-                        $query->whereDate('order_date', $formattedDate);
+                        $query->whereDate('order_date', $formattedDate)
+                            ->orWhereDate('shipment_date', $formattedDate)
+                            ->orWhereDate('arrived_date', $formattedDate);
                     } else {
                         // Check if search term is a month-year
-                        $query->where(DB::raw('DATE_FORMAT(order_date, "%Y-%m")'), $formattedDate);
+                        $query->where(DB::raw('DATE_FORMAT(order_date, "%Y-%m")'), $formattedDate)
+                            ->orWhere(DB::raw('DATE_FORMAT(shipment_date, "%Y-%m")'), $formattedDate)
+                            ->orWhere(DB::raw('DATE_FORMAT(arrived_date, "%Y-%m")'), $formattedDate);
 
                         // Check if search term is a month only
-                        $query->orWhere(DB::raw('DATE_FORMAT(order_date, "%M")'), 'like', '%' . $parsedDate->format('F') . '%');
+                        $query->orWhere(DB::raw('DATE_FORMAT(order_date, "%M")'), 'like', '%' . $parsedDate->format('F') . '%')
+                            ->orWhere(DB::raw('DATE_FORMAT(shipment_date, "%M")'), 'like', '%' . $parsedDate->format('F') . '%')
+                            ->orWhere(DB::raw('DATE_FORMAT(arrived_date, "%M")'), 'like', '%' . $parsedDate->format('F') . '%');
 
                         // Check if search term is a year only
-                        $query->orWhere(DB::raw('YEAR(order_date)'), 'like', '%' . $parsedDate->format('Y') . '%');
+                        $query->orWhere(DB::raw('YEAR(order_date)'), 'like', '%' . $parsedDate->format('Y') . '%')
+                            ->orWhere(DB::raw('YEAR(shipment_date)'), 'like', '%' . $parsedDate->format('Y') . '%')
+                            ->orWhere(DB::raw('YEAR(arrived_date)'), 'like', '%' . $parsedDate->format('Y') . '%');
                     }
                 });
             } catch (\Exception $e) {
                 // Handle non-date search term (search in other fields)
                 $ordersQuery->where(function ($query) use ($searchTerm) {
                     $query->orWhere('is_print', 'like', '%' . $searchTerm . '%')
-                        ->orWhere('shipment_status', 'like', '%' . $searchTerm . '%')
+                        ->orWhere('shipment_status', 'like', '%' . $searchTerm)
                         ->orWhere('acceptbyAdmin_status', 'like', '%' . $searchTerm . '%')
                         ->orWhere('acceptbyCustomer_status', 'like', '%' . $searchTerm . '%')
                         ->orWhere('total_price', 'like', '%' . $searchTerm . '%')
@@ -104,6 +109,9 @@ class OrderController extends Controller
             'carts' =>  $carts
         ]);
     }
+
+
+
     // ====================================== CASHIER MANAGEMENT SYSTEM ======================================
     public function showAllProducts()
     {
@@ -275,13 +283,17 @@ class OrderController extends Controller
             ]);
             $production = Production::where('product_id', $product->id)->first();
             if ($validatedData['quantity'] < $cart_detail->quantity) {
-                $production->update([
-                    'quantity' => -1 * ($quantity_difference),
+                Production::create([
+                    'date' => now(),
+                    'product_id' => $product->id,
+                    'quantity' => abs($quantity_difference),
                     'type' => 'tambah'
                 ]);
             } else {
-                $production->update([
-                    'quantity' => $quantity_difference,
+                Production::create([
+                    'date' => now(),
+                    'product_id' => $product->id,
+                    'quantity' => abs($quantity_difference),
                     'type' => 'kurang'
                 ]);
             }
@@ -312,6 +324,13 @@ class OrderController extends Controller
 
             // Hapus CartDetail
             $cartDetail->delete();
+
+            Production::create([
+                'date' => now(),
+                'product_id' => $productId,
+                'quantity' => $cartDetail->quantity,
+                'type' => 'tambah'
+            ]);
 
             // Periksa apakah setelah menghapus CartDetail, tidak ada lagi cart_detail dalam keranjang
             if ($cart && $cart->cart_detail->isEmpty()) {
@@ -457,23 +476,31 @@ class OrderController extends Controller
                 $ordersQuery->where(function ($query) use ($formattedDate, $parsedDate) {
                     // Check if search term is a full date
                     if ($parsedDate->day != 1 && $parsedDate->month != 1) {
-                        $query->whereDate('order_date', $formattedDate);
+                        $query->whereDate('order_date', $formattedDate)
+                            ->orWhereDate('shipment_date', $formattedDate)
+                            ->orWhereDate('arrived_date', $formattedDate);
                     } else {
                         // Check if search term is a month-year
-                        $query->where(DB::raw('DATE_FORMAT(order_date, "%Y-%m")'), $formattedDate);
+                        $query->where(DB::raw('DATE_FORMAT(order_date, "%Y-%m")'), $formattedDate)
+                            ->orWhere(DB::raw('DATE_FORMAT(shipment_date, "%Y-%m")'), $formattedDate)
+                            ->orWhere(DB::raw('DATE_FORMAT(arrived_date, "%Y-%m")'), $formattedDate);
 
                         // Check if search term is a month only
-                        $query->orWhere(DB::raw('DATE_FORMAT(order_date, "%M")'), 'like', '%' . $parsedDate->format('F') . '%');
+                        $query->orWhere(DB::raw('DATE_FORMAT(order_date, "%M")'), 'like', '%' . $parsedDate->format('F') . '%')
+                            ->orWhere(DB::raw('DATE_FORMAT(shipment_date, "%M")'), 'like', '%' . $parsedDate->format('F') . '%')
+                            ->orWhere(DB::raw('DATE_FORMAT(arrived_date, "%M")'), 'like', '%' . $parsedDate->format('F') . '%');
 
                         // Check if search term is a year only
-                        $query->orWhere(DB::raw('YEAR(order_date)'), 'like', '%' . $parsedDate->format('Y') . '%');
+                        $query->orWhere(DB::raw('YEAR(order_date)'), 'like', '%' . $parsedDate->format('Y') . '%')
+                            ->orWhere(DB::raw('YEAR(shipment_date)'), 'like', '%' . $parsedDate->format('Y') . '%')
+                            ->orWhere(DB::raw('YEAR(arrived_date)'), 'like', '%' . $parsedDate->format('Y') . '%');
                     }
                 });
             } catch (\Exception $e) {
                 // Handle non-date search term (search in other fields)
                 $ordersQuery->where(function ($query) use ($searchTerm) {
                     $query->orWhere('is_print', 'like', '%' . $searchTerm . '%')
-                        ->orWhere('shipment_status', 'like', '%' . $searchTerm . '%')
+                        ->orWhere('shipment_status', 'like', '%' . $searchTerm)
                         ->orWhere('acceptbyAdmin_status', 'like', '%' . $searchTerm . '%')
                         ->orWhere('acceptbyCustomer_status', 'like', '%' . $searchTerm . '%')
                         ->orWhere('total_price', 'like', '%' . $searchTerm . '%')
@@ -550,11 +577,18 @@ class OrderController extends Controller
      */
     public function updateToday(Request $request, Order $order)
     {
-        $validatedData = $request->validate([ // TANPA ORDER DATE YAA
+        $validatedData = $request->validate([
             'acceptbyAdmin_status' => 'required',
             'shipment_status' => 'required',
             'shipment_date' => 'required|date_format:Y-m-d\TH:i',
             'arrived_date' => 'required|date_format:Y-m-d\TH:i'
+        ], [
+            'acceptbyAdmin_status.required' => 'Status penerimaan oleh Admin wajib diisi!',
+            'shipment_status.required' => 'Status pengiriman wajib diisi!',
+            'shipment_date.required' => 'Tanggal pengiriman wajib diisi!',
+            'shipment_date.date_format' => 'Format tanggal pengiriman tidak valid!',
+            'arrived_date.required' => 'Tanggal sampai wajib diisi!',
+            'arrived_date.date_format' => 'Format tanggal sampai tidak valid!'
         ]);
 
         $order->update([
@@ -564,33 +598,33 @@ class OrderController extends Controller
             'arrived_date' => $validatedData['arrived_date']
         ]);
 
-        return redirect()->route('admin.admin');
+        return redirect()->route('admin.admin')->with('updateOrderStatus_success', 'Status order berhasil diperbarui!');
     }
 
     public function updateHistory(Request $request, Order $order)
     {
-        $validatedData = $request->validate([ // TANPA ORDER DATE YAA
+        $validatedData = $request->validate([
             'acceptbyAdmin_status' => 'required',
             'shipment_status' => 'required',
-            'acceptbyCustomer_status' => 'required',
-            'shipment_date' => 'nullable|date_format:Y-m-d\TH:i',
-            'arrived_date' => 'nullable|date_format:Y-m-d\TH:i',
-            'note' => 'nullable',
-            'is_print' => 'required',
+            'shipment_date' => 'required|date_format:Y-m-d\TH:i',
+            'arrived_date' => 'required|date_format:Y-m-d\TH:i'
+        ], [
+            'acceptbyAdmin_status.required' => 'Status penerimaan oleh Admin wajib diisi!',
+            'shipment_status.required' => 'Status pengiriman wajib diisi!',
+            'shipment_date.required' => 'Tanggal pengiriman wajib diisi!',
+            'shipment_date.date_format' => 'Format tanggal pengiriman tidak valid!',
+            'arrived_date.required' => 'Tanggal sampai wajib diisi!',
+            'arrived_date.date_format' => 'Format tanggal sampai tidak valid!'
         ]);
 
         $order->update([
             'acceptbyAdmin_status' => $validatedData['acceptbyAdmin_status'],
             'shipment_status' => $validatedData['shipment_status'],
-            'acceptbyCustomer_status' => $validatedData['acceptbyCustomer_status'],
             'shipment_date' => $validatedData['shipment_date'],
-            'arrived_date' => $validatedData['arrived_date'],
-            'note' => $validatedData['note'],
-            'is_print' => $validatedData['is_print'],
+            'arrived_date' => $validatedData['arrived_date']
         ]);
 
-
-        return redirect()->route('admin.order_history');
+        return redirect()->route('owner.order_history')->with('updateOrderStatus_success', 'Status order berhasil diperbarui!');
     }
 
     /**

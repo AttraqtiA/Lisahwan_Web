@@ -3,8 +3,81 @@
 @section('content_page')
     <!-- Start block -->
     <section class="bg-neutral-200 p-2 sm:p-4 antialiased">
-        <div class="bg-neutral-200 mx-auto max-w-screen-2xl pt-24 sm:ml-56">
-            <div class="bg-white relative shadow-md rounded-md sm:rounded-lg overflow-hidden">
+        <div class="bg-neutral-200 mx-auto max-w-screen-2xl pt-20 sm:pt-24 sm:ml-56">
+            <div
+                class="flex flex-col justify-center items-center w-full {{ session('updateOrderStatus_success') || $errors->has('acceptbyAdmin_status') || $errors->has('shipment_status') || $errors->has('shipment_date') || $errors->has('arrived_date') ? 'mb-10 mt-6' : '' }}">
+                @error('acceptbyAdmin_status')
+                    <div class="w-10/12 md:w-9/12 lg:w-6/12 flex justify-center items-center p-4 {{ $errors->has('acceptbyAdmin_status') ? 'mb-2' : '' }} text-sm rounded-lg bg-gray-900 text-red-400"
+                        role="alert">
+                        <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                            fill="currentColor" viewBox="0 0 20 20">
+                            <path
+                                d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Zm3.707 11.793a1 1 0 1 1-1.414 1.414L10 11.414l-2.293 2.293a1 1 0 0 1-1.414-1.414L8.586 10 6.293 7.707a1 1 0 0 1 1.414-1.414L10 8.586l2.293-2.293a1 1 0 0 1 1.414 1.414L11.414 10l2.293 2.293Z" />
+                        </svg>
+                        <span class="sr-only">Info</span>
+                        <div>
+                            <span class="font-medium">{{ $message }}
+                        </div>
+                    </div>
+                @enderror
+                @error('shipment_status')
+                    <div class="w-10/12 md:w-9/12 lg:w-6/12 flex justify-center items-center p-4 {{ $errors->has('acceptbyAdmin_status') ? 'mb-2' : '' }} text-sm rounded-lg bg-gray-900 text-red-400"
+                        role="alert">
+                        <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                            fill="currentColor" viewBox="0 0 20 20">
+                            <path
+                                d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Zm3.707 11.793a1 1 0 1 1-1.414 1.414L10 11.414l-2.293 2.293a1 1 0 0 1-1.414-1.414L8.586 10 6.293 7.707a1 1 0 0 1 1.414-1.414L10 8.586l2.293-2.293a1 1 0 0 1 1.414 1.414L11.414 10l2.293 2.293Z" />
+                        </svg>
+                        <span class="sr-only">Info</span>
+                        <div>
+                            <span class="font-medium">{{ $message }}
+                        </div>
+                    </div>
+                @enderror
+                @error('shipment_date')
+                    <div class="w-10/12 md:w-9/12 lg:w-6/12 flex justify-center items-center p-4 {{ $errors->has('acceptbyAdmin_status') ? 'mb-2' : '' }} text-sm rounded-lg bg-gray-900 text-red-400"
+                        role="alert">
+                        <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                            fill="currentColor" viewBox="0 0 20 20">
+                            <path
+                                d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Zm3.707 11.793a1 1 0 1 1-1.414 1.414L10 11.414l-2.293 2.293a1 1 0 0 1-1.414-1.414L8.586 10 6.293 7.707a1 1 0 0 1 1.414-1.414L10 8.586l2.293-2.293a1 1 0 0 1 1.414 1.414L11.414 10l2.293 2.293Z" />
+                        </svg>
+                        <span class="sr-only">Info</span>
+                        <div>
+                            <span class="font-medium">{{ $message }}
+                        </div>
+                    </div>
+                @enderror
+                @error('arrived_date')
+                    <div class="w-10/12 md:w-9/12 lg:w-6/12 flex justify-center items-center p-4 {{ $errors->has('acceptbyAdmin_status') ? 'mb-2' : '' }} text-sm rounded-lg bg-gray-900 text-red-400"
+                        role="alert">
+                        <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                            fill="currentColor" viewBox="0 0 20 20">
+                            <path
+                                d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Zm3.707 11.793a1 1 0 1 1-1.414 1.414L10 11.414l-2.293 2.293a1 1 0 0 1-1.414-1.414L8.586 10 6.293 7.707a1 1 0 0 1 1.414-1.414L10 8.586l2.293-2.293a1 1 0 0 1 1.414 1.414L11.414 10l2.293 2.293Z" />
+                        </svg>
+                        <span class="sr-only">Info</span>
+                        <div>
+                            <span class="font-medium">{{ $message }}
+                        </div>
+                    </div>
+                @enderror
+                @if (session('updateOrderStatus_success'))
+                    <div class="w-10/12 md:w-9/12 lg:w-6/12 flex justify-center items-center p-4 text-sm rounded-lg bg-gray-900 text-green-400"
+                        role="alert">
+                        <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                            fill="currentColor" viewBox="0 0 20 20">
+                            <path
+                                d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Zm3.707 8.207-4 4a1 1 0 0 1-1.414 0l-2-2a1 1 0 0 1 1.414-1.414L9 10.586l3.293-3.293a1 1 0 0 1 1.414 1.414Z" />
+                        </svg>
+                        <span class="sr-only">Info</span>
+                        <div>
+                            <span class="font-medium">{{ session('updateOrderStatus_success') }}
+                        </div>
+                    </div>
+                @endif
+            </div>
+            <div class="bg-white relative shadow-md rounded-md sm:rounded-lg overflow-hidden m-2 sm:m-0">
                 <div
                     class="flex flex-col md:flex-row md:items-center md:justify-between space-y-3 md:space-y-0 md:space-x-4 p-4">
                     <div class="flex-1 flex items-center space-x-2">
@@ -21,8 +94,8 @@
                     class="flex flex-col md:flex-row items-stretch md:items-center md:space-x-3 space-y-3 md:space-y-0 justify-between mx-4 py-4 border-t">
                     <div class="flex flex-col lg:flex-row justify-between w-full">
                         <form class="flex items-center"
-                            action="@if (Auth::user()->isOwner()) {{ route('owner.admin') }}                                                 @elseif (Auth::user()->isAdmin())
-                                @else {{ route('admin.admin') }} @endif"
+                            action="@if (Auth::user()->isOwner()) {{ route('owner.order_history') }}                                                 @elseif (Auth::user()->isAdmin())
+                                @else {{ route('admin.order_history') }} @endif"
                             method="GET">
 
                             <label for="simple-search" class="sr-only">Search</label>
@@ -105,7 +178,8 @@
                                         </td>
                                         <td class="font-medium text-gray-900 whitespace-nowrap">
                                             <div class="flex justify-center items-center space-x-2">
-                                                <button type="button" data-drawer-target="order-detail{{ $order->id }}"
+                                                <button type="button"
+                                                    data-drawer-target="order-detail{{ $order->id }}"
                                                     data-drawer-show="order-detail{{ $order->id }}"
                                                     aria-controls="order-detail{{ $order->id }}"
                                                     class="py-2 px-3 flex items-center text-sm font-medium text-center text-gray-600 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-primary-700 focus:z-10 focus:ring-4 focus:ring-gray-200">
@@ -124,8 +198,9 @@
                                                         data-modal-toggle="update-modal{{ $order->id }}"
                                                         class="py-2 px-3 flex items-center text-sm font-medium text-center text-white focus:outline-none bg-gray-300 rounded-lg hover:bg-gray-300 hover:text-primary-700 focus:z-10 focus:ring-4 focus:ring-gray-300"
                                                         disabled>
-                                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2 -ml-0.5"
-                                                            viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                                                        <svg xmlns="http://www.w3.org/2000/svg"
+                                                            class="h-4 w-4 mr-2 -ml-0.5" viewBox="0 0 20 20"
+                                                            fill="currentColor" aria-hidden="true">
                                                             <path
                                                                 d="M17.414 2.586a2 2 0 00-2.828 0L7 10.172V13h2.828l7.586-7.586a2 2 0 000-2.828z" />
                                                             <path fill-rule="evenodd"
@@ -385,7 +460,6 @@
                                             <div id="update-modal-content"
                                                 class="relative p-4 bg-white rounded-lg shadow sm:p-5">
                                                 <!-- Modal header -->
-
                                                 <div
                                                     class="flex justify-between items-center pb-4 mb-4 rounded-t border-b sm:mb-5">
                                                     <div class="flex items-center mr-3">
@@ -427,7 +501,6 @@
                                                     </button>
                                                 </div>
                                                 <!-- Modal body -->
-
                                                 @if (Auth::user()->isOwner())
                                                     <form id="update-form"
                                                         action="{{ route('owner.admin.update', $order) }}" method="POST"
@@ -441,12 +514,11 @@
                                                             @method('put')
                                                             @csrf
                                                 @endif
-
                                                 <div class="flex flex-col mb-8">
                                                     <p class="text-center font-semibold col-span-3 mb-2">Order Status
                                                     </p>
-
-                                                    <div class="flex flex-row justify-center w-full space-x-4 mb-6">
+                                                    <div
+                                                        class="flex flex-col sm:flex-row justify-center w-full sm:space-x-2 sm:space-y-0 space-y-4 mb-6">
                                                         <div>
                                                             <label for="acceptbyAdmin_status"
                                                                 class="block mb-2 text-sm font-medium text-gray-900">Order
@@ -463,11 +535,6 @@
                                                                     Sudah
                                                                 </option>
                                                             </select>
-                                                            @error('acceptbyAdmin_status')
-                                                                <p class="mt-2 text-sm text-red-500"><span
-                                                                        class="font-medium">{{ $message }}
-                                                                </p>
-                                                            @enderror
                                                         </div>
 
                                                         <div>
@@ -484,19 +551,12 @@
                                                                     {{ $order->shipment_status === 'sudah' ? 'selected' : '' }}>
                                                                     Sudah</option>
                                                             </select>
-                                                            @error('shipment_status')
-                                                                <p class="mt-2 text-sm text-red-500"><span
-                                                                        class="font-medium">{{ $message }}
-                                                                </p>
-                                                            @enderror
                                                         </div>
                                                     </div>
-
                                                     <p class="mb-2 text-center font-semibold col-span-3">Tanggal</p>
-
                                                     <div
-                                                        class="flex flex-row justify-center items-center w-full space-x-4">
-                                                        <div>
+                                                        class="flex flex-col sm:flex-row justify-center items-center w-full sm:space-x-2 sm:space-y-0 space-y-4">
+                                                        <div class="w-full">
                                                             <label
                                                                 for="order_date"class="block mb-2 text-sm font-medium text-gray-900">Order
                                                                 Masuk</label>
@@ -504,44 +564,32 @@
                                                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5">
                                                                 {{ $order->order_date }}</p>
                                                         </div>
-
-                                                        <div>
+                                                        <div class="w-full">
                                                             <label for="shipment_date"
                                                                 class="block mb-2 text-sm font-medium text-gray-900">Order
                                                                 Dikirim</label>
                                                             <input type="datetime-local" name="shipment_date"
                                                                 id="shipment_date"
                                                                 class="{{ $errors->has('shipment_date') ? 'bg-red-100 border-red-400 text-red-500 placeholder-red-700' : 'bg-white border-yellow-500 text-gray-900 placeholder-gray-400  focus:ring-yellow-500 focus:border-yellow-500' }} rounded-lg border-1 text-sm block w-full p-2.5"
-                                                                value="{{ $order->shipment_date ? \Carbon\Carbon::parse($order->shipment_date)->format('Y-m-d\TH:i') : '' }}">
-                                                            @error('shipment_date')
-                                                                <p class="mt-2 text-sm text-red-500"><span
-                                                                        class="font-medium">{{ $message }}
-                                                                </p>
-                                                            @enderror
+                                                                value="{{ old('shipment_date', $order->shipment_date ? \Carbon\Carbon::parse($order->shipment_date)->format('Y-m-d\TH:i') : '') }}"
+                                                                required>
                                                         </div>
-
-                                                        <div>
+                                                        <div class="w-full">
                                                             <label for="arrived_date"
                                                                 class="block mb-2 text-sm font-medium text-gray-900">Order
                                                                 Sampai</label>
                                                             <input type="datetime-local" name="arrived_date"
                                                                 id="arrived_date"
                                                                 class="{{ $errors->has('arrived_date') ? 'bg-red-100 border-red-400 text-red-500 placeholder-red-700' : 'bg-white border-yellow-500 text-gray-900 placeholder-gray-400  focus:ring-yellow-500 focus:border-yellow-500' }} rounded-lg border-1 text-sm block w-full p-2.5"
-                                                                value="{{ $order->arrived_date ? \Carbon\Carbon::parse($order->arrived_date)->format('Y-m-d\TH:i') : '' }}">
-                                                            @error('arrived_date')
-                                                                <p class="mt-2 text-sm text-red-500"><span
-                                                                        class="font-medium">{{ $message }}
-                                                                </p>
-                                                            @enderror
+                                                                value="{{ old('arrived_date', $order->arrived_date ? \Carbon\Carbon::parse($order->arrived_date)->format('Y-m-d\TH:i') : '') }}"
+                                                                required>
                                                         </div>
                                                     </div>
                                                 </div>
-
-                                                <div class="items-center space-y-4 sm:flex sm:space-y-0 sm:space-x-2">
+                                                <div class="items-center space-y-2 sm:flex sm:space-y-0 sm:space-x-2">
                                                     <button type="submit"
                                                         class="w-full sm:w-auto justify-center text-white inline-flex bg-yellow-500 hover:bg-yellow-600 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">Update
                                                         Order</button>
-
                                                     <button data-modal-toggle="update-modal{{ $order->id }}"
                                                         type="button"
                                                         class="w-full justify-center sm:w-auto text-white inline-flex items-center bg-red-500 hover:bg-red-600 focus:ring-4 focus:outline-none focus:ring-primary-300 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 focus:z-10">
