@@ -237,18 +237,26 @@
                             class="flex text-sm bg-gray-800 rounded-full focus:ring focus:ring-gray-500"
                             aria-expanded="false" data-dropdown-toggle="dropdown-user">
                             <span class="sr-only">Open user menu</span>
-                            @if (Auth::user()->profile_picture == null)
+                            @if (is_null(Auth::user()->profile_picture))
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                     stroke-width="1.5" stroke="currentColor" class="w-10 h-10 rounded-full text-white">
                                     <path stroke-linecap="round" stroke-linejoin="round"
                                         d="M17.982 18.725A7.488 7.488 0 0012 15.75a7.488 7.488 0 00-5.982 2.975m11.963 0a9 9 0 10-11.963 0m11.963 0A8.966 8.966 0 0112 21a8.966 8.966 0 01-5.982-2.275M15 9.75a3 3 0 11-6 0 3 3 0 016 0z" />
                                 </svg>
-                            @elseif (Auth::user()->isAdmin() || Auth::user()->isOwner())
-                                <img class="w-10 h-10 rounded-full object-cover"
-                                    src="{{ asset('images/' . Auth::user()->profile_picture) }}" alt="user photo">
                             @else
-                                <img class="w-10 h-10 rounded-full object-cover"
-                                    src="{{ asset('storage/' . Auth::user()->profile_picture) }}" alt="user photo">
+                                @if (Auth::user()->isAdmin() || Auth::user()->isOwner())
+                                    <img class="w-10 h-10 rounded-full object-cover"
+                                        src="{{ asset('images/' . Auth::user()->profile_picture) }}" alt="user photo">
+                                @else
+                                    @if (strlen(Auth::user()->profile_picture) > 25)
+                                        <img class="w-10 h-10 rounded-full object-cover"
+                                            src="{{ asset('storage/' . Auth::user()->profile_picture) }}"
+                                            alt="user photo">
+                                    @else
+                                        <img class="w-10 h-10 rounded-full object-cover"
+                                            src="/images/{{ Auth::user()->profile_picture }}" alt="user photo">
+                                    @endif
+                                @endif
                             @endif
                         </button>
                     </div>
@@ -275,8 +283,18 @@
                             <p class="text-sm font-medium text-gray-900 truncate" role="none">
                                 {{ Auth::user()->email }}
                             </p>
+                            @if(Session::has('pointStatus'))
+                            <p class="flex flex-row mt-4 text-sm text-gray-900 font-semibold truncate" role="none">
+                                Poin: {{ abs(number_format(($countSubtotal + $shipment_price - $reward_now)/$point->money_per_poin, 0, ',', '.')) }} <img src="/images/coin_icon.png" alt="Poin" class="w-4 h-4 ms-1">
+                            </p>
+                            @else
+                            <p class="flex flex-row mt-4 text-sm text-gray-900 font-semibold truncate" role="none">
+                                Poin: {{  number_format(Auth::user()->reward, 0, ',', '.') }}<img
+                                src="/images/coin_icon.png" alt="Poin" class="w-4 h-4 ms-1">
+                            </p>
+                            @endif
                         </div>
-                        <ul class="py-1" role="none">
+                        <ul class="" role="none">
                             <li>
                                 <a href="{{ route('logout') }}"
                                     onclick="event.preventDefault(); document.getElementById('logout-form').submit();"
@@ -293,7 +311,7 @@
             </ul>
 
             <button data-collapse-toggle="navbar-sticky" type="button"
-                class="mt-2 ml-2 md:ml-4 inline-flex items-center p-2 w-10 h-10 justify-center text-sm bg-gray-900 border border-gray-500 text-gray-500 rounded-lg md:hidden focus:outline-none focus:ring-2 focus:ring-gray-200"
+                class="mt-2 ml-2 md:ml-4 inline-flex items-center p-2 w-10 h-10 justify-center text-sm bg-gray-900 border border-gray-500 text-gray-500 rounded-lg lg:hidden focus:outline-none focus:ring-2 focus:ring-gray-200"
                 aria-controls="navbar-sticky" aria-expanded="false">
                 <span class="sr-only">Open main menu</span>
                 <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
@@ -303,7 +321,7 @@
                 </svg>
             </button>
         </div>
-        <div class="items-center justify-between hidden w-full md:flex md:w-auto md:order-1" id="navbar-sticky">
+        <div class="items-center justify-between hidden w-full lg:flex lg:w-auto lg:order-1" id="navbar-sticky">
 
             <ul
                 class="flex flex-col p-4 md:p-0 font-medium rounded-lg bg-gray-900 md:flex-row md:space-x-8  md:border-0 md:bg-gray-900">

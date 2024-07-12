@@ -187,16 +187,19 @@ class CartController extends Controller
             $product->update([
                 'stock' => $cart_detail->product->stock - $quantity_difference
             ]);
-            $production = Production::where('product_id', $product->id)->first();
             if ($validatedData['quantity'] < $cart_detail->quantity) {
-                $production->update([
-                    'quantity' => -1 * ($quantity_difference),
+                Production::create([
+                    'date' => now(),
+                    'product_id' => $product->id,
+                    'quantity' => abs($quantity_difference),
                     'type' => 'tambah'
                 ]);
             } else {
-                $production->update([
-                    'quantity' => $quantity_difference,
-                    'type' => 'kurang'
+                Production::create([
+                    'date' => now(),
+                    'product_id' => $product->id,
+                    'quantity' => abs($quantity_difference),
+                    'type' => 'tambah'
                 ]);
             }
             $cart_detail->update([
@@ -216,6 +219,7 @@ class CartController extends Controller
     public function destroy($id)
     {
         $cartDetail = CartDetail::find($id);
+        $productId = $cartDetail->product->id;
         if ($cartDetail) {
             // Temukan Cart yang sesuai dengan relasi
             $cart = $cartDetail->cart;
@@ -227,6 +231,13 @@ class CartController extends Controller
 
             // Hapus CartDetail
             $cartDetail->delete();
+
+            Production::create([
+                'date' => now(),
+                'product_id' => $productId,
+                'quantity' => $cartDetail->quantity,
+                'type' => 'tambah'
+            ]);
 
             // Periksa apakah setelah menghapus CartDetail, tidak ada lagi cart_detail dalam keranjang
             if ($cart && $cart->cart_detail->isEmpty()) {

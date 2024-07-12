@@ -61,8 +61,8 @@ Route::group([
     Route::get('/admin', [AdminOrderController::class, 'index'])->name('admin');
     Route::put('/admin/update/{order}', [AdminOrderController::class, 'updateToday'])->name('admin.update');
 
-    Route::get('/order_history', [AdminOrderController::class, 'history'])->name('order_history');
-    Route::put('/order_history/update/{order}', [AdminOrderController::class, 'updateHistory'])->name('order_history.update');
+    // Route::get('/order_history', [AdminOrderController::class, 'history'])->name('order_history');
+    // Route::put('/order_history/update/{order}', [AdminOrderController::class, 'updateHistory'])->name('order_history.update');
 
     Route::get('/admin/productlist', [AdminOrderController::class, 'showAllProducts'])->name('products');
     Route::post('/admin/productlist/add/{product_id}', [AdminOrderController::class, 'addProduct'])->name('products.add');
@@ -103,6 +103,11 @@ Route::group([
 
     Route::get('/wishlist', [MemberWishlistController::class, 'index'])->name('wishlist'); // WISHLIST PAGE (CHECKED)
     Route::post('/wishlist/{product_id}', [MemberWishlistController::class, 'store'])->name('wishlist.store'); // INSERT PRODUCT TO WISHLIST (CHECKED)
+
+    Route::post('/check_coupon', [MemberOrderController::class, 'checkCoupon'])->name('cekKupon');
+    Route::post('/choose_coupon/{coupon_id}', [MemberOrderController::class, 'chooseCoupon'])->name('pilihKupon');
+
+    Route::post('/activate_point', [MemberOrderController::class, 'activatePoint'])->name('aktifPoin');
 });
 //=====================================================================================================
 
@@ -141,12 +146,12 @@ Route::group([
     Route::get('/admin/print_struk/order/{order_id}', [OwnerOrderController::class, 'generateReceipt_ORDER'])->name('printStrukOrder');
     Route::get('/admin/print_struk/cart/{user_id}', [OwnerOrderController::class, 'generateReceipt_CART'])->name('printStrukCart');
 
-    Route::post('/admin/atur_poin', [PointController::class, 'setPoint'])->name('aturPoin');
-    Route::put('/admin/ubah_poin', [PointController::class, 'editPoint'])->name('ubahPoin');
+    Route::post('/admin/set_point', [PointController::class, 'setPoint'])->name('aturPoin');
+    Route::put('/admin/edit_point', [PointController::class, 'editPoint'])->name('ubahPoin');
 
-    Route::post('/admin/atur_kupon', [CouponController::class, 'setCoupon'])->name('aturKupon');
-    Route::put('/admin/ubah_kupon/{coupon_id}', [CouponController::class, 'editCoupon'])->name('ubahKupon');
-    Route::delete('/admin/hapus_kupon/{coupon_id}', [CouponController::class, 'deleteCoupon'])->name('hapusKupon');
+    Route::post('/admin/set_coupon', [CouponController::class, 'setCoupon'])->name('aturKupon');
+    Route::put('/admin/edit_coupon/{coupon_id}', [CouponController::class, 'editCoupon'])->name('ubahKupon');
+    Route::delete('/admin/delete_coupon/{coupon_id}', [CouponController::class, 'deleteCoupon'])->name('hapusKupon');
 });
 //====================================================================================================
 

@@ -3,7 +3,7 @@
 @section('content_page')
     <div class="flex flex-col items-center">
         @if (session('deleteCart_success'))
-            <div class="w-10/12 sm:w-5/12 md:w-4/12 lg:w-3/12 flex justify-center items-center p-4 mt-8 text-sm rounded-lg  bg-gray-900 text-green-400"
+            <div class="w-10/12 md:w-9/12 lg:w-6/12 flex justify-center items-center p-4 mt-8 text-sm rounded-lg  bg-gray-900 text-green-400"
                 role="alert">
                 <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
                     fill="currentColor" viewBox="0 0 20 20">
@@ -128,7 +128,7 @@
                                             {{ $order_detail->product->description }}
                                         </p>
                                         <p class="mt-2 text-sm font-normal text-gray-600">
-                                            ({{ $order_detail->product->weight }}
+                                            ({{ $order_detail->weight }}
                                             gram)
                                         </p>
                                     </div>

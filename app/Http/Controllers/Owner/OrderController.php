@@ -6,6 +6,7 @@ use Carbon\Carbon;
 use App\Models\Cart;
 use App\Models\User;
 use App\Models\Order;
+use App\Models\Coupon;
 use App\Models\Address;
 use App\Models\Product;
 use App\Models\CartDetail;
@@ -24,6 +25,12 @@ class OrderController extends Controller
      */
     public function index(Request $request)
     {
+        // Waktu sekarang
+        $now = Carbon::now();
+
+        // Hapus kupon yang sudah kedaluwarsa
+        Coupon::where('ending_time', '<', $now)->delete();
+
         $ordersQuery = Order::query();
 
         // Initialize $parsedDate to null
@@ -102,6 +109,7 @@ class OrderController extends Controller
         $carts = $cart_user ? $cart_user->cart_detail : null;
 
         return view('admin.admin_dashboard', [
+            "TabTitle" => "Daftar Order Hari ini dan Kemarin",
             "active_1" => "text-yellow-500",
             "orders" => $orders,
             "orderNumber" => $orderNumber,
@@ -532,6 +540,7 @@ class OrderController extends Controller
         $carts = $cart_user ? $cart_user->cart_detail : null;
 
         return view('admin.order_history', [
+            "TabTitle" => "Daftar Seluruh Order",
             "active_2" => "text-yellow-500",
             "orders" => $orders,
             "orderNumber" => $orderNumber,

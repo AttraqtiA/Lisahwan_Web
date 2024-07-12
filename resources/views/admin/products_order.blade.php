@@ -2,8 +2,6 @@
 
 @section('content_page')
     <div class="flex flex-col items-center sm:ml-56 mt-36 sm:mt-36 h-full">
-
-
         @if (session('empty_stock'))
             <div class="w-10/12 md:w-9/12 lg:w-6/12 flex justify-center items-center p-4 mb-12 text-sm rounded-lg bg-gray-900 text-red-400"
                 role="alert">

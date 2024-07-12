@@ -136,7 +136,7 @@
 
     <div class="flex flex-col p-8 lg:p-16">
         <div class="flex flex-row justify-between items-center">
-            <h1 class="text-xl lg:text-3xl font-extrabold text-gray-900">Produk Best Seller</h1>
+            <h1 class="text-xl lg:text-3xl font-extrabold text-gray-900">Produk Bestseller</h1>
             <a href="{{ route('products') }}">
                 <p class="text-base font-medium text-yellow-500 hover:text-yellow-600">Lihat semua</p>
             </a>

@@ -2,8 +2,10 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\User;
+use App\Models\UserCoupon;
 use Illuminate\Database\Seeder;
+use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
 class UserCouponSeeder extends Seeder
 {
@@ -12,6 +14,10 @@ class UserCouponSeeder extends Seeder
      */
     public function run(): void
     {
-        //
+        UserCoupon::create([
+            'user_id' => 3,
+            'coupon_id' => 1,
+            'quantity' => 5
+        ]);
     }
 }

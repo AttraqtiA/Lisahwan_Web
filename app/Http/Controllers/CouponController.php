@@ -45,18 +45,6 @@ class CouponController extends Controller
             'initial_quantity' => $validatedData['quantity']
         ]);
 
-        $users = User::all();
-
-        foreach ($users as $user) {
-            if (!$user->isAdmin() && !$user->isOwner()) {
-                UserCoupon::create([
-                    "user_id" => $user->id,
-                    "coupon_id" => $coupon->id,
-                    "quantity" => $validatedData['quantity']
-                ]);
-            }
-        }
-
         return back()->with('setCoupon_success', 'Sistem Kupon berhasil diterapkan!');
     }
 

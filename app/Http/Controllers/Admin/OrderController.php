@@ -102,6 +102,7 @@ class OrderController extends Controller
         $carts = $cart_user ? $cart_user->cart_detail : null;
 
         return view('admin.admin_dashboard', [
+            "TabTitle" => "Daftar Order Hari ini dan Kemarin",
             "active_1" => "text-yellow-500",
             "orders" => $orders,
             "orderNumber" => $orderNumber,
@@ -532,6 +533,7 @@ class OrderController extends Controller
         $carts = $cart_user ? $cart_user->cart_detail : null;
 
         return view('admin.order_history', [
+            "TabTitle" => "Daftar Seluruh Order",
             "active_2" => "text-yellow-500",
             "orders" => $orders,
             "orderNumber" => $orderNumber,

@@ -63,19 +63,26 @@
                                 class="flex text-sm bg-gray-800 rounded-full focus:ring focus:ring-gray-500"
                                 aria-expanded="false" data-dropdown-toggle="dropdown-user">
                                 <span class="sr-only">Open user menu</span>
-                                @if (Auth::user()->profile_picture == null)
+                                @if (is_null(Auth::user()->profile_picture))
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                        stroke-width="1.5" stroke="currentColor"
-                                        class="w-16 sm:w-10 h-10 rounded-full text-white">
+                                        stroke-width="1.5" stroke="currentColor" class="w-10 h-10 rounded-full text-white">
                                         <path stroke-linecap="round" stroke-linejoin="round"
                                             d="M17.982 18.725A7.488 7.488 0 0012 15.75a7.488 7.488 0 00-5.982 2.975m11.963 0a9 9 0 10-11.963 0m11.963 0A8.966 8.966 0 0112 21a8.966 8.966 0 01-5.982-2.275M15 9.75a3 3 0 11-6 0 3 3 0 016 0z" />
                                     </svg>
-                                @elseif (Auth::user()->isAdmin() || Auth::user()->isOwner())
-                                    <img class="w-16 sm:w-10 h-10 rounded-full object-cover"
-                                        src="{{ asset('images/' . Auth::user()->profile_picture) }}" alt="user photo">
                                 @else
-                                    <img class="w-16 sm:w-10 h-10 rounded-full object-cover"
-                                        src="{{ asset('storage/' . Auth::user()->profile_picture) }}" alt="user photo">
+                                    @if (Auth::user()->isAdmin() || Auth::user()->isOwner())
+                                        <img class="w-10 h-10 rounded-full object-cover"
+                                            src="{{ asset('images/' . Auth::user()->profile_picture) }}" alt="user photo">
+                                    @else
+                                        @if (strlen(Auth::user()->profile_picture) > 25)
+                                            <img class="w-10 h-10 rounded-full object-cover"
+                                                src="{{ asset('storage/' . Auth::user()->profile_picture) }}"
+                                                alt="user photo">
+                                        @else
+                                            <img class="w-10 h-10 rounded-full object-cover"
+                                                src="/images/{{ Auth::user()->profile_picture }}" alt="user photo">
+                                        @endif
+                                    @endif
                                 @endif
                             </button>
                         </div>
@@ -103,11 +110,11 @@
                                     {{ Auth::user()->email }}
                                 </p>
                             </div>
-                            <ul class="py-1" role="none">
+                            <ul class="" role="none">
                                 <li>
                                     <a href="{{ route('logout') }}"
                                         onclick="event.preventDefault(); document.getElementById('logout-form').submit();"
-                                        class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">
+                                        class="block px-4 py-2 text-sm text-gray-700 hover:bg-yellow-500" role="menuitem">
                                         Keluar
                                     </a>
                                     <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">

@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers\Owner;
 
-use App\Http\Controllers\Controller; // tambah ini buat yg folder per role
-
+use Carbon\Carbon;
 use App\Models\Product;
 use App\Models\Production;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use App\Http\Controllers\Controller; // tambah ini buat yg folder per role
 
 class ProductController extends Controller
 {
@@ -42,6 +42,7 @@ class ProductController extends Controller
         })->paginate(10)->withQueryString();
 
         return view('admin.products', [
+            "TabTitle" => "Daftar Seluruh Produk",
             "active_3" => "text-yellow-500",
             "products" => $products,
         ]);
@@ -153,14 +154,49 @@ class ProductController extends Controller
         ]);
     }
 
-
     public function detail($id) // show buat for admin
     {
         $productDetail = Product::where('id', $id)->first();
 
+        // Mengambil total quantity dari tabel Production yang diinput hari ini dan bertipe restock
+        $total_addProduct_today = Production::where('type', 'restock')
+            ->whereDate('created_at', Carbon::today())
+            ->where('product_id', $id)
+            ->sum('quantity');
+
+        // jumlah produk yang terjual hari ini
+        $total_quantity_today = Production::whereDate('created_at', Carbon::today())
+            ->where('product_id', $id)
+            ->selectRaw('SUM(CASE WHEN type = "tambah" THEN quantity ELSE 0 END) as total_add')
+            ->selectRaw('SUM(CASE WHEN type = "kurang" THEN quantity ELSE 0 END) as total_subtract')
+            ->first();
+        $total_quantity_today = $total_quantity_today->total_add - $total_quantity_today->total_subtract;
+
+        // Mengambil record restock pertama kali hari ini berdasarkan created_at
+        $first_restock = Production::where('type', 'restock')
+            ->whereDate('created_at', Carbon::today())
+            ->where('product_id', $id)
+            ->orderBy('created_at', 'asc')
+            ->first();
+        $differenceQuantity_addProduct = 0;
+        if ($first_restock) {
+            // Menghitung jumlah produksi berdasarkan created_at setelah restock pertama kali
+            $differenceQuantity = Production::where('created_at', '>', $first_restock->created_at)
+                ->where('product_id', $id)
+                ->selectRaw('SUM(CASE WHEN type = "tambah" THEN quantity ELSE 0 END) as total_add')
+                ->selectRaw('SUM(CASE WHEN type = "kurang" THEN quantity ELSE 0 END) as total_subtract')
+                ->first();
+            $differenceQuantity_addProduct = $differenceQuantity->total_add - $differenceQuantity->total_subtract;
+        }
+        // Menghitung total difference
+        $total_difference = $total_addProduct_today - abs($differenceQuantity_addProduct);
+
         return view('admin.production_detail', [
             "active_3" => "text-yellow-500",
             "productDetail" => $productDetail,
+            "total_addProduct_today" => $total_addProduct_today,
+            "total_quantity_today" => abs($total_quantity_today),
+            "total_difference" => $total_difference,
         ]);
     }
 
@@ -188,7 +224,7 @@ class ProductController extends Controller
             'date' => now(),
             'product_id' => $product->id,
             'quantity' => $validatedData['stock'],
-            'type' => 'tambah'
+            'type' => 'restock'
         ]);
 
         return redirect()->route('owner.admin_products.detail', $product)->with('addStock_success', "Stok berhasil berhasil ditambahkan!");

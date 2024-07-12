@@ -74,7 +74,7 @@
                                 class="h-full w-full object-contain rounded-lg" alt="product Image">
                         @endif
                         <div
-                            class="absolute top-0 right-0 m-4 text-base text-red-600 rounded-full font-bold bg-gray-900 p-4">
+                            class="absolute top-0 right-0 m-4 text-base text-red-600 rounded-lg font-bold bg-gray-900 p-4">
                             {{ $productDetail->discount }}%</div>
                     </div>
                     <div class="flex flex-col justify-between">
@@ -83,8 +83,13 @@
                                 {{ $productDetail->name }}</h4>
                             <h5 class="mb-1 text-base font-normal text-gray-900">
                                 {{ $productDetail->description }}</h5>
-                            <h5 class="mb-1 text-base font-normal text-gray-900">Rp.
-                                {{ number_format($productDetail->price, 0, ',', '.') }}</h5>
+                            @if ($productDetail->discount != 0)
+                                <h5 class="mb-1 text-base font-medium text-red-600">Rp.
+                                    {{ number_format($productDetail->countDiscount(), 0, ',', '.') }}</h5>
+                            @else
+                                <h5 class="mb-1 text-base font-normal text-gray-900">Rp.
+                                    {{ number_format($productDetail->price, 0, ',', '.') }}</h5>
+                            @endif
                             <h5 class="mb-1 text-base font-normal text-gray-900">
                                 {{ $productDetail->weight }} gram</h5>
                             <h5 class="mb-5 text-base font-normal text-gray-900">
@@ -153,9 +158,36 @@
                 </div>
 
                 <div class="h-full">
-                    <span
-                        class="mt-8 p-2 w-full flex justify-center items-center font-bold text-gray-700 bg-gray-200 text-base text-center">Riwayat
-                        Stok</span>
+                    <div
+                        class="mt-8 p-6 lg:p-2 w-full flex flex-col lg:flex-row justify-between items-center font-bold text-gray-700 bg-gray-200 text-base text-center">
+                        <span class="mb-2 lg:m-2">Riwayat
+                            Stok</span>
+                        <div class="flex flex-col lg:flex-row lg:space-x-2 justify-center items-center">
+                            <span
+                                class="mt-2 lg:mt-0 flex flex-row justify-center items-center bg-green-300 text-green-900 text-sm text-center font-medium px-3 py-2 rounded-full">
+                                <span class="w-2 h-2 me-2 bg-green-500 rounded-full"></span>
+                                Stok ditambah hari ini: + {{ $total_addProduct_today }}
+                            </span>
+                            @if ($total_difference > 0)
+                                <span
+                                    class="mt-2 lg:mt-0 flex flex-row justify-center items-center bg-green-300 text-green-900 text-sm text-center font-medium px-3 py-2 rounded-full">
+                                    <span class="w-2 h-2 me-2 bg-green-500 rounded-full"></span>
+                                    Sisa stok hari ini: {{ $total_difference }}
+                                </span>
+                            @else
+                                <span
+                                    class="mt-2 lg:mt-0 flex flex-row justify-center items-center bg-red-300 text-red-900 text-sm text-center font-medium px-3 py-2 rounded-full">
+                                    <span class="w-2 h-2 me-2 bg-red-500 rounded-full"></span>
+                                    Sisa stok hari ini: {{ $total_difference }}
+                                </span>
+                            @endif
+                            <span
+                                class="mt-2 lg:mt-0 flex flex-row justify-center items-center bg-green-300 text-green-900 text-sm text-center font-medium px-3 py-2 rounded-full">
+                                <span class="w-2 h-2 me-2 bg-green-500 rounded-full"></span>
+                                Produk terjual hari ini: {{ $total_quantity_today }}
+                            </span>
+                        </div>
+                    </div>
                     <table class="w-full text-sm text-left rtl:text-right text-gray-500">
                         <thead class="text-xs text-gray-700 uppercase bg-gray-50">
                             <th scope="col" class="w-2/4 px-6 py-3 text-center">
@@ -184,9 +216,13 @@
                                             <td class="px-6 py-4 text-green-400 font-medium">
                                                 + {{ $stock_history->quantity }}
                                             </td>
-                                        @else
-                                            <td class="px-6 py-4 text-red-700 font-medium">
+                                        @elseif ($stock_history->type == 'kurang')
+                                            <td class="px-6 py-4 text-red-600 font-medium">
                                                 - {{ $stock_history->quantity }}
+                                            </td>
+                                        @elseif ($stock_history->type == 'restock')
+                                            <td class="px-6 py-4 text-yellow-500 font-medium">
+                                                + {{ $stock_history->quantity }}
                                             </td>
                                         @endif
                                     </tr>

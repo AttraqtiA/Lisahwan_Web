@@ -33,6 +33,9 @@ class DatabaseSeeder extends Seeder
             AddressSeeder::class,
             OrderSeeder::class,
             OrderDetailSeeder::class,
+            CouponSeeder::class,
+            UserCouponSeeder::class,
+            PointSeeder::class,
 
             // ProductionSeeder::class,
         ]);
