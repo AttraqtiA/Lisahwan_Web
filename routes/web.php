@@ -1,13 +1,16 @@
 <?php
 
+use Carbon\Carbon;
 use App\Models\Cart;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\PointController;
+use App\Http\Controllers\CouponController;
 use App\Http\Controllers\GalleryController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\Owner\UserController;
 use App\Http\Controllers\Admin\OrderController as AdminOrderController;
-use App\Http\Controllers\CouponController;
+use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Member\CartController as MemberCartController;
 use App\Http\Controllers\Owner\OrderController as OwnerOrderController;
 use App\Http\Controllers\Member\OrderController as MemberOrderController;
@@ -15,7 +18,6 @@ use App\Http\Controllers\Owner\ProductController as OwnerProductController;
 use App\Http\Controllers\Member\ProductController as MemberProductController;
 use App\Http\Controllers\Member\WishlistController as MemberWishlistController;
 use App\Http\Controllers\Member\TestimonyController as MemberTestimonyController;
-use App\Http\Controllers\PointController;
 
 /*
 |--------------------------------------------------------------------------
@@ -28,6 +30,7 @@ use App\Http\Controllers\PointController;
 |
 */
 
+Route::get('/clear-session', [LoginController::class, 'clearSession'])->name('clear.session');
 // Route::get('/foo', function () {
 //   Artisan::call('storage:link');
 // });
@@ -36,17 +39,35 @@ Route::get('/', [ProductController::class, 'home']); // HOME PAGE (CHECKED)
 Route::get('/products', [ProductController::class, 'index'])->name('products'); // PRODUCTS PAGE (CHECKED)
 Route::get('/gallery', [GalleryController::class, 'index']); // GALLERY PAGE (CHECKED)
 Route::get('/contactus', function () {
-    $cart_user = Cart::where('user_id', Auth::user()->id)->first();
-    if (empty($cart_user)) {
-        $carts = null;
+    if (Auth::check()) {
+        // Query untuk mendapatkan cart_user yang lebih dari 7 hari
+        $cart_user = Cart::where('user_id', Auth::user()->id)
+            ->where('created_at', '<', Carbon::now()->subDays(7))
+            ->first();
+        // Jika cart_user ditemukan dan sudah lebih dari 7 hari, hapus
+        if (!empty($cart_user)) {
+            $cart_user->delete();
+            $carts = null;
+        } else {
+            // Jika tidak ditemukan cart_user yang lebih dari 7 hari, cari cart_user biasa
+            $cart_user = Cart::where('user_id', Auth::user()->id)->first();
+            if (empty($cart_user)) {
+                $carts = null;
+            } else {
+                $carts = $cart_user->cart_detail;
+            }
+        }
+        $data = [
+            "TabTitle" => "Kontak Lisahwan",
+            "active_4" => "text-yellow-500 rounded md:bg-transparent md:p-0",
+            "carts" => $carts
+        ];
     } else {
-        $carts = $cart_user->cart_detail;
+        $data = [
+            "TabTitle" => "Kontak Lisahwan",
+            "active_4" => "text-yellow-500 rounded md:bg-transparent md:p-0",
+        ];
     }
-    $data = [
-        "TabTitle" => "Kontak Lisahwan",
-        "active_4" => "text-yellow-500 rounded md:bg-transparent md:p-0",
-        "carts" => $carts
-    ];
     return view('contact', $data);
 }); // CONTACT PAGE (CHECKED)
 //=====================================================================================================

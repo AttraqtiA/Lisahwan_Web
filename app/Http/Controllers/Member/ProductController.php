@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Member;
 
-use App\Http\Controllers\Controller;
+use Carbon\Carbon;
 use App\Models\Cart;
 use App\Models\User;
 use App\Models\Product;
@@ -10,6 +10,7 @@ use App\Models\Testimony;
 use App\Models\OrderDetail;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 
 class ProductController extends Controller
@@ -60,12 +61,25 @@ class ProductController extends Controller
                 ->take(4)
                 ->get();
             $total_product = Product::count();
-            $cart_user = Cart::where('user_id', Auth::user()->id)->first();
-            if (empty($cart_user)) {
+
+            // Query untuk mendapatkan cart_user yang lebih dari 7 hari
+            $cart_user = Cart::where('user_id', Auth::user()->id)
+                ->where('created_at', '<', Carbon::now()->subDays(7))
+                ->first();
+            // Jika cart_user ditemukan dan sudah lebih dari 7 hari, hapus
+            if (!empty($cart_user)) {
+                $cart_user->delete();
                 $carts = null;
             } else {
-                $carts = $cart_user->cart_detail;
+                // Jika tidak ditemukan cart_user yang lebih dari 7 hari, cari cart_user biasa
+                $cart_user = Cart::where('user_id', Auth::user()->id)->first();
+                if (empty($cart_user)) {
+                    $carts = null;
+                } else {
+                    $carts = $cart_user->cart_detail;
+                }
             }
+
             return view('customer.orderdetail', [
                 "TabTitle" => $product->name,
                 "active_2" => "text-yellow-500 rounded md:bg-transparent md:p-0",

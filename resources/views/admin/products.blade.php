@@ -8,7 +8,7 @@
             <div
                 class="flex flex-col justify-center items-center w-full {{ session('addProduct_success') || session('updateProduct_success') || session('deleteProduct_success') || $errors->has('name') || $errors->has('price') || $errors->has('stock') || $errors->has('weight') || $errors->has('discount') || $errors->has('description') || $errors->has('name_edit') || $errors->has('price_edit') || $errors->has('stock_edit') || $errors->has('weight_edit') || $errors->has('discount_edit') || $errors->has('description_edit') || $errors->has('image') ? 'mb-10 mt-6' : '' }}">
                 @error('name')
-                    <div class="w-10/12 md:w-9/12 lg:w-6/12 flex justify-center items-center p-4 {{ $errors->has('name') ? 'mb-2' : '' }} text-sm rounded-lg bg-gray-900 text-red-400"
+                    <div data-aos="zoom-in-down" data-aos-anchor-placement="top-bottom" data-aos-duration="800" class="w-10/12 md:w-9/12 lg:w-6/12 flex justify-center items-center p-4 {{ $errors->has('name') ? 'mb-2' : '' }} text-sm rounded-lg bg-gray-900 text-red-400"
                         role="alert">
                         <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
                             fill="currentColor" viewBox="0 0 20 20">
@@ -22,7 +22,7 @@
                     </div>
                 @enderror
                 @error('price')
-                    <div class="w-10/12 md:w-9/12 lg:w-6/12 flex justify-center items-center p-4 {{ $errors->has('price') ? 'mb-2' : '' }} text-sm rounded-lg bg-gray-900 text-red-400"
+                    <div data-aos="zoom-in-down" data-aos-anchor-placement="top-bottom" data-aos-duration="800" class="w-10/12 md:w-9/12 lg:w-6/12 flex justify-center items-center p-4 {{ $errors->has('price') ? 'mb-2' : '' }} text-sm rounded-lg bg-gray-900 text-red-400"
                         role="alert">
                         <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
                             fill="currentColor" viewBox="0 0 20 20">
@@ -36,7 +36,7 @@
                     </div>
                 @enderror
                 @error('stock')
-                    <div class="w-10/12 md:w-9/12 lg:w-6/12 flex justify-center items-center p-4 {{ $errors->has('stock') ? 'mb-2' : '' }} text-sm rounded-lg bg-gray-900 text-red-400"
+                    <div data-aos="zoom-in-down" data-aos-anchor-placement="top-bottom" data-aos-duration="800" class="w-10/12 md:w-9/12 lg:w-6/12 flex justify-center items-center p-4 {{ $errors->has('stock') ? 'mb-2' : '' }} text-sm rounded-lg bg-gray-900 text-red-400"
                         role="alert">
                         <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
                             fill="currentColor" viewBox="0 0 20 20">
@@ -50,7 +50,7 @@
                     </div>
                 @enderror
                 @error('weight')
-                    <div class="w-10/12 md:w-9/12 lg:w-6/12 flex justify-center items-center p-4 {{ $errors->has('weight') ? 'mb-2' : '' }} text-sm rounded-lg bg-gray-900 text-red-400"
+                    <div data-aos="zoom-in-down" data-aos-anchor-placement="top-bottom" data-aos-duration="800" class="w-10/12 md:w-9/12 lg:w-6/12 flex justify-center items-center p-4 {{ $errors->has('weight') ? 'mb-2' : '' }} text-sm rounded-lg bg-gray-900 text-red-400"
                         role="alert">
                         <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
                             fill="currentColor" viewBox="0 0 20 20">
@@ -64,7 +64,7 @@
                     </div>
                 @enderror
                 @error('discount')
-                    <div class="w-10/12 md:w-9/12 lg:w-6/12 flex justify-center items-center p-4 {{ $errors->has('discount') ? 'mb-2' : '' }} text-sm rounded-lg bg-gray-900 text-red-400"
+                    <div data-aos="zoom-in-down" data-aos-anchor-placement="top-bottom" data-aos-duration="800" class="w-10/12 md:w-9/12 lg:w-6/12 flex justify-center items-center p-4 {{ $errors->has('discount') ? 'mb-2' : '' }} text-sm rounded-lg bg-gray-900 text-red-400"
                         role="alert">
                         <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
                             fill="currentColor" viewBox="0 0 20 20">
@@ -78,7 +78,7 @@
                     </div>
                 @enderror
                 @error('description')
-                    <div class="w-10/12 md:w-9/12 lg:w-6/12 flex justify-center items-center p-4 {{ $errors->has('description') ? 'mb-2' : '' }} text-sm rounded-lg bg-gray-900 text-red-400"
+                    <div data-aos="zoom-in-down" data-aos-anchor-placement="top-bottom" data-aos-duration="800" class="w-10/12 md:w-9/12 lg:w-6/12 flex justify-center items-center p-4 {{ $errors->has('description') ? 'mb-2' : '' }} text-sm rounded-lg bg-gray-900 text-red-400"
                         role="alert">
                         <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
                             fill="currentColor" viewBox="0 0 20 20">
@@ -92,7 +92,7 @@
                     </div>
                 @enderror
                 @error('name_edit')
-                    <div class="w-10/12 md:w-9/12 lg:w-6/12 flex justify-center items-center p-4 {{ $errors->has('name_edit') ? 'mb-2' : '' }} text-sm rounded-lg bg-gray-900 text-red-400"
+                    <div data-aos="zoom-in-down" data-aos-anchor-placement="top-bottom" data-aos-duration="800" class="w-10/12 md:w-9/12 lg:w-6/12 flex justify-center items-center p-4 {{ $errors->has('name_edit') ? 'mb-2' : '' }} text-sm rounded-lg bg-gray-900 text-red-400"
                         role="alert">
                         <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
                             fill="currentColor" viewBox="0 0 20 20">
@@ -106,7 +106,7 @@
                     </div>
                 @enderror
                 @error('price_edit')
-                    <div class="w-10/12 md:w-9/12 lg:w-6/12 flex justify-center items-center p-4 {{ $errors->has('price_edit') ? 'mb-2' : '' }} text-sm rounded-lg bg-gray-900 text-red-400"
+                    <div data-aos="zoom-in-down" data-aos-anchor-placement="top-bottom" data-aos-duration="800" class="w-10/12 md:w-9/12 lg:w-6/12 flex justify-center items-center p-4 {{ $errors->has('price_edit') ? 'mb-2' : '' }} text-sm rounded-lg bg-gray-900 text-red-400"
                         role="alert">
                         <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
                             fill="currentColor" viewBox="0 0 20 20">
@@ -120,7 +120,7 @@
                     </div>
                 @enderror
                 @error('stock_edit')
-                    <div class="w-10/12 md:w-9/12 lg:w-6/12 flex justify-center items-center p-4 {{ $errors->has('stock_edit') ? 'mb-2' : '' }} text-sm rounded-lg bg-gray-900 text-red-400"
+                    <div data-aos="zoom-in-down" data-aos-anchor-placement="top-bottom" data-aos-duration="800" class="w-10/12 md:w-9/12 lg:w-6/12 flex justify-center items-center p-4 {{ $errors->has('stock_edit') ? 'mb-2' : '' }} text-sm rounded-lg bg-gray-900 text-red-400"
                         role="alert">
                         <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
                             fill="currentColor" viewBox="0 0 20 20">
@@ -134,7 +134,7 @@
                     </div>
                 @enderror
                 @error('weight_edit')
-                    <div class="w-10/12 md:w-9/12 lg:w-6/12 flex justify-center items-center p-4 {{ $errors->has('weight_edit') ? 'mb-2' : '' }} text-sm rounded-lg bg-gray-900 text-red-400"
+                    <div data-aos="zoom-in-down" data-aos-anchor-placement="top-bottom" data-aos-duration="800" class="w-10/12 md:w-9/12 lg:w-6/12 flex justify-center items-center p-4 {{ $errors->has('weight_edit') ? 'mb-2' : '' }} text-sm rounded-lg bg-gray-900 text-red-400"
                         role="alert">
                         <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
                             fill="currentColor" viewBox="0 0 20 20">
@@ -148,7 +148,7 @@
                     </div>
                 @enderror
                 @error('discount_edit')
-                    <div class="w-10/12 md:w-9/12 lg:w-6/12 flex justify-center items-center p-4 {{ $errors->has('discount_edit') ? 'mb-2' : '' }} text-sm rounded-lg bg-gray-900 text-red-400"
+                    <div data-aos="zoom-in-down" data-aos-anchor-placement="top-bottom" data-aos-duration="800" class="w-10/12 md:w-9/12 lg:w-6/12 flex justify-center items-center p-4 {{ $errors->has('discount_edit') ? 'mb-2' : '' }} text-sm rounded-lg bg-gray-900 text-red-400"
                         role="alert">
                         <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
                             fill="currentColor" viewBox="0 0 20 20">
@@ -162,7 +162,7 @@
                     </div>
                 @enderror
                 @error('description_edit')
-                    <div class="w-10/12 md:w-9/12 lg:w-6/12 flex justify-center items-center p-4 {{ $errors->has('description_edit') ? 'mb-2' : '' }} text-sm rounded-lg bg-gray-900 text-red-400"
+                    <div data-aos="zoom-in-down" data-aos-anchor-placement="top-bottom" data-aos-duration="800" class="w-10/12 md:w-9/12 lg:w-6/12 flex justify-center items-center p-4 {{ $errors->has('description_edit') ? 'mb-2' : '' }} text-sm rounded-lg bg-gray-900 text-red-400"
                         role="alert">
                         <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
                             fill="currentColor" viewBox="0 0 20 20">
@@ -176,7 +176,7 @@
                     </div>
                 @enderror
                 @error('image')
-                    <div class="w-10/12 md:w-9/12 lg:w-6/12 flex justify-center items-center p-4 {{ $errors->has('image') ? 'mb-2' : '' }} text-sm rounded-lg bg-gray-900 text-red-400"
+                    <div data-aos="zoom-in-down" data-aos-anchor-placement="top-bottom" data-aos-duration="800" class="w-10/12 md:w-9/12 lg:w-6/12 flex justify-center items-center p-4 {{ $errors->has('image') ? 'mb-2' : '' }} text-sm rounded-lg bg-gray-900 text-red-400"
                         role="alert">
                         <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
                             fill="currentColor" viewBox="0 0 20 20">
@@ -190,7 +190,7 @@
                     </div>
                 @enderror
                 @if (session('addProduct_success'))
-                    <div class="w-10/12 md:w-9/12 lg:w-6/12 flex justify-center items-center p-4 text-sm rounded-lg bg-gray-900 text-green-400"
+                    <div data-aos="zoom-in-down" data-aos-anchor-placement="top-bottom" data-aos-duration="800" class="w-10/12 md:w-9/12 lg:w-6/12 flex justify-center items-center p-4 text-sm rounded-lg bg-gray-900 text-green-400"
                         role="alert">
                         <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true"
                             xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
@@ -204,7 +204,7 @@
                     </div>
                 @endif
                 @if (session('updateProduct_success'))
-                    <div class="w-10/12 md:w-9/12 lg:w-6/12 flex justify-center items-center p-4 text-sm rounded-lg bg-gray-900 text-green-400"
+                    <div data-aos="zoom-in-down" data-aos-anchor-placement="top-bottom" data-aos-duration="800" class="w-10/12 md:w-9/12 lg:w-6/12 flex justify-center items-center p-4 text-sm rounded-lg bg-gray-900 text-green-400"
                         role="alert">
                         <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true"
                             xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
@@ -218,7 +218,7 @@
                     </div>
                 @endif
                 @if (session('deleteProduct_success'))
-                    <div class="w-10/12 md:w-9/12 lg:w-6/12 flex justify-center items-center p-4 text-sm rounded-lg bg-gray-900 text-green-400"
+                    <div data-aos="zoom-in-down" data-aos-anchor-placement="top-bottom" data-aos-duration="800" class="w-10/12 md:w-9/12 lg:w-6/12 flex justify-center items-center p-4 text-sm rounded-lg bg-gray-900 text-green-400"
                         role="alert">
                         <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true"
                             xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
@@ -232,23 +232,23 @@
                     </div>
                 @endif
             </div>
-            <div class="bg-white relative shadow-md rounded-md sm:rounded-lg overflow-hidden m-2 sm:m-0">
+            <div data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="800" class="bg-white relative shadow-md rounded-md sm:rounded-lg overflow-hidden m-2 sm:m-0">
                 <div
                     class="flex flex-col md:flex-row md:items-center md:justify-between space-y-3 md:space-y-0 md:space-x-4 p-4">
                     <div class="flex-1 flex items-center space-x-2">
-                        <h5>
+                        <h5 data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="800">
                             <span class="text-gray-500">Semua Produk:</span>
                             <span class="text-gray-500">{{ $products->count() }}</span>
                         </h5>
                     </div>
-                    <div class="text-lg font-bold text-gray-800">
+                    <div data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="800" class="text-lg font-bold text-gray-800">
                         Daftar Produk
                     </div>
                 </div>
                 <div
                     class="flex flex-col md:flex-row items-stretch md:items-center md:space-x-3 space-y-3 md:space-y-0 justify-between mx-4 py-4 border-t">
                     <div class="w-full md:w-1/3">
-                        <form class="flex items-center" action="{{ route('owner.admin_products') }}" method="GET">
+                        <form data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="800" class="flex items-center" action="{{ route('owner.admin_products') }}" method="GET">
                             <label for="simple-search" class="sr-only">Search</label>
                             <div class="relative w-full">
                                 <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
@@ -268,7 +268,7 @@
                             </button>
                         </form>
                     </div>
-                    <div class="flex flex-row justify-center mt-2 lg:mt-0">
+                    <div data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="800" class="flex flex-row justify-center mt-2 lg:mt-0">
                         <button type="button" data-modal-target="createProductModal"
                             data-modal-toggle="createProductModal"
                             class="flex flex-row items-center justify-center w-44 cursor-pointer text-yellow-500 bg-gray-900 hover:bg-gray-950 font-medium rounded-lg text-xs md:text-sm px-3 py-2.5 text-center">
@@ -282,9 +282,9 @@
                         </button>
                     </div>
                 </div>
-                <div class="overflow-x-auto">
+                <div class="overflow-x-auto overflow-y-hidden">
                     <table class="w-full text-sm text-center text-gray-500">
-                        <thead class="text-xs text-center text-gray-700 uppercase bg-gray-50">
+                        <thead data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="800" class="text-xs text-center text-gray-700 uppercase bg-gray-50">
                             <tr>
                                 <th scope="col" class="p-4">No.</th>
                                 <th scope="col" class="p-4">Nama</th>
@@ -299,14 +299,14 @@
                         </thead>
                         <tbody>
                             @if ($products->count() == 0)
-                                <tr>
+                                <tr data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="800">
                                     <td colspan="20" class="p-4 text-center">
                                         <p class="text-gray-400">Belum ada product yang terdaftar</p>
                                     </td>
                                 </tr>
                             @else
                                 @foreach ($products as $product)
-                                    <tr class="border-b hover:bg-gray-100">
+                                    <tr data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="800" class="border-b hover:bg-gray-100">
                                         <td class="p-4 w-4">
                                             {{ $loop->index + ($products->currentPage() - 1) * $products->perPage() + 1 }}
                                         </td>
@@ -460,7 +460,7 @@
                                                                 class="block mb-2 text-sm font-medium text-gray-900">Nama
                                                                 Produk</label>
                                                             <input type="text" name="name_edit" id="name_edit"
-                                                                class="{{ $errors->has('name_edit') ? 'bg-red-100 border-red-400 text-red-500 placeholder-red-700' : 'bg-white border-yellow-500 text-gray-900 placeholder-gray-400  focus:ring-yellow-500 focus:border-yellow-500' }} rounded-lg border-1 text-sm mt-3 block w-full p-2.5"
+                                                                class="{{ $errors->has('name_edit') ? 'bg-red-100 border-red-400 text-red-500 placeholder-red-700 focus:ring-red-500 focus:border-red-500' : 'bg-white border-yellow-500 text-gray-900 placeholder-gray-400  focus:ring-yellow-500 focus:border-yellow-500' }} rounded-lg border-1 text-sm mt-3 block w-full p-2.5"
                                                                 value="{{ old('name_edit', $product->name) }}" required>
                                                         </div>
                                                         <div>
@@ -469,7 +469,7 @@
                                                                 (Rp)
                                                             </label>
                                                             <input type="number" name="price_edit" id="price_edit"
-                                                                class="{{ $errors->has('price_edit') ? 'bg-red-100 border-red-400 text-red-500 placeholder-red-700' : 'bg-white border-yellow-500 text-gray-900 placeholder-gray-400  focus:ring-yellow-500 focus:border-yellow-500' }} rounded-lg border-1 text-sm mt-3 block w-full p-2.5"
+                                                                class="{{ $errors->has('price_edit') ? 'bg-red-100 border-red-400 text-red-500 placeholder-red-700 focus:ring-red-500 focus:border-red-500' : 'bg-white border-yellow-500 text-gray-900 placeholder-gray-400  focus:ring-yellow-500 focus:border-yellow-500' }} rounded-lg border-1 text-sm mt-3 block w-full p-2.5"
                                                                 value="{{ old('price_edit', $product->price) }}"
                                                                 min="0" required>
                                                         </div>
@@ -479,7 +479,7 @@
                                                                 (gram)
                                                             </label>
                                                             <input type="number" name="weight_edit" id="weight_edit"
-                                                                class="{{ $errors->has('weight_edit') ? 'bg-red-100 border-red-400 text-red-500 placeholder-red-700' : 'bg-white border-yellow-500 text-gray-900 placeholder-gray-400  focus:ring-yellow-500 focus:border-yellow-500' }} rounded-lg border-1 text-sm mt-3 block w-full p-2.5"
+                                                                class="{{ $errors->has('weight_edit') ? 'bg-red-100 border-red-400 text-red-500 placeholder-red-700 focus:ring-red-500 focus:border-red-500' : 'bg-white border-yellow-500 text-gray-900 placeholder-gray-400  focus:ring-yellow-500 focus:border-yellow-500' }} rounded-lg border-1 text-sm mt-3 block w-full p-2.5"
                                                                 value="{{ old('weight_edit', $product->weight) }}"
                                                                 min="0" required>
                                                         </div>
@@ -488,7 +488,7 @@
                                                                 class="block mb-2 text-sm font-medium text-gray-900">Diskon
                                                                 (%)</label>
                                                             <input type="number" name="discount_edit" id="discount_edit"
-                                                                class="{{ $errors->has('discount_edit') ? 'bg-red-100 border-red-400 text-red-500 placeholder-red-700' : 'bg-white border-yellow-500 text-gray-900 placeholder-gray-400  focus:ring-yellow-500 focus:border-yellow-500' }} rounded-lg border-1 text-sm mt-3 block w-full p-2.5"
+                                                                class="{{ $errors->has('discount_edit') ? 'bg-red-100 border-red-400 text-red-500 placeholder-red-700 focus:ring-red-500 focus:border-red-500' : 'bg-white border-yellow-500 text-gray-900 placeholder-gray-400  focus:ring-yellow-500 focus:border-yellow-500' }} rounded-lg border-1 text-sm mt-3 block w-full p-2.5"
                                                                 value="{{ old('discount_edit', $product->discount) }}"
                                                                 min="0" required>
                                                         </div>
@@ -496,7 +496,7 @@
                                                             <label for="description_edit"
                                                                 class="block mb-2 text-sm font-medium text-gray-900">Deskripsi</label>
                                                             <textarea name="description_edit" id="description_edit" rows="4"
-                                                                class="{{ $errors->has('description_edit') ? 'bg-red-100 border-red-400 text-red-500 placeholder-red-700' : 'bg-white border-yellow-500 text-gray-900 placeholder-gray-400  focus:ring-yellow-500 focus:border-yellow-500' }} rounded-lg border-1 text-sm mt-3 block w-full p-2.5"required>{{ old('description_edit', $product->description) }}</textarea>
+                                                                class="{{ $errors->has('description_edit') ? 'bg-red-100 border-red-400 text-red-500 placeholder-red-700 focus:ring-red-500 focus:border-red-500' : 'bg-white border-yellow-500 text-gray-900 placeholder-gray-400  focus:ring-yellow-500 focus:border-yellow-500' }} rounded-lg border-1 text-sm mt-3 block w-full p-2.5"required>{{ old('description_edit', $product->description) }}</textarea>
                                                         </div>
                                                         <p
                                                             class="mb-4 text-red-700 text-xs text-center md:text-start sm:col-span-2">
@@ -554,7 +554,7 @@
                                                                 class="block mb-2 text-sm font-medium text-gray-900">Nama
                                                                 Produk</label>
                                                             <input type="text" name="name" id="name"
-                                                                class="{{ $errors->has('name') ? 'bg-red-100 border-red-400 text-red-500 placeholder-red-700' : 'bg-white border-yellow-500 text-gray-900 placeholder-gray-400  focus:ring-yellow-500 focus:border-yellow-500' }} rounded-lg border-1 text-sm mt-3 block w-full p-2.5"
+                                                                class="{{ $errors->has('name') ? 'bg-red-100 border-red-400 text-red-500 placeholder-red-700 focus:ring-red-500 focus:border-red-500' : 'bg-white border-yellow-500 text-gray-900 placeholder-gray-400  focus:ring-yellow-500 focus:border-yellow-500' }} rounded-lg border-1 text-sm mt-3 block w-full p-2.5"
                                                                 placeholder="(Contoh: Teri Oven)"
                                                                 value="{{ old('name') }}" required>
                                                         </div>
@@ -564,7 +564,7 @@
                                                                 class="block mb-2 text-sm font-medium text-gray-900">Harga
                                                                 (Rp)</label>
                                                             <input type="number" name="price" id="price"
-                                                                class="{{ $errors->has('price') ? 'bg-red-100 border-red-400 text-red-500 placeholder-red-700' : 'bg-white border-yellow-500 text-gray-900 placeholder-gray-400  focus:ring-yellow-500 focus:border-yellow-500' }} rounded-lg border-1 text-sm mt-3 block w-full p-2.5"
+                                                                class="{{ $errors->has('price') ? 'bg-red-100 border-red-400 text-red-500 placeholder-red-700 focus:ring-red-500 focus:border-red-500' : 'bg-white border-yellow-500 text-gray-900 placeholder-gray-400  focus:ring-yellow-500 focus:border-yellow-500' }} rounded-lg border-1 text-sm mt-3 block w-full p-2.5"
                                                                 placeholder="(Contoh: 42000)" value="{{ old('price') }}"
                                                                 min="0" required>
                                                         </div>
@@ -575,7 +575,7 @@
                                                                     class="block mb-2 text-sm font-medium text-gray-900">Berat
                                                                     (gram)</label>
                                                                 <input type="number" name="weight" id="weight"
-                                                                    class="{{ $errors->has('weight') ? 'bg-red-100 border-red-400 text-red-500 placeholder-red-700' : 'bg-white border-yellow-500 text-gray-900 placeholder-gray-400  focus:ring-yellow-500 focus:border-yellow-500' }} rounded-lg border-1 text-sm mt-3 block w-full p-2.5"
+                                                                    class="{{ $errors->has('weight') ? 'bg-red-100 border-red-400 text-red-500 placeholder-red-700 focus:ring-red-500 focus:border-red-500' : 'bg-white border-yellow-500 text-gray-900 placeholder-gray-400  focus:ring-yellow-500 focus:border-yellow-500' }} rounded-lg border-1 text-sm mt-3 block w-full p-2.5"
                                                                     placeholder="(Contoh: 150)"
                                                                     value="{{ old('weight') }}" min="0" required>
                                                             </div>
@@ -583,7 +583,7 @@
                                                                 <label for="stock"
                                                                     class="block mb-2 text-sm font-medium text-gray-900">Stok</label>
                                                                 <input type="number" name="stock" id="stock"
-                                                                    class="{{ $errors->has('stock') ? 'bg-red-100 border-red-400 text-red-500 placeholder-red-700' : 'bg-white border-yellow-500 text-gray-900 placeholder-gray-400  focus:ring-yellow-500 focus:border-yellow-500' }} rounded-lg border-1 text-sm mt-3 block w-full p-2.5"
+                                                                    class="{{ $errors->has('stock') ? 'bg-red-100 border-red-400 text-red-500 placeholder-red-700 focus:ring-red-500 focus:border-red-500' : 'bg-white border-yellow-500 text-gray-900 placeholder-gray-400  focus:ring-yellow-500 focus:border-yellow-500' }} rounded-lg border-1 text-sm mt-3 block w-full p-2.5"
                                                                     placeholder="(Contoh: 100)"
                                                                     value="{{ old('stock') }}" min="0" required>
                                                             </div>
@@ -592,7 +592,7 @@
                                                                     class="block mb-2 text-sm font-medium text-gray-900">Diskon
                                                                     (%)</label>
                                                                 <input type="number" name="discount" id="discount"
-                                                                    class="{{ $errors->has('discount') ? 'bg-red-100 border-red-400 text-red-500 placeholder-red-700' : 'bg-white border-yellow-500 text-gray-900 placeholder-gray-400  focus:ring-yellow-500 focus:border-yellow-500' }} rounded-lg border-1 text-sm mt-3 block w-full p-2.5"
+                                                                    class="{{ $errors->has('discount') ? 'bg-red-100 border-red-400 text-red-500 placeholder-red-700 focus:ring-red-500 focus:border-red-500' : 'bg-white border-yellow-500 text-gray-900 placeholder-gray-400  focus:ring-yellow-500 focus:border-yellow-500' }} rounded-lg border-1 text-sm mt-3 block w-full p-2.5"
                                                                     placeholder="(Contoh: 10)"
                                                                     value="{{ old('discount') }}" min="0"
                                                                     required>
@@ -603,7 +603,7 @@
                                                             <label for="description"
                                                                 class="block mb-2 text-sm font-medium text-gray-900">Deskripsi</label>
                                                             <textarea name="description" id="description" rows="4"
-                                                                class="{{ $errors->has('description') ? 'bg-red-100 border-red-400 text-red-500 placeholder-red-700' : 'bg-white border-yellow-500 text-gray-900 placeholder-gray-400  focus:ring-yellow-500 focus:border-yellow-500' }} rounded-lg border-1 text-sm mt-3 block w-full p-2.5"
+                                                                class="{{ $errors->has('description') ? 'bg-red-100 border-red-400 text-red-500 placeholder-red-700 focus:ring-red-500 focus:border-red-500' : 'bg-white border-yellow-500 text-gray-900 placeholder-gray-400  focus:ring-yellow-500 focus:border-yellow-500' }} rounded-lg border-1 text-sm mt-3 block w-full p-2.5"
                                                                 placeholder="Tuliskan deskripsi produk" required>{{ old('description') }}</textarea>
                                                         </div>
                                                     </div>
@@ -705,11 +705,9 @@
                         </tbody>
                     </table>
                 </div>
-                <nav class="flex flex-col md:flex-row justify-end items-center space-y-3 md:space-y-0 p-4"
+                <nav data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="800" class="flex flex-col md:flex-row justify-end items-center space-y-3 md:space-y-0 p-4"
                     aria-label="Table navigation">
-
                     {{ $products->links('vendor.pagination.tailwind') }}
-
                 </nav>
             </div>
         </div>

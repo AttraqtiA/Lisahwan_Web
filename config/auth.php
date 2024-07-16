@@ -35,10 +35,11 @@ return [
     |
     */
 
-    'guards' => [
+   'guards' => [
         'web' => [
             'driver' => 'session',
             'provider' => 'users',
+            'remember' => 10080 // Set remember me duration here (minutes)
         ],
     ],
 

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
 use App\Models\Cart;
 use App\Models\Gallery;
 use Illuminate\Support\Facades\Auth;
@@ -15,20 +16,42 @@ class GalleryController extends Controller
      */
     public function index()
     {
-        $cart_user= Cart::where('user_id', Auth::user()->id)->first();
-        if (empty($cart_user)) {
-            $carts = null;
-        } else {
-            $carts = $cart_user->cart_detail;
+        if (Auth::check()) {
+            // Query untuk mendapatkan cart_user yang lebih dari 7 hari
+            $cart_user = Cart::where('user_id', Auth::user()->id)
+                ->where('created_at', '<', Carbon::now()->subDays(7))
+                ->first();
+            // Jika cart_user ditemukan dan sudah lebih dari 7 hari, hapus
+            if (!empty($cart_user)) {
+                $cart_user->delete();
+                $carts = null;
+            } else {
+                // Jika tidak ditemukan cart_user yang lebih dari 7 hari, cari cart_user biasa
+                $cart_user = Cart::where('user_id', Auth::user()->id)->first();
+                if (empty($cart_user)) {
+                    $carts = null;
+                } else {
+                    $carts = $cart_user->cart_detail;
+                }
+            }
+            return view('gallery_page', [
+                "TabTitle" => "Galeri Lisahwan",
+                "active_3" => "text-yellow-500 rounded md:bg-transparent md:p-0",
+                "pageTitle" => '<mark class="px-2 text-yellow-500 bg-gray-900 rounded dark:bg-gray-900">Galeri</mark> Lisahwan',
+                'pageDescription' => 'Kisah Rasa <span class="underline underline-offset-2 decoration-4 decoration-yellow-500">Autentik, Lokal, Homemade,</span> dan <span class="underline underline-offset-2 decoration-4 decoration-yellow-500">Premium</span>',
+                "galleries" => Gallery::all(),
+                "carts" => $carts
+            ]);
         }
-        return view('gallery_page', [
-            "TabTitle" => "Galeri Lisahwan",
-            "active_3" => "text-yellow-500 rounded md:bg-transparent md:p-0",
-            "pageTitle" => '<mark class="px-2 text-yellow-500 bg-gray-900 rounded dark:bg-gray-900">Galeri</mark> Lisahwan',
-            'pageDescription' => 'Kisah Rasa <span class="underline underline-offset-2 decoration-4 decoration-yellow-500">Autentik, Lokal, Homemade,</span> dan <span class="underline underline-offset-2 decoration-4 decoration-yellow-500">Premium</span>',
-            "galleries" => Gallery::all(),
-            "carts" => $carts
-        ]);
+        else {
+            return view('gallery_page', [
+                "TabTitle" => "Galeri Lisahwan",
+                "active_3" => "text-yellow-500 rounded md:bg-transparent md:p-0",
+                "pageTitle" => '<mark class="px-2 text-yellow-500 bg-gray-900 rounded dark:bg-gray-900">Galeri</mark> Lisahwan',
+                'pageDescription' => 'Kisah Rasa <span class="underline underline-offset-2 decoration-4 decoration-yellow-500">Autentik, Lokal, Homemade,</span> dan <span class="underline underline-offset-2 decoration-4 decoration-yellow-500">Premium</span>',
+                "galleries" => Gallery::all()
+            ]);
+        }
     }
 
     /**

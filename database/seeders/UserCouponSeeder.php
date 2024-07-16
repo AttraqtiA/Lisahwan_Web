@@ -14,10 +14,10 @@ class UserCouponSeeder extends Seeder
      */
     public function run(): void
     {
-        UserCoupon::create([
-            'user_id' => 3,
-            'coupon_id' => 1,
-            'quantity' => 5
-        ]);
+        // UserCoupon::create([
+        //     'user_id' => 3,
+        //     'coupon_id' => 1,
+        //     'quantity' => 5
+        // ]);
     }
 }

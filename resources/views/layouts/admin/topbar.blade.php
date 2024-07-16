@@ -71,15 +71,15 @@
                                     </svg>
                                 @else
                                     @if (Auth::user()->isAdmin() || Auth::user()->isOwner())
-                                        <img class="w-10 h-10 rounded-full object-cover"
+                                        <img class="w-16 sm:w-10 h-10 rounded-full object-cover"
                                             src="{{ asset('images/' . Auth::user()->profile_picture) }}" alt="user photo">
                                     @else
                                         @if (strlen(Auth::user()->profile_picture) > 25)
-                                            <img class="w-10 h-10 rounded-full object-cover"
+                                            <img class="w-16 sm:w-10 h-10 rounded-full object-cover"
                                                 src="{{ asset('storage/' . Auth::user()->profile_picture) }}"
                                                 alt="user photo">
                                         @else
-                                            <img class="w-10 h-10 rounded-full object-cover"
+                                            <img class="w-16 sm:w-10 h-10 rounded-full object-cover"
                                                 src="/images/{{ Auth::user()->profile_picture }}" alt="user photo">
                                         @endif
                                     @endif

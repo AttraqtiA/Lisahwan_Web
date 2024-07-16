@@ -3,7 +3,7 @@
 @section('content_page')
     <div class="flex flex-col items-center">
         @if (session('deleteCart_success'))
-            <div class="w-10/12 md:w-9/12 lg:w-6/12 flex justify-center items-center p-4 mt-8 text-sm rounded-lg bg-gray-900 text-green-400"
+            <div data-aos="zoom-in-down" data-aos-anchor-placement="top-bottom" data-aos-duration="800" class="w-10/12 md:w-9/12 lg:w-6/12 flex justify-center items-center p-4 mt-8 text-sm rounded-lg bg-gray-900 text-green-400"
                 role="alert">
                 <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
                     fill="currentColor" viewBox="0 0 20 20">
@@ -17,7 +17,7 @@
             </div>
         @endif
         @if (session('correctCoupon_success'))
-            <div class="w-10/12 md:w-9/12 lg:w-6/12 flex justify-center items-center p-4 mt-8 text-sm rounded-lg bg-gray-900 text-green-400"
+            <div data-aos="zoom-in-down" data-aos-anchor-placement="top-bottom" data-aos-duration="800" class="w-10/12 md:w-9/12 lg:w-6/12 flex justify-center items-center p-4 mt-8 text-sm rounded-lg bg-gray-900 text-green-400"
                 role="alert">
                 <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
                     fill="currentColor" viewBox="0 0 20 20">
@@ -31,7 +31,7 @@
             </div>
         @endif
         @if (session('useCoupon_success'))
-            <div class="w-10/12 md:w-9/12 lg:w-6/12 flex justify-center items-center p-4 mt-8 text-sm rounded-lg bg-gray-900 text-green-400"
+            <div data-aos="zoom-in-down" data-aos-anchor-placement="top-bottom" data-aos-duration="800" class="w-10/12 md:w-9/12 lg:w-6/12 flex justify-center items-center p-4 mt-8 text-sm rounded-lg bg-gray-900 text-green-400"
                 role="alert">
                 <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
                     fill="currentColor" viewBox="0 0 20 20">
@@ -45,7 +45,7 @@
             </div>
         @endif
         @if (session('activatePoint_success'))
-            <div class="w-10/12 md:w-9/12 lg:w-6/12 flex justify-center items-center p-4 mt-8 text-sm rounded-lg bg-gray-900 text-green-400"
+            <div data-aos="zoom-in-down" data-aos-anchor-placement="top-bottom" data-aos-duration="800" class="w-10/12 md:w-9/12 lg:w-6/12 flex justify-center items-center p-4 mt-8 text-sm rounded-lg bg-gray-900 text-green-400"
                 role="alert">
                 <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
                     fill="currentColor" viewBox="0 0 20 20">
@@ -59,7 +59,7 @@
             </div>
         @endif
         @error('incorrectCoupon_error')
-            <div class="w-10/12 md:w-9/12 lg:w-6/12 flex justify-center items-center p-4 {{ $errors->has('incorrectCoupon_error') ? 'mt-8' : '' }} text-sm rounded-lg bg-gray-900 text-red-400"
+            <div data-aos="zoom-in-down" data-aos-anchor-placement="top-bottom" data-aos-duration="800" class="w-10/12 md:w-9/12 lg:w-6/12 flex justify-center items-center p-4 {{ $errors->has('incorrectCoupon_error') ? 'mt-8' : '' }} text-sm rounded-lg bg-gray-900 text-red-400"
                 role="alert">
                 <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
                     fill="currentColor" viewBox="0 0 20 20">
@@ -73,7 +73,7 @@
             </div>
         @enderror
         @error('alreadyAddCoupon_error')
-            <div class="w-10/12 md:w-9/12 lg:w-6/12 flex justify-center items-center p-4 {{ $errors->has('alreadyAddCoupon_error') ? 'mt-8' : '' }} text-sm rounded-lg bg-gray-900 text-red-400"
+            <div data-aos="zoom-in-down" data-aos-anchor-placement="top-bottom" data-aos-duration="800" class="w-10/12 md:w-9/12 lg:w-6/12 flex justify-center items-center p-4 {{ $errors->has('alreadyAddCoupon_error') ? 'mt-8' : '' }} text-sm rounded-lg bg-gray-900 text-red-400"
                 role="alert">
                 <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
                     fill="currentColor" viewBox="0 0 20 20">
@@ -87,7 +87,7 @@
             </div>
         @enderror
         @error('couponExpired_error')
-            <div class="w-10/12 md:w-9/12 lg:w-6/12 flex justify-center items-center p-4 {{ $errors->has('couponExpired_error') ? 'mt-8' : '' }} text-sm rounded-lg bg-gray-900 text-red-400"
+            <div data-aos="zoom-in-down" data-aos-anchor-placement="top-bottom" data-aos-duration="800" class="w-10/12 md:w-9/12 lg:w-6/12 flex justify-center items-center p-4 {{ $errors->has('couponExpired_error') ? 'mt-8' : '' }} text-sm rounded-lg bg-gray-900 text-red-400"
                 role="alert">
                 <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
                     fill="currentColor" viewBox="0 0 20 20">
@@ -102,21 +102,21 @@
         @enderror
         <div class="flex flex-col gap-y-8 lg:gap-y-8 p-8 sm:p-12 mx-auto w-full">
             <div class="flex flex-col lg:flex-row w-full col-span-2 lg:gap-x-6">
-                <div class="flex flex-col mx-auto w-full sm: mb-8 lg: mb-0">
+                <div class="flex flex-col mx-auto w-full mb-8 lg:mb-0">
                     @error('payment_upload')
-                        <p class="mb-2 w-full text-center text-base text-red-500"><span class="font-medium">{{ $message }}
+                        <p data-aos="zoom-in-down" data-aos-anchor-placement="top-bottom" data-aos-duration="800" class="mb-2 w-full text-center text-base text-red-500"><span class="font-medium">{{ $message }}
                         </p>
                     @enderror
-                    <h1 class="mb-5 text-xl sm:text-2xl lg:text-3xl font-bold text-gray-900">Detail Pengiriman</h1>
+                    <h1 data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="800" class="mb-5 text-xl sm:text-2xl lg:text-3xl font-bold text-gray-900">Detail Pengiriman</h1>
                     <form action="{{ route('member.checkout.store') }}" method="POST" enctype="multipart/form-data">
                         @csrf
                         <input type="hidden" value="{{ $total_poin }}" name="total_poin">
                         <input type="hidden" value="{{ $reward_now }}" name="reward_now">
-                        <div class="grid gap-4 sm:grid-cols-2 sm:gap-6">
+                        <div data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="800" class="grid gap-4 sm:grid-cols-2 sm:gap-6">
                             <div class="sm:col-span-2">
                                 <label for="address" class="block mb-2 text-sm font-semibold text-gray-900">Alamat</label>
                                 <select id="address_id" name="address_id"
-                                    class="bg-white border-yellow-500 text-gray-900 placeholder-gray-400 focus:ring-yellow-500 focus:border-yellow-500 rounded-lg border-1 text-sm mt-3 block w-full p-2.5">
+                                    class="{{ $errors->has('address_id') ? 'bg-red-100 border-red-400 text-red-500 placeholder-red-700 focus:ring-red-500 focus:border-red-500' : 'bg-white border-yellow-500 text-gray-900 placeholder-gray-400  focus:ring-yellow-500 focus:border-yellow-500' }} rounded-lg border-1 text-sm block w-full p-2.5 mt-3">
                                     <option value="0" data-city="" data-province="" data-postal_code="">Tambah alamat
                                         lain</option>
                                     @foreach ($addresses as $address)
@@ -131,54 +131,54 @@
                                 <div id="new_address_container" style="display: none;">
                                     <input type="text" name="address" id="address"
                                         value="{{ old('address', session('checkout.address')) }}"
-                                        class="bg-white border-yellow-500 text-gray-900 placeholder-gray-400 focus:ring-yellow-500 focus:border-yellow-500 rounded-lg border-1 text-sm mt-3 block w-full p-2.5"
+                                        class="{{ $errors->has('address') ? 'bg-red-100 border-red-400 text-red-500 placeholder-red-700 focus:ring-red-500 focus:border-red-500' : 'bg-white border-yellow-500 text-gray-900 placeholder-gray-400  focus:ring-yellow-500 focus:border-yellow-500' }} rounded-lg border-1 text-sm block w-full p-2.5 mt-3"
                                         placeholder="(Contoh: Jln. Indonesia Raya No. 17, RT 08 RW 08)">
                                     @error('address')
-                                        <p class="mt-2 text-sm text-red-500"><span class="font-medium">{{ $message }}
+                                        <p data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="800" class="mt-2 text-sm text-red-500"><span class="font-medium">{{ $message }}
                                         </p>
                                     @enderror
                                 </div>
                             </div>
                             <div class="w-full">
-                                <label for="city" class="block mb-2 text-sm font-semibold text-gray-900">Kota</label>
-                                <input type="text" name="city" id="city"
+                                <label data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="800" for="city" class="block mb-2 text-sm font-semibold text-gray-900">Kota</label>
+                                <input data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="800" type="text" name="city" id="city"
                                     value="{{ old('city', session('checkout.city')) }}"
-                                    class="bg-white border-yellow-500 text-gray-900 placeholder-gray-400 focus:ring-yellow-500 focus:border-yellow-500 rounded-lg border-1 text-sm mt-3 block w-full p-2.5"
+                                    class="{{ $errors->has('city') ? 'bg-red-100 border-red-400 text-red-500 placeholder-red-700 focus:ring-red-500 focus:border-red-500' : 'bg-white border-yellow-500 text-gray-900 placeholder-gray-400  focus:ring-yellow-500 focus:border-yellow-500' }} rounded-lg border-1 text-sm block w-full p-2.5 mt-3"
                                     placeholder="(Contoh: Surabaya)">
                                 @error('city')
-                                    <p class="mt-2 text-sm text-red-500"><span class="font-medium">{{ $message }}</p>
+                                    <p data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="800" class="mt-2 text-sm text-red-500"><span class="font-medium">{{ $message }}</p>
                                 @enderror
                             </div>
                             <div class="w-full">
-                                <label for="province"
+                                <label data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="800" for="province"
                                     class="block mb-2 text-sm font-semibold text-gray-900">Provinsi</label>
-                                <input type="text" name="province" id="province"
+                                <input data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="800" type="text" name="province" id="province"
                                     value="{{ old('province', session('checkout.province')) }}"
-                                    class="bg-white border-yellow-500 text-gray-900 placeholder-gray-400 focus:ring-yellow-500 focus:border-yellow-500 rounded-lg border-1 text-sm mt-3 block w-full p-2.5"
+                                    class="{{ $errors->has('province') ? 'bg-red-100 border-red-400 text-red-500 placeholder-red-700 focus:ring-red-500 focus:border-red-500' : 'bg-white border-yellow-500 text-gray-900 placeholder-gray-400  focus:ring-yellow-500 focus:border-yellow-500' }} rounded-lg border-1 text-sm block w-full p-2.5 mt-3"
                                     placeholder="(Contoh: Jawa Timur)">
                                 @error('province')
-                                    <p class="mt-2 text-sm text-red-500"><span class="font-medium">{{ $message }}</p>
+                                    <p data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="800" class="mt-2 text-sm text-red-500"><span class="font-medium">{{ $message }}</p>
                                 @enderror
                             </div>
                             <div>
-                                <label for="postal_code" class="block mb-2 text-sm font-semibold text-gray-900">Kode
+                                <label data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="800" for="postal_code" class="block mb-2 text-sm font-semibold text-gray-900">Kode
                                     Pos</label>
-                                <input type="text" name="postal_code" id="postal_code"
+                                <input data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="800" type="text" name="postal_code" id="postal_code"
                                     value="{{ old('postal_code', session('checkout.postal_code')) }}"
-                                    class="bg-white border-yellow-500 text-gray-900 placeholder-gray-400 focus:ring-yellow-500 focus:border-yellow-500 rounded-lg border-1 text-sm mt-3 block w-full p-2.5"
+                                    class="{{ $errors->has('postal_code') ? 'bg-red-100 border-red-400 text-red-500 placeholder-red-700 focus:ring-red-500 focus:border-red-500' : 'bg-white border-yellow-500 text-gray-900 placeholder-gray-400  focus:ring-yellow-500 focus:border-yellow-500' }} rounded-lg border-1 text-sm block w-full p-2.5 mt-3"
                                     placeholder="(Contoh: 60237)">
                                 @error('postal_code')
-                                    <p class="mt-2 text-sm text-red-500"><span class="font-medium">{{ $message }}</p>
+                                    <p data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="800" class="mt-2 text-sm text-red-500"><span class="font-medium">{{ $message }}</p>
                                 @enderror
                             </div>
                             <div>
-                                <label for="note"
+                                <label data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="800" for="note"
                                     class="block mb-2 text-sm font-semibold text-gray-900">Catatan</label>
-                                <textarea id="note" name="note" rows="4"
-                                    class="bg-white border-yellow-500 text-gray-900 placeholder-gray-400 focus:ring-yellow-500 focus:border-yellow-500 rounded-lg border-1 text-sm mt-3 block w-full p-2.5"
+                                <textarea data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="800" id="note" name="note" rows="4"
+                                    class="{{ $errors->has('note') ? 'bg-red-100 border-red-400 text-red-500 placeholder-red-700 focus:ring-red-500 focus:border-red-500' : 'bg-white border-yellow-500 text-gray-900 placeholder-gray-400  focus:ring-yellow-500 focus:border-yellow-500' }} rounded-lg border-1 text-sm block w-full p-2.5 mt-3"
                                     placeholder="Tambahkan catatan jika perlu...">{{ old('note', session('checkout.note')) }}</textarea>
                                 @error('note')
-                                    <p class="mt-2 text-sm text-red-500"><span class="font-medium">{{ $message }}</p>
+                                    <p data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="800" class="mt-2 text-sm text-red-500"><span class="font-medium">{{ $message }}</p>
                                 @enderror
                             </div>
                         </div>
@@ -248,13 +248,13 @@
                             <input type="hidden" id="noteHidden" name="note"
                                 value="{{ old('note', session('checkout.note')) }}">
                             <div class="w-full">
-                                <label for="coupon" class="block mb-3 text-sm font-semibold text-gray-900">Cek
+                                <label data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="800" for="coupon" class="block mb-3 text-sm font-semibold text-gray-900">Cek
                                     Kupon</label>
                                 <div class="flex flex-row space-x-2 w-full">
-                                    <input type="text" name="coupon" id="coupon" value="{{ old('coupon') }}"
-                                        class="{{ $errors->has('coupon') || $errors->has('alreadyAddCoupon_error') || $errors->has('incorrectCoupon_error') ? 'bg-red-100 border-red-400 text-red-500 placeholder-red-700' : 'bg-white border-yellow-500 text-gray-900 placeholder-gray-400  focus:ring-yellow-500 focus:border-yellow-500' }} rounded-lg border-1 text-sm block p-2.5"
+                                    <input data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="800" type="text" name="coupon" id="coupon" value="{{ old('coupon') }}"
+                                        class="{{ $errors->has('coupon') || $errors->has('alreadyAddCoupon_error') || $errors->has('incorrectCoupon_error') ? 'bg-red-100 border-red-400 text-red-500 placeholder-red-700 focus:ring-red-500 focus:border-red-500' : 'bg-white border-yellow-500 text-gray-900 placeholder-gray-400  focus:ring-yellow-500 focus:border-yellow-500' }} rounded-lg border-1 text-sm block p-2.5"
                                         placeholder="(Contoh: JULYCERIA)">
-                                    <button type="submit" data-modal-target="add_coupon_modal"
+                                    <button data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="800" type="submit" data-modal-target="add_coupon_modal"
                                         data-modal-toggle="add_coupon_modal"
                                         class="flex flex-row items-center justify-center w-full lg:w-36 cursor-pointer text-yellow-500 bg-gray-900 hover:bg-gray-950 font-medium rounded-lg text-sm px-3 py-2.5 text-center">
                                         <svg class="w-4 h-4 mr-2 text-yellow-500" aria-hidden="true"
@@ -267,13 +267,13 @@
                                     </button>
                                 </div>
                                 @error('coupon')
-                                    <p class="mt-2 text-sm text-red-500"><span class="font-medium">{{ $message }}
+                                    <p data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="800" class="mt-2 text-sm text-red-500"><span class="font-medium">{{ $message }}
                                     </p>
                                 @enderror
                             </div>
                         </form>
                         <div class="relative inline-block w-full z-10">
-                            <button id="dropdownToggleButton" data-dropdown-toggle="dropdownToggle"
+                            <button data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="800" id="dropdownToggleButton" data-dropdown-toggle="dropdownToggle"
                                 data-dropdown-placement="bottom"
                                 class="flex flex-row justify-center w-full text-yellow-500 bg-gray-900 hover:bg-gray-950 focus:ring-2 focus:outline-none focus:ring-yellow-500 font-medium rounded-lg text-sm px-5 py-2.5 text-center items-center"
                                 type="button">
@@ -287,66 +287,79 @@
                             <!-- Dropdown menu -->
                             <div id="dropdownToggle"
                                 class="hidden absolute left-0 top-0 bottom-0 right-0 mt-3 w-full bg-gray-900 divide-y divide-gray-100 rounded-lg shadow">
-                                <ul class="p-2 space-y-1 text-sm text-yellow-500" aria-labelledby="dropdownToggleButton">
-                                    @foreach ($user_coupons as $coupon)
-                                        @php
-                                            $couponStatus = Session::get('couponStatus_' . $coupon->coupon->id);
-                                            // ini untuk hgapus session nya kalau kelupaan hapus pas migrate ulang buat debugging
-                                            // Session::forget('couponStatus_' .  $coupon->coupon->id);
+                                @if (count($user_coupons) > 0)
+                                    <ul class="p-2 space-y-1 text-sm text-yellow-500"
+                                        aria-labelledby="dropdownToggleButton">
+                                        @foreach ($user_coupons as $coupon)
+                                            @php
+                                                $couponStatus = Session::get('couponStatus_' . $coupon->coupon->id);
+                                                // ini untuk hgapus session nya kalau kelupaan hapus pas migrate ulang buat debugging
+                                                // Session::forget('couponStatus_' .  $coupon->coupon->id);
 
-                                            // Session::forget([
-                                            //     'checkout.address',
-                                            //     'checkout.city',
-                                            //     'checkout.province',
-                                            //     'checkout.postal_code',
-                                            //     'checkout.note',
-                                            // ]);
-                                        @endphp
+                                                // Session::forget([
+                                                //     'checkout.address',
+                                                //     'checkout.city',
+                                                //     'checkout.province',
+                                                //     'checkout.postal_code',
+                                                //     'checkout.note',
+                                                // ]);
+                                            @endphp
 
-                                        <form id="checkboxForm_{{ $coupon->coupon->id }}"
-                                            action="{{ route('member.pilihKupon', $coupon->coupon->id) }}" method="POST"
-                                            enctype="multipart/form-data">
-                                            @csrf
-                                            <input type="hidden" id="addressHidden_{{ $coupon->coupon->id }}"
-                                                name="address" value="{{ old('address', session('checkout.address')) }}">
-                                            <input type="hidden" id="cityHidden_{{ $coupon->coupon->id }}"
-                                                name="city" value="{{ old('city', session('checkout.city')) }}">
-                                            <input type="hidden" id="provinceHidden_{{ $coupon->coupon->id }}"
-                                                name="province"
-                                                value="{{ old('province', session('checkout.province')) }}">
-                                            <input type="hidden" id="postalCodeHidden_{{ $coupon->coupon->id }}"
-                                                name="postal_code"
-                                                value="{{ old('postal_code', session('checkout.postal_code')) }}">
-                                            <input type="hidden" id="noteHidden_{{ $coupon->coupon->id }}"
-                                                name="note" value="{{ old('note', session('checkout.note')) }}">
-                                            <li>
-                                                <div
-                                                    class="flex flex-col space-y-2 lg:flex-row justify-between items-center p-2 rounded hover:bg-gray-800 w-full">
-                                                    <label class="inline-flex items-center w-full cursor-pointer">
-                                                        <input type="checkbox"
-                                                            id="autoSubmitCheckbox_{{ $coupon->coupon->id }}"
-                                                            value="" {{ isset($couponStatus) ? 'checked' : '' }}
-                                                            class="sr-only peer">
-                                                        <div
-                                                            class="relative w-9 h-5 bg-gray-600 peer-focus:outline-none peer-focus:ring-2 peer-focus:ring-yellow-500 rounded-full peer peer-checked:after:translate-x-full rtl:peer-checked:after:translate-x-[-100%] peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-yellow-500">
-                                                        </div>
-                                                        <span
-                                                            class="ms-3 text-sm font-medium text-yellow-500">{{ $coupon->coupon->title }}</span>
-                                                    </label>
+                                            <form id="checkboxForm_{{ $coupon->coupon->id }}"
+                                                action="{{ route('member.pilihKupon', $coupon->coupon->id) }}"
+                                                method="POST" enctype="multipart/form-data">
+                                                @csrf
+                                                <input type="hidden" id="addressHidden_{{ $coupon->coupon->id }}"
+                                                    name="address"
+                                                    value="{{ old('address', session('checkout.address')) }}">
+                                                <input type="hidden" id="cityHidden_{{ $coupon->coupon->id }}"
+                                                    name="city" value="{{ old('city', session('checkout.city')) }}">
+                                                <input type="hidden" id="provinceHidden_{{ $coupon->coupon->id }}"
+                                                    name="province"
+                                                    value="{{ old('province', session('checkout.province')) }}">
+                                                <input type="hidden" id="postalCodeHidden_{{ $coupon->coupon->id }}"
+                                                    name="postal_code"
+                                                    value="{{ old('postal_code', session('checkout.postal_code')) }}">
+                                                <input type="hidden" id="noteHidden_{{ $coupon->coupon->id }}"
+                                                    name="note" value="{{ old('note', session('checkout.note')) }}">
+                                                <li>
                                                     <div
-                                                        class="w-full flex flex-row space-x-2 items-center lg:justify-center">
-                                                        <span
-                                                            class="text-yellow-500 text-sm font-semibold">{{ $coupon->quantity }}
-                                                            kupon</span>
-                                                        <span class="w-2 h-2 bg-gray-700 rounded-full"></span>
-                                                        <span class="text-yellow-500 text-sm font-semibold">(Berlaku sampai
-                                                            {{ date('d F Y', strtotime($coupon->coupon->ending_time)) }})</span>
+                                                        class="flex flex-col space-y-2 lg:flex-row justify-between items-center p-2 rounded hover:bg-gray-800 w-full">
+                                                        <label class="inline-flex items-center w-full cursor-pointer">
+                                                            <input type="checkbox"
+                                                                id="autoSubmitCheckbox_{{ $coupon->coupon->id }}"
+                                                                value="" {{ isset($couponStatus) ? 'checked' : '' }}
+                                                                class="sr-only peer">
+                                                            <div
+                                                                class="relative w-9 h-5 bg-gray-600 peer-focus:outline-none peer-focus:ring-2 peer-focus:ring-yellow-500 rounded-full peer peer-checked:after:translate-x-full rtl:peer-checked:after:translate-x-[-100%] peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-yellow-500">
+                                                            </div>
+                                                            <span
+                                                                class="ms-3 text-sm font-medium text-yellow-500">{{ $coupon->coupon->title }}</span>
+                                                        </label>
+                                                        <div
+                                                            class="w-full flex flex-row space-x-2 items-center lg:justify-center">
+                                                            <span
+                                                                class="text-yellow-500 text-sm font-semibold">{{ $coupon->quantity }}
+                                                                kupon</span>
+                                                            <span class="w-2 h-2 bg-gray-700 rounded-full"></span>
+                                                            <span class="text-yellow-500 text-sm font-semibold">(Berlaku
+                                                                sampai
+                                                                {{ date('d F Y', strtotime($coupon->coupon->ending_time)) }})</span>
+                                                        </div>
                                                     </div>
-                                                </div>
-                                            </li>
-                                        </form>
-                                    @endforeach
-                                </ul>
+                                                </li>
+                                            </form>
+                                        @endforeach
+                                    </ul>
+                                @else
+                                    <ul class="p-4 space-y-1 text-sm text-yellow-500 text-center"
+                                        aria-labelledby="dropdownToggleButton">
+                                        <li>
+                                            <span class="ms-3 text-sm font-medium text-yellow-500 text-center">Oops, kupon belum
+                                                ditambahkan!</span>
+                                        </li>
+                                    </ul>
+                                @endif
                             </div>
                         </div>
                     @else
@@ -354,15 +367,15 @@
                 </div>
 
                 <div class="flex flex-col mx-auto w-full">
-                    <h1 class="mb-5 text-xl sm:text-2xl lg:text-3xl font-bold text-gray-900">Detail Pemesanan</h1>
-                    <div class="bg-white border border-gray-300 rounded-lg p-5 drop-shadow-md">
+                    <h1 data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="800" class="mb-5 text-xl sm:text-2xl lg:text-3xl font-bold text-gray-900">Detail Pemesanan</h1>
+                    <div data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="800" class="bg-white border border-gray-300 rounded-lg p-5 drop-shadow-md">
                         @php
                             $countSubtotal = 0;
                         @endphp
                         <div class="flex flex-col-reverse">
                             @if (!empty($carts))
                                 @foreach ($carts as $cart)
-                                    <div class="flex flex-row items-center w-full">
+                                    <div data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="800" class="flex flex-row items-center w-full">
                                         @if (strlen($cart->product->image) > 30)
                                             <img class="h-40 w-44 object-cover object-bottom rounded-lg drop-shadow-md"
                                                 src="{{ asset('storage/' . $cart->product->image) }}"
@@ -430,29 +443,28 @@
                                                     </form>
                                                 </div>
                                             </div>
-
                                         </div>
                                     </div>
                                     @php
                                         $countSubtotal += $cart->price;
                                     @endphp
                                     @if (!$loop->last)
-                                        <hr class="h-px my-4 border-0 bg-gray-400">
+                                        <hr data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="800" class="h-px my-4 border-0 bg-gray-400">
                                     @endif
                                 @endforeach
                             @else
                                 <div class="flex flex-col items-center justify-center">
-                                    <h1 class="text-center text-xl font-bold text-gray-400">Keranjang
+                                    <h1 data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="800" class="text-center text-xl font-bold text-gray-400">Keranjang
                                         anda kosong</h1>
-                                    <a href="{{ route('products') }}">
+                                    <a data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="800" href="{{ route('products') }}">
                                         <p class="text-center text-base font-normal text-yellow-500">Belanja sekarang!</p>
                                     </a>
                                 </div>
                             @endif
                         </div>
                         @if ($countSubtotal && $shipment_price)
-                            <hr class="h-px my-7 border-2 border-yellow-500">
-                            <div class="flex flex-row justify-between items-center">
+                            <hr data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="800" class="h-px my-7 border-2 border-yellow-500">
+                            <div data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="800" class="flex flex-row justify-between items-center">
                                 <p class="text-base font-medium text-gray-900">
                                     Subtotal:
                                 </p>
@@ -460,7 +472,7 @@
                                     Rp. {{ number_format($countSubtotal, 0, ',', '.') }}
                                 </p>
                             </div>
-                            <div class="mt-1 flex flex-row justify-between items-center">
+                            <div data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="800" class="mt-1 flex flex-row justify-between items-center">
                                 <p class="text-base font-medium text-gray-900">
                                     Biaya Pengiriman:
                                 </p>
@@ -468,19 +480,19 @@
                                     Rp. {{ number_format($shipment_price, 0, ',', '.') }}
                                 </p>
                             </div>
-                            <p class="mt-1 text-sm font-normal text-gray-900">
+                            <p data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="800" class="mt-1 text-sm font-normal text-gray-900">
                                 (Estimasi pengiriman 1-3 hari)
                             </p>
-                            <p class="mt-1 text-sm font-medium text-green-500">
+                            <p data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="800" class="mt-1 text-sm font-medium text-green-500">
                                 *Dapatkan <span class="font-bold">{{ number_format($total_poin, 0, ',', '.') }}
                                     poin (Rp. {{ number_format($total_money, 0, ',', '.') }})</span>!
                             </p>
-                            <hr class="h-px my-7 border-2 border-yellow-500">
+                            <hr data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="800" class="h-px my-7 border-2 border-yellow-500">
                             @php
                                 $pointStatus = Session::get('pointStatus');
                                 // Session::forget('pointStatus');
                             @endphp
-                            <div class="flex flex-row justify-between items-center">
+                            <div data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="800" class="flex flex-row justify-between items-center">
                                 <p class="text-xl font-bold text-gray-900">
                                     Total:
                                 </p>
@@ -505,8 +517,8 @@
                                 </div>
                             </div>
                             @if (Auth::user()->reward > 0)
-                            <hr class="h-px my-7 border-2 border-yellow-500">
-                                <div class="flex flex-col space-y-2">
+                                <hr data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="800" class="h-px my-7 border-2 border-yellow-500">
+                                <div data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="800" class="flex flex-col space-y-2">
                                     <form id="togglePointForm" action="{{ route('member.aktifPoin') }}" method="POST">
                                         @csrf
                                         <input type="hidden" id="addressHide" name="address"
@@ -530,19 +542,19 @@
                                         </label>
                                     </form>
                                     @if (Session::has('pointStatus'))
-                                    <span class="flex flex-row  items-center text-gray-900 text-sm">*Poin mu sekarang:
-                                        {{ abs(number_format(($countSubtotal + $shipment_price - $reward_now)/$point->money_per_poin, 0, ',', '.')) }}<img
-                                            src="/images/coin_icon.png" alt="Poin" class="w-4 h-4 ms-1"></span>
+                                        <span class="flex flex-row  items-center text-gray-900 text-sm">*Poin mu sekarang:
+                                            {{ abs(number_format(($countSubtotal + $shipment_price - $reward_now) / $point->money_per_poin, 0, ',', '.')) }}<img
+                                                src="/images/coin_icon.png" alt="Poin" class="w-4 h-4 ms-1"></span>
                                     @else
-                                    <span class="flex flex-row  items-center text-gray-900 text-sm">*Poin mu sekarang:
-                                        {{ number_format(Auth::user()->reward, 0, ',', '.') }}<img
-                                            src="/images/coin_icon.png" alt="Poin" class="w-4 h-4 ms-1"></span>
+                                        <span class="flex flex-row  items-center text-gray-900 text-sm">*Poin mu sekarang:
+                                            {{ number_format(Auth::user()->reward, 0, ',', '.') }}<img
+                                                src="/images/coin_icon.png" alt="Poin" class="w-4 h-4 ms-1"></span>
                                     @endif
                                 </div>
                             @else
                             @endif
-                            <hr class="h-px my-7 border-2 border-yellow-500">
-                            <button type="button" data-modal-target="payment-modal" data-modal-toggle="payment-modal"
+                            <hr data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="800" class="h-px my-7 border-2 border-yellow-500">
+                            <button data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="800" type="button" data-modal-target="payment-modal" data-modal-toggle="payment-modal"
                                 class="cursor-pointer w-full text-yellow-500 bg-gray-900 hover:bg-gray-800 font-medium rounded-lg text-base px-5 py-2.5 text-center items-center">
                                 Bayar Sekarang
                             </button>
@@ -552,8 +564,8 @@
             </div>
             <div class="flex flex-col col-span-2">
                 <div class="flex flex-row justify-between items-center">
-                    <h1 class="text-xl sm:text-2xl lg:text-3xl font-bold text-gray-900">Produk Bestseller</h1>
-                    <a href="{{ route('products') }}">
+                    <h1 data-aos="fade-right" data-aos-anchor-placement="top-bottom" data-aos-duration="800" class="text-xl sm:text-2xl lg:text-3xl font-bold text-gray-900">Produk Bestseller</h1>
+                    <a data-aos="fade-left" data-aos-anchor-placement="top-bottom" data-aos-duration="800" href="{{ route('products') }}">
                         <p class="text-base font-medium text-yellow-500 hover:text-yellow-600">Lihat semua</p>
                     </a>
                 </div>
@@ -565,7 +577,7 @@
                             <div
                                 class="relative hover:shadow-xl transform transition duration-500 hover:-translate-y-4 hover:z-5">
                                 <a href="{{ route('member.products.show', $bestseller->product->id) }}">
-                                    <div
+                                    <div data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="800"
                                         class="relative w-full h-full rounded-lg bg-gray-900 border-gray-800 mx-auto shadow">
                                         @if (strlen($bestseller->product->image) > 30)
                                             <img class="h-3/4 rounded-t-lg w-full object-center object-cover"
@@ -660,7 +672,7 @@
                         @endforeach
                     @else
                         <div class="col-span-4 flex flex-col items-center justify-center">
-                            <h1 class="text-center text-lg font-bold text-gray-400">Mohon maaf,
+                            <h1 data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="800" class="text-center text-lg font-bold text-gray-400">Mohon maaf,
                                 belum
                                 ada
                                 produk best seller!</h1>

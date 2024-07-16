@@ -2,15 +2,16 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\Http\Controllers\Controller;
-use App\Providers\RouteServiceProvider;
-use Illuminate\Foundation\Auth\AuthenticatesUsers;
-
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use App\Models\User;
+use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use App\Providers\RouteServiceProvider;
+
+use Illuminate\Support\Facades\Session;
+use Illuminate\Foundation\Auth\AuthenticatesUsers;
 
 class LoginController extends Controller
 {
@@ -44,65 +45,68 @@ class LoginController extends Controller
         $this->middleware('guest')->except('logout');
     }
 
+    public function clearSession(Request $request)
+    {
+        $request->session()->flush();
+        return redirect()->route('login');
+    }
+
     public function login(Request $request)
     {
         $validatedData = $request->validate([
-
-            'email' => ['required', 'string', 'email', 'max:255'],
+            'email' => ['required', 'string', 'email', 'max:150'],
             'password' => ['required', 'string', 'min:8'],
-
+            'remember' => ['nullable', 'filled'], // Add validation for remember
+        ], [
+            'email.required' => 'Email wajib diisi!',
+            'email.string' => 'Email wajib berupa karakter!',
+            'email.email' => 'Format email anda masih salah!',
+            'email.max' => 'Email maksimal terdiri dari 150 karakter!',
+            'password.required' => 'Password wajib diisi!',
+            'password.string' => 'Password wajib berupa karakter!',
+            'password.min' => 'Password minimal terdiri dari 8 karakter!'
         ]);
+        Session::put('last_email', $validatedData['email']);
 
-        $owner = [ // set syarat buat dapetin rolenya
-            'email' => $validatedData['email'],
-            'password' => $validatedData['password'],
-            'role_id' => 1,
-            'is_active' => '1'
-        ];
-        $admin = [
-            'email' => $validatedData['email'],
-            'password' => $validatedData['password'],
-            'role_id' => 2,
-            'is_active' => '1'
-        ];
-        $member = [
-            'email' => $validatedData['email'],
-            'password' => $validatedData['password'],
-            'role_id' => 3,
-            'is_active' => '1'
-        ];
+        // Check if remember checkbox is checked
+        $remember = $request->has('remember');
+        // dd($remember);
 
-        if (Auth::attempt($owner, true)) {
-             if($request->get('remember')){
-                $years_inputed = 100;
-                setcookie('id', Auth::user()->id, time() + ($years_inputed * 365 * 24 * 60 * 60));
-                setcookie('key', Hash::make($validatedData['password']), time() + ($years_inputed * 365 * 24 * 60 * 60));
-            }
+        // Attempt to authenticate the user with email and password
+        if (Auth::attempt(['email' => $validatedData['email'], 'password' => $validatedData['password'], 'is_active' => '1'], $remember)) {
+            // Authentication successful
             $this->isLogin(Auth::id());
-            return redirect()->route('owner.admin'); // bisa buat ke halaman khusus admin aja
-        } else if (Auth::attempt($admin, true)) {
-             if($request->get('remember')){
-                $years_inputed = 100;
-                setcookie('id', Auth::user()->id, time() + ($years_inputed * 365 * 24 * 60 * 60));
-                setcookie('key', Hash::make($validatedData['password']), time() + ($years_inputed * 365 * 24 * 60 * 60));
+
+            Session::forget('last_email');
+
+            // Redirect based on user's role
+            $user = Auth::user();
+            if ($user->role_id == 1) {
+                return redirect()->route('owner.admin');
+            } elseif ($user->role_id == 2) {
+                return redirect()->route('admin.admin');
+            } elseif ($user->role_id == 3) {
+                return redirect()->route('products');
+            } else {
+                Auth::logout();
+                return redirect()->route('login')->withErrors(['login_error' => 'Role tidak valid!']);
             }
-            $this->isLogin(Auth::id());
-            return redirect()->route('admin.admin'); // TIDAK PERLU SLASH / soalnya udah ->name('home') di routes/web.php, mau ke student_list udh kuset sih
-        } else if (Auth::attempt($member, true)) {
-          if($request->get('remember')){
-                $years_inputed = 100;
-                setcookie('id', Auth::user()->id, time() + ($years_inputed * 365 * 24 * 60 * 60));
-                setcookie('key', Hash::make($validatedData['password']), time() + ($years_inputed * 365 * 24 * 60 * 60));
-            }
-            $this->isLogin(Auth::id());
-            return redirect()->route('products');
         }
-           
-        return redirect()->route('login')->with('error', 'Email atau password salah!');
+
+        // If authentication with email and password fails, check if email exists
+        $user = User::where('email', $validatedData['email'])->first();
+
+        if (!$user) {
+            // Email not found in database
+            return redirect()->route('login')->withErrors(['email_error' => 'Email tidak ditemukan!']);
+        }
+
+        // Email found, but password is incorrect
+        return redirect()->route('login')->withErrors(['password_error' => 'Password salah!']);
     }
 
     private function isLogin(int $id)
-    { // private
+    {
         $user = User::findOrFail($id);
         return $user->update([
             'is_login' => '1'
@@ -110,25 +114,21 @@ class LoginController extends Controller
     }
 
     public function logout(Request $request)
-    { // yg ini public yaaa jan lupa
-        // nama logout itu jangan diubah soalnya ngikutin templatenya aja
-        // $user = User::findOrFail(Auth::id());
-        // $user->update([
-        //     'is_login' => '0'
-        // ]);
-
-        // $request->session()->invalidate();
-        // return $this->loggedOut($request) ?: redirect('login');
+    {
         $user = User::findOrFail(Auth::id());
         $user->update(['is_login' => '0']);
 
         setcookie('id', '', time() - 3600);
         setcookie('key', '', time() - 3600);
-        
+
         Auth::logout();
+
+        // Invalidasi sesi
+        $request->session()->invalidate();
+        // Regenerasi token CSRF
+        $request->session()->regenerateToken();
 
         return redirect('login');
     }
-
     // https://www.youtube.com/watch?v=jqshjXab_1A
 }

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
 use App\Models\Cart;
 use App\Models\User;
 use App\Models\Product;
@@ -15,38 +16,46 @@ class ProductController extends Controller
 {
     public function home(Request $request)
     {
-        if ($request->cookie('id') != null && $request->cookie('key') != null) {
-            $user = User::where('id', $request->cookie('id'))->first();
-
-            if ($user && password_verify($user->password, $request->cookie('key'))) {
-                $cart_user = Cart::where('user_id', $user->id)->first();
+        if (Auth::check()) {
+            // Query untuk mendapatkan cart_user yang lebih dari 7 hari
+            $cart_user = Cart::where('user_id', Auth::user()->id)
+                ->where('created_at', '<', Carbon::now()->subDays(7))
+                ->first();
+            // Jika cart_user ditemukan dan sudah lebih dari 7 hari, hapus
+            if (!empty($cart_user)) {
+                $cart_user->delete();
+                $carts = null;
+            } else {
+                // Jika tidak ditemukan cart_user yang lebih dari 7 hari, cari cart_user biasa
+                $cart_user = Cart::where('user_id', Auth::user()->id)->first();
                 if (empty($cart_user)) {
                     $carts = null;
                 } else {
                     $carts = $cart_user->cart_detail;
                 }
-                return view('customer.products', [
-                    "TabTitle" => "Produk Lisahwan",
-                    "active_2" => "text-yellow-500 rounded md:bg-transparent md:p-0",
-                    "pageTitle" => '<mark class="px-2 text-yellow-500 bg-gray-900 rounded">Produk</mark> Kami',
-                    'pageDescription' => 'Jelajahi camilan terbaik di <span class="underline underline-offset-2 decoration-4 decoration-yellow-500">Lisahwan</span> dan pilih favorit Anda sekarang!',
-                    "products" => Product::all(),
-                    "carts" => $carts
-                ]);
             }
+
+            return view('customer.products', [
+                "TabTitle" => "Produk Lisahwan",
+                "active_2" => "text-yellow-500 rounded md:bg-transparent md:p-0",
+                "pageTitle" => '<mark class="px-2 text-yellow-500 bg-gray-900 rounded">Produk</mark> Kami',
+                'pageDescription' => 'Jelajahi camilan terbaik di <span class="underline underline-offset-2 decoration-4 decoration-yellow-500">Lisahwan</span> dan pilih favorit Anda sekarang!',
+                "products" => Product::all(),
+                "carts" => $carts
+            ]);
         } else {
             $products_bestseller = OrderDetail::select('product_id', DB::raw('SUM(quantity) as total_quantity'))
                 ->groupBy('product_id')
                 ->orderByDesc('total_quantity')
                 ->take(4)
                 ->get();
-            $user = User::where('id', Auth::user()->id)->first();
-            $cart_user = Cart::where('user_id', $user->id)->first();
-            if (empty($cart_user)) {
-                $carts = null;
-            } else {
-                $carts = $cart_user->cart_detail;
-            }
+            // $user = User::where('id', Auth::user()->id)->first();
+            // $cart_user = Cart::where('user_id', $user->id)->first();
+            // if (empty($cart_user)) {
+            //     $carts = null;
+            // } else {
+            //     $carts = $cart_user->cart_detail;
+            // }
             return view('index', [
                 "TabTitle" => "Lisahwan Surabaya",
                 "active_1" => "text-yellow-500 rounded md:bg-transparent md:p-0",
@@ -55,7 +64,7 @@ class ProductController extends Controller
                 "carousel_3" => "/images/fotoproduk/GalleryCarousel_8.jpg",
                 "carousel_4" => "/images/fotoproduk/GalleryCarousel_13.jpeg",
                 "products_bestseller" => $products_bestseller,
-                "carts" => $carts
+                // "carts" => $carts
             ]);
         }
     }
@@ -65,12 +74,23 @@ class ProductController extends Controller
      */
     public function index()
     {
-        if (Auth::user()) {
-            $cart_user = Cart::where('user_id', Auth::user()->id)->first();
-            if (empty($cart_user)) {
+        if (Auth::check()) {
+            // Query untuk mendapatkan cart_user yang lebih dari 7 hari
+            $cart_user = Cart::where('user_id', Auth::user()->id)
+                ->where('created_at', '<', Carbon::now()->subDays(7))
+                ->first();
+            // Jika cart_user ditemukan dan sudah lebih dari 7 hari, hapus
+            if (!empty($cart_user)) {
+                $cart_user->delete();
                 $carts = null;
             } else {
-                $carts = $cart_user->cart_detail;
+                // Jika tidak ditemukan cart_user yang lebih dari 7 hari, cari cart_user biasa
+                $cart_user = Cart::where('user_id', Auth::user()->id)->first();
+                if (empty($cart_user)) {
+                    $carts = null;
+                } else {
+                    $carts = $cart_user->cart_detail;
+                }
             }
             return view('customer.products', [
                 "TabTitle" => "Produk Lisahwan",

@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers\Member;
 
-use App\Http\Controllers\Controller;
-use App\Models\Wishlist;
-use App\Models\Product;
-use Illuminate\Http\Request;
+use Carbon\Carbon;
 use App\Models\Cart;
+use App\Models\Product;
+use App\Models\Wishlist;
+use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 
 class WishlistController extends Controller
@@ -17,11 +18,22 @@ class WishlistController extends Controller
     public function index()
     {
         $wishlists = Wishlist::where('user_id', Auth::user()->id)->get();
-        $cart_user = Cart::where('user_id', Auth::user()->id)->first();
-        if (empty($cart_user)) {
+        // Query untuk mendapatkan cart_user yang lebih dari 7 hari
+        $cart_user = Cart::where('user_id', Auth::user()->id)
+            ->where('created_at', '<', Carbon::now()->subDays(7))
+            ->first();
+        // Jika cart_user ditemukan dan sudah lebih dari 7 hari, hapus
+        if (!empty($cart_user)) {
+            $cart_user->delete();
             $carts = null;
         } else {
-            $carts = $cart_user->cart_detail;
+            // Jika tidak ditemukan cart_user yang lebih dari 7 hari, cari cart_user biasa
+            $cart_user = Cart::where('user_id', Auth::user()->id)->first();
+            if (empty($cart_user)) {
+                $carts = null;
+            } else {
+                $carts = $cart_user->cart_detail;
+            }
         }
         return view('customer.wishlist', [
             "TabTitle" => "Wishlist",

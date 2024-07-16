@@ -8,7 +8,7 @@
             <div
                 class="flex flex-col justify-center items-center w-full {{ session('setPoint_success') || session('unsetPoint_success') || session('setCoupon_success') || session('deleteCoupon_success') || $errors->has('percentage_from_totalprice') || $errors->has('money_per_poin') || $errors->has('alreadySetPoint_error') || $errors->has('forgotPercentage_error') || $errors->has('forgotMoney_error') || $errors->has('forgotAll_error') || $errors->has('title') || $errors->has('starting_time') || $errors->has('ending_time') || $errors->has('discount') || $errors->has('quantity') ? 'mb-10 mt-6' : '' }}">
                 @error('percentage_from_totalprice')
-                    <div class="w-10/12 md:w-9/12 lg:w-6/12 flex justify-center items-center p-4 {{ $errors->has('money_per_poin') ? 'mb-2' : '' }} text-sm rounded-lg bg-gray-900 text-red-400"
+                    <div data-aos="zoom-in-down" data-aos-anchor-placement="top-bottom" data-aos-duration="800" class="w-10/12 md:w-9/12 lg:w-6/12 flex justify-center items-center p-4 {{ $errors->has('money_per_poin') ? 'mb-2' : '' }} text-sm rounded-lg bg-gray-900 text-red-400"
                         role="alert">
                         <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
                             fill="currentColor" viewBox="0 0 20 20">
@@ -22,7 +22,7 @@
                     </div>
                 @enderror
                 @error('money_per_poin')
-                    <div class="w-10/12 md:w-9/12 lg:w-6/12 flex justify-center items-center p-4 text-sm rounded-lg bg-gray-900 text-red-400"
+                    <div data-aos="zoom-in-down" data-aos-anchor-placement="top-bottom" data-aos-duration="800" class="w-10/12 md:w-9/12 lg:w-6/12 flex justify-center items-center p-4 text-sm rounded-lg bg-gray-900 text-red-400"
                         role="alert">
                         <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
                             fill="currentColor" viewBox="0 0 20 20">
@@ -36,7 +36,7 @@
                     </div>
                 @enderror
                 @error('alreadySetPoint_error')
-                    <div class="w-10/12 md:w-9/12 lg:w-6/12 flex justify-center items-center p-4 text-sm rounded-lg bg-gray-900 text-red-400"
+                    <div data-aos="zoom-in-down" data-aos-anchor-placement="top-bottom" data-aos-duration="800" class="w-10/12 md:w-9/12 lg:w-6/12 flex justify-center items-center p-4 text-sm rounded-lg bg-gray-900 text-red-400"
                         role="alert">
                         <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
                             fill="currentColor" viewBox="0 0 20 20">
@@ -50,7 +50,7 @@
                     </div>
                 @enderror
                 @error('forgotPercentage_error')
-                    <div class="w-10/12 md:w-9/12 lg:w-6/12 flex justify-center items-center p-4 text-sm rounded-lg bg-gray-900 text-red-400"
+                    <div data-aos="zoom-in-down" data-aos-anchor-placement="top-bottom" data-aos-duration="800" class="w-10/12 md:w-9/12 lg:w-6/12 flex justify-center items-center p-4 text-sm rounded-lg bg-gray-900 text-red-400"
                         role="alert">
                         <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
                             fill="currentColor" viewBox="0 0 20 20">
@@ -64,7 +64,7 @@
                     </div>
                 @enderror
                 @error('forgotMoney_error')
-                    <div class="w-10/12 md:w-9/12 lg:w-6/12 flex justify-center items-center p-4 text-sm rounded-lg bg-gray-900 text-red-400"
+                    <div data-aos="zoom-in-down" data-aos-anchor-placement="top-bottom" data-aos-duration="800" class="w-10/12 md:w-9/12 lg:w-6/12 flex justify-center items-center p-4 text-sm rounded-lg bg-gray-900 text-red-400"
                         role="alert">
                         <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
                             fill="currentColor" viewBox="0 0 20 20">
@@ -78,7 +78,7 @@
                     </div>
                 @enderror
                 @error('forgotAll_error')
-                    <div class="w-10/12 md:w-9/12 lg:w-6/12 flex justify-center items-center p-4 text-sm rounded-lg bg-gray-900 text-red-400"
+                    <div data-aos="zoom-in-down" data-aos-anchor-placement="top-bottom" data-aos-duration="800" class="w-10/12 md:w-9/12 lg:w-6/12 flex justify-center items-center p-4 text-sm rounded-lg bg-gray-900 text-red-400"
                         role="alert">
                         <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
                             fill="currentColor" viewBox="0 0 20 20">
@@ -92,7 +92,7 @@
                     </div>
                 @enderror
                 @error('title')
-                    <div class="w-10/12 md:w-9/12 lg:w-6/12 flex justify-center items-center p-4 {{ $errors->has('title') ? 'mb-2' : '' }} text-sm rounded-lg bg-gray-900 text-red-400"
+                    <div data-aos="zoom-in-down" data-aos-anchor-placement="top-bottom" data-aos-duration="800" class="w-10/12 md:w-9/12 lg:w-6/12 flex justify-center items-center p-4 {{ $errors->has('title') ? 'mb-2' : '' }} text-sm rounded-lg bg-gray-900 text-red-400"
                         role="alert">
                         <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
                             fill="currentColor" viewBox="0 0 20 20">
@@ -106,7 +106,7 @@
                     </div>
                 @enderror
                 @error('starting_time')
-                    <div class="w-10/12 md:w-9/12 lg:w-6/12 flex justify-center items-center p-4 {{ $errors->has('starting_time') ? 'mb-2' : '' }} text-sm rounded-lg bg-gray-900 text-red-400"
+                    <div data-aos="zoom-in-down" data-aos-anchor-placement="top-bottom" data-aos-duration="800" class="w-10/12 md:w-9/12 lg:w-6/12 flex justify-center items-center p-4 {{ $errors->has('starting_time') ? 'mb-2' : '' }} text-sm rounded-lg bg-gray-900 text-red-400"
                         role="alert">
                         <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
                             fill="currentColor" viewBox="0 0 20 20">
@@ -120,7 +120,7 @@
                     </div>
                 @enderror
                 @error('ending_time')
-                    <div class="w-10/12 md:w-9/12 lg:w-6/12 flex justify-center items-center p-4 {{ $errors->has('ending_time') ? 'mb-2' : '' }} text-sm rounded-lg bg-gray-900 text-red-400"
+                    <div data-aos="zoom-in-down" data-aos-anchor-placement="top-bottom" data-aos-duration="800" class="w-10/12 md:w-9/12 lg:w-6/12 flex justify-center items-center p-4 {{ $errors->has('ending_time') ? 'mb-2' : '' }} text-sm rounded-lg bg-gray-900 text-red-400"
                         role="alert">
                         <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
                             fill="currentColor" viewBox="0 0 20 20">
@@ -134,7 +134,7 @@
                     </div>
                 @enderror
                 @error('discount')
-                    <div class="w-10/12 md:w-9/12 lg:w-6/12 flex justify-center items-center p-4 {{ $errors->has('discount') ? 'mb-2' : '' }} text-sm rounded-lg bg-gray-900 text-red-400"
+                    <div data-aos="zoom-in-down" data-aos-anchor-placement="top-bottom" data-aos-duration="800" class="w-10/12 md:w-9/12 lg:w-6/12 flex justify-center items-center p-4 {{ $errors->has('discount') ? 'mb-2' : '' }} text-sm rounded-lg bg-gray-900 text-red-400"
                         role="alert">
                         <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
                             fill="currentColor" viewBox="0 0 20 20">
@@ -148,7 +148,7 @@
                     </div>
                 @enderror
                 @error('quantity')
-                    <div class="w-10/12 md:w-9/12 lg:w-6/12 flex justify-center items-center p-4 text-sm rounded-lg bg-gray-900 text-red-400"
+                    <div data-aos="zoom-in-down" data-aos-anchor-placement="top-bottom" data-aos-duration="800" class="w-10/12 md:w-9/12 lg:w-6/12 flex justify-center items-center p-4 text-sm rounded-lg bg-gray-900 text-red-400"
                         role="alert">
                         <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
                             fill="currentColor" viewBox="0 0 20 20">
@@ -162,7 +162,7 @@
                     </div>
                 @enderror
                 @if (session('setPoint_success'))
-                    <div class="w-10/12 md:w-9/12 lg:w-6/12 flex justify-center items-center p-4 text-sm rounded-lg bg-gray-900 text-green-400"
+                    <div data-aos="zoom-in-down" data-aos-anchor-placement="top-bottom" data-aos-duration="800" class="w-10/12 md:w-9/12 lg:w-6/12 flex justify-center items-center p-4 text-sm rounded-lg bg-gray-900 text-green-400"
                         role="alert">
                         <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true"
                             xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
@@ -176,7 +176,7 @@
                     </div>
                 @endif
                 @if (session('unsetPoint_success'))
-                    <div class="w-10/12 md:w-9/12 lg:w-6/12 flex justify-center items-center p-4 text-sm rounded-lg bg-gray-900 text-green-400"
+                    <div data-aos="zoom-in-down" data-aos-anchor-placement="top-bottom" data-aos-duration="800"class="w-10/12 md:w-9/12 lg:w-6/12 flex justify-center items-center p-4 text-sm rounded-lg bg-gray-900 text-green-400"
                         role="alert">
                         <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true"
                             xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
@@ -190,7 +190,7 @@
                     </div>
                 @endif
                 @if (session('setCoupon_success'))
-                    <div class="w-10/12 md:w-9/12 lg:w-6/12 flex justify-center items-center p-4 text-sm rounded-lg bg-gray-900 text-green-400"
+                    <div data-aos="zoom-in-down" data-aos-anchor-placement="top-bottom" data-aos-duration="800" class="w-10/12 md:w-9/12 lg:w-6/12 flex justify-center items-center p-4 text-sm rounded-lg bg-gray-900 text-green-400"
                         role="alert">
                         <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true"
                             xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
@@ -204,7 +204,7 @@
                     </div>
                 @endif
                 @if (session('deleteCoupon_success'))
-                    <div class="w-10/12 md:w-9/12 lg:w-6/12 flex justify-center items-center p-4 text-sm rounded-lg bg-gray-900 text-green-400"
+                    <div data-aos="zoom-in-down" data-aos-anchor-placement="top-bottom" data-aos-duration="800" class="w-10/12 md:w-9/12 lg:w-6/12 flex justify-center items-center p-4 text-sm rounded-lg bg-gray-900 text-green-400"
                         role="alert">
                         <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true"
                             xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
@@ -218,23 +218,23 @@
                     </div>
                 @endif
             </div>
-            <div class="bg-white relative shadow-md sm:rounded-lg overflow-hidden">
+            <div data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="800" class="bg-white relative shadow-md sm:rounded-lg overflow-hidden">
                 <div
                     class="flex flex-col md:flex-row md:items-center md:justify-between space-y-3 md:space-y-0 md:space-x-4 p-4">
                     <div class="flex-1 flex items-center space-x-2">
-                        <h5>
+                        <h5 data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="800">
                             <span class="text-gray-500">Semua User:</span>
                             <span class="text-gray-500">{{ $users->count() }}</span>
                         </h5>
                     </div>
-                    <div class="text-lg font-bold text-gray-800">
+                    <div data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="800" class="text-lg font-bold text-gray-800">
                         Daftar User
                     </div>
                 </div>
                 <div
                     class="flex flex-col md:flex-row items-stretch md:items-center md:space-x-3 space-y-3 md:space-y-0 justify-between mx-4 py-4 border-t">
                     <div class="flex flex-col lg:flex-row justify-between w-full">
-                        <form class="flex items-center" action="{{ route('owner.admin_users') }}" method="GET">
+                        <form data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="800" class="flex items-center" action="{{ route('owner.admin_users') }}" method="GET">
                             <label for="simple-search" class="sr-only">Search</label>
                             <div class="relative w-full">
                                 <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
@@ -254,7 +254,7 @@
                             </button>
                         </form>
                         <div class="flex flex-row justify-center gap-x-2 mt-2 lg:mt-0">
-                            <button type="button" data-modal-target="add_coupon_modal"
+                            <button data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="800" type="button" data-modal-target="add_coupon_modal"
                                 data-modal-toggle="add_coupon_modal"
                                 class="flex flex-row items-center justify-center w-36 cursor-pointer text-yellow-500 bg-gray-900 hover:bg-gray-950 font-medium rounded-lg text-xs md:text-sm px-3 py-2.5 text-center">
                                 <svg class="w-4 h-4 mr-2 text-yellow-500" aria-hidden="true"
@@ -293,7 +293,7 @@
                                                             class="mb-2 block text-sm font-semibold text-gray-900">Nama</label>
                                                         <input type="text" id="title" name="title"
                                                             aria-describedby="helper-text-explanation"
-                                                            class="{{ $errors->has('title') ? 'bg-red-100 border-red-400 text-red-500 placeholder-red-700' : 'bg-white border-yellow-500 text-gray-900 placeholder-gray-400  focus:ring-yellow-500 focus:border-yellow-500' }} text-center rounded-lg border-1 text-sm block w-full p-2.5 mb-4"
+                                                            class="{{ $errors->has('title') ? 'bg-red-100 border-red-400 text-red-500 placeholder-red-700 focus:ring-red-500 focus:border-red-500' : 'bg-white border-yellow-500 text-gray-900 placeholder-gray-400  focus:ring-yellow-500 focus:border-yellow-500' }} text-center rounded-lg border-1 text-sm block w-full p-2.5 mb-4"
                                                             value="{{ old('title') }}">
                                                         <label for="starting_time"
                                                             class="mb-2 block text-sm font-semibold text-gray-900">Tanggal
@@ -301,27 +301,27 @@
                                                         <input type="datetime-local" id="starting_time"
                                                             name="starting_time"
                                                             aria-describedby="helper-text-explanation"
-                                                            class="{{ $errors->has('starting_time') ? 'bg-red-100 border-red-400 text-red-500 placeholder-red-700' : 'bg-white border-yellow-500 text-gray-900 placeholder-gray-400  focus:ring-yellow-500 focus:border-yellow-500' }} text-center rounded-lg border-1 text-sm block w-full p-2.5 mb-4"
+                                                            class="{{ $errors->has('starting_time') ? 'bg-red-100 border-red-400 text-red-500 placeholder-red-700 focus:ring-red-500 focus:border-red-500' : 'bg-white border-yellow-500 text-gray-900 placeholder-gray-400  focus:ring-yellow-500 focus:border-yellow-500' }} text-center rounded-lg border-1 text-sm block w-full p-2.5 mb-4"
                                                             value="{{ old('starting_time') ? \Carbon\Carbon::parse(old('starting_time'))->format('Y-m-d\TH:i') : '' }}">
                                                         <label for="starting_time"
                                                             class="mb-2 block text-sm font-semibold text-gray-900">Tanggal
                                                             Berakhir</label>
                                                         <input type="datetime-local" id="ending_time" name="ending_time"
                                                             aria-describedby="helper-text-explanation"
-                                                            class="{{ $errors->has('ending_time') ? 'bg-red-100 border-red-400 text-red-500 placeholder-red-700' : 'bg-white border-yellow-500 text-gray-900 placeholder-gray-400  focus:ring-yellow-500 focus:border-yellow-500' }} text-center rounded-lg border-1 text-sm block w-full p-2.5 mb-4"
+                                                            class="{{ $errors->has('ending_time') ? 'bg-red-100 border-red-400 text-red-500 placeholder-red-700 focus:ring-red-500 focus:border-red-500' : 'bg-white border-yellow-500 text-gray-900 placeholder-gray-400  focus:ring-yellow-500 focus:border-yellow-500' }} text-center rounded-lg border-1 text-sm block w-full p-2.5 mb-4"
                                                             value="{{ old('ending_time') ? \Carbon\Carbon::parse(old('ending_time'))->format('Y-m-d\TH:i') : '' }}">
                                                         <label for="discount"
                                                             class="mb-2 block text-sm font-semibold text-gray-900">Diskon</label>
                                                         <input type="number" id="discount" name="discount"
                                                             aria-describedby="helper-text-explanation"
-                                                            class="{{ $errors->has('discount') ? 'bg-red-100 border-red-400 text-red-500 placeholder-red-700' : 'bg-white border-yellow-500 text-gray-900 placeholder-gray-400  focus:ring-yellow-500 focus:border-yellow-500' }} text-center rounded-lg border-1 text-sm block w-full p-2.5 mb-4"
+                                                            class="{{ $errors->has('discount') ? 'bg-red-100 border-red-400 text-red-500 placeholder-red-700 focus:ring-red-500 focus:border-red-500' : 'bg-white border-yellow-500 text-gray-900 placeholder-gray-400  focus:ring-yellow-500 focus:border-yellow-500' }} text-center rounded-lg border-1 text-sm block w-full p-2.5 mb-4"
                                                             placeholder="Rentang diskon dari 1-100" min="0"
                                                             value="{{ old('discount') }}">
                                                         <label for="quantity"
                                                             class="mb-2 block text-sm font-semibold text-gray-900">Jumlah</label>
                                                         <input type="number" id="quantity" name="quantity"
                                                             aria-describedby="helper-text-explanation"
-                                                            class="{{ $errors->has('quantity') ? 'bg-red-100 border-red-400 text-red-500 placeholder-red-700' : 'bg-white border-yellow-500 text-gray-900 placeholder-gray-400  focus:ring-yellow-500 focus:border-yellow-500' }} text-center rounded-lg border-1 text-sm block w-full p-2.5"
+                                                            class="{{ $errors->has('quantity') ? 'bg-red-100 border-red-400 text-red-500 placeholder-red-700 focus:ring-red-500 focus:border-red-500' : 'bg-white border-yellow-500 text-gray-900 placeholder-gray-400  focus:ring-yellow-500 focus:border-yellow-500' }} text-center rounded-lg border-1 text-sm block w-full p-2.5"
                                                             placeholder="Jumlah kupon minimal 1" min="0"
                                                             value="{{ old('quantity') }}">
                                                         <button type="submit"
@@ -337,7 +337,7 @@
                                 </div>
                             </div>
                             @if (!$coupons->isEmpty())
-                                <button type="button" data-modal-target="coupon_modal" data-modal-toggle="coupon_modal"
+                                <button data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="800" type="button" data-modal-target="coupon_modal" data-modal-toggle="coupon_modal"
                                     class="flex flex-row items-center justify-center w-36 cursor-pointer text-yellow-500 bg-gray-900 hover:bg-gray-950 font-medium rounded-lg text-xs md:text-sm px-3 py-2.5 text-center">
                                     <svg class="w-4 h-4 mr-2 text-yellow-500" aria-hidden="true"
                                         xmlns="http://www.w3.org/2000/svg" width="24" height="24"
@@ -404,28 +404,28 @@
                                                                         <input type="text" id="title"
                                                                             name="title"
                                                                             aria-describedby="helper-text-explanation"
-                                                                            class="{{ $errors->has('title') ? 'bg-red-100 border-red-400 text-red-500 placeholder-red-700' : 'bg-white border-yellow-500 text-gray-900 placeholder-gray-400  focus:ring-yellow-500 focus:border-yellow-500' }} text-center rounded-lg border-1 text-sm block w-full p-2.5"
+                                                                            class="{{ $errors->has('title') ? 'bg-red-100 border-red-400 text-red-500 placeholder-red-700 focus:ring-red-500 focus:border-red-500' : 'bg-white border-yellow-500 text-gray-900 placeholder-gray-400  focus:ring-yellow-500 focus:border-yellow-500' }} text-center rounded-lg border-1 text-sm block w-full p-2.5"
                                                                             value="{{ old('title', $coupon->title) }}">
                                                                     </td>
                                                                     <td class="p-4 text-gray-900">
                                                                         <input type="datetime-local" id="starting_time"
                                                                             name="starting_time"
                                                                             aria-describedby="helper-text-explanation"
-                                                                            class="{{ $errors->has('starting_time') ? 'bg-red-100 border-red-400 text-red-500 placeholder-red-700' : 'bg-white border-yellow-500 text-gray-900 placeholder-gray-400  focus:ring-yellow-500 focus:border-yellow-500' }} text-center rounded-lg border-1 text-sm block w-full p-2.5"
+                                                                            class="{{ $errors->has('starting_time') ? 'bg-red-100 border-red-400 text-red-500 placeholder-red-700 focus:ring-red-500 focus:border-red-500' : 'bg-white border-yellow-500 text-gray-900 placeholder-gray-400  focus:ring-yellow-500 focus:border-yellow-500' }} text-center rounded-lg border-1 text-sm block w-full p-2.5"
                                                                             value="{{ $coupon->starting_time ? \Carbon\Carbon::parse($coupon->starting_time)->format('Y-m-d\TH:i') : '' }}">
                                                                     </td>
                                                                     <td class="p-4 text-gray-900">
                                                                         <input type="datetime-local" id="ending_time"
                                                                             name="ending_time"
                                                                             aria-describedby="helper-text-explanation"
-                                                                            class="{{ $errors->has('ending_time') ? 'bg-red-100 border-red-400 text-red-500 placeholder-red-700' : 'bg-white border-yellow-500 text-gray-900 placeholder-gray-400  focus:ring-yellow-500 focus:border-yellow-500' }} text-center rounded-lg border-1 text-sm block w-full p-2.5"
+                                                                            class="{{ $errors->has('ending_time') ? 'bg-red-100 border-red-400 text-red-500 placeholder-red-700 focus:ring-red-500 focus:border-red-500' : 'bg-white border-yellow-500 text-gray-900 placeholder-gray-400  focus:ring-yellow-500 focus:border-yellow-500' }} text-center rounded-lg border-1 text-sm block w-full p-2.5"
                                                                             value="{{ $coupon->ending_time ? \Carbon\Carbon::parse($coupon->ending_time)->format('Y-m-d\TH:i') : '' }}">
                                                                     </td>
                                                                     <td class="p-4 text-gray-900">
                                                                         <input type="number" id="discount"
                                                                             name="discount"
                                                                             aria-describedby="helper-text-explanation"
-                                                                            class="{{ $errors->has('discount') ? 'bg-red-100 border-red-400 text-red-500 placeholder-red-700' : 'bg-white border-yellow-500 text-gray-900 placeholder-gray-400  focus:ring-yellow-500 focus:border-yellow-500' }} text-center rounded-lg border-1 text-sm block w-full p-2.5"
+                                                                            class="{{ $errors->has('discount') ? 'bg-red-100 border-red-400 text-red-500 placeholder-red-700 focus:ring-red-500 focus:border-red-500' : 'bg-white border-yellow-500 text-gray-900 placeholder-gray-400  focus:ring-yellow-500 focus:border-yellow-500' }} text-center rounded-lg border-1 text-sm block w-full p-2.5"
                                                                             placeholder="Rentang diskon dari 1-100"
                                                                             min="0"
                                                                             value="{{ old('discount', $coupon->discount) }}">
@@ -434,7 +434,7 @@
                                                                         <input type="number" id="quantity"
                                                                             name="quantity"
                                                                             aria-describedby="helper-text-explanation"
-                                                                            class="{{ $errors->has('quantity') ? 'bg-red-100 border-red-400 text-red-500 placeholder-red-700' : 'bg-white border-yellow-500 text-gray-900 placeholder-gray-400  focus:ring-yellow-500 focus:border-yellow-500' }} text-center rounded-lg border-1 text-sm block w-full p-2.5"
+                                                                            class="{{ $errors->has('quantity') ? 'bg-red-100 border-red-400 text-red-500 placeholder-red-700 focus:ring-red-500 focus:border-red-500' : 'bg-white border-yellow-500 text-gray-900 placeholder-gray-400  focus:ring-yellow-500 focus:border-yellow-500' }} text-center rounded-lg border-1 text-sm block w-full p-2.5"
                                                                             placeholder="Jumlah kupon minimal 1"
                                                                             min="0"
                                                                             value="{{ old('quantity', $coupon->initial_quantity) }}">
@@ -470,7 +470,7 @@
                             </div>
                         </div>
                         @if ($point)
-                            <button type="button" data-modal-target="point_modal" data-modal-toggle="point_modal"
+                            <button data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="800" type="button" data-modal-target="point_modal" data-modal-toggle="point_modal"
                                 class="flex flex-row items-center justify-center w-36 cursor-pointer text-yellow-500 bg-gray-900 hover:bg-gray-950 font-medium rounded-lg text-xs md:text-sm px-3 py-2.5 text-center">
                                 <svg class="w-4 h-4 mr-2 text-yellow-500" aria-hidden="true"
                                     xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
@@ -509,7 +509,7 @@
                                                 <input type="number" id="percentage_from_totalprice"
                                                     name="percentage_from_totalprice"
                                                     aria-describedby="helper-text-explanation"
-                                                    class="{{ $errors->has('percentage_from_totalprice') ? 'bg-red-100 border-red-400 text-red-500 placeholder-red-700' : 'bg-white border-yellow-500 text-gray-900 placeholder-gray-400  focus:ring-yellow-500 focus:border-yellow-500' }} text-center rounded-lg border-1 text-sm block w-full p-2.5 mb-4"
+                                                    class="{{ $errors->has('percentage_from_totalprice') ? 'bg-red-100 border-red-400 text-red-500 placeholder-red-700 focus:ring-red-500 focus:border-red-500' : 'bg-white border-yellow-500 text-gray-900 placeholder-gray-400  focus:ring-yellow-500 focus:border-yellow-500' }} text-center rounded-lg border-1 text-sm block w-full p-2.5 mb-4"
                                                     placeholder="Rentang persentase dari 1 - 100" min="0"
                                                     max="100"
                                                     value="{{ old('percentage_from_totalprice', $point->percentage_from_totalprice) }}">
@@ -518,7 +518,7 @@
                                                     Uang/Poin</label>
                                                 <input type="number" id="money_per_poin" name="money_per_poin"
                                                     aria-describedby="helper-text-explanation"
-                                                    class="{{ $errors->has('money_per_poin') ? 'bg-red-100 border-red-400 text-red-500 placeholder-red-700' : 'bg-white border-yellow-500 text-gray-900 placeholder-gray-400  focus:ring-yellow-500 focus:border-yellow-500' }} text-center rounded-lg border-1 text-sm block w-full p-2.5"
+                                                    class="{{ $errors->has('money_per_poin') ? 'bg-red-100 border-red-400 text-red-500 placeholder-red-700 focus:ring-red-500 focus:border-red-500' : 'bg-white border-yellow-500 text-gray-900 placeholder-gray-400  focus:ring-yellow-500 focus:border-yellow-500' }} text-center rounded-lg border-1 text-sm block w-full p-2.5"
                                                     placeholder="Jumlah uang minimal 1" min="0"
                                                     value="{{ old('money_per_poin', $point->money_per_poin) }}">
                                             </div>
@@ -531,7 +531,7 @@
                                 </div>
                             </form>
                         @else
-                            <button type="button" data-modal-target="point_modal" data-modal-toggle="point_modal"
+                            <button data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="800" type="button" data-modal-target="point_modal" data-modal-toggle="point_modal"
                                 class="flex flex-row items-center justify-center w-32 cursor-pointer text-yellow-500 bg-gray-900 hover:bg-gray-950 font-medium rounded-lg text-xs md:text-sm px-3 py-2.5 text-center">
                                 <svg class="w-4 h-4 mr-2 text-yellow-500" aria-hidden="true"
                                     xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
@@ -569,7 +569,7 @@
                                                 <input type="number" id="percentage_from_totalprice"
                                                     name="percentage_from_totalprice"
                                                     aria-describedby="helper-text-explanation"
-                                                    class="{{ $errors->has('percentage_from_totalprice') ? 'bg-red-100 border-red-400 text-red-500 placeholder-red-700' : 'bg-white border-yellow-500 text-gray-900 placeholder-gray-400  focus:ring-yellow-500 focus:border-yellow-500' }} text-center rounded-lg border-1 text-sm block w-full p-2.5 mb-4"
+                                                    class="{{ $errors->has('percentage_from_totalprice') ? 'bg-red-100 border-red-400 text-red-500 placeholder-red-700 focus:ring-red-500 focus:border-red-500' : 'bg-white border-yellow-500 text-gray-900 placeholder-gray-400  focus:ring-yellow-500 focus:border-yellow-500' }} text-center rounded-lg border-1 text-sm block w-full p-2.5 mb-4"
                                                     placeholder="Rentang persentase dari 1 - 100" min="0"
                                                     max="100" value="{{ old('percentage_from_totalprice') }}">
                                                 <label for="money_per_poin"
@@ -577,7 +577,7 @@
                                                     Uang/Poin</label>
                                                 <input type="number" id="money_per_poin" name="money_per_poin"
                                                     aria-describedby="helper-text-explanation"
-                                                    class="{{ $errors->has('money_per_poin') ? 'bg-red-100 border-red-400 text-red-500 placeholder-red-700' : 'bg-white border-yellow-500 text-gray-900 placeholder-gray-400  focus:ring-yellow-500 focus:border-yellow-500' }} text-center rounded-lg border-1 text-sm block w-full p-2.5"
+                                                    class="{{ $errors->has('money_per_poin') ? 'bg-red-100 border-red-400 text-red-500 placeholder-red-700 focus:ring-red-500 focus:border-red-500' : 'bg-white border-yellow-500 text-gray-900 placeholder-gray-400  focus:ring-yellow-500 focus:border-yellow-500' }} text-center rounded-lg border-1 text-sm block w-full p-2.5"
                                                     placeholder="Jumlah uang minimal 1" min="0"
                                                     value="{{ old('money_per_poin') }}">
                                             </div>
@@ -593,9 +593,9 @@
                     </div>
                 </div>
             </div>
-            <div class="overflow-x-auto">
+            <div class="overflow-x-auto overflow-y-hidden">
                 <table class="w-full text-sm text-center text-gray-500">
-                    <thead class="text-xs text-center text-gray-700 uppercase bg-gray-50">
+                    <thead data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="800" class="text-xs text-center text-gray-700 uppercase bg-gray-50">
                         <tr>
                             <th scope="col" class="p-4">No.</th>
                             <th scope="col" class="p-4">Nama</th>
@@ -609,14 +609,14 @@
                     </thead>
                     <tbody>
                         @if ($users->count() == 0)
-                            <tr>
+                            <tr data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="800">
                                 <td colspan="6" class="p-4 text-center">
                                     <p class="text-gray-400">Belum ada user yang terdaftar</p>
                                 </td>
                             </tr>
                         @else
                             @foreach ($users as $user)
-                                <tr class="border-b hover:bg-gray-100">
+                                <tr data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="800" class="border-b hover:bg-gray-100">
                                     <td class="p-4 w-4">
                                         {{ $loop->index + ($users->currentPage() - 1) * $users->perPage() + 1 }}
                                     </td>
@@ -695,11 +695,9 @@
                     </tbody>
                 </table>
             </div>
-            <nav class="flex flex-col md:flex-row justify-end items-center space-y-3 md:space-y-0 p-4"
+            <nav data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="800" class="flex flex-col md:flex-row justify-end items-center space-y-3 md:space-y-0 p-4"
                 aria-label="Table navigation">
-
                 {{ $users->links('vendor.pagination.tailwind') }}
-
             </nav>
         </div>
         </div>

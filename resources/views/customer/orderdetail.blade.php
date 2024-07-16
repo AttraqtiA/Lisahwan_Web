@@ -3,7 +3,8 @@
 @section('content_page')
     <div class="flex flex-col items-center">
         @if (session('deleteCart_success'))
-            <div class="w-10/12 md:w-9/12 lg:w-6/12 flex justify-center items-center p-4 mt-8 text-sm rounded-lg bg-gray-900 text-green-400"
+            <div data-aos="zoom-in-down" data-aos-anchor-placement="top-bottom" data-aos-duration="800"
+                class="w-10/12 md:w-9/12 lg:w-6/12 flex justify-center items-center p-4 mt-8 text-sm rounded-lg bg-gray-900 text-green-400"
                 role="alert">
                 <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
                     fill="currentColor" viewBox="0 0 20 20">
@@ -17,7 +18,8 @@
             </div>
         @endif
         @if (session('addTestimony_success'))
-            <div class="w-10/12 md:w-9/12 lg:w-6/12 flex justify-center items-center p-4 mt-8 text-sm rounded-lg bg-gray-900 text-green-400"
+            <div data-aos="zoom-in-down" data-aos-anchor-placement="top-bottom" data-aos-duration="800"
+                class="w-10/12 md:w-9/12 lg:w-6/12 flex justify-center items-center p-4 mt-8 text-sm rounded-lg bg-gray-900 text-green-400"
                 role="alert">
                 <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
                     fill="currentColor" viewBox="0 0 20 20">
@@ -31,7 +33,8 @@
             </div>
         @endif
         @if (session('updateTestimony_success'))
-            <div class="w-10/12 md:w-9/12 lg:w-6/12 flex justify-center items-center p-4 mt-8 text-sm rounded-lg bg-gray-900 text-green-400"
+            <div data-aos="zoom-in-down" data-aos-anchor-placement="top-bottom" data-aos-duration="800"
+                class="w-10/12 md:w-9/12 lg:w-6/12 flex justify-center items-center p-4 mt-8 text-sm rounded-lg bg-gray-900 text-green-400"
                 role="alert">
                 <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
                     fill="currentColor" viewBox="0 0 20 20">
@@ -45,7 +48,8 @@
             </div>
         @endif
         @if (session('deleteTestimony_success'))
-            <div class="w-10/12 md:w-9/12 lg:w-6/12 flex justify-center items-center p-4 mt-8 text-sm rounded-lg bg-gray-900 text-green-400"
+            <div data-aos="zoom-in-down" data-aos-anchor-placement="top-bottom" data-aos-duration="800"
+                class="w-10/12 md:w-9/12 lg:w-6/12 flex justify-center items-center p-4 mt-8 text-sm rounded-lg bg-gray-900 text-green-400"
                 role="alert">
                 <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
                     fill="currentColor" viewBox="0 0 20 20">
@@ -59,7 +63,8 @@
             </div>
         @endif
         @error('review')
-            <div class="w-10/12 md:w-9/12 lg:w-6/12 flex justify-center items-center p-4 mt-8 text-sm rounded-lg bg-gray-900 text-red-400"
+            <div data-aos="zoom-in-down" data-aos-anchor-placement="top-bottom" data-aos-duration="800"
+                class="w-10/12 md:w-9/12 lg:w-6/12 flex justify-center items-center p-4 mt-8 text-sm rounded-lg bg-gray-900 text-red-400"
                 role="alert">
                 <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
                     fill="currentColor" viewBox="0 0 20 20">
@@ -73,7 +78,8 @@
             </div>
         @enderror
         @error('rating')
-            <div class="w-10/12 md:w-9/12 lg:w-6/12 flex justify-center items-center p-4 mt-8 text-sm rounded-lg bg-gray-900 text-red-400"
+            <div data-aos="zoom-in-down" data-aos-anchor-placement="top-bottom" data-aos-duration="800"
+                class="w-10/12 md:w-9/12 lg:w-6/12 flex justify-center items-center p-4 mt-8 text-sm rounded-lg bg-gray-900 text-red-400"
                 role="alert">
                 <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
                     fill="currentColor" viewBox="0 0 20 20">
@@ -87,7 +93,8 @@
             </div>
         @enderror
         @error('image')
-            <div class="w-10/12 md:w-9/12 lg:w-6/12 flex justify-center items-center p-4 mt-8 text-sm rounded-lg bg-gray-900 text-red-400"
+            <div data-aos="zoom-in-down" data-aos-anchor-placement="top-bottom" data-aos-duration="800"
+                class="w-10/12 md:w-9/12 lg:w-6/12 flex justify-center items-center p-4 mt-8 text-sm rounded-lg bg-gray-900 text-red-400"
                 role="alert">
                 <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
                     fill="currentColor" viewBox="0 0 20 20">
@@ -102,7 +109,8 @@
         @enderror
         <div
             class="grid grid-cols-1 sm:grid-cols-1 lg:grid-cols-2 gap-x-8 gap-y-8 sm:gap-y-8 lg:gap-y-12 p-8 sm:p-12 mx-auto">
-            <div class="flex flex-col lg:justify-center">
+            <div data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="800"
+                class="flex flex-col lg:justify-center">
                 @if (strlen($product->image) > 30)
                     <img class="lg:h-screen lg:w-screen lg:object-bottom object-cover rounded-lg drop-shadow-md"
                         src="{{ asset('storage/' . $product->image) }}" alt="{{ $product->image }}" />
@@ -113,31 +121,39 @@
             </div>
             <div class="flex flex-col justify-center">
                 <div class="h-full flex flex-col justify-center">
-                    <h1 class="text-4xl font-extrabold text-gray-900">{{ $product->name }}</h1>
+                    <h1 data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="800"
+                        class="text-4xl font-extrabold text-gray-900">{{ $product->name }}</h1>
                     @if ($product->discount != 0)
-                        <p class="mt-2 text-xl font-semibold text-gray-900">Rp.
+                        <p data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="800"
+                            class="mt-2 text-xl font-semibold text-gray-900">Rp.
                             {{ number_format($product->countDiscount(), 0, ',', '.') }} <span
                                 class="text-sm font-medium">({{ $product->weight }} gram)</span></p>
                     @else
-                        <p class="mt-2 text-xl font-semibold text-gray-900">Rp.
+                        <p data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="800"
+                            class="mt-2 text-xl font-semibold text-gray-900">Rp.
                             {{ number_format($product->price, 0, ',', '.') }} <span
                                 class="text-sm font-medium">({{ $product->weight }} gram)</span>
                         </p>
                     @endif
-                    <p class="mt-4 text-base font-medium text-gray-900">Ketersediaan stok: <span
+                    <p data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="800"
+                        class="mt-4 text-base font-medium text-gray-900">Ketersediaan stok: <span
                             class="underline underline-offset-2 decoration-4 decoration-yellow-500">{{ $product->stock }}
                             buah</span>
                     </p>
-                    <hr class="h-px my-4 border-0 bg-gray-400">
-                    <p class="text-base font-medium text-gray-900">{{ $product->description }}</p>
+                    <hr data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="800"
+                        class="h-px my-4 border-0 bg-gray-400">
+                    <p data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="800"
+                        class="text-base font-medium text-gray-900">{{ $product->description }}</p>
 
                     <div class="max-w-xs mt-8">
-                        <label for="{{ $product->id }}" class="block mb-2 text-sm font-semibold text-gray-900">Pilih
+                        <label data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="800"
+                            for="{{ $product->id }}" class="block mb-2 text-sm font-semibold text-gray-900">Pilih
                             jumlah:</label>
                         <form action="{{ route('member.carts.add', $product->id) }}" method="POST">
                             @csrf
                             <input type="hidden" name="submitButton" id="submitButton" value="">
-                            <div class="relative flex items-center max-w-[8rem]">
+                            <div data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="800"
+                                class="relative flex items-center max-w-[8rem]">
                                 <button type="button" id="{{ 'input-decrement-' . $product->id }}"
                                     onClick="changeQuantity('{{ $product->id }}', -1, '{{ $product->price }}')"
                                     class="cursor-pointer bg-gray-900 hover:bg-gray-800 border-gray-900 border rounded-s-lg p-3 h-11">
@@ -162,33 +178,42 @@
                                     </svg>
                                 </button>
                             </div>
-                            <p id="helper-text-explanation" class="mt-2 text-sm text-gray-600">Mohon
+                            <p data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="800"
+                                id="helper-text-explanation" class="mt-2 text-sm text-gray-600">Mohon
                                 isikan
                                 jumlah pemesanan anda.</p>
                             @error('quantity')
-                                <p class="mt-1 text-sm text-red-500"><span class="font-medium">{{ $message }}</p>
+                                <p data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="800"
+                                    class="mt-1 text-sm text-red-500"><span class="font-medium">{{ $message }}</p>
                             @enderror
-                            @if (session('F'))
-                                <p class="mt-1 text-sm text-red-500"><span
+                            @if (session('over_quantity'))
+                                <p data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="800"
+                                    class="mt-1 text-sm text-red-500"><span
                                         class="font-medium">{{ session('over_quantity') }}</p>
                             @endif
                     </div>
                     <div class="flex flex-row mt-4 items-center">
-                        <label for="cost" class="text-sm font-semibold text-gray-900">Subtotal:</label>
-                        <input type="text" id="cost" name="cost" aria-label="disabled input 2"
-                            class="text-center ml-2 border {{ $errors->has('cost') ? 'bg-red-100 border-red-400 text-red-500 placeholder-red-700' : 'bg-gray-300 border-yellow-500 text-gray-600 placeholder-gray-400' }} text-sm rounded-lg block w-5/12 sm:w-3/12 p-2.5 cursor-not-allowed"
+                        <label data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="800"
+                            for="cost" class="text-sm font-semibold text-gray-900">Subtotal:</label>
+                        <input data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="800"
+                            type="text" id="cost" name="cost" aria-label="disabled input 2"
+                            class="text-center ml-2 border {{ $errors->has('cost') ? 'bg-red-100 border-red-400 text-red-500 placeholder-red-700 focus:ring-red-500 focus:border-red-500' : 'bg-gray-300 border-yellow-500 text-gray-600 placeholder-gray-400 focus:ring-yellow-500 focus:border-yellow-500' }} text-sm rounded-lg block w-5/12 sm:w-3/12 p-2.5 cursor-not-allowed"
                             value="{{ old('cost', 0) }}" readonly>
                     </div>
                     @error('cost')
-                        <p class="mt-1 text-sm text-red-500"><span class="font-medium">{{ $message }}
+                        <p data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="800"
+                            class="mt-1 text-sm text-red-500"><span class="font-medium">{{ $message }}
                         </p>
                     @enderror
-                    <hr class="h-px my-6 border-0 bg-gray-400">
+                    <hr data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="800"
+                        class="h-px my-6 border-0 bg-gray-400">
                     <div class="flex flex-row justify-center">
-                        <button type="submit" onclick="setSubmitButton('submit1')"
+                        <button data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="800"
+                            type="submit" onclick="setSubmitButton('submit1')"
                             class="cursor-pointer border font-medium rounded-lg text-base px-5 py-2.5 me-2 border-yellow-500 text-yellow-500 hover:text-white hover:bg-yellow-500">Beli
                             Langsung</button>
-                        <button type="submit" onclick="setSubmitButton('submit2')"
+                        <button data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="800"
+                            type="submit" onclick="setSubmitButton('submit2')"
                             class="cursor-pointer text-white bg-yellow-500 hover:bg-yellow-600 font-medium rounded-lg text-base px-5 py-2.5 text-center inline-flex items-center">
                             <svg class="w-3 h-3 mr-2 text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
                                 fill="none" viewBox="0 0 18 18">
@@ -203,10 +228,12 @@
             </div>
             <div class="flex flex-col h-full">
                 <div class="flex flex-row justify-between items-center">
-                    <h1 class="text-xl sm:text-2xl lg:text-3xl font-semibold text-gray-900">Ulasan Produk</h1>
+                    <h1 data-aos="fade-right" data-aos-anchor-placement="top-bottom" data-aos-duration="800"
+                        class="text-xl sm:text-2xl lg:text-3xl font-semibold text-gray-900">Ulasan Produk</h1>
                     @if ($check_order_user)
                         @if (!$check_testimonies)
-                            <button type="button" data-modal-target="add_testimony_modal"
+                            <button data-aos="fade-left" data-aos-anchor-placement="top-bottom" data-aos-duration="800"
+                                type="button" data-modal-target="add_testimony_modal"
                                 data-modal-toggle="add_testimony_modal"
                                 class="inline-flex cursor-pointer text-white bg-yellow-500 hover:bg-yellow-600 font-medium rounded-lg text-sm px-3 py-2.5 text-center items-center">
                                 <svg class="w-4 h-4 mr-2 text-white" aria-hidden="true"
@@ -239,13 +266,13 @@
                                                 <label for="review"
                                                     class="mb-2 block text-sm font-semibold text-gray-900">Review</label>
                                                 <textarea id="review" name="review" rows="4"
-                                                    class="{{ $errors->has('review') ? 'bg-red-100 border-red-400 text-red-500 placeholder-red-700' : 'bg-white border-yellow-500 text-gray-900 placeholder-gray-400  focus:ring-yellow-500 focus:border-yellow-500' }} text-center rounded-lg border-1 text-sm block w-full p-2.5"
+                                                    class="{{ $errors->has('review') ? 'bg-red-100 border-red-400 text-red-500 placeholder-red-700 focus:ring-red-500 focus:border-red-500' : 'bg-white border-yellow-500 text-gray-900 placeholder-gray-400  focus:ring-yellow-500 focus:border-yellow-500' }} text-center rounded-lg border-1 text-sm block w-full p-2.5"
                                                     placeholder="Berikan ulasan anda terhadap produk ini">{{ old('review') }}</textarea>
                                                 <label for="rating"
                                                     class="mt-4 mb-2 block text-sm font-semibold text-gray-900">Rating</label>
                                                 <input type="number" id="rating" name="rating"
                                                     aria-describedby="helper-text-explanation"
-                                                    class="{{ $errors->has('review') ? 'bg-red-100 border-red-400 text-red-500 placeholder-red-700' : 'bg-white border-yellow-500 text-gray-900 placeholder-gray-400  focus:ring-yellow-500 focus:border-yellow-500' }} text-center rounded-lg border-1 text-sm block w-full p-2.5"
+                                                    class="{{ $errors->has('review') ? 'bg-red-100 border-red-400 text-red-500 placeholder-red-700 focus:ring-red-500 focus:border-red-500' : 'bg-white border-yellow-500 text-gray-900 placeholder-gray-400  focus:ring-yellow-500 focus:border-yellow-500' }} text-center rounded-lg border-1 text-sm block w-full p-2.5"
                                                     placeholder="Beri rating dari 1 - 5" min="1" max="5"
                                                     value="{{ old('rating') }}">
                                                 <span class="mt-4 mb-2 block text-sm font-semibold text-gray-900">Upload
@@ -286,7 +313,8 @@
                                 </div>
                             </form>
                         @else
-                            <button type="button" data-modal-target="update_testimony_modal"
+                            <button data-aos="fade-left" data-aos-anchor-placement="top-bottom" data-aos-duration="800"
+                                type="button" data-modal-target="update_testimony_modal"
                                 data-modal-toggle="update_testimony_modal"
                                 class="inline-flex cursor-pointer text-white bg-yellow-500 hover:bg-yellow-600 font-medium rounded-lg text-sm px-3 py-2.5 text-center items-center">
                                 <svg class="w-4 h-4 mr-2 text-white" aria-hidden="true"
@@ -321,13 +349,13 @@
                                                 <label for="review"
                                                     class="mb-2 block text-sm font-semibold text-gray-900">Review</label>
                                                 <textarea id="review" name="review" rows="4"
-                                                    class="{{ $errors->has('review') ? 'bg-red-100 border-red-400 text-red-500 placeholder-red-700' : 'bg-white border-yellow-500 text-gray-900 placeholder-gray-400  focus:ring-yellow-500 focus:border-yellow-500' }} text-center rounded-lg border-1 text-sm block w-full p-2.5"
+                                                    class="{{ $errors->has('review') ? 'bg-red-100 border-red-400 text-red-500 placeholder-red-700 focus:ring-red-500 focus:border-red-500' : 'bg-white border-yellow-500 text-gray-900 placeholder-gray-400  focus:ring-yellow-500 focus:border-yellow-500' }} text-center rounded-lg border-1 text-sm block w-full p-2.5"
                                                     placeholder="Berikan ulasan anda terhadap produk ini">{{ old('review', $check_testimonies->review) }}</textarea>
                                                 <label for="rating"
                                                     class="mt-4 mb-2 block text-sm font-semibold text-gray-900">Rating</label>
                                                 <input type="number" id="rating" name="rating"
                                                     aria-describedby="helper-text-explanation"
-                                                    class="{{ $errors->has('review') ? 'bg-red-100 border-red-400 text-red-500 placeholder-red-700' : 'bg-white border-yellow-500 text-gray-900 placeholder-gray-400  focus:ring-yellow-500 focus:border-yellow-500' }} text-center rounded-lg border-1 text-sm block w-full p-2.5"
+                                                    class="{{ $errors->has('review') ? 'bg-red-100 border-red-400 text-red-500 placeholder-red-700 focus:ring-red-500 focus:border-red-500' : 'bg-white border-yellow-500 text-gray-900 placeholder-gray-400  focus:ring-yellow-500 focus:border-yellow-500' }} text-center rounded-lg border-1 text-sm block w-full p-2.5"
                                                     placeholder="Beri rating dari 1 - 5" min="1" max="5"
                                                     value="{{ old('rating', $check_testimonies->rating) }}">
                                                 <span class="mt-4 mb-2 block text-sm font-semibold text-gray-900">Upload
@@ -376,12 +404,14 @@
                     @else
                     @endif
                 </div>
-                <hr class="h-px my-2 border-0 bg-gray-400">
+                <hr data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="800"
+                    class="h-px my-2 border-0 bg-gray-400">
                 <div
                     class="flex flex-col-reverse @if (count($testimonies) == 0) h-full justify-center items-center @endif">
                     @if (count($testimonies) > 0)
                         @foreach ($testimonies as $testimony)
-                            <div class="flex flex-row gap-x-3 mt-3 w-full">
+                            <div data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="800"
+                                class="flex flex-row gap-x-3 mt-3 w-full">
                                 <div class="flex-none">
                                     @if (Auth::user()->profile_picture == null)
                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
@@ -391,9 +421,15 @@
                                                 d="M17.982 18.725A7.488 7.488 0 0012 15.75a7.488 7.488 0 00-5.982 2.975m11.963 0a9 9 0 10-11.963 0m11.963 0A8.966 8.966 0 0112 21a8.966 8.966 0 01-5.982-2.275M15 9.75a3 3 0 11-6 0 3 3 0 016 0z" />
                                         </svg>
                                     @else
-                                        <img class="w-12 h-12 object-top object-cover rounded-full overflow-hidden"
-                                            src="{{ asset('storage/' . $testimony->user->profile_picture) }}"
-                                            alt="{{ $testimony->user->name }}">
+                                        @if (strlen(Auth::user()->profile_picture) > 25)
+                                            <img class="w-12 h-12 object-top object-cover rounded-full overflow-hidden"
+                                                src="{{ asset('storage/' . $testimony->user->profile_picture) }}"
+                                                alt="{{ $testimony->user->name }}">
+                                        @else
+                                            <img class="w-12 h-12 object-top object-cover rounded-full overflow-hidden"
+                                                src="/images/{{ $testimony->user->profile_picture }}"
+                                                alt="{{ $testimony->user->name }}">
+                                        @endif
                                     @endif
                                 </div>
                                 <div class="flex flex-col mt-1 w-full">
@@ -462,25 +498,27 @@
                         @endforeach
                     @else
                         <div class="mt-4 col-span-2 flex flex-col items-center justify-center">
-                            <h1 class="text-center text-lg font-bold text-gray-400">Mohon maaf, belum
+                            <h1 data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="800"
+                                class="text-center text-lg font-bold text-gray-400">Mohon maaf, belum
                                 ada
                                 review terkait
                                 produk ini!</h1>
                         </div>
                     @endif
                 </div>
-                <div class="flex flex-row justify-center items-center mt-4">
+                <div data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="800"
+                    class="flex flex-row justify-center items-center mt-4">
                     {{ $testimonies->links() }}
                 </div>
             </div>
             <div class="flex flex-col">
                 <div class="flex flex-row justify-between items-center">
-                    <h1 class="text-xl sm:text-2xl lg:text-3xl font-semibold text-gray-900">Produk Lainnya</h1>
-                    <a href="{{ route('products') }}">
+                    <h1 data-aos="fade-right" data-aos-anchor-placement="top-bottom" data-aos-duration="800" class="text-xl sm:text-2xl lg:text-3xl font-semibold text-gray-900">Produk Lainnya</h1>
+                    <a data-aos="fade-left" data-aos-anchor-placement="top-bottom" data-aos-duration="800" href="{{ route('products') }}">
                         <p class="text-base font-medium text-yellow-500 hover:text-yellow-600">Lihat semua</p>
                     </a>
                 </div>
-                <hr class="h-px my-2 border-0 bg-gray-400">
+                <hr data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="800" class="h-px my-2 border-0 bg-gray-400">
                 <div
                     class = "grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-3 p-4 mx-auto @if (count($products_bestseller) == 0) h-full justify-center items-center @endif">
                     @if (count($products_bestseller) > 0)
@@ -488,7 +526,7 @@
                             <div
                                 class="relative hover:shadow-xl transform transition duration-500 hover:-translate-y-4 hover:z-40">
                                 <a href="{{ route('member.products.show', $bestseller->product->id) }}">
-                                    <div
+                                    <div data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="800"
                                         class="relative w-full h-full rounded-lg bg-gray-900 border-gray-800 mx-auto shadow">
                                         @if (strlen($bestseller->product->image) > 30)
                                             <img class="hh-3/4 rounded-t-lg w-full object-center object-cover"
@@ -581,7 +619,7 @@
                 @endforeach
             @else
                 <div class="col-span-2 flex flex-col items-center justify-center">
-                    <h1 class="text-center text-lg font-bold text-gray-400">Mohon maaf, belum ada
+                    <h1 data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="800" class="text-center text-lg font-bold text-gray-400">Mohon maaf, belum ada
                         produk best seller!</h1>
                 </div>
                 @endif

@@ -3,7 +3,7 @@
 @section('content_page')
     <div class="flex flex-col items-center sm:ml-56 mt-36 sm:mt-36 h-full">
         @if (session('empty_stock'))
-            <div class="w-10/12 md:w-9/12 lg:w-6/12 flex justify-center items-center p-4 mb-12 text-sm rounded-lg bg-gray-900 text-red-400"
+            <div data-aos="zoom-in-down" data-aos-anchor-placement="top-bottom" data-aos-duration="800" class="w-10/12 md:w-9/12 lg:w-6/12 flex justify-center items-center p-4 mb-12 text-sm rounded-lg bg-gray-900 text-red-400"
                 role="alert">
                 <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
                     fill="currentColor" viewBox="0 0 20 20">
@@ -17,7 +17,7 @@
             </div>
         @endif
         @if (session('empty_order'))
-            <div class="w-10/12 md:w-9/12 lg:w-6/12 flex justify-center items-center p-4 mb-12 text-sm rounded-lg bg-gray-900 text-red-400"
+            <div data-aos="zoom-in-down" data-aos-anchor-placement="top-bottom" data-aos-duration="800" class="w-10/12 md:w-9/12 lg:w-6/12 flex justify-center items-center p-4 mb-12 text-sm rounded-lg bg-gray-900 text-red-400"
                 role="alert">
                 <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
                     fill="currentColor" viewBox="0 0 20 20">
@@ -31,7 +31,7 @@
             </div>
         @endif
         @if (session('checkout_cancel'))
-            <div class="w-10/12 md:w-9/12 lg:w-6/12 flex justify-center items-center p-4 mb-12 text-sm rounded-lg bg-gray-900 text-red-400"
+            <div data-aos="zoom-in-down" data-aos-anchor-placement="top-bottom" data-aos-duration="800" class="w-10/12 md:w-9/12 lg:w-6/12 flex justify-center items-center p-4 mb-12 text-sm rounded-lg bg-gray-900 text-red-400"
                 role="alert">
                 <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
                     fill="currentColor" viewBox="0 0 20 20">
@@ -45,7 +45,7 @@
             </div>
         @endif
         @if (session('addCart_success'))
-            <div class="w-10/12 md:w-9/12 lg:w-6/12 flex justify-center items-center p-4 mb-12 text-sm rounded-lg bg-gray-900 text-green-400"
+            <div data-aos="zoom-in-down" data-aos-anchor-placement="top-bottom" data-aos-duration="800" class="w-10/12 md:w-9/12 lg:w-6/12 flex justify-center items-center p-4 mb-12 text-sm rounded-lg bg-gray-900 text-green-400"
                 role="alert">
                 <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
                     fill="currentColor" viewBox="0 0 20 20">
@@ -59,7 +59,7 @@
             </div>
         @endif
         @if (session('order_success'))
-            <div class="w-10/12 md:w-9/12 lg:w-6/12 flex justify-center items-center p-4 mb-12 text-sm rounded-lg bg-gray-900 text-green-400"
+            <div data-aos="zoom-in-down" data-aos-anchor-placement="top-bottom" data-aos-duration="800" class="w-10/12 md:w-9/12 lg:w-6/12 flex justify-center items-center p-4 mb-12 text-sm rounded-lg bg-gray-900 text-green-400"
                 role="alert">
                 <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
                     fill="currentColor" viewBox="0 0 20 20">
@@ -73,7 +73,7 @@
             </div>
         @endif
         @if (session('over_quantity'))
-            <div class="w-10/12 md:w-9/12 lg:w-6/12 flex justify-center items-center p-4 mb-12 text-sm rounded-lg bg-gray-900 text-red-400"
+            <div data-aos="zoom-in-down" data-aos-anchor-placement="top-bottom" data-aos-duration="800" class="w-10/12 md:w-9/12 lg:w-6/12 flex justify-center items-center p-4 mb-12 text-sm rounded-lg bg-gray-900 text-red-400"
                 role="alert">
                 <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
                     fill="currentColor" viewBox="0 0 20 20">
@@ -87,7 +87,7 @@
             </div>
         @endif
         @error('quantity')
-            <div class="w-10/12 md:w-9/12 lg:w-6/12 flex justify-center items-center p-4 mb-12 text-sm rounded-lg bg-gray-900 text-red-400"
+            <div data-aos="zoom-in-down" data-aos-anchor-placement="top-bottom" data-aos-duration="800" class="w-10/12 md:w-9/12 lg:w-6/12 flex justify-center items-center p-4 mb-12 text-sm rounded-lg bg-gray-900 text-red-400"
                 role="alert">
                 <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
                     fill="currentColor" viewBox="0 0 20 20">
@@ -101,14 +101,14 @@
             </div>
         @enderror
         <div class="mx-auto w-11/12 sm:max-w-screen-xl text-center sm:col-span-2 md:col-span-2 lg:col-span-4">
-            <h1 class="mb-8 text-4xl font-extrabold tracking-tight leading-none text-gray-900 md:text-5xl lg:text-6xl">
+            <h1 data-aos="fade-down" data-aos-anchor-placement="top-bottom" data-aos-duration="800" class="mb-8 text-4xl font-extrabold tracking-tight leading-none text-gray-900 md:text-5xl lg:text-6xl">
                 {!! $pageTitle !!}</h1>
-            <p class="text-lg font-normal text-gray-900 lg:text-xl sm:px-16 lg:px-48">{!! $pageDescription !!}</p>
+            <p data-aos="fade-down" data-aos-anchor-placement="top-bottom" data-aos-duration="800" class="text-lg font-normal text-gray-900 lg:text-xl sm:px-16 lg:px-48">{!! $pageDescription !!}</p>
         </div>
         <div class = "grid grid-cols-1 lg:grid-cols-3 gap-4 px-12 py-12 mx-auto bg-neutral-200">
             @foreach ($products as $product)
                 <div class="relative hover:shadow-xl transform transition duration-500 hover:-translate-y-4 hover:z-40">
-                    <div class="relative w-full h-full rounded-lg bg-gray-900 border-gray-800 mx-auto shadow">
+                    <div data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="800" class="relative w-full h-full rounded-lg bg-gray-900 border-gray-800 mx-auto shadow">
                         @if (strlen($product->image) > 30)
                             <img class="h-3/4 rounded-t-lg w-full object-cover"
                                 src="{{ asset('storage/' . $product->image) }}" alt="{{ $product->image }}" />
@@ -116,7 +116,6 @@
                             <img class="h-3/4 rounded-t-lg w-full object-cover"
                                 src="/images/fotoproduk/{{ $product->image }}" alt="{{ $product->image }}" />
                         @endif
-
                         <div class="h-1/4 px-8 pb-2 flex flex-col justify-center items-center">
                             <div class="py-16">
                                 <h5

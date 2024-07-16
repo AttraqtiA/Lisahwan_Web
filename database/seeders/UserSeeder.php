@@ -17,7 +17,7 @@ class UserSeeder extends Seeder
         User::create([
             'name' => 'Hendra',
             'role_id' => 1,
-            'is_login' => '1',
+            'is_login' => '0',
             'is_active' => '1',
             'email' => 'owner_lisahwan@gmail.com',
             'email_verified_at' => now(),
@@ -30,7 +30,7 @@ class UserSeeder extends Seeder
         User::create([
             'name' => 'Oppy',
             'role_id' => 2,
-            'is_login' => '1',
+            'is_login' => '0',
             'is_active' => '1',
             'email' => 'admin_lisahwan@gmail.com',
             'email_verified_at' => now(),
@@ -43,7 +43,7 @@ class UserSeeder extends Seeder
         User::create([
             'name' => 'Louis Fernando',
             'role_id' => 3,
-            'is_login' => '1',
+            'is_login' => '0',
             'is_active' => '1',
             'email' => 'louis@gmail.com',
             'email_verified_at' => now(),
