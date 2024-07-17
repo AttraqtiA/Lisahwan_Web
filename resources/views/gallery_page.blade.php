@@ -2,13 +2,16 @@
 
 @section('content_page')
     <div class="mx-auto w-11/12 sm:max-w-screen-xl text-center sm:col-span-2 md:col-span-2 lg:col-span-4 mt-16">
-        <h1 data-aos="fade-down" data-aos-anchor-placement="top-bottom" data-aos-duration="800" class="mb-8 text-4xl font-extrabold tracking-tight leading-none text-gray-900 md:text-5xl lg:text-6xl">
+        <h1 data-aos="fade-down" data-aos-anchor-placement="top-bottom" data-aos-duration="800"
+            class="mb-8 text-4xl font-extrabold tracking-tight leading-none text-gray-900 md:text-5xl lg:text-6xl">
             {!! $pageTitle !!}</h1>
-        <p data-aos="fade-down" data-aos-anchor-placement="top-bottom" data-aos-duration="800" class="text-lg font-normal text-gray-900 lg:text-xl sm:px-16 lg:px-48">{!! $pageDescription !!}</p>
+        <p data-aos="fade-down" data-aos-anchor-placement="top-bottom" data-aos-duration="800"
+            class="text-lg font-normal text-gray-900 lg:text-xl sm:px-16 lg:px-48">{!! $pageDescription !!}</p>
     </div>
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 pt-16 px-12 pb-16 mx-auto">
         @foreach ($galleries as $gallery)
-            <div data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="800" class="relative group @if ($loop->index % 4 == 0) sm:col-span-2 lg:max-h-screen lg:col-span-3 @endif">
+            <div data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="800"
+                class="relative group @if ($loop->index % 4 == 0) sm:col-span-2 lg:max-h-screen lg:col-span-3 @endif">
                 @if ($gallery->type == 'image')
                     <img class="h-full w-full rounded-lg object-cover" src="/images/fotoproduk/{{ $gallery->content }}"
                         alt="{{ $gallery->content }}">

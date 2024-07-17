@@ -4,13 +4,16 @@
     <section>
         <div class="gap-12 items-center py-8 px-8 mx-auto max-w-screen-xl lg:grid lg:grid-cols-2 lg:py-16 lg:px-16">
             <div class="font-light sm:text-lg text-gray-500">
-                <h2 data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="800" class="mb-3 text-4xl tracking-tight font-extrabold text-gray-900">Waktu Nyemil Jadi Hangat dan Renyah
+                <h2 data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="800"
+                    class="mb-3 text-4xl tracking-tight font-extrabold text-gray-900">Waktu Nyemil Jadi Hangat dan Renyah
                 </h2>
-                <p  data-aos="fade-down" data-aos-anchor-placement="top-bottom" data-aos-duration="800" class="mb-4">Dengan komitmen kami akan kualitas, kami menyediakan rangkaian camilan yang diolah dengan
+                <p data-aos="fade-down" data-aos-anchor-placement="top-bottom" data-aos-duration="800" class="mb-4">Dengan
+                    komitmen kami akan kualitas, kami menyediakan rangkaian camilan yang diolah dengan
                     penuh dedikasi sehingga customer selalu mendapatkan cita rasa yang khas dari camilan Lisahwan.</p>
                 <div class="flex flex-col sm:flex-row gap-y-2 sm:gap-y-0">
                     @if (!Auth::check())
-                        <a data-aos="fade-down" data-aos-anchor-placement="top-bottom" data-aos-duration="800" href="{{ route('register') }}"
+                        <a data-aos="fade-down" data-aos-anchor-placement="top-bottom" data-aos-duration="800"
+                            href="{{ route('register') }}"
                             class="sm:mr-2 cursor-pointer text-white bg-yellow-500 hover:bg-yellow-600 font-medium rounded-lg text-base px-5 py-3 text-center inline-flex items-center justify-center">
                             Jadi Member
                             <svg class="w-5 h-5 ml-1" fill="currentColor" viewBox="0 0 20 20"
@@ -33,7 +36,8 @@
                     </a>
                 </div>
             </div>
-            <div data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="800" class="grid grid-cols-2 gap-x-2 sm:gap-x-4 mt-8 lg:mt-0">
+            <div data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="800"
+                class="grid grid-cols-2 gap-x-2 sm:gap-x-4 mt-8 lg:mt-0">
                 <img class="mb-2 sm:mb-4 lg:mb-0 w-full rounded-lg" src="/images/fotoproduk/GalleryCarousel_2.jpg"
                     alt="GalleryCarousel_2.jpg">
                 <img class="mt-4 w-full lg:mt-10 rounded-lg" src="/images/fotoproduk/GalleryCarousel_8.jpg"
@@ -48,7 +52,8 @@
 
     <section class="bg-gray-900">
         <div class="py-8 px-8 mx-auto max-w-screen-xl lg:p-16">
-            <div data-aos="fade-right" data-aos-anchor-placement="top-bottom" data-aos-duration="800" class="max-w-screen-lg mb-10 w-full">
+            <div data-aos="fade-right" data-aos-anchor-placement="top-bottom" data-aos-duration="800"
+                class="max-w-screen-lg mb-10 w-full">
                 <h2 class="mb-4 text-4xl tracking-tight font-extrabold text-white">Apa saja yang spesial dari Lisahwan?</h2>
                 <p class="sm:text-xl text-gray-400">
                     Dalam inspirasi kekayaan hasil laut dan keanekaragaman bumbu rempah Jawa Timur, kami memahami bahwa
@@ -57,7 +62,8 @@
                 </p>
             </div>
             <div class="grid grid-cols-1 lg:grid-cols-3 gap-10 lg:gap-12 justify-center items-center">
-                <div data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="800" class="flex flex-col justify-center items-center">
+                <div data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="800"
+                    class="flex flex-col justify-center items-center">
                     <div>
                         <svg class="w-6 h-6 text-yellow-500 text-center" aria-hidden="true"
                             xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 18">
@@ -70,7 +76,8 @@
                         istimewa yang sulit untuk dilupakan.</p>
                 </div>
 
-                <div data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="800" class="flex flex-col justify-center items-center">
+                <div data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="800"
+                    class="flex flex-col justify-center items-center">
                     <div>
                         <svg class="w-6 h-6 text-yellow-500 text-center" aria-hidden="true"
                             xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 16 12">
@@ -84,7 +91,8 @@
                         standar premium untuk pengalaman terbaik bagi customer kami.</p>
                 </div>
 
-                <div data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="800" class="flex flex-col justify-center items-center">
+                <div data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="800"
+                    class="flex flex-col justify-center items-center">
                     <div>
                         <svg class="w-6 h-6 text-yellow-500 text-center" aria-hidden="true"
                             xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
@@ -100,7 +108,8 @@
 
                 <div
                     class="flex flex-col lg:flex-row justify-center items-center lg:col-span-3 lg:gap-x-6 gap-y-10 lg:gap-y-0">
-                    <div data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="800" class="flex flex-col justify-center items-center">
+                    <div data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="800"
+                        class="flex flex-col justify-center items-center">
                         <div>
                             <svg class="w-6 h-6 text-yellow-500 text-center" aria-hidden="true"
                                 xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
@@ -115,7 +124,8 @@
                             kebutuhan dan pertanyaan
                             Anda terpenuhi dengan segera.</p>
                     </div>
-                    <div data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="800"class="flex flex-col justify-center items-center">
+                    <div data-aos="fade-up" data-aos-anchor-placement="top-bottom"
+                        data-aos-duration="800"class="flex flex-col justify-center items-center">
                         <div>
                             <svg class="w-7 h-7 text-yellow-500 text-center" fill="currentColor" viewBox="0 0 20 20"
                                 xmlns="http://www.w3.org/2000/svg">
@@ -136,8 +146,10 @@
 
     <div class="flex flex-col p-8 lg:p-16">
         <div class="flex flex-row justify-between items-center">
-            <h1 data-aos="fade-right" data-aos-anchor-placement="top-bottom" data-aos-duration="800" class="text-xl lg:text-3xl font-extrabold text-gray-900">Produk Bestseller</h1>
-            <a data-aos="fade-left" data-aos-anchor-placement="top-bottom" data-aos-duration="800" href="{{ route('products') }}">
+            <h1 data-aos="fade-right" data-aos-anchor-placement="top-bottom" data-aos-duration="800"
+                class="text-xl lg:text-3xl font-extrabold text-gray-900">Produk Bestseller</h1>
+            <a data-aos="fade-left" data-aos-anchor-placement="top-bottom" data-aos-duration="800"
+                href="{{ route('products') }}">
                 <p class="text-base font-medium text-yellow-500 hover:text-yellow-600">Lihat semua</p>
             </a>
         </div>
@@ -149,7 +161,8 @@
                     <div
                         class="w-full relative hover:shadow-xl transform transition duration-500 hover:-translate-y-4 hover:z-40 mx-auto">
                         <a href="{{ route('member.products.show', $bestseller->product->id) }}">
-                            <div data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="800" class="relative w-full h-full rounded-lg bg-gray-900 border-gray-800 mx-auto shadow">
+                            <div data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="800"
+                                class="relative w-full h-full rounded-lg bg-gray-900 border-gray-800 mx-auto shadow">
                                 @if (strlen($bestseller->product->image) > 30)
                                     <img class="h-3/4 rounded-t-lg w-full object-center object-cover"
                                         src="{{ asset('storage/' . $bestseller->product->image) }}"
@@ -251,7 +264,8 @@
         @endforeach
     @else
         <div class="col-span-2 flex flex-col items-center justify-center">
-            <h1 data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="800" class="text-center text-lg font-bold text-gray-400">Mohon maaf, belum ada
+            <h1 data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="800"
+                class="text-center text-lg font-bold text-gray-400">Mohon maaf, belum ada
                 produk best seller!</h1>
         </div>
         @endif

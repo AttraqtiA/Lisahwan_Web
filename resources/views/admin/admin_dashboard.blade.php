@@ -7,7 +7,8 @@
             <div
                 class="flex flex-col justify-center items-center w-full {{ session('updateOrderStatus_success') || $errors->has('acceptbyAdmin_status') || $errors->has('shipment_status') || $errors->has('shipment_date') || $errors->has('arrived_date') ? 'mb-10 mt-6' : '' }}">
                 @error('acceptbyAdmin_status')
-                    <div data-aos="zoom-in-down" data-aos-anchor-placement="top-bottom" data-aos-duration="800" class="w-10/12 md:w-9/12 lg:w-6/12 flex justify-center items-center p-4 {{ $errors->has('acceptbyAdmin_status') ? 'mb-2' : '' }} text-sm rounded-lg bg-gray-900 text-red-400"
+                    <div data-aos="zoom-in-down" data-aos-anchor-placement="top-bottom" data-aos-duration="800"
+                        class="w-10/12 md:w-9/12 lg:w-6/12 flex justify-center items-center p-4 {{ $errors->has('acceptbyAdmin_status') ? 'mb-2' : '' }} text-sm rounded-lg bg-gray-900 text-red-400"
                         role="alert">
                         <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
                             fill="currentColor" viewBox="0 0 20 20">
@@ -21,7 +22,8 @@
                     </div>
                 @enderror
                 @error('shipment_status')
-                    <div data-aos="zoom-in-down" data-aos-anchor-placement="top-bottom" data-aos-duration="800" class="w-10/12 md:w-9/12 lg:w-6/12 flex justify-center items-center p-4 {{ $errors->has('acceptbyAdmin_status') ? 'mb-2' : '' }} text-sm rounded-lg bg-gray-900 text-red-400"
+                    <div data-aos="zoom-in-down" data-aos-anchor-placement="top-bottom" data-aos-duration="800"
+                        class="w-10/12 md:w-9/12 lg:w-6/12 flex justify-center items-center p-4 {{ $errors->has('acceptbyAdmin_status') ? 'mb-2' : '' }} text-sm rounded-lg bg-gray-900 text-red-400"
                         role="alert">
                         <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
                             fill="currentColor" viewBox="0 0 20 20">
@@ -35,7 +37,8 @@
                     </div>
                 @enderror
                 @error('shipment_date')
-                    <div data-aos="zoom-in-down" data-aos-anchor-placement="top-bottom" data-aos-duration="800" class="w-10/12 md:w-9/12 lg:w-6/12 flex justify-center items-center p-4 {{ $errors->has('acceptbyAdmin_status') ? 'mb-2' : '' }} text-sm rounded-lg bg-gray-900 text-red-400"
+                    <div data-aos="zoom-in-down" data-aos-anchor-placement="top-bottom" data-aos-duration="800"
+                        class="w-10/12 md:w-9/12 lg:w-6/12 flex justify-center items-center p-4 {{ $errors->has('acceptbyAdmin_status') ? 'mb-2' : '' }} text-sm rounded-lg bg-gray-900 text-red-400"
                         role="alert">
                         <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
                             fill="currentColor" viewBox="0 0 20 20">
@@ -49,7 +52,8 @@
                     </div>
                 @enderror
                 @error('arrived_date')
-                    <div data-aos="zoom-in-down" data-aos-anchor-placement="top-bottom" data-aos-duration="800" class="w-10/12 md:w-9/12 lg:w-6/12 flex justify-center items-center p-4 {{ $errors->has('acceptbyAdmin_status') ? 'mb-2' : '' }} text-sm rounded-lg bg-gray-900 text-red-400"
+                    <div data-aos="zoom-in-down" data-aos-anchor-placement="top-bottom" data-aos-duration="800"
+                        class="w-10/12 md:w-9/12 lg:w-6/12 flex justify-center items-center p-4 {{ $errors->has('acceptbyAdmin_status') ? 'mb-2' : '' }} text-sm rounded-lg bg-gray-900 text-red-400"
                         role="alert">
                         <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
                             fill="currentColor" viewBox="0 0 20 20">
@@ -63,7 +67,8 @@
                     </div>
                 @enderror
                 @if (session('updateOrderStatus_success'))
-                    <div data-aos="zoom-in-down" data-aos-anchor-placement="top-bottom" data-aos-duration="800" class="w-10/12 md:w-9/12 lg:w-6/12 flex justify-center items-center p-4 text-sm rounded-lg bg-gray-900 text-green-400"
+                    <div data-aos="zoom-in-down" data-aos-anchor-placement="top-bottom" data-aos-duration="800"
+                        class="w-10/12 md:w-9/12 lg:w-6/12 flex justify-center items-center p-4 text-sm rounded-lg bg-gray-900 text-green-400"
                         role="alert">
                         <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
                             fill="currentColor" viewBox="0 0 20 20">
@@ -77,7 +82,8 @@
                     </div>
                 @endif
             </div>
-            <div data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="800" class="bg-white relative shadow-md rounded-md sm:rounded-lg overflow-hidden m-2 sm:m-0">
+            <div data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="800"
+                class="bg-white relative shadow-md rounded-md sm:rounded-lg overflow-hidden m-2 sm:m-0">
                 <div
                     class="flex flex-col md:flex-row md:items-center md:justify-between space-y-3 md:space-y-0 md:space-x-4 p-4">
                     <div class="flex-1 flex items-center space-x-2">
@@ -86,14 +92,16 @@
                             <span class="text-gray-500">{{ $totalOrders }}</span>
                         </h5>
                     </div>
-                    <div data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="800" class="text-lg font-bold text-gray-800">
+                    <div data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="800"
+                        class="text-lg font-bold text-gray-800">
                         Daftar Order Hari Ini dan Kemarin
                     </div>
                 </div>
                 <div
                     class="flex flex-col md:flex-row items-stretch md:items-center md:space-x-3 space-y-3 md:space-y-0 justify-between mx-4 py-4 border-t">
                     <div class="flex flex-col lg:flex-row justify-between w-full">
-                        <form data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="800" class="flex items-center"
+                        <form data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="800"
+                            class="flex items-center"
                             action="@if (Auth::user()->isOwner()) {{ route('owner.admin') }}                                                 @elseif (Auth::user()->isAdmin())
                                 @else {{ route('admin.admin') }} @endif"
                             method="GET">
@@ -125,7 +133,8 @@
                 </div>
                 <div class="overflow-x-auto overflow-y-hidden">
                     <table class="w-full text-sm text-center text-gray-500">
-                        <thead data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="800" class="text-xs text-center text-gray-700 uppercase bg-gray-50">
+                        <thead data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="800"
+                            class="text-xs text-center text-gray-700 uppercase bg-gray-50">
                             <tr>
                                 <th scope="col" class="p-4">No.</th>
                                 <th scope="col" class="p-4">Customer</th>
@@ -148,7 +157,8 @@
                                 </tr>
                             @else
                                 @foreach ($orders as $order)
-                                    <tr data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="800" class="border-b hover:bg-gray-100">
+                                    <tr data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="800"
+                                        class="border-b hover:bg-gray-100">
                                         <td class="p-4 w-4">
                                             {{ $orderNumber }}
                                         </td>
@@ -680,7 +690,8 @@
                         </tbody>
                     </table>
                 </div>
-                <nav data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="800" class="flex flex-col md:flex-row justify-end items-center space-y-3 md:space-y-0 p-4"
+                <nav data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="800"
+                    class="flex flex-col md:flex-row justify-end items-center space-y-3 md:space-y-0 p-4"
                     aria-label="Table navigation">
                     {{ $orders->links('vendor.pagination.tailwind') }}
                 </nav>

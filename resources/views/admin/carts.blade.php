@@ -3,7 +3,8 @@
 @section('content_page')
     <div class="flex flex-col items-center sm:ml-56 mt-36 sm:mt-36 pb-12">
         @if (session('updateCart_success'))
-            <div data-aos="zoom-in-down" data-aos-anchor-placement="top-bottom" data-aos-duration="800" class="w-10/12 md:w-9/12 lg:w-6/12 flex justify-center items-center p-4 mb-12 text-sm rounded-lg bg-gray-900 text-green-400"
+            <div data-aos="zoom-in-down" data-aos-anchor-placement="top-bottom" data-aos-duration="800"
+                class="w-10/12 md:w-9/12 lg:w-6/12 flex justify-center items-center p-4 mb-12 text-sm rounded-lg bg-gray-900 text-green-400"
                 role="alert">
                 <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
                     fill="currentColor" viewBox="0 0 20 20">
@@ -17,7 +18,8 @@
             </div>
         @endif
         @if (session('over_quantity'))
-            <div data-aos="zoom-in-down" data-aos-anchor-placement="top-bottom" data-aos-duration="800" class="w-10/12 md:w-9/12 lg:w-6/12 flex justify-center items-center p-4 mb-12 text-sm rounded-lg bg-gray-900 text-red-400"
+            <div data-aos="zoom-in-down" data-aos-anchor-placement="top-bottom" data-aos-duration="800"
+                class="w-10/12 md:w-9/12 lg:w-6/12 flex justify-center items-center p-4 mb-12 text-sm rounded-lg bg-gray-900 text-red-400"
                 role="alert">
                 <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
                     fill="currentColor" viewBox="0 0 20 20">
@@ -31,7 +33,8 @@
             </div>
         @endif
         @if (session('deleteCart_success'))
-            <div data-aos="zoom-in-down" data-aos-anchor-placement="top-bottom" data-aos-duration="800" class="w-10/12 md:w-9/12 lg:w-6/12 flex justify-center items-center p-4 mb-12 text-sm rounded-lg bg-gray-900 text-green-400"
+            <div data-aos="zoom-in-down" data-aos-anchor-placement="top-bottom" data-aos-duration="800"
+                class="w-10/12 md:w-9/12 lg:w-6/12 flex justify-center items-center p-4 mb-12 text-sm rounded-lg bg-gray-900 text-green-400"
                 role="alert">
                 <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
                     fill="currentColor" viewBox="0 0 20 20">
@@ -45,7 +48,8 @@
             </div>
         @endif
         @error('quantity')
-            <div data-aos="zoom-in-down" data-aos-anchor-placement="top-bottom" data-aos-duration="800" class="w-10/12 md:w-9/12 lg:w-6/12 flex justify-center items-center p-4 mb-12 text-sm rounded-lg bg-gray-900 text-red-400"
+            <div data-aos="zoom-in-down" data-aos-anchor-placement="top-bottom" data-aos-duration="800"
+                class="w-10/12 md:w-9/12 lg:w-6/12 flex justify-center items-center p-4 mb-12 text-sm rounded-lg bg-gray-900 text-red-400"
                 role="alert">
                 <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
                     fill="currentColor" viewBox="0 0 20 20">
@@ -59,7 +63,8 @@
             </div>
         @enderror
         @error('payment_upload')
-            <div data-aos="zoom-in-down" data-aos-anchor-placement="top-bottom" data-aos-duration="800" class="w-10/12 md:w-9/12 lg:w-6/12 flex justify-center items-center p-4 mb-12 text-sm rounded-lg bg-gray-900 text-red-400"
+            <div data-aos="zoom-in-down" data-aos-anchor-placement="top-bottom" data-aos-duration="800"
+                class="w-10/12 md:w-9/12 lg:w-6/12 flex justify-center items-center p-4 mb-12 text-sm rounded-lg bg-gray-900 text-red-400"
                 role="alert">
                 <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
                     fill="currentColor" viewBox="0 0 20 20">
@@ -73,7 +78,8 @@
             </div>
         @enderror
         @error('payment_upload.required')
-            <div data-aos="zoom-in-down" data-aos-anchor-placement="top-bottom" data-aos-duration="800" class="w-10/12 md:w-9/12 lg:w-6/12 flex justify-center items-center p-4 mb-12 text-sm rounded-lg bg-gray-900 text-red-400"
+            <div data-aos="zoom-in-down" data-aos-anchor-placement="top-bottom" data-aos-duration="800"
+                class="w-10/12 md:w-9/12 lg:w-6/12 flex justify-center items-center p-4 mb-12 text-sm rounded-lg bg-gray-900 text-red-400"
                 role="alert">
                 <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
                     fill="currentColor" viewBox="0 0 20 20">
@@ -87,18 +93,22 @@
             </div>
         @enderror
         <div class="mx-auto w-11/12 sm:max-w-screen-xl text-center sm:col-span-2 md:col-span-2 lg:col-span-4 mb-12">
-            <h1 data-aos="fade-down" data-aos-anchor-placement="top-bottom" data-aos-duration="800" class="mb-8 text-4xl font-extrabold tracking-tight leading-none text-gray-900 md:text-5xl lg:text-6xl">
+            <h1 data-aos="fade-down" data-aos-anchor-placement="top-bottom" data-aos-duration="800"
+                class="mb-8 text-4xl font-extrabold tracking-tight leading-none text-gray-900 md:text-5xl lg:text-6xl">
                 {!! $pageTitle !!}</h1>
-            <p data-aos="fade-down" data-aos-anchor-placement="top-bottom" data-aos-duration="800" class="text-lg font-normal text-gray-900 lg:text-xl sm:px-16 lg:px-48">{!! $pageDescription !!}</p>
+            <p data-aos="fade-down" data-aos-anchor-placement="top-bottom" data-aos-duration="800"
+                class="text-lg font-normal text-gray-900 lg:text-xl sm:px-16 lg:px-48">{!! $pageDescription !!}</p>
         </div>
         <div class="flex flex-col w-11/12 justify-center items-center">
             @php
                 $countSubtotal = 0;
             @endphp
             @if (!empty($carts))
-                <div data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="800" class="relative overflow-x-auto shadow-md rounded-lg w-full">
+                <div data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="800"
+                    class="relative overflow-x-auto shadow-md rounded-lg w-full">
                     <table class="w-full text-sm text-left rtl:text-right text-gray-900 border-0 ">
-                        <thead data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="800" class="text-xs text-gray-900 uppercase bg-yellow-500">
+                        <thead data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="800"
+                            class="text-xs text-gray-900 uppercase bg-yellow-500">
                             <tr>
                                 <th scope="col" class="px-16 py-3 text-center">
                                     <span class="sr-only">Gambar</span>
@@ -119,7 +129,8 @@
                         </thead>
                         <tbody>
                             @foreach ($carts as $cart)
-                                <tr data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="800" class="bg-white border-b hover:bg-slate-100 text-center">
+                                <tr data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="800"
+                                    class="bg-white border-b hover:bg-slate-100 text-center">
                                     <td class="p-4">
                                         <div class="flex justify-center items-center">
                                             @if (strlen($cart->product->image) > 30)
@@ -245,7 +256,8 @@
                     </table>
                 </div>
                 @if (Auth::user()->isAdmin())
-                    <form data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="800" action="{{ route('admin.printStrukCart', ['user_id' => Auth::user()->id]) }}" method="GET"
+                    <form data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="800"
+                        action="{{ route('admin.printStrukCart', ['user_id' => Auth::user()->id]) }}" method="GET"
                         class="w-full">
                         <button type="submit"
                             class="cursor-pointer mt-7 w-full text-white bg-green-500 hover:bg-green-600 font-medium rounded-lg text-sm md:text-base px-5 py-2.5 text-center items-center">
@@ -254,7 +266,8 @@
                     </form>
                 @endif
                 @if (Auth::user()->isOwner())
-                    <form data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="800" action="{{ route('owner.printStrukCart', ['user_id' => Auth::user()->id]) }}" method="GET"
+                    <form data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="800"
+                        action="{{ route('owner.printStrukCart', ['user_id' => Auth::user()->id]) }}" method="GET"
                         class="w-full">
                         <button type="submit"
                             class="cursor-pointer mt-7 w-full text-white bg-green-500 hover:bg-green-600 font-medium rounded-lg text-sm md:text-base px-5 py-2.5 text-center items-center">
@@ -264,7 +277,8 @@
                 @endif
                 <div class="flex flex-col md:flex-row md:space-x-2 w-full">
                     @if (Auth::user()->isAdmin())
-                        <form data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="800" action="{{ route('admin.checkout') }}" method="POST" class="w-full">
+                        <form data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="800"
+                            action="{{ route('admin.checkout') }}" method="POST" class="w-full">
                             @csrf
                             <input type="hidden" value="paidcash" name="cash_payment">
                             <button type="submit"
@@ -275,7 +289,8 @@
                         </form>
                     @endif
                     @if (Auth::user()->isOwner())
-                        <form data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="800" action="{{ route('owner.checkout') }}" method="POST" class="w-full">
+                        <form data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="800"
+                            action="{{ route('owner.checkout') }}" method="POST" class="w-full">
                             @csrf
                             <input type="hidden" value="paidcash" name="cash_payment">
                             <button type="submit"
@@ -285,7 +300,8 @@
                             </button>
                         </form>
                     @endif
-                    <button data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="800" type="button" data-modal-target="payment-modal" data-modal-toggle="payment-modal"
+                    <button data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="800"
+                        type="button" data-modal-target="payment-modal" data-modal-toggle="payment-modal"
                         class="cursor-pointer mt-2 w-full text-yellow-500 bg-gray-900 hover:bg-gray-950 font-medium rounded-lg text-sm md:text-base px-5 py-2.5 text-center items-center">
                         Pembayaran QRIS BCA
                     </button>
@@ -388,14 +404,17 @@
                 </div>
             @else
                 <div class="flex flex-col items-center justify-center mt-64 h-full">
-                    <h1 data-aos="fade-down" data-aos-anchor-placement="top-bottom" data-aos-duration="800" class="text-center text-xl font-bold text-gray-400">Keranjang masih kosong</h1>
+                    <h1 data-aos="fade-down" data-aos-anchor-placement="top-bottom" data-aos-duration="800"
+                        class="text-center text-xl font-bold text-gray-400">Keranjang masih kosong</h1>
                     @if (Auth::user()->isAdmin())
-                        <a data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="800" href="{{ route('admin.products') }}">
+                        <a data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="800"
+                            href="{{ route('admin.products') }}">
                             <p class="text-center text-base font-normal text-yellow-500">Belanja sekarang!</p>
                         </a>
                     @endif
                     @if (Auth::user()->isOwner())
-                        <a data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="800" href="{{ route('owner.products') }}">
+                        <a data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="800"
+                            href="{{ route('owner.products') }}">
                             <p class="text-center text-base font-normal text-yellow-500">Belanja sekarang!</p>
                         </a>
                     @endif

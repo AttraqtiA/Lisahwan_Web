@@ -3,7 +3,8 @@
 @section('content_page')
     <div class="flex flex-col items-center">
         @if (session('deleteCart_success'))
-            <div data-aos="zoom-in-down" data-aos-anchor-placement="top-bottom" data-aos-duration="800" class="w-10/12 md:w-9/12 lg:w-6/12 flex justify-center items-center p-4 mt-8 text-sm rounded-lg  bg-gray-900 text-green-400"
+            <div data-aos="zoom-in-down" data-aos-anchor-placement="top-bottom" data-aos-duration="800"
+                class="w-10/12 md:w-9/12 lg:w-6/12 flex justify-center items-center p-4 mt-8 text-sm rounded-lg  bg-gray-900 text-green-400"
                 role="alert">
                 <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
                     fill="currentColor" viewBox="0 0 20 20">
@@ -17,16 +18,20 @@
             </div>
         @endif
         <div class="mx-auto w-11/12 sm:max-w-screen-xl text-center sm:col-span-2 md:col-span-2 lg:col-span-4 mt-16">
-            <h1 data-aos="fade-down" data-aos-anchor-placement="top-bottom" data-aos-duration="800" class="mb-8 text-4xl font-extrabold tracking-tight leading-none text-gray-900 md:text-5xl lg:text-6xl">
+            <h1 data-aos="fade-down" data-aos-anchor-placement="top-bottom" data-aos-duration="800"
+                class="mb-8 text-4xl font-extrabold tracking-tight leading-none text-gray-900 md:text-5xl lg:text-6xl">
                 {!! $pageTitle !!}</h1>
-            <p data-aos="fade-down" data-aos-anchor-placement="top-bottom" data-aos-duration="800" class="text-lg font-normal text-gray-900 lg:text-xl sm:px-16 lg:px-48">{!! $pageDescription !!}</p>
+            <p data-aos="fade-down" data-aos-anchor-placement="top-bottom" data-aos-duration="800"
+                class="text-lg font-normal text-gray-900 lg:text-xl sm:px-16 lg:px-48">{!! $pageDescription !!}</p>
         </div>
-        <div data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="800" class="flex flex-col p-12 mx-auto justify-center items-center gap-y-6">
+        <div data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="800"
+            class="flex flex-col p-12 mx-auto justify-center items-center gap-y-6">
             @foreach ($orders as $order)
                 <form action="{{ route('member.orderhistory.update', $order->id) }}" method="POST">
                     @method('patch')
                     @csrf
-                    <div class="flex flex-col bg-white justify-center rounded-md sm:rounded-lg border border-gray-300 drop-shadow-md">
+                    <div
+                        class="flex flex-col bg-white justify-center rounded-md sm:rounded-lg border border-gray-300 drop-shadow-md">
                         <div
                             class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 p-6 justify-center items-center gap-x-3 sm:gap-x-2 gap-y-4">
                             <div class="flex flex-col justify-center items-center">

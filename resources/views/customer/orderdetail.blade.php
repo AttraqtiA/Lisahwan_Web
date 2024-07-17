@@ -513,12 +513,15 @@
             </div>
             <div class="flex flex-col">
                 <div class="flex flex-row justify-between items-center">
-                    <h1 data-aos="fade-right" data-aos-anchor-placement="top-bottom" data-aos-duration="800" class="text-xl sm:text-2xl lg:text-3xl font-semibold text-gray-900">Produk Lainnya</h1>
-                    <a data-aos="fade-left" data-aos-anchor-placement="top-bottom" data-aos-duration="800" href="{{ route('products') }}">
+                    <h1 data-aos="fade-right" data-aos-anchor-placement="top-bottom" data-aos-duration="800"
+                        class="text-xl sm:text-2xl lg:text-3xl font-semibold text-gray-900">Produk Lainnya</h1>
+                    <a data-aos="fade-left" data-aos-anchor-placement="top-bottom" data-aos-duration="800"
+                        href="{{ route('products') }}">
                         <p class="text-base font-medium text-yellow-500 hover:text-yellow-600">Lihat semua</p>
                     </a>
                 </div>
-                <hr data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="800" class="h-px my-2 border-0 bg-gray-400">
+                <hr data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="800"
+                    class="h-px my-2 border-0 bg-gray-400">
                 <div
                     class = "grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-3 p-4 mx-auto @if (count($products_bestseller) == 0) h-full justify-center items-center @endif">
                     @if (count($products_bestseller) > 0)
@@ -526,7 +529,8 @@
                             <div
                                 class="relative hover:shadow-xl transform transition duration-500 hover:-translate-y-4 hover:z-40">
                                 <a href="{{ route('member.products.show', $bestseller->product->id) }}">
-                                    <div data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="800"
+                                    <div data-aos="fade-up" data-aos-anchor-placement="top-bottom"
+                                        data-aos-duration="800"
                                         class="relative w-full h-full rounded-lg bg-gray-900 border-gray-800 mx-auto shadow">
                                         @if (strlen($bestseller->product->image) > 30)
                                             <img class="hh-3/4 rounded-t-lg w-full object-center object-cover"
@@ -619,7 +623,8 @@
                 @endforeach
             @else
                 <div class="col-span-2 flex flex-col items-center justify-center">
-                    <h1 data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="800" class="text-center text-lg font-bold text-gray-400">Mohon maaf, belum ada
+                    <h1 data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="800"
+                        class="text-center text-lg font-bold text-gray-400">Mohon maaf, belum ada
                         produk best seller!</h1>
                 </div>
                 @endif

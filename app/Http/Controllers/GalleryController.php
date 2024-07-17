@@ -42,8 +42,7 @@ class GalleryController extends Controller
                 "galleries" => Gallery::all(),
                 "carts" => $carts
             ]);
-        }
-        else {
+        } else {
             return view('gallery_page', [
                 "TabTitle" => "Galeri Lisahwan",
                 "active_3" => "text-yellow-500 rounded md:bg-transparent md:p-0",

@@ -7,7 +7,8 @@
             <div
                 class="flex flex-col justify-center items-center w-full {{ session('updateProductImage_success') || session('addStock_success') || $errors->has('stock') || $errors->has('image') ? 'mb-10 mt-6' : '' }}">
                 @error('stock')
-                    <div data-aos="zoom-in-down" data-aos-anchor-placement="top-bottom" data-aos-duration="800" class="w-10/12 md:w-9/12 lg:w-6/12 flex justify-center items-center p-4 {{ $errors->has('stock') ? 'mb-2' : '' }} text-sm rounded-lg bg-gray-900 text-red-400"
+                    <div data-aos="zoom-in-down" data-aos-anchor-placement="top-bottom" data-aos-duration="800"
+                        class="w-10/12 md:w-9/12 lg:w-6/12 flex justify-center items-center p-4 {{ $errors->has('stock') ? 'mb-2' : '' }} text-sm rounded-lg bg-gray-900 text-red-400"
                         role="alert">
                         <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
                             fill="currentColor" viewBox="0 0 20 20">
@@ -21,7 +22,8 @@
                     </div>
                 @enderror
                 @error('image')
-                    <div data-aos="zoom-in-down" data-aos-anchor-placement="top-bottom" data-aos-duration="800" class="w-10/12 md:w-9/12 lg:w-6/12 flex justify-center items-center p-4 {{ $errors->has('image') ? 'mb-2' : '' }} text-sm rounded-lg bg-gray-900 text-red-400"
+                    <div data-aos="zoom-in-down" data-aos-anchor-placement="top-bottom" data-aos-duration="800"
+                        class="w-10/12 md:w-9/12 lg:w-6/12 flex justify-center items-center p-4 {{ $errors->has('image') ? 'mb-2' : '' }} text-sm rounded-lg bg-gray-900 text-red-400"
                         role="alert">
                         <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
                             fill="currentColor" viewBox="0 0 20 20">
@@ -35,7 +37,8 @@
                     </div>
                 @enderror
                 @if (session('addStock_success'))
-                    <div data-aos="zoom-in-down" data-aos-anchor-placement="top-bottom" data-aos-duration="800" class="w-10/12 md:w-9/12 lg:w-6/12 flex justify-center items-center p-4 text-sm rounded-lg bg-gray-900 text-green-400"
+                    <div data-aos="zoom-in-down" data-aos-anchor-placement="top-bottom" data-aos-duration="800"
+                        class="w-10/12 md:w-9/12 lg:w-6/12 flex justify-center items-center p-4 text-sm rounded-lg bg-gray-900 text-green-400"
                         role="alert">
                         <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
                             fill="currentColor" viewBox="0 0 20 20">
@@ -49,7 +52,8 @@
                     </div>
                 @endif
                 @if (session('updateProductImage_success'))
-                    <div data-aos="zoom-in-down" data-aos-anchor-placement="top-bottom" data-aos-duration="800" class="w-10/12 md:w-9/12 lg:w-6/12 flex justify-center items-center p-4 text-sm rounded-lg bg-gray-900 text-green-400"
+                    <div data-aos="zoom-in-down" data-aos-anchor-placement="top-bottom" data-aos-duration="800"
+                        class="w-10/12 md:w-9/12 lg:w-6/12 flex justify-center items-center p-4 text-sm rounded-lg bg-gray-900 text-green-400"
                         role="alert">
                         <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
                             fill="currentColor" viewBox="0 0 20 20">
@@ -65,7 +69,8 @@
             </div>
             <div class="flex flex-col bg-white relative shadow-md rounded-md sm:rounded-lg overflow-hidden p-8 m-2 sm:m-0">
                 <div class="flex flex-col lg:flex-row gap-6 lg:h-96">
-                    <div data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="800" class="relative p-4 bg-gray-100 rounded-lg">
+                    <div data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="800"
+                        class="relative p-4 bg-gray-100 rounded-lg">
                         @if (strlen($productDetail->image) > 25)
                             <img src="{{ asset('storage/' . $productDetail->image) }}"
                                 class="h-full w-full object-contain rounded-lg" alt="product Image">
@@ -73,28 +78,34 @@
                             <img src="/images/fotoproduk/{{ $productDetail->image }}"
                                 class="h-full w-full object-contain rounded-lg" alt="product Image">
                         @endif
-                        <div
-                            class="absolute top-0 right-0 m-4 text-base text-red-600 rounded-lg font-bold bg-gray-900 p-4">
+                        <div class="absolute top-0 right-0 m-4 text-base text-red-600 rounded-lg font-bold bg-gray-900 p-4">
                             {{ $productDetail->discount }}%</div>
                     </div>
                     <div class="flex flex-col justify-between">
                         <div>
-                            <h4 data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="800" class="mb-2 leading-none text-xl font-semibold text-gray-900">
+                            <h4 data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="800"
+                                class="mb-2 leading-none text-xl font-semibold text-gray-900">
                                 {{ $productDetail->name }}</h4>
-                            <h5 data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="800" class="mb-1 text-base font-normal text-gray-900">
+                            <h5 data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="800"
+                                class="mb-1 text-base font-normal text-gray-900">
                                 {{ $productDetail->description }}</h5>
                             @if ($productDetail->discount != 0)
-                                <h5 data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="800" class="mb-1 text-base font-medium text-red-600">Rp.
+                                <h5 data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="800"
+                                    class="mb-1 text-base font-medium text-red-600">Rp.
                                     {{ number_format($productDetail->countDiscount(), 0, ',', '.') }}</h5>
                             @else
-                                <h5 data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="800" class="mb-1 text-base font-normal text-gray-900">Rp.
+                                <h5 data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="800"
+                                    class="mb-1 text-base font-normal text-gray-900">Rp.
                                     {{ number_format($productDetail->price, 0, ',', '.') }}</h5>
                             @endif
-                            <h5 data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="800" class="mb-1 text-base font-normal text-gray-900">
+                            <h5 data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="800"
+                                class="mb-1 text-base font-normal text-gray-900">
                                 {{ $productDetail->weight }} gram</h5>
-                            <h5 data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="800" class="mb-5 text-base font-normal text-gray-900">
+                            <h5 data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="800"
+                                class="mb-5 text-base font-normal text-gray-900">
                                 {{ $productDetail->stock }} buah</h5>
-                            <div data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="800" class="flex items-center mb-4">
+                            <div data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="800"
+                                class="flex items-center mb-4">
                                 @for ($i = 1; $i <= 5; $i++)
                                     @if ($i <= $productDetail->testimony->pluck('rating')->average())
                                         <svg class="w-5 h-5 text-yellow-500" aria-hidden="true"
@@ -121,7 +132,8 @@
                             </div>
                         </div>
                         <div>
-                            <button data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="800" type="button" data-modal-target="update-image-modal"
+                            <button data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="800"
+                                type="button" data-modal-target="update-image-modal"
                                 data-modal-toggle="update-image-modal"
                                 class="py-2 px-3 flex items-center text-sm font-medium text-center text-gray-600 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-primary-700 focus:z-10 focus:ring-4 focus:ring-gray-200">
                                 {{-- {{ $product_to_update = Product::where('id', $product->id)->first() }} --}}
@@ -135,7 +147,8 @@
                                 </svg>
                                 Edit Foto Produk
                             </button>
-                            <form data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="800" id="add-stock-form" action="{{ route('owner.admin_products.addStock', $productDetail) }}"
+                            <form data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="800"
+                                id="add-stock-form" action="{{ route('owner.admin_products.addStock', $productDetail) }}"
                                 method="POST" enctype="multipart/form-data" class="w-full mt-4">
                                 @method('put')
                                 @csrf
@@ -145,7 +158,8 @@
                                             stok</label>
                                         <input type="number" name="stock" id="stock"
                                             class="{{ $errors->has('stock') ? 'bg-red-100 border-red-400 text-red-500 placeholder-red-700 focus:ring-red-500 focus:border-red-500' : 'bg-white border-yellow-500 text-gray-900 placeholder-gray-400  focus:ring-yellow-500 focus:border-yellow-500' }} rounded-lg border-1 text-sm mt-3 block p-2.5"
-                                            placeholder="Contoh: 10" min="0" value="{{ old('stock') }}" required>
+                                            placeholder="Contoh: 10" min="0" value="{{ old('stock') }}"
+                                            required>
                                     </div>
                                     <button type="submit"
                                         class="h-1/2 sm:w-auto justify-center text-white inline-flex bg-yellow-500 hover:bg-yellow-600 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">
@@ -160,7 +174,8 @@
                 <div class="h-full">
                     <div data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="800"
                         class="mt-8 p-6 lg:p-2 w-full flex flex-col lg:flex-row justify-between items-center font-bold text-gray-700 bg-gray-200 text-base text-center">
-                        <span data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="800" class="mb-2 lg:m-2">Riwayat
+                        <span data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="800"
+                            class="mb-2 lg:m-2">Riwayat
                             Stok</span>
                         <div class="flex flex-col lg:flex-row lg:space-x-2 justify-center items-center">
                             <span data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="800"
@@ -189,7 +204,8 @@
                         </div>
                     </div>
                     <table class="w-full text-sm text-left rtl:text-right text-gray-500">
-                        <thead data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="800" class="text-xs text-gray-700 uppercase bg-gray-50">
+                        <thead data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="800"
+                            class="text-xs text-gray-700 uppercase bg-gray-50">
                             <th scope="col" class="w-2/4 px-6 py-3 text-center">
                                 Tanggal
                             </th>
@@ -207,7 +223,8 @@
                                 </tr>
                             @else
                                 @foreach ($productDetail->production as $stock_history)
-                                    <tr data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="800" class="bg-white {{ $loop->last ? '' : 'border-b' }} text-center">
+                                    <tr data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="800"
+                                        class="bg-white {{ $loop->last ? '' : 'border-b' }} text-center">
                                         <td scope="row" class="px-6 py-4">
                                             {{ date('d F Y', strtotime($stock_history->date)) }},
                                             {{ date('H:i', strtotime($stock_history->date)) }}

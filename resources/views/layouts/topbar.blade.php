@@ -283,15 +283,17 @@
                             <p class="text-sm font-medium text-gray-900 truncate" role="none">
                                 {{ Auth::user()->email }}
                             </p>
-                            @if(Session::has('pointStatus'))
-                            <p class="flex flex-row mt-4 text-sm text-gray-900 font-semibold truncate" role="none">
-                                Poin: {{ abs(number_format(($countSubtotal + $shipment_price - $reward_now)/$point->money_per_poin, 0, ',', '.')) }} <img src="/images/coin_icon.png" alt="Poin" class="w-4 h-4 ms-1">
-                            </p>
+                            @if (Session::has('pointStatus'))
+                                <p class="flex flex-row mt-4 text-sm text-gray-900 font-semibold truncate" role="none">
+                                    Poin:
+                                    {{ abs(number_format(($countSubtotal + $shipment_price - $reward_now) / $point->money_per_poin, 0, ',', '.')) }}
+                                    <img src="/images/coin_icon.png" alt="Poin" class="w-4 h-4 ms-1">
+                                </p>
                             @else
-                            <p class="flex flex-row mt-4 text-sm text-gray-900 font-semibold truncate" role="none">
-                                Poin: {{  number_format(Auth::user()->reward, 0, ',', '.') }}<img
-                                src="/images/coin_icon.png" alt="Poin" class="w-4 h-4 ms-1">
-                            </p>
+                                <p class="flex flex-row mt-4 text-sm text-gray-900 font-semibold truncate" role="none">
+                                    Poin: {{ number_format(Auth::user()->reward, 0, ',', '.') }}<img
+                                        src="/images/coin_icon.png" alt="Poin" class="w-4 h-4 ms-1">
+                                </p>
                             @endif
                         </div>
                         <ul class="" role="none">

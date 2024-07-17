@@ -3,7 +3,8 @@
 @section('content_page')
     <div class="flex flex-col items-center">
         @if (session('addWishlist_success'))
-            <div data-aos="zoom-in-down" data-aos-anchor-placement="top-bottom" data-aos-duration="800" class="w-10/12 md:w-9/12 lg:w-6/12 flex justify-center items-center p-4 mt-8 text-sm rounded-lg bg-gray-900 text-green-400"
+            <div data-aos="zoom-in-down" data-aos-anchor-placement="top-bottom" data-aos-duration="800"
+                class="w-10/12 md:w-9/12 lg:w-6/12 flex justify-center items-center p-4 mt-8 text-sm rounded-lg bg-gray-900 text-green-400"
                 role="alert">
                 <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
                     fill="currentColor" viewBox="0 0 20 20">
@@ -17,7 +18,8 @@
             </div>
         @endif
         @if (session('deleteCart_success'))
-            <div data-aos="zoom-in-down" data-aos-anchor-placement="top-bottom" data-aos-duration="800" class="w-10/12 md:w-9/12 lg:w-6/12 flex justify-center items-center p-4 mt-8 text-sm rounded-lg bg-gray-900 text-green-400"
+            <div data-aos="zoom-in-down" data-aos-anchor-placement="top-bottom" data-aos-duration="800"
+                class="w-10/12 md:w-9/12 lg:w-6/12 flex justify-center items-center p-4 mt-8 text-sm rounded-lg bg-gray-900 text-green-400"
                 role="alert">
                 <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
                     fill="currentColor" viewBox="0 0 20 20">
@@ -31,7 +33,8 @@
             </div>
         @endif
         @if (session('deleteWishlist_success'))
-            <div data-aos="zoom-in-down" data-aos-anchor-placement="top-bottom" data-aos-duration="800" class="w-10/12 md:w-9/12 lg:w-6/12 flex justify-center items-center p-4 mt-8 text-sm rounded-lg bg-gray-900 text-green-400"
+            <div data-aos="zoom-in-down" data-aos-anchor-placement="top-bottom" data-aos-duration="800"
+                class="w-10/12 md:w-9/12 lg:w-6/12 flex justify-center items-center p-4 mt-8 text-sm rounded-lg bg-gray-900 text-green-400"
                 role="alert">
                 <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
                     fill="currentColor" viewBox="0 0 20 20">
@@ -45,16 +48,19 @@
             </div>
         @endif
         <div class="mx-auto w-11/12 sm:max-w-screen-xl text-center sm:col-span-2 md:col-span-2 lg:col-span-4 mt-16">
-            <h1 data-aos="fade-down" data-aos-anchor-placement="top-bottom" data-aos-duration="800" class="mb-8 font-extrabold tracking-tight leading-none text-gray-900 text-5xl sm:text-6xl">
+            <h1 data-aos="fade-down" data-aos-anchor-placement="top-bottom" data-aos-duration="800"
+                class="mb-8 font-extrabold tracking-tight leading-none text-gray-900 text-5xl sm:text-6xl">
                 {!! $pageTitle !!}</h1>
-            <p data-aos="fade-down" data-aos-anchor-placement="top-bottom" data-aos-duration="800" class="font-normal text-gray-900 text-lg sm:text-xl sm:px-16 lg:px-48">{!! $pageDescription !!}</p>
+            <p data-aos="fade-down" data-aos-anchor-placement="top-bottom" data-aos-duration="800"
+                class="font-normal text-gray-900 text-lg sm:text-xl sm:px-16 lg:px-48">{!! $pageDescription !!}</p>
         </div>
         <div class = "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 px-12 py-12 mx-auto">
             @if ($wishlists->isNotEmpty())
                 @foreach ($wishlists as $wishlist)
                     <div class="relative hover:shadow-xl transform transition duration-500 hover:-translate-y-4 hover:z-40">
                         <a href="{{ route('member.products.show', $wishlist->product->id) }}">
-                            <div data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="800" class="relative w-full h-full rounded-lg bg-gray-900 border-gray-800 mx-auto shadow">
+                            <div data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="800"
+                                class="relative w-full h-full rounded-lg bg-gray-900 border-gray-800 mx-auto shadow">
                                 @if (strlen($wishlist->product->image) > 30)
                                     <img class="h-3/4 rounded-t-lg w-full object-cover"
                                         src="{{ asset('storage/' . $wishlist->product->image) }}"
@@ -140,10 +146,12 @@
         @endforeach
     @else
         <div class="flex flex-col col-span-4 items-center justify-center sm:p-12 md:p-28 lg:p-48">
-            <h1 data-aos="fade-down" data-aos-anchor-placement="top-bottom" data-aos-duration="800" class="text-center text-xl font-bold text-gray-400">Oops! Anda belum punya produk
+            <h1 data-aos="fade-down" data-aos-anchor-placement="top-bottom" data-aos-duration="800"
+                class="text-center text-xl font-bold text-gray-400">Oops! Anda belum punya produk
                 favorit!</h1>
             <a href="{{ route('products') }}">
-                <p data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="800" class="text-center text-base font-normal text-yellow-500">Tambahkan produk favorit ke Wishlist
+                <p data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="800"
+                    class="text-center text-base font-normal text-yellow-500">Tambahkan produk favorit ke Wishlist
                     sekarang!</p>
             </a>
         </div>

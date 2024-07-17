@@ -8,7 +8,8 @@
             <div
                 class="flex flex-col justify-center items-center w-full {{ session('setPoint_success') || session('unsetPoint_success') || session('setCoupon_success') || session('deleteCoupon_success') || $errors->has('percentage_from_totalprice') || $errors->has('money_per_poin') || $errors->has('alreadySetPoint_error') || $errors->has('forgotPercentage_error') || $errors->has('forgotMoney_error') || $errors->has('forgotAll_error') || $errors->has('title') || $errors->has('starting_time') || $errors->has('ending_time') || $errors->has('discount') || $errors->has('quantity') ? 'mb-10 mt-6' : '' }}">
                 @error('percentage_from_totalprice')
-                    <div data-aos="zoom-in-down" data-aos-anchor-placement="top-bottom" data-aos-duration="800" class="w-10/12 md:w-9/12 lg:w-6/12 flex justify-center items-center p-4 {{ $errors->has('money_per_poin') ? 'mb-2' : '' }} text-sm rounded-lg bg-gray-900 text-red-400"
+                    <div data-aos="zoom-in-down" data-aos-anchor-placement="top-bottom" data-aos-duration="800"
+                        class="w-10/12 md:w-9/12 lg:w-6/12 flex justify-center items-center p-4 {{ $errors->has('money_per_poin') ? 'mb-2' : '' }} text-sm rounded-lg bg-gray-900 text-red-400"
                         role="alert">
                         <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
                             fill="currentColor" viewBox="0 0 20 20">
@@ -22,7 +23,8 @@
                     </div>
                 @enderror
                 @error('money_per_poin')
-                    <div data-aos="zoom-in-down" data-aos-anchor-placement="top-bottom" data-aos-duration="800" class="w-10/12 md:w-9/12 lg:w-6/12 flex justify-center items-center p-4 text-sm rounded-lg bg-gray-900 text-red-400"
+                    <div data-aos="zoom-in-down" data-aos-anchor-placement="top-bottom" data-aos-duration="800"
+                        class="w-10/12 md:w-9/12 lg:w-6/12 flex justify-center items-center p-4 text-sm rounded-lg bg-gray-900 text-red-400"
                         role="alert">
                         <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
                             fill="currentColor" viewBox="0 0 20 20">
@@ -36,7 +38,8 @@
                     </div>
                 @enderror
                 @error('alreadySetPoint_error')
-                    <div data-aos="zoom-in-down" data-aos-anchor-placement="top-bottom" data-aos-duration="800" class="w-10/12 md:w-9/12 lg:w-6/12 flex justify-center items-center p-4 text-sm rounded-lg bg-gray-900 text-red-400"
+                    <div data-aos="zoom-in-down" data-aos-anchor-placement="top-bottom" data-aos-duration="800"
+                        class="w-10/12 md:w-9/12 lg:w-6/12 flex justify-center items-center p-4 text-sm rounded-lg bg-gray-900 text-red-400"
                         role="alert">
                         <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
                             fill="currentColor" viewBox="0 0 20 20">
@@ -50,7 +53,8 @@
                     </div>
                 @enderror
                 @error('forgotPercentage_error')
-                    <div data-aos="zoom-in-down" data-aos-anchor-placement="top-bottom" data-aos-duration="800" class="w-10/12 md:w-9/12 lg:w-6/12 flex justify-center items-center p-4 text-sm rounded-lg bg-gray-900 text-red-400"
+                    <div data-aos="zoom-in-down" data-aos-anchor-placement="top-bottom" data-aos-duration="800"
+                        class="w-10/12 md:w-9/12 lg:w-6/12 flex justify-center items-center p-4 text-sm rounded-lg bg-gray-900 text-red-400"
                         role="alert">
                         <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
                             fill="currentColor" viewBox="0 0 20 20">
@@ -64,7 +68,8 @@
                     </div>
                 @enderror
                 @error('forgotMoney_error')
-                    <div data-aos="zoom-in-down" data-aos-anchor-placement="top-bottom" data-aos-duration="800" class="w-10/12 md:w-9/12 lg:w-6/12 flex justify-center items-center p-4 text-sm rounded-lg bg-gray-900 text-red-400"
+                    <div data-aos="zoom-in-down" data-aos-anchor-placement="top-bottom" data-aos-duration="800"
+                        class="w-10/12 md:w-9/12 lg:w-6/12 flex justify-center items-center p-4 text-sm rounded-lg bg-gray-900 text-red-400"
                         role="alert">
                         <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
                             fill="currentColor" viewBox="0 0 20 20">
@@ -78,7 +83,8 @@
                     </div>
                 @enderror
                 @error('forgotAll_error')
-                    <div data-aos="zoom-in-down" data-aos-anchor-placement="top-bottom" data-aos-duration="800" class="w-10/12 md:w-9/12 lg:w-6/12 flex justify-center items-center p-4 text-sm rounded-lg bg-gray-900 text-red-400"
+                    <div data-aos="zoom-in-down" data-aos-anchor-placement="top-bottom" data-aos-duration="800"
+                        class="w-10/12 md:w-9/12 lg:w-6/12 flex justify-center items-center p-4 text-sm rounded-lg bg-gray-900 text-red-400"
                         role="alert">
                         <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
                             fill="currentColor" viewBox="0 0 20 20">
@@ -92,7 +98,8 @@
                     </div>
                 @enderror
                 @error('title')
-                    <div data-aos="zoom-in-down" data-aos-anchor-placement="top-bottom" data-aos-duration="800" class="w-10/12 md:w-9/12 lg:w-6/12 flex justify-center items-center p-4 {{ $errors->has('title') ? 'mb-2' : '' }} text-sm rounded-lg bg-gray-900 text-red-400"
+                    <div data-aos="zoom-in-down" data-aos-anchor-placement="top-bottom" data-aos-duration="800"
+                        class="w-10/12 md:w-9/12 lg:w-6/12 flex justify-center items-center p-4 {{ $errors->has('title') ? 'mb-2' : '' }} text-sm rounded-lg bg-gray-900 text-red-400"
                         role="alert">
                         <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
                             fill="currentColor" viewBox="0 0 20 20">
@@ -106,7 +113,8 @@
                     </div>
                 @enderror
                 @error('starting_time')
-                    <div data-aos="zoom-in-down" data-aos-anchor-placement="top-bottom" data-aos-duration="800" class="w-10/12 md:w-9/12 lg:w-6/12 flex justify-center items-center p-4 {{ $errors->has('starting_time') ? 'mb-2' : '' }} text-sm rounded-lg bg-gray-900 text-red-400"
+                    <div data-aos="zoom-in-down" data-aos-anchor-placement="top-bottom" data-aos-duration="800"
+                        class="w-10/12 md:w-9/12 lg:w-6/12 flex justify-center items-center p-4 {{ $errors->has('starting_time') ? 'mb-2' : '' }} text-sm rounded-lg bg-gray-900 text-red-400"
                         role="alert">
                         <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
                             fill="currentColor" viewBox="0 0 20 20">
@@ -120,7 +128,8 @@
                     </div>
                 @enderror
                 @error('ending_time')
-                    <div data-aos="zoom-in-down" data-aos-anchor-placement="top-bottom" data-aos-duration="800" class="w-10/12 md:w-9/12 lg:w-6/12 flex justify-center items-center p-4 {{ $errors->has('ending_time') ? 'mb-2' : '' }} text-sm rounded-lg bg-gray-900 text-red-400"
+                    <div data-aos="zoom-in-down" data-aos-anchor-placement="top-bottom" data-aos-duration="800"
+                        class="w-10/12 md:w-9/12 lg:w-6/12 flex justify-center items-center p-4 {{ $errors->has('ending_time') ? 'mb-2' : '' }} text-sm rounded-lg bg-gray-900 text-red-400"
                         role="alert">
                         <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
                             fill="currentColor" viewBox="0 0 20 20">
@@ -134,7 +143,8 @@
                     </div>
                 @enderror
                 @error('discount')
-                    <div data-aos="zoom-in-down" data-aos-anchor-placement="top-bottom" data-aos-duration="800" class="w-10/12 md:w-9/12 lg:w-6/12 flex justify-center items-center p-4 {{ $errors->has('discount') ? 'mb-2' : '' }} text-sm rounded-lg bg-gray-900 text-red-400"
+                    <div data-aos="zoom-in-down" data-aos-anchor-placement="top-bottom" data-aos-duration="800"
+                        class="w-10/12 md:w-9/12 lg:w-6/12 flex justify-center items-center p-4 {{ $errors->has('discount') ? 'mb-2' : '' }} text-sm rounded-lg bg-gray-900 text-red-400"
                         role="alert">
                         <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
                             fill="currentColor" viewBox="0 0 20 20">
@@ -148,7 +158,8 @@
                     </div>
                 @enderror
                 @error('quantity')
-                    <div data-aos="zoom-in-down" data-aos-anchor-placement="top-bottom" data-aos-duration="800" class="w-10/12 md:w-9/12 lg:w-6/12 flex justify-center items-center p-4 text-sm rounded-lg bg-gray-900 text-red-400"
+                    <div data-aos="zoom-in-down" data-aos-anchor-placement="top-bottom" data-aos-duration="800"
+                        class="w-10/12 md:w-9/12 lg:w-6/12 flex justify-center items-center p-4 text-sm rounded-lg bg-gray-900 text-red-400"
                         role="alert">
                         <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
                             fill="currentColor" viewBox="0 0 20 20">
@@ -162,7 +173,8 @@
                     </div>
                 @enderror
                 @if (session('setPoint_success'))
-                    <div data-aos="zoom-in-down" data-aos-anchor-placement="top-bottom" data-aos-duration="800" class="w-10/12 md:w-9/12 lg:w-6/12 flex justify-center items-center p-4 text-sm rounded-lg bg-gray-900 text-green-400"
+                    <div data-aos="zoom-in-down" data-aos-anchor-placement="top-bottom" data-aos-duration="800"
+                        class="w-10/12 md:w-9/12 lg:w-6/12 flex justify-center items-center p-4 text-sm rounded-lg bg-gray-900 text-green-400"
                         role="alert">
                         <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true"
                             xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
@@ -176,7 +188,8 @@
                     </div>
                 @endif
                 @if (session('unsetPoint_success'))
-                    <div data-aos="zoom-in-down" data-aos-anchor-placement="top-bottom" data-aos-duration="800"class="w-10/12 md:w-9/12 lg:w-6/12 flex justify-center items-center p-4 text-sm rounded-lg bg-gray-900 text-green-400"
+                    <div data-aos="zoom-in-down" data-aos-anchor-placement="top-bottom"
+                        data-aos-duration="800"class="w-10/12 md:w-9/12 lg:w-6/12 flex justify-center items-center p-4 text-sm rounded-lg bg-gray-900 text-green-400"
                         role="alert">
                         <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true"
                             xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
@@ -190,7 +203,8 @@
                     </div>
                 @endif
                 @if (session('setCoupon_success'))
-                    <div data-aos="zoom-in-down" data-aos-anchor-placement="top-bottom" data-aos-duration="800" class="w-10/12 md:w-9/12 lg:w-6/12 flex justify-center items-center p-4 text-sm rounded-lg bg-gray-900 text-green-400"
+                    <div data-aos="zoom-in-down" data-aos-anchor-placement="top-bottom" data-aos-duration="800"
+                        class="w-10/12 md:w-9/12 lg:w-6/12 flex justify-center items-center p-4 text-sm rounded-lg bg-gray-900 text-green-400"
                         role="alert">
                         <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true"
                             xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
@@ -204,7 +218,8 @@
                     </div>
                 @endif
                 @if (session('deleteCoupon_success'))
-                    <div data-aos="zoom-in-down" data-aos-anchor-placement="top-bottom" data-aos-duration="800" class="w-10/12 md:w-9/12 lg:w-6/12 flex justify-center items-center p-4 text-sm rounded-lg bg-gray-900 text-green-400"
+                    <div data-aos="zoom-in-down" data-aos-anchor-placement="top-bottom" data-aos-duration="800"
+                        class="w-10/12 md:w-9/12 lg:w-6/12 flex justify-center items-center p-4 text-sm rounded-lg bg-gray-900 text-green-400"
                         role="alert">
                         <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true"
                             xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
@@ -218,7 +233,8 @@
                     </div>
                 @endif
             </div>
-            <div data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="800" class="bg-white relative shadow-md sm:rounded-lg overflow-hidden">
+            <div data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="800"
+                class="bg-white relative shadow-md sm:rounded-lg overflow-hidden">
                 <div
                     class="flex flex-col md:flex-row md:items-center md:justify-between space-y-3 md:space-y-0 md:space-x-4 p-4">
                     <div class="flex-1 flex items-center space-x-2">
@@ -227,14 +243,16 @@
                             <span class="text-gray-500">{{ $users->count() }}</span>
                         </h5>
                     </div>
-                    <div data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="800" class="text-lg font-bold text-gray-800">
+                    <div data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="800"
+                        class="text-lg font-bold text-gray-800">
                         Daftar User
                     </div>
                 </div>
                 <div
                     class="flex flex-col md:flex-row items-stretch md:items-center md:space-x-3 space-y-3 md:space-y-0 justify-between mx-4 py-4 border-t">
                     <div class="flex flex-col lg:flex-row justify-between w-full">
-                        <form data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="800" class="flex items-center" action="{{ route('owner.admin_users') }}" method="GET">
+                        <form data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="800"
+                            class="flex items-center" action="{{ route('owner.admin_users') }}" method="GET">
                             <label for="simple-search" class="sr-only">Search</label>
                             <div class="relative w-full">
                                 <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
@@ -254,8 +272,8 @@
                             </button>
                         </form>
                         <div class="flex flex-row justify-center gap-x-2 mt-2 lg:mt-0">
-                            <button data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="800" type="button" data-modal-target="add_coupon_modal"
-                                data-modal-toggle="add_coupon_modal"
+                            <button data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="800"
+                                type="button" data-modal-target="add_coupon_modal" data-modal-toggle="add_coupon_modal"
                                 class="flex flex-row items-center justify-center w-36 cursor-pointer text-yellow-500 bg-gray-900 hover:bg-gray-950 font-medium rounded-lg text-xs md:text-sm px-3 py-2.5 text-center">
                                 <svg class="w-4 h-4 mr-2 text-yellow-500" aria-hidden="true"
                                     xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
@@ -337,7 +355,8 @@
                                 </div>
                             </div>
                             @if (!$coupons->isEmpty())
-                                <button data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="800" type="button" data-modal-target="coupon_modal" data-modal-toggle="coupon_modal"
+                                <button data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="800"
+                                    type="button" data-modal-target="coupon_modal" data-modal-toggle="coupon_modal"
                                     class="flex flex-row items-center justify-center w-36 cursor-pointer text-yellow-500 bg-gray-900 hover:bg-gray-950 font-medium rounded-lg text-xs md:text-sm px-3 py-2.5 text-center">
                                     <svg class="w-4 h-4 mr-2 text-yellow-500" aria-hidden="true"
                                         xmlns="http://www.w3.org/2000/svg" width="24" height="24"
@@ -470,7 +489,8 @@
                             </div>
                         </div>
                         @if ($point)
-                            <button data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="800" type="button" data-modal-target="point_modal" data-modal-toggle="point_modal"
+                            <button data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="800"
+                                type="button" data-modal-target="point_modal" data-modal-toggle="point_modal"
                                 class="flex flex-row items-center justify-center w-36 cursor-pointer text-yellow-500 bg-gray-900 hover:bg-gray-950 font-medium rounded-lg text-xs md:text-sm px-3 py-2.5 text-center">
                                 <svg class="w-4 h-4 mr-2 text-yellow-500" aria-hidden="true"
                                     xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
@@ -531,7 +551,8 @@
                                 </div>
                             </form>
                         @else
-                            <button data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="800" type="button" data-modal-target="point_modal" data-modal-toggle="point_modal"
+                            <button data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="800"
+                                type="button" data-modal-target="point_modal" data-modal-toggle="point_modal"
                                 class="flex flex-row items-center justify-center w-32 cursor-pointer text-yellow-500 bg-gray-900 hover:bg-gray-950 font-medium rounded-lg text-xs md:text-sm px-3 py-2.5 text-center">
                                 <svg class="w-4 h-4 mr-2 text-yellow-500" aria-hidden="true"
                                     xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
@@ -595,7 +616,8 @@
             </div>
             <div class="overflow-x-auto overflow-y-hidden">
                 <table class="w-full text-sm text-center text-gray-500">
-                    <thead data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="800" class="text-xs text-center text-gray-700 uppercase bg-gray-50">
+                    <thead data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="800"
+                        class="text-xs text-center text-gray-700 uppercase bg-gray-50">
                         <tr>
                             <th scope="col" class="p-4">No.</th>
                             <th scope="col" class="p-4">Nama</th>
@@ -616,7 +638,8 @@
                             </tr>
                         @else
                             @foreach ($users as $user)
-                                <tr data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="800" class="border-b hover:bg-gray-100">
+                                <tr data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="800"
+                                    class="border-b hover:bg-gray-100">
                                     <td class="p-4 w-4">
                                         {{ $loop->index + ($users->currentPage() - 1) * $users->perPage() + 1 }}
                                     </td>
@@ -695,7 +718,8 @@
                     </tbody>
                 </table>
             </div>
-            <nav data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="800" class="flex flex-col md:flex-row justify-end items-center space-y-3 md:space-y-0 p-4"
+            <nav data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="800"
+                class="flex flex-col md:flex-row justify-end items-center space-y-3 md:space-y-0 p-4"
                 aria-label="Table navigation">
                 {{ $users->links('vendor.pagination.tailwind') }}
             </nav>

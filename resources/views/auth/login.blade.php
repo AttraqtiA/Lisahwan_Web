@@ -8,7 +8,7 @@
                 <div class="flex flex-col items-center justify-center p-8 mx-auto md:h-screen lg:py-0">
                     <div class="w-full rounded-lg shadow md:mt-0 sm:max-w-md xl:p-0 bg-gray-900">
                         @error('email_error')
-                            <div class="w-full flex justify-center items-center p-0 pt-8 text-sm rounded-lg bg-gray-900 text-red-400"
+                            <div class="w-full flex justify-center items-center p-0 pt-8 text-xs sm:text-sm rounded-lg bg-gray-900 text-red-400"
                                 role="alert">
                                 <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true"
                                     xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
@@ -22,7 +22,7 @@
                             </div>
                         @enderror
                         @error('password_error')
-                            <div class="w-full flex justify-center items-center p-0 pt-8 text-sm rounded-lg bg-gray-900 text-red-400"
+                            <div class="w-full flex justify-center items-center p-0 pt-8 text-xs sm:text-sm rounded-lg bg-gray-900 text-red-400"
                                 role="alert">
                                 <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true"
                                     xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
@@ -37,7 +37,7 @@
                         @enderror
                         <div class="p-6 space-y-4 md:space-y-6 sm:p-8">
                             <h1 class="text-xl font-bold leading-tight tracking-tight md:text-2xl text-yellow-500">
-                                Login ke akun mu
+                                Login
                             </h1>
                             <form method="POST" action="{{ route('login') }}" class="space-y-4 md:space-y-6">
                                 @csrf
@@ -98,7 +98,7 @@
                                             </label>
                                         </div>
                                     </div>
-                                       @if (Route::has('password.request'))
+                                    @if (Route::has('password.request'))
                                         <a href="{{ route('password.request') }}"
                                             class="text-sm font-medium text-yellow-500 hover:underline">Lupa password?</a>
                                     @endif

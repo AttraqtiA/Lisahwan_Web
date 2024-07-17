@@ -5,14 +5,17 @@
         class="bg-center bg-cover bg-no-repeat bg-gray-700 bg-blend-multiply">
         <div class="px-4 py-20 mx-auto max-w-screen-xl text-center text-white flex flex-col gap-10">
             <div>
-                <h2 data-aos="fade-down" data-aos-anchor-placement="top-bottom" data-aos-duration="800" class="text-center mb-4 text-4xl font-bold px-4 lg:px-0">Segera Dapatkan <mark
+                <h2 data-aos="fade-down" data-aos-anchor-placement="top-bottom" data-aos-duration="800"
+                    class="text-center mb-4 text-4xl font-bold px-4 lg:px-0">Segera Dapatkan <mark
                         class="px-2 text-yellow-500 bg-gray-900 rounded">Produk Lisahwan</mark>
                     di Tangan Anda!</h2>
-                <h2 data-aos="fade-down" data-aos-anchor-placement="top-bottom" data-aos-duration="800" class="text-center text-4xl font-bold">Anda Dapat Menghubungi Kami Melalui,</h2>
+                <h2 data-aos="fade-down" data-aos-anchor-placement="top-bottom" data-aos-duration="800"
+                    class="text-center text-4xl font-bold">Anda Dapat Menghubungi Kami Melalui,</h2>
             </div>
 
             <div class="flex flex-col md:flex-row justify-evenly items-center gap-y-4 md:gap-y-0">
-                <a data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="800" href="https://api.whatsapp.com/send?phone=6282230308030" target="_blank" class="m-auto">
+                <a data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="800"
+                    href="https://api.whatsapp.com/send?phone=6282230308030" target="_blank" class="m-auto">
                     <button type="button" data-te-ripple-init data-te-ripple-color="light"
                         class="flex justify-center items-center inline-block rounded-lg px-4 py-2.5 text-xs font-medium leading-normal text-white shadow-md bg-green-500 hover:bg-green-600">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7" fill="currentColor" viewBox="0 0 24 24">
@@ -22,7 +25,8 @@
                         <p class="ml-2 text-xl">Lisahwan</p>
                     </button>
                 </a>
-                <a data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="800" href="https://www.instagram.com/lisahwan" target="_blank" class="m-auto">
+                <a data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="800"
+                    href="https://www.instagram.com/lisahwan" target="_blank" class="m-auto">
                     <button type="button" data-te-ripple-init data-te-ripple-color="light"
                         class="flex justify-center items-center inline-block rounded-lg px-4 py-2.5 text-xs font-medium leading-normal text-white shadow-md bg-pink-500 hover:bg-pink-600">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7" fill="currentColor" viewBox="0 0 24 24">
@@ -33,14 +37,16 @@
 
                     </button>
                 </a>
-                <a data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="800" href="https://www.tokopedia.com/lisahwan" target="_blank" class="m-auto">
+                <a data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="800"
+                    href="https://www.tokopedia.com/lisahwan" target="_blank" class="m-auto">
                     <button type="button" data-te-ripple-init data-te-ripple-color="light"
                         class="flex justify-center items-center inline-block rounded-lg px-3 py-1.5 text-xs font-medium leading-normal text-white shadow-md bg-lime-500 hover:bg-lime-600">
                         <img src="/images/tokopedia_logo.png" class="w-8" alt="Tokopedia">
                         <p class="ml-2 text-xl">Lisahwan</p>
                     </button>
                 </a>
-                <a data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="800" href="https://shopee.co.id/lisahwan" target="_blank" class="m-auto">
+                <a data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="800"
+                    href="https://shopee.co.id/lisahwan" target="_blank" class="m-auto">
                     <button type="button" data-te-ripple-init data-te-ripple-color="light"
                         class="flex justify-center items-center inline-block rounded-lg px-3 py-2.5 text-xs font-medium leading-normal text-white shadow-md bg-orange-500 hover:bg-orange-600">
                         <img src="/images/shopee_logo.png" class="w-8" alt="Tokopedia">
@@ -49,7 +55,8 @@
                 </a>
             </div>
 
-            <iframe data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="800" class="mx-auto w-full px-3 md:px-6 lg:px-20 h-screen shadow-lg mt-2 lg:mt-6"
+            <iframe data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="800"
+                class="mx-auto w-full px-3 md:px-6 lg:px-20 h-screen shadow-lg mt-2 lg:mt-6"
                 src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3957.2250965699677!2d112.7342297!3d-7.3285967!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2dd7fb41eea3ee81%3A0x83d2a1606a6f6179!2sJl.%20Jemur%20Andayani%20XIII%20No.6%2C%20Jemur%20Wonosari%2C%20Kec.%20Wonocolo%2C%20Surabaya%2C%20Jawa%20Timur%2060237!5e0!3m2!1sen!2sid!4v1703209712146!5m2!1sen!2sid"
                 width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"
                 referrerpolicy="no-referrer-when-downgrade"></iframe>
