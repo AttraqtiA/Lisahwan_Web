@@ -17,6 +17,7 @@ class AddressSeeder extends Seeder
             'user_id' => 1,
             'address' => 'Jln. Jemur Andayani XIII No. 6',
             'city' => 'Surabaya',
+            'city_id' => 444,
             'province' => 'Jawa Timur',
             'postal_code' => '60237',
         ]);
@@ -25,6 +26,7 @@ class AddressSeeder extends Seeder
             'user_id' => 2,
             'address' => 'Jln. Jemur Andayani XIII No. 6',
             'city' => 'Surabaya',
+            'city_id' => 444,
             'province' => 'Jawa Timur',
             'postal_code' => '60237',
         ]);

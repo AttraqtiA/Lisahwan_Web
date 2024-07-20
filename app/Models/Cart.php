@@ -11,10 +11,16 @@ class Cart extends Model
 
     protected $guarded = ['id'];
 
-    public function getShipmentPrice()
-    {
-        return 25000;
-    }
+    // protected $shipmentPrice = 0;
+
+    // public function setShipmentPrice($value) {
+    //     $this->shipmentPrice = $value;
+    // }
+
+    // public function getShipmentPrice()
+    // {
+    //     return $this->shipmentPrice;
+    // }
 
     public function user()
     {

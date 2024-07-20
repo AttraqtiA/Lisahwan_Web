@@ -62,6 +62,21 @@
                 </div>
             </div>
         @endif
+        @if (session('chooseShipmentPrice_success'))
+            <div data-aos="zoom-in-down" data-aos-anchor-placement="top-bottom" data-aos-duration="800"
+                class="w-10/12 md:w-9/12 lg:w-6/12 flex justify-center items-center p-4 mt-8 text-sm rounded-lg bg-gray-900 text-green-400"
+                role="alert">
+                <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                    fill="currentColor" viewBox="0 0 20 20">
+                    <path
+                        d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Zm3.707 8.207-4 4a1 1 0 0 1-1.414 0l-2-2a1 1 0 0 1 1.414-1.414L9 10.586l3.293-3.293a1 1 0 0 1 1.414 1.414Z" />
+                </svg>
+                <span class="sr-only">Info</span>
+                <div>
+                    <span class="font-medium">{{ session('chooseShipmentPrice_success') }}
+                </div>
+            </div>
+        @endif
         @error('incorrectCoupon_error')
             <div data-aos="zoom-in-down" data-aos-anchor-placement="top-bottom" data-aos-duration="800"
                 class="w-10/12 md:w-9/12 lg:w-6/12 flex justify-center items-center p-4 {{ $errors->has('incorrectCoupon_error') ? 'mt-8' : '' }} text-sm rounded-lg bg-gray-900 text-red-400"
@@ -107,6 +122,36 @@
                 </div>
             </div>
         @enderror
+        @error('cityForgotten_error')
+            <div data-aos="zoom-in-down" data-aos-anchor-placement="top-bottom" data-aos-duration="800"
+                class="w-10/12 md:w-9/12 lg:w-6/12 flex justify-center items-center p-4 {{ $errors->has('cityForgotten_error') ? 'mt-8' : '' }} text-sm rounded-lg bg-gray-900 text-red-400"
+                role="alert">
+                <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                    fill="currentColor" viewBox="0 0 20 20">
+                    <path
+                        d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Zm3.707 11.793a1 1 0 1 1-1.414 1.414L10 11.414l-2.293 2.293a1 1 0 0 1-1.414-1.414L8.586 10 6.293 7.707a1 1 0 0 1 1.414-1.414L10 8.586l2.293-2.293a1 1 0 0 1 1.414 1.414L11.414 10l2.293 2.293Z" />
+                </svg>
+                <span class="sr-only">Info</span>
+                <div>
+                    <span class="font-medium">{{ $message }}
+                </div>
+            </div>
+        @enderror
+        @error('courierForgotten_error')
+            <div data-aos="zoom-in-down" data-aos-anchor-placement="top-bottom" data-aos-duration="800"
+                class="w-10/12 md:w-9/12 lg:w-6/12 flex justify-center items-center p-4 {{ $errors->has('courierForgotten_error') ? 'mt-8' : '' }} text-sm rounded-lg bg-gray-900 text-red-400"
+                role="alert">
+                <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                    fill="currentColor" viewBox="0 0 20 20">
+                    <path
+                        d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Zm3.707 11.793a1 1 0 1 1-1.414 1.414L10 11.414l-2.293 2.293a1 1 0 0 1-1.414-1.414L8.586 10 6.293 7.707a1 1 0 0 1 1.414-1.414L10 8.586l2.293-2.293a1 1 0 0 1 1.414 1.414L11.414 10l2.293 2.293Z" />
+                </svg>
+                <span class="sr-only">Info</span>
+                <div>
+                    <span class="font-medium">{{ $message }}
+                </div>
+            </div>
+        @enderror
         <div class="flex flex-col gap-y-8 lg:gap-y-8 p-8 sm:p-12 mx-auto w-full">
             <div class="flex flex-col lg:flex-row w-full col-span-2 lg:gap-x-6">
                 <div class="flex flex-col mx-auto w-full mb-8 lg:mb-0">
@@ -122,30 +167,35 @@
                         @csrf
                         <input type="hidden" value="{{ $total_poin }}" name="total_poin">
                         <input type="hidden" value="{{ $reward_now }}" name="reward_now">
+                        <input type="hidden" id="courier_hidden" value="" name="courier">
+                        <input type="hidden" id="destination_city" name="destination_city"
+                            value="{{ old('city', session('checkout.city')) }}">
                         <div data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="800"
                             class="grid gap-4 sm:grid-cols-2 sm:gap-6">
                             <div class="sm:col-span-2">
-                                <label for="address"
-                                    class="block mb-2 text-sm font-semibold text-gray-900">Alamat</label>
-                                <select id="address_id" name="address_id"
+                                <label data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="800"
+                                    for="address" class="block mb-2 text-sm font-semibold text-gray-900">Alamat</label>
+                                <select data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="800"
+                                    id="address_id" name="address_id"
                                     class="{{ $errors->has('address_id') ? 'bg-red-100 border-red-400 text-red-500 placeholder-red-700 focus:ring-red-500 focus:border-red-500' : 'bg-white border-yellow-500 text-gray-900 placeholder-gray-400  focus:ring-yellow-500 focus:border-yellow-500' }} rounded-lg border-1 text-sm block w-full p-2.5 mt-3">
                                     <option value="0" data-city="" data-province="" data-postal_code="">Tambah
-                                        alamat
-                                        lain</option>
+                                        alamat</option>
                                     @foreach ($addresses as $address)
-                                        <option value="{{ $address->id }}" data-city="{{ $address->city }}"
+                                        <option value="{{ $address->id }}" data-city="{{ $address->city_id }}"
                                             data-province="{{ $address->province }}"
                                             data-postal_code="{{ $address->postal_code }}"
-                                            {{ old('address_id') == $address->id ? 'selected' : '' }}>
+                                            {{ old('address_id', session('checkout.address_id')) == $address->id ? 'selected' : '' }}>
                                             {{ $address->address }}
                                         </option>
                                     @endforeach
                                 </select>
-                                <div id="new_address_container" style="display: none;">
-                                    <input type="text" name="address" id="address"
+                                <div data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="800"
+                                    id="new_address_container" style="display: none;">
+                                    <input data-aos="fade-up" data-aos-anchor-placement="top-bottom"
+                                        data-aos-duration="800" type="text" name="address" id="address"
                                         value="{{ old('address', session('checkout.address')) }}"
                                         class="{{ $errors->has('address') ? 'bg-red-100 border-red-400 text-red-500 placeholder-red-700 focus:ring-red-500 focus:border-red-500' : 'bg-white border-yellow-500 text-gray-900 placeholder-gray-400  focus:ring-yellow-500 focus:border-yellow-500' }} rounded-lg border-1 text-sm block w-full p-2.5 mt-3"
-                                        placeholder="(Contoh: Jln. Indonesia Raya No. 17, RT 08 RW 08)">
+                                        placeholder="(Contoh: Jln. Indonesia Raya No. 17, RT. 08 RW. 08)">
                                     @error('address')
                                         <p data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="800"
                                             class="mt-2 text-sm text-red-500"><span class="font-medium">{{ $message }}
@@ -154,7 +204,7 @@
                                 </div>
                             </div>
                             <div class="w-full">
-                                <label data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="800"
+                                {{-- <label data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="800"
                                     for="city" class="block mb-2 text-sm font-semibold text-gray-900">Kota</label>
                                 <input data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="800"
                                     type="text" name="city" id="city"
@@ -164,9 +214,27 @@
                                 @error('city')
                                     <p data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="800"
                                         class="mt-2 text-sm text-red-500"><span class="font-medium">{{ $message }}</p>
+                                @enderror --}}
+
+                                <label data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="800"
+                                    for="city" class="block mb-2 text-sm font-semibold text-gray-900">Kota</label>
+                                <select data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="800"
+                                    id="city" name="city"
+                                    class="{{ $errors->has('city') ? 'bg-red-100 border-red-400 text-red-500 placeholder-red-700 focus:ring-red-500 focus:border-red-500' : 'bg-white border-yellow-500 text-gray-900 placeholder-gray-400  focus:ring-yellow-500 focus:border-yellow-500' }} rounded-lg border-1 text-sm block w-full p-2.5 mt-3">
+                                    <option value="0">Pilih kota</option>
+                                    @foreach ($cities as $city)
+                                        <option value="{{ $city['city_id'] }}"
+                                            {{ old('city', session('checkout.city')) == $city['city_id'] ? 'selected' : '' }}>
+                                            {{ $city['city_name'] }}
+                                        </option>
+                                    @endforeach
+                                </select>
+                                @error('city')
+                                    <p data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="800"
+                                        class="mt-2 text-sm text-red-500"><span class="font-medium">{{ $message }}</p>
                                 @enderror
                             </div>
-                            <div class="w-full">
+                            {{-- <div class="w-full">
                                 <label data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="800"
                                     for="province" class="block mb-2 text-sm font-semibold text-gray-900">Provinsi</label>
                                 <input data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="800"
@@ -192,7 +260,7 @@
                                     <p data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="800"
                                         class="mt-2 text-sm text-red-500"><span class="font-medium">{{ $message }}</p>
                                 @enderror
-                            </div>
+                            </div> --}}
                             <div>
                                 <label data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="800"
                                     for="note" class="block mb-2 text-sm font-semibold text-gray-900">Catatan</label>
@@ -257,18 +325,147 @@
                             </div>
                         </div>
                     </form>
+                    <form action="{{ route('member.cekOngkir') }}" method="POST" enctype="multipart/form-data"
+                        class="flex flex-row mt-6">
+                        @csrf
+                        @php
+                            $courierStatus_lion = Session::get('courierStatus_lion');
+                            $courierStatus_sicepat = Session::get('courierStatus_sicepat');
+                            // Session::forget([
+                            //     'checkout.address',
+                            //     'checkout.city',
+                            //     'checkout.province',
+                            //     'checkout.postal_code',
+                            //     'checkout.note',
+                            // ]);
+                        @endphp
+                        <input type="hidden" id="destination_address_id" name="address_id"
+                            value="{{ old('address_id', session('checkout.address_id')) }}">
+                        <input type="hidden" id="destination_address" name="address"
+                            value="{{ old('address', session('checkout.address')) }}">
+                        <input type="hidden" id="destination_city" name="city"
+                            value="{{ old('city', session('checkout.city')) }}">
+                        <input type="hidden" id="destination_note" name="note"
+                            value="{{ old('note', session('checkout.note')) }}">
+                        <div class="w-full">
+                            <label data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="800"
+                                for="ongkir" class="block mb-3 text-sm font-semibold text-gray-900">Cek
+                                Ongkir</label>
+                            <div class="flex flex-col lg:flex-row lg:space-x-2 space-y-2 lg:space-y-0 w-full lg:w-2/4">
+                                <div data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="800"
+                                    type="submit"
+                                    class="w-full flex flex-row  text-sm font-medium text-yellow-500 bg-gray-900 rounded-lg justify-center items-center">
+                                    <div
+                                        class="px-4 flex justify-center items-center w-full border-gray-600 sm:border-b-0 border-r">
+                                        <div class="w-full flex items-center justify-center">
+                                            <input id="lion-checkbox-list" type="checkbox" name="courier" value="lion"
+                                                {{ isset($courierStatus_lion) ? 'checked' : '' }}
+                                                class="courier-checkbox w-4 h-4 text-yellow-500 bg-gray-600 rounded focus:ring-yellow-500 focus:ring-1">
+                                            <label for="lion-checkbox-list"
+                                                class="py-3 ms-2 text-sm font-medium text-yellow-500">LION</label>
+                                        </div>
+                                    </div>
+                                    <div class="px-4 w-full border-gray-600">
+                                        <div class="w-full flex items-center justify-center">
+                                            <input id="sicepat-checkbox-list" type="checkbox" name="courier"
+                                                value="sicepat" {{ isset($courierStatus_sicepat) ? 'checked' : '' }}
+                                                class="courier-checkbox w-4 h-4 text-yellow-500 bg-gray-600 rounded focus:ring-yellow-500 focus:ring-1">
+                                            <label for="sicepat-checkbox-list"
+                                                class="py-3 ms-2 text-sm font-medium text-yellow-500">SICEPAT</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <button data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="800"
+                                    type="submit"
+                                    class="flex flex-row items-center justify-center w-full lg:w-60 cursor-pointer text-yellow-500 bg-gray-900 hover:bg-gray-950 font-medium rounded-lg text-sm px-3 py-2.5 text-center">
+                                    <svg class="w-4 h-4 mr-2 text-yellow-500" aria-hidden="true"
+                                        xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
+                                        <path fill-rule="evenodd"
+                                            d="M12 2c-.791 0-1.55.314-2.11.874l-.893.893a.985.985 0 0 1-.696.288H7.04A2.984 2.984 0 0 0 4.055 7.04v1.262a.986.986 0 0 1-.288.696l-.893.893a2.984 2.984 0 0 0 0 4.22l.893.893a.985.985 0 0 1 .288.696v1.262a2.984 2.984 0 0 0 2.984 2.984h1.262c.261 0 .512.104.696.288l.893.893a2.984 2.984 0 0 0 4.22 0l.893-.893a.985.985 0 0 1 .696-.288h1.262a2.984 2.984 0 0 0 2.984-2.984V15.7c0-.261.104-.512.288-.696l.893-.893a2.984 2.984 0 0 0 0-4.22l-.893-.893a.985.985 0 0 1-.288-.696V7.04a2.984 2.984 0 0 0-2.984-2.984h-1.262a.985.985 0 0 1-.696-.288l-.893-.893A2.984 2.984 0 0 0 12 2Zm3.683 7.73a1 1 0 1 0-1.414-1.413l-4.253 4.253-1.277-1.277a1 1 0 0 0-1.415 1.414l1.985 1.984a1 1 0 0 0 1.414 0l4.96-4.96Z"
+                                            clip-rule="evenodd" />
+                                    </svg>
+                                    Cek Ongkir
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                    @if (session('costs'))
+                        <div data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="800"
+                            class="mt-3 w-full bg-gray-900 divide-y divide-gray-100 rounded-lg shadow">
+                            <ul class="p-2 space-y-1 text-sm text-yellow-500" aria-labelledby="dropdownToggleButton">
+                                @foreach (session('costs')['results'] as $costs)
+                                    @foreach ($costs['costs'] as $index => $cost)
+                                        @php
+                                            $cityName = session('costs')['destination_details']['city_id'];
+                                            $sessionKey =
+                                                'costStatus_' . $index . '_' . $cityName . '_' . $costs['code'];
+                                            $costStatus = Session::get($sessionKey);
+                                        @endphp
+                                        <form id="checkboxCostForm_{{ $index }}"
+                                            action="{{ route('member.pilihOngkir', $index) }}" method="POST"
+                                            enctype="multipart/form-data">
+                                            @csrf
+                                            <input type="hidden" id="destination_address_id_{{ $index }}"
+                                                name="address_id"
+                                                value="{{ old('address_id', session('checkout.address_id')) }}">
+                                            <input type="hidden" id="destination_address_{{ $index }}"
+                                                name="address" value="{{ old('address', session('checkout.address')) }}">
+                                            <input type="hidden" id="destination_city_{{ $index }}"
+                                                name="city" value="{{ old('city', session('checkout.city')) }}">
+                                            <input type="hidden" id="destination_note_{{ $index }}"
+                                                name="note" value="{{ old('note', session('checkout.note')) }}">
+                                            <input type="hidden" id="courier" name="courier"
+                                                value="{{ $costs['code'] }}">
+                                            <li>
+                                                <div
+                                                    class="flex flex-col  space-y-2 md:space-y-0 md:flex-row justify-between items-center p-2 rounded hover:bg-gray-800 w-full">
+                                                    <label class="inline-flex items-center w-full cursor-pointer">
+                                                        <input type="checkbox"
+                                                            id="autoSubmitCheckboxCost_{{ $index }}"
+                                                            value="" {{ isset($costStatus) ? 'checked' : '' }}
+                                                            class="cost-checkbox sr-only peer">
+                                                        <div
+                                                            class="relative w-9 h-5 bg-gray-600 peer-focus:outline-none peer-focus:ring-2 peer-focus:ring-yellow-500 rounded-full peer peer-checked:after:translate-x-full rtl:peer-checked:after:translate-x-[-100%] peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-yellow-500">
+                                                        </div>
+                                                        <span
+                                                            class="ms-3 text-sm font-medium text-yellow-500">{{ $cost['service'] }}
+                                                            ({{ $cost['description'] }})
+                                                        </span>
+                                                    </label>
+                                                    <div
+                                                        class="w-full flex flex-row space-x-2 items-center lg:justify-center">
+                                                        @foreach ($cost['cost'] as $cost_detail)
+                                                            <span class="text-yellow-500 text-sm font-semibold">Rp.
+                                                                {{ number_format($cost_detail['value'], 0, ',', '.') }}</span>
+                                                            <span class="w-2 h-2 bg-gray-700 rounded-full"></span>
+                                                            <span class="text-yellow-500 text-sm font-semibold">(Estimasi
+                                                                {{ $cost_detail['etd'] }} hari)</span>
+                                                        @endforeach
+                                                    </div>
+                                                </div>
+                                            </li>
+                                        </form>
+                                    @endforeach
+                                @endforeach
+                            </ul>
+                        </div>
+                    @endif
+
+
                     @if (count($coupons) > 0)
                         <form action="{{ route('member.cekKupon') }}" method="POST" enctype="multipart/form-data"
-                            class="flex flex-row mb-4 mt-4 lg:mt-0">
+                            class="flex flex-row mb-4 mt-6">
                             @csrf
+                            <input type="hidden" id="addressHidden_id" name="address_id"
+                                value="{{ old('address_id', session('checkout.address_id')) }}">
                             <input type="hidden" id="addressHidden" name="address"
                                 value="{{ old('address', session('checkout.address')) }}">
                             <input type="hidden" id="cityHidden" name="city"
                                 value="{{ old('city', session('checkout.city')) }}">
-                            <input type="hidden" id="provinceHidden" name="province"
+                            {{-- <input type="hidden" id="provinceHidden" name="province"
                                 value="{{ old('province', session('checkout.province')) }}">
                             <input type="hidden" id="postalCodeHidden" name="postal_code"
-                                value="{{ old('postal_code', session('checkout.postal_code')) }}">
+                                value="{{ old('postal_code', session('checkout.postal_code')) }}"> --}}
                             <input type="hidden" id="noteHidden" name="note"
                                 value="{{ old('note', session('checkout.note')) }}">
                             <div class="w-full">
@@ -282,8 +479,7 @@
                                         class="{{ $errors->has('coupon') || $errors->has('alreadyAddCoupon_error') || $errors->has('incorrectCoupon_error') ? 'bg-red-100 border-red-400 text-red-500 placeholder-red-700 focus:ring-red-500 focus:border-red-500' : 'bg-white border-yellow-500 text-gray-900 placeholder-gray-400  focus:ring-yellow-500 focus:border-yellow-500' }} rounded-lg border-1 text-sm block p-2.5"
                                         placeholder="(Contoh: JULYCERIA)">
                                     <button data-aos="fade-up" data-aos-anchor-placement="top-bottom"
-                                        data-aos-duration="800" type="submit" data-modal-target="add_coupon_modal"
-                                        data-modal-toggle="add_coupon_modal"
+                                        data-aos-duration="800" type="submit"
                                         class="flex flex-row items-center justify-center w-full lg:w-36 cursor-pointer text-yellow-500 bg-gray-900 hover:bg-gray-950 font-medium rounded-lg text-sm px-3 py-2.5 text-center">
                                         <svg class="w-4 h-4 mr-2 text-yellow-500" aria-hidden="true"
                                             xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
@@ -339,22 +535,25 @@
                                                 action="{{ route('member.pilihKupon', $coupon->coupon->id) }}"
                                                 method="POST" enctype="multipart/form-data">
                                                 @csrf
+                                                <input type="hidden" id="addressHidden_id_{{ $coupon->coupon->id }}"
+                                                    name="address_id"
+                                                    value="{{ old('address_id', session('checkout.address_id')) }}">
                                                 <input type="hidden" id="addressHidden_{{ $coupon->coupon->id }}"
                                                     name="address"
                                                     value="{{ old('address', session('checkout.address')) }}">
                                                 <input type="hidden" id="cityHidden_{{ $coupon->coupon->id }}"
                                                     name="city" value="{{ old('city', session('checkout.city')) }}">
-                                                <input type="hidden" id="provinceHidden_{{ $coupon->coupon->id }}"
+                                                {{-- <input type="hidden" id="provinceHidden_{{ $coupon->coupon->id }}"
                                                     name="province"
                                                     value="{{ old('province', session('checkout.province')) }}">
                                                 <input type="hidden" id="postalCodeHidden_{{ $coupon->coupon->id }}"
                                                     name="postal_code"
-                                                    value="{{ old('postal_code', session('checkout.postal_code')) }}">
+                                                    value="{{ old('postal_code', session('checkout.postal_code')) }}"> --}}
                                                 <input type="hidden" id="noteHidden_{{ $coupon->coupon->id }}"
                                                     name="note" value="{{ old('note', session('checkout.note')) }}">
                                                 <li>
                                                     <div
-                                                        class="flex flex-col space-y-2 lg:flex-row justify-between items-center p-2 rounded hover:bg-gray-800 w-full">
+                                                        class="flex flex-col space-y-2 md:space-y-0 md:flex-row justify-between items-center p-2 rounded hover:bg-gray-800 w-full">
                                                         <label class="inline-flex items-center w-full cursor-pointer">
                                                             <input type="checkbox"
                                                                 id="autoSubmitCheckbox_{{ $coupon->coupon->id }}"
@@ -444,7 +643,6 @@
                                                         </p>
                                                     @endif
                                                 </div>
-
                                             </div>
                                             <div>
                                                 <div
@@ -499,114 +697,122 @@
                                 </div>
                             @endif
                         </div>
-                        @if ($countSubtotal && $shipment_price)
-                            <hr data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="800"
-                                class="h-px my-7 border-2 border-yellow-500">
-                            <div data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="800"
-                                class="flex flex-row justify-between items-center">
-                                <p class="text-base font-medium text-gray-900">
-                                    Subtotal:
+                        {{-- @if ($countSubtotal && $shipment_price) --}}
+                        <hr data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="800"
+                            class="h-px my-7 border-2 border-yellow-500">
+                        <div data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="800"
+                            class="flex flex-row justify-between items-center">
+                            <p class="text-base font-medium text-gray-900">
+                                Subtotal:
+                            </p>
+                            <p class="text-base font-medium text-gray-900">
+                                Rp. {{ number_format($countSubtotal, 0, ',', '.') }}
+                            </p>
+                        </div>
+                        <div data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="800"
+                            class="mt-1 flex flex-row justify-between items-center">
+                            <p class="text-base font-medium text-gray-900">
+                                Biaya Pengiriman:
+                            </p>
+                            @if ($shipment_price == 0)
+                                <p class="text-base font-medium text-red-600">
+                                    (Belum memilih ongkir pengiriman)
                                 </p>
-                                <p class="text-base font-medium text-gray-900">
-                                    Rp. {{ number_format($countSubtotal, 0, ',', '.') }}
-                                </p>
-                            </div>
-                            <div data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="800"
-                                class="mt-1 flex flex-row justify-between items-center">
-                                <p class="text-base font-medium text-gray-900">
-                                    Biaya Pengiriman:
-                                </p>
+                            @else
                                 <p class="text-base font-medium text-gray-900">
                                     Rp. {{ number_format($shipment_price, 0, ',', '.') }}
                                 </p>
-                            </div>
-                            <p data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="800"
-                                class="mt-1 text-sm font-normal text-gray-900">
-                                (Estimasi pengiriman 1-3 hari)
-                            </p>
-                            <p data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="800"
-                                class="mt-1 text-sm font-medium text-green-500">
-                                *Dapatkan <span class="font-bold">{{ number_format($total_poin, 0, ',', '.') }}
-                                    poin (Rp. {{ number_format($total_money, 0, ',', '.') }})</span>!
-                            </p>
-                            <hr data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="800"
-                                class="h-px my-7 border-2 border-yellow-500">
-                            @php
-                                $pointStatus = Session::get('pointStatus');
-                                // Session::forget('pointStatus');
-                            @endphp
-                            <div data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="800"
-                                class="flex flex-row justify-between items-center">
-                                <p class="text-xl font-bold text-gray-900">
-                                    Total:
-                                </p>
-                                <div class="flex flex-col space-y-0 justify-center items-end">
-                                    <span
-                                        class="font-bold {{ isset($pointStatus) ? 'text-red-600 line-through text-lg' : ' text-xl text-gray-900 ' }}">
-                                        Rp. {{ number_format($countSubtotal + $shipment_price, 0, ',', '.') }}
-                                    </span>
-                                    @if (isset($pointStatus))
-                                        @if ($reward_now >= $countSubtotal + $shipment_price)
-                                            <span class="text-xl font-bold text-gray-900">
-                                                Rp.
-                                                {{ number_format(0, 0, ',', '.') }}
-                                            </span>
-                                        @else
-                                            <span class="text-xl font-bold text-gray-900">
-                                                Rp.
-                                                {{ number_format($countSubtotal + $shipment_price - $reward_now, 0, ',', '.') }}
-                                            </span>
-                                        @endif
-                                    @endif
-                                </div>
-                            </div>
-                            @if (Auth::user()->reward > 0)
-                                <hr data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="800"
-                                    class="h-px my-7 border-2 border-yellow-500">
-                                <div data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="800"
-                                    class="flex flex-col space-y-2">
-                                    <form id="togglePointForm" action="{{ route('member.aktifPoin') }}" method="POST">
-                                        @csrf
-                                        <input type="hidden" id="addressHide" name="address"
-                                            value="{{ old('address', session('checkout.address')) }}">
-                                        <input type="hidden" id="cityHide" name="city"
-                                            value="{{ old('city', session('checkout.city')) }}">
-                                        <input type="hidden" id="provinceHide" name="province"
-                                            value="{{ old('province', session('checkout.province')) }}">
-                                        <input type="hidden" id="postalCodeHide" name="postal_code"
-                                            value="{{ old('postal_code', session('checkout.postal_code')) }}">
-                                        <input type="hidden" id="noteHide" name="note"
-                                            value="{{ old('note', session('checkout.note')) }}">
-                                        <label
-                                            class="inline-flex items-center cursor-pointer bg-gray-900 rounded-full px-3 py-2">
-                                            <input type="checkbox" id="togglePoint" value=""
-                                                {{ isset($pointStatus) ? 'checked' : '' }} class="sr-only peer">
-                                            <div
-                                                class="relative w-9 h-5 bg-gray-600 peer-focus:outline-none peer-focus:ring-2 peer-focus:ring-yellow-500 rounded-full peer peer-checked:after:translate-x-full rtl:peer-checked:after:translate-x-[-100%] peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-yellow-500">
-                                            </div>
-                                            <span class="ms-2.5 text-base font-semibold text-yellow-500">Pakai Poin</span>
-                                        </label>
-                                    </form>
-                                    @if (Session::has('pointStatus'))
-                                        <span class="flex flex-row  items-center text-gray-900 text-sm">*Poin mu sekarang:
-                                            {{ abs(number_format(($countSubtotal + $shipment_price - $reward_now) / $point->money_per_poin, 0, ',', '.')) }}<img
-                                                src="/images/coin_icon.png" alt="Poin" class="w-4 h-4 ms-1"></span>
-                                    @else
-                                        <span class="flex flex-row  items-center text-gray-900 text-sm">*Poin mu sekarang:
-                                            {{ number_format(Auth::user()->reward, 0, ',', '.') }}<img
-                                                src="/images/coin_icon.png" alt="Poin" class="w-4 h-4 ms-1"></span>
-                                    @endif
-                                </div>
-                            @else
                             @endif
+                        </div>
+                        <p data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="800"
+                            class="mt-1 text-sm font-normal text-gray-900">
+                            (Estimasi pengiriman 1-3 hari)
+                        </p>
+                        <p data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="800"
+                            class="mt-1 text-sm font-medium text-green-500">
+                            *Dapatkan <span class="font-bold">{{ number_format($total_poin, 0, ',', '.') }}
+                                poin (Rp. {{ number_format($total_money, 0, ',', '.') }})</span>!
+                        </p>
+                        <hr data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="800"
+                            class="h-px my-7 border-2 border-yellow-500">
+                        @php
+                            $pointStatus = Session::get('pointStatus');
+                            // Session::forget('pointStatus');
+                        @endphp
+                        <div data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="800"
+                            class="flex flex-row justify-between items-center">
+                            <p class="text-xl font-bold text-gray-900">
+                                Total:
+                            </p>
+                            <div class="flex flex-col space-y-0 justify-center items-end">
+                                <span
+                                    class="font-bold {{ isset($pointStatus) ? 'text-red-600 line-through text-lg' : ' text-xl text-gray-900 ' }}">
+                                    Rp. {{ number_format($countSubtotal + $shipment_price, 0, ',', '.') }}
+                                </span>
+                                @if (isset($pointStatus))
+                                    @if ($reward_now >= $countSubtotal + $shipment_price)
+                                        <span class="text-xl font-bold text-gray-900">
+                                            Rp.
+                                            {{ number_format(0, 0, ',', '.') }}
+                                        </span>
+                                    @else
+                                        <span class="text-xl font-bold text-gray-900">
+                                            Rp.
+                                            {{ number_format($countSubtotal + $shipment_price - $reward_now, 0, ',', '.') }}
+                                        </span>
+                                    @endif
+                                @endif
+                            </div>
+                        </div>
+                        @if (Auth::user()->reward > 0)
                             <hr data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="800"
                                 class="h-px my-7 border-2 border-yellow-500">
-                            <button data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="800"
-                                type="button" data-modal-target="payment-modal" data-modal-toggle="payment-modal"
-                                class="cursor-pointer w-full text-yellow-500 bg-gray-900 hover:bg-gray-800 font-medium rounded-lg text-base px-5 py-2.5 text-center items-center">
-                                Bayar Sekarang
-                            </button>
+                            <div data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="800"
+                                class="flex flex-col space-y-2">
+                                <form id="togglePointForm" action="{{ route('member.aktifPoin') }}" method="POST">
+                                    @csrf
+                                    <input type="hidden" id="addressHide_id" name="address_id"
+                                        value="{{ old('address_id', session('checkout.address_id')) }}">
+                                    <input type="hidden" id="addressHide" name="address"
+                                        value="{{ old('address', session('checkout.address')) }}">
+                                    <input type="hidden" id="cityHide" name="city"
+                                        value="{{ old('city', session('checkout.city')) }}">
+                                    {{-- <input type="hidden" id="provinceHide" name="province"
+                                        value="{{ old('province', session('checkout.province')) }}">
+                                    <input type="hidden" id="postalCodeHide" name="postal_code"
+                                        value="{{ old('postal_code', session('checkout.postal_code')) }}"> --}}
+                                    <input type="hidden" id="noteHide" name="note"
+                                        value="{{ old('note', session('checkout.note')) }}">
+                                    <label
+                                        class="inline-flex items-center cursor-pointer bg-gray-900 rounded-full px-3 py-2">
+                                        <input type="checkbox" id="togglePoint" value=""
+                                            {{ isset($pointStatus) ? 'checked' : '' }} class="sr-only peer">
+                                        <div
+                                            class="relative w-9 h-5 bg-gray-600 peer-focus:outline-none peer-focus:ring-2 peer-focus:ring-yellow-500 rounded-full peer peer-checked:after:translate-x-full rtl:peer-checked:after:translate-x-[-100%] peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-yellow-500">
+                                        </div>
+                                        <span class="ms-2.5 text-base font-semibold text-yellow-500">Pakai Poin</span>
+                                    </label>
+                                </form>
+                                @if (Session::has('pointStatus'))
+                                    <span class="flex flex-row  items-center text-gray-900 text-sm">*Poin mu sekarang:
+                                        {{ abs(number_format(($countSubtotal + $shipment_price - $reward_now) / $point->money_per_poin, 0, ',', '.')) }}<img
+                                            src="/images/coin_icon.png" alt="Poin" class="w-4 h-4 ms-1"></span>
+                                @else
+                                    <span class="flex flex-row  items-center text-gray-900 text-sm">*Poin mu sekarang:
+                                        {{ number_format(Auth::user()->reward, 0, ',', '.') }}<img
+                                            src="/images/coin_icon.png" alt="Poin" class="w-4 h-4 ms-1"></span>
+                                @endif
+                            </div>
+                        @else
                         @endif
+                        <hr data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="800"
+                            class="h-px my-7 border-2 border-yellow-500">
+                        <button data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="800"
+                            type="button" data-modal-target="payment-modal" data-modal-toggle="payment-modal"
+                            class="cursor-pointer w-full text-yellow-500 bg-gray-900 hover:bg-gray-800 font-medium rounded-lg text-base px-5 py-2.5 text-center items-center">
+                            Bayar Sekarang
+                        </button>
+                        {{-- @endif --}}
                     </div>
                 </div>
             </div>
@@ -736,31 +942,57 @@
     </div>
     <script language="javascript">
         $(document).ready(function() {
-            $('#address_id').change(function() {
-                var selectedOption = $(this).find('option:selected');
-                var city = selectedOption.data('city');
-                var province = selectedOption.data('province');
-                var postal_code = selectedOption.data('postal_code');
+            function updateCourierHidden() {
+                // Ambil nilai dari checkbox yang dicheck
+                var checkedValue = $('.courier-checkbox:checked').val();
 
-                if ($(this).val() == '0') {
+                // Set nilai input hidden dengan nilai dari checkbox yang dicheck
+                $('#courier_hidden').val(checkedValue ||
+                    ''); // Jika tidak ada yang dicheck, set sebagai string kosong
+            }
+
+            // Panggil fungsi updateCourierHidden saat halaman dimuat, jika ada checkbox yang sudah dicheck
+            updateCourierHidden();
+        });
+
+        $(document).ready(function() {
+            // Fungsi untuk memperbarui input berdasarkan pilihan address_id
+            function updateAddressFields() {
+                var selectedOption = $('#address_id').find('option:selected');
+                var city = selectedOption.data('city');
+                var cityValue = $('#city').val();
+                // var province = selectedOption.data('province');
+                // var postal_code = selectedOption.data('postal_code');
+
+                if ($('#address_id').val() == '0') {
                     $('#new_address_container').show();
-                    // // Kosongkan nilai input jika tidak ada old atau session
-                    // $('#city').val('{{ old('city', session('checkout.city')) }}' != '' ?
-                    //     '{{ old('city', session('checkout.city')) }}' : '');
-                    // $('#province').val('{{ old('province', session('checkout.province')) }}' != '' ?
-                    //     '{{ old('province', session('checkout.province')) }}' : '');
-                    // $('#postal_code').val('{{ old('postal_code', session('checkout.postal_code')) }}' !=
-                    //     '' ? '{{ old('postal_code', session('checkout.postal_code')) }}' : '');
+                    $('#city').prop('disabled', false).val(cityValue);
+                    // $('#province').val('');
+                    // $('#postal_code').val('');
                 } else {
                     $('#new_address_container').hide();
-                    $('#city').val(city);
-                    $('#province').val(province);
-                    $('#postal_code').val(postal_code);
+                    $('#city').val(city).prop('disabled', true);
+                    // $('#province').val(province);
+                    // $('#postal_code').val(postal_code);
                 }
-            });
 
-            // Trigger change event on page load to set the initial state
-            $('#address_id').trigger('change');
+                // Perbarui nilai input tersembunyi dengan nilai kota yang dipilih
+                $('#destination_city').val($('#city').val());
+
+                // Perbarui nilai input tersembunyi dengan nilai kota yang dipilih
+                var cityValue = $('#city').val();
+                $('input[id^="destination_city_"]').each(function() {
+                    $(this).val(cityValue);
+                });
+            }
+
+            // Panggil fungsi saat dokumen siap
+            updateAddressFields();
+
+            // Panggil fungsi saat address_id berubah
+            $('#address_id').on('change', function() {
+                updateAddressFields();
+            });
         });
 
         // buat display input file image preview
@@ -794,6 +1026,13 @@
         });
 
         $(document).ready(function() {
+            $('[id^=autoSubmitCheckboxCost_]').change(function() {
+                var formId = $(this).attr('id').replace('autoSubmitCheckboxCost_', 'checkboxCostForm_');
+                $('#' + formId).submit();
+            });
+        });
+
+        $(document).ready(function() {
             // Fungsi untuk memperbarui nilai input tersembunyi
             function updateHiddenInput(inputId, hiddenInputId) {
                 $(inputId).on('input', function() {
@@ -802,13 +1041,13 @@
             }
 
             // Panggil fungsi untuk setiap input
+            updateHiddenInput('#address_id', '#addressHidden_id');
             updateHiddenInput('#address', '#addressHidden');
             updateHiddenInput('#city', '#cityHidden');
-            updateHiddenInput('#province', '#provinceHidden');
-            updateHiddenInput('#postal_code', '#postalCodeHidden');
+            // updateHiddenInput('#province', '#provinceHidden');
+            // updateHiddenInput('#postal_code', '#postalCodeHidden');
             updateHiddenInput('#note', '#noteHidden');
         });
-
 
         $(document).ready(function() {
             // Fungsi untuk memperbarui nilai input tersembunyi
@@ -819,11 +1058,55 @@
             }
 
             // Panggil fungsi untuk setiap input
+            updateHideInput('#address_id', '#addressHide_id');
             updateHideInput('#address', '#addressHide');
             updateHideInput('#city', '#cityHide');
-            updateHideInput('#province', '#provinceHide');
-            updateHideInput('#postal_code', '#postalCodeHide');
+            // updateHideInput('#province', '#provinceHide');
+            // updateHideInput('#postal_code', '#postalCodeHide');
             updateHideInput('#note', '#noteHide');
+        });
+
+        $(document).ready(function() {
+            // Fungsi untuk memperbarui nilai input tersembunyi
+            function updateHideInput(inputId, hiddenInputId) {
+                $(inputId).on('input', function() {
+                    $(hiddenInputId).val($(this).val());
+                });
+            }
+
+            // Panggil fungsi untuk setiap input
+            updateHideInput('#address_id', '#destination_address_id');
+            updateHideInput('#address', '#destination_address');
+            updateHideInput('#city', '#destination_city');
+            updateHideInput('#note', '#destination_note');
+        });
+
+        $(document).ready(function() {
+            // Fungsi untuk memperbarui nilai input tersembunyi
+            function updateHiddenInput(inputId, hiddenInputId) {
+                $(inputId).on('input', function() {
+                    $(hiddenInputId).val($(this).val());
+                });
+            }
+
+            @if (session('costs'))
+                // Daftar form ID yang digunakan
+                var formIds = [
+                    @foreach (session('costs')['results'] as $costs)
+                        @foreach ($costs['costs'] as $index => $cost)
+                            '{{ $index }}',
+                        @endforeach
+                    @endforeach
+                ];
+
+                // Panggil fungsi untuk setiap input dalam setiap form
+                formIds.forEach(function(formId) {
+                    updateHiddenInput('#address_id', '#destination_address_id_' + formId);
+                    updateHiddenInput('#address', '#destination_address_' + formId);
+                    updateHiddenInput('#city', '#destination_city_' + formId);
+                    updateHiddenInput('#note', '#destination_note_' + formId);
+                });
+            @endif
         });
 
         $(document).ready(function() {
@@ -843,10 +1126,11 @@
 
             // Panggil fungsi untuk setiap input dalam setiap form
             formIds.forEach(function(formId) {
+                updateHiddenInput('#address_id', '#addressHidden_id_' + formId);
                 updateHiddenInput('#address', '#addressHidden_' + formId);
                 updateHiddenInput('#city', '#cityHidden_' + formId);
-                updateHiddenInput('#province', '#provinceHidden_' + formId);
-                updateHiddenInput('#postal_code', '#postalCodeHidden_' + formId);
+                // updateHiddenInput('#province', '#provinceHidden_' + formId);
+                // updateHiddenInput('#postal_code', '#postalCodeHidden_' + formId);
                 updateHiddenInput('#note', '#noteHidden_' + formId);
             });
         });
@@ -854,6 +1138,22 @@
         $(document).ready(function() {
             $('#togglePoint').on('change', function() {
                 $('#togglePointForm').submit();
+            });
+        });
+
+        $(document).ready(function() {
+            $('.courier-checkbox').on('change', function() {
+                if (this.checked) {
+                    $('.courier-checkbox').not(this).prop('checked', false);
+                }
+            });
+        });
+
+        $(document).ready(function() {
+            $('.cost-checkbox').on('change', function() {
+                if (this.checked) {
+                    $('.cost-checkbox').not(this).prop('checked', false);
+                }
             });
         });
     </script>

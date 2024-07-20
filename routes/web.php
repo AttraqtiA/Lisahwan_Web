@@ -129,6 +129,9 @@ Route::group([
     Route::post('/choose_coupon/{coupon_id}', [MemberOrderController::class, 'chooseCoupon'])->name('pilihKupon');
 
     Route::post('/activate_point', [MemberOrderController::class, 'activatePoint'])->name('aktifPoin');
+
+    Route::post('/check_shipmentprice', [MemberOrderController::class, 'checkShipmentPrice'])->name('cekOngkir');
+    Route::post('/choose_shipmentprice/{shipmentprice_id}', [MemberOrderController::class, 'chooseShipmentPrice'])->name('pilihOngkir');
 });
 //=====================================================================================================
 

@@ -16,6 +16,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Session;
 
 class OrderController extends Controller
@@ -31,10 +32,11 @@ class OrderController extends Controller
         ]);
 
         // Simpan data alamat ke session
+        $request->session()->put('checkout.address_id', $request->address_id);
         $request->session()->put('checkout.address', $request->address);
         $request->session()->put('checkout.city', $request->city);
-        $request->session()->put('checkout.province', $request->province);
-        $request->session()->put('checkout.postal_code', $request->postal_code);
+        // $request->session()->put('checkout.province', $request->province);
+        // $request->session()->put('checkout.postal_code', $request->postal_code);
         $request->session()->put('checkout.note', $request->note);
 
         $coupon = Coupon::where('title', $validatedData['coupon'])->first();
@@ -61,10 +63,11 @@ class OrderController extends Controller
     public function chooseCoupon(Request $request, $id)
     {
         // Simpan data alamat ke session
+        $request->session()->put('checkout.address_id', $request->address_id);
         $request->session()->put('checkout.address', $request->address);
         $request->session()->put('checkout.city', $request->city);
-        $request->session()->put('checkout.province', $request->province);
-        $request->session()->put('checkout.postal_code', $request->postal_code);
+        // $request->session()->put('checkout.province', $request->province);
+        // $request->session()->put('checkout.postal_code', $request->postal_code);
         $request->session()->put('checkout.note', $request->note);
 
         $coupon = Coupon::findOrFail($id);
@@ -143,10 +146,11 @@ class OrderController extends Controller
     public function activatePoint(Request $request)
     {
         // Simpan data alamat ke session
+        $request->session()->put('checkout.address_id', $request->address_id);
         $request->session()->put('checkout.address', $request->address);
         $request->session()->put('checkout.city', $request->city);
-        $request->session()->put('checkout.province', $request->province);
-        $request->session()->put('checkout.postal_code', $request->postal_code);
+        // $request->session()->put('checkout.province', $request->province);
+        // $request->session()->put('checkout.postal_code', $request->postal_code);
         $request->session()->put('checkout.note', $request->note);
 
         $user = User::where('id', Auth::user()->id)->first();
@@ -162,6 +166,152 @@ class OrderController extends Controller
         }
     }
 
+    public function checkShipmentPrice(Request $request)
+    {
+        // Simpan data alamat ke session
+        $request->session()->put('checkout.address_id', $request->address_id);
+        $request->session()->put('checkout.address', $request->address);
+        $request->session()->put('checkout.city', $request->city);
+        $request->session()->put('checkout.note', $request->note);
+
+        if (!$request->city) {
+            return redirect()->back()->withErrors(['cityForgotten_error' => "Oops, kamu lupa memilih kota tujuan!"]);
+        } else {
+            if (!$request->courier) {
+                $courierStatus_lion = Session::get('courierStatus_lion');
+                $courierStatus_sicepat = Session::get('courierStatus_sicepat');
+                if ($courierStatus_lion) {
+                    Session::forget('courierStatus_lion');
+                }
+                if ($courierStatus_sicepat) {
+                    Session::forget('courierStatus_sicepat');
+                }
+                return redirect()->back()->withErrors(['courierForgotten_error' => "Oops, kamu lupa memilih jasa pengiriman yang akan digunakan!"]);
+            } else {
+                $responseCities = Http::withHeaders([
+                    'key' => '1b3d1a91f7ab9a1c6dcc5543cb9192fb'
+                ])->get('https://pro.rajaongkir.com/api/city');
+                $cities = $responseCities['rajaongkir']['results'];
+
+                $origin_id = null;
+                foreach ($cities as $city) {
+                    if ($city['city_name'] == 'Surabaya') {
+                        $origin_id = $city['city_id'];
+                        break;
+                    }
+                }
+
+                $cart = Cart::where('user_id', Auth::user()->id)->first();
+                $cart_details = $cart->cart_detail;
+                $total_weight = $cart_details->sum('weight');
+
+                $responseCost = Http::withHeaders([
+                    'key' => '1b3d1a91f7ab9a1c6dcc5543cb9192fb',
+                ])->post('https://pro.rajaongkir.com/api/cost', [
+                    'origin' => $origin_id,
+                    'originType' => 'city',
+                    'destination' => $request->city,
+                    'destinationType' => 'city',
+                    'weight' => $total_weight,
+                    'courier' => $request->courier
+                ]);
+                $costs = $responseCost['rajaongkir'];
+
+                Session::push('arraycourierStatus', $request->courier);
+                Session::put('courierStatus_' . $request->courier, true);
+
+                $activeCouriersStatus = Session::get('arraycourierStatus', []);
+                foreach ($activeCouriersStatus as $courierStatus) {
+                    if ($courierStatus != $request->courier) {
+                        Session::put('arraycourierStatus', array_diff(Session::get('arraycourierStatus', []), [$courierStatus]));
+                        Session::forget('courierStatus_' . $courierStatus);
+                    }
+                }
+
+                return back()->with([
+                    'costs' => $costs,
+                    'courier' => $request->courier
+                ]);
+            }
+        }
+    }
+
+    public function chooseShipmentPrice(Request $request, $id)
+    {
+        // Simpan data alamat ke session
+        $request->session()->put('checkout.address_id', $request->address_id);
+        $request->session()->put('checkout.address', $request->address);
+        $request->session()->put('checkout.city', $request->city);
+        $request->session()->put('checkout.note', $request->note);
+
+        $responseCities = Http::withHeaders([
+            'key' => '1b3d1a91f7ab9a1c6dcc5543cb9192fb'
+        ])->get('https://pro.rajaongkir.com/api/city');
+        $cities = $responseCities['rajaongkir']['results'];
+
+        $origin_id = null;
+        foreach ($cities as $city) {
+            if ($city['city_name'] == 'Surabaya') {
+                $origin_id = $city['city_id'];
+                break;
+            }
+        }
+
+        $cart = Cart::where('user_id', Auth::user()->id)->first();
+        $cart_details = $cart->cart_detail;
+        $total_weight = $cart_details->sum('weight');
+
+        $responseCost = Http::withHeaders([
+            'key' => '1b3d1a91f7ab9a1c6dcc5543cb9192fb',
+        ])->post('https://pro.rajaongkir.com/api/cost', [
+            'origin' => $origin_id,
+            'originType' => 'city',
+            'destination' => $request->city,
+            'destinationType' => 'city',
+            'weight' => $total_weight,
+            'courier' => $request->courier
+        ]);
+        $costs = $responseCost['rajaongkir']['results'];
+
+        $shipmentPrice = null;
+        $serviceName = null;
+        $serviceDescription = null;
+        foreach ($costs as $cost) {
+            foreach ($cost['costs'] as $index => $cost_detail) {
+                $serviceName = $cost_detail['service'];
+                $serviceDescription = $cost_detail['description'];
+                if ($index == $id) {
+                    foreach ($cost_detail['cost'] as $service) {
+                        $shipmentPrice = $service['value'];
+                        break;
+                    }
+                    break;
+                }
+            }
+        }
+
+        $cart->update([
+            "shipment_price" => $shipmentPrice
+        ]);
+
+        $city = $request->city; // Dapatkan city dari request
+        $sessionKey = 'costStatus_' . $id . '_' . $city . '_' . $request->courier; // Buat kunci unik untuk session
+
+        Session::push('arraycostStatus', $sessionKey);
+        Session::put($sessionKey, true);
+
+        $activeCostStatus = Session::get('arraycostStatus', []);
+        foreach ($activeCostStatus as $costStatus) {
+            if ($costStatus != $sessionKey) {
+                Session::put('arraycostStatus', array_diff($activeCostStatus, [$costStatus]));
+                Session::forget($costStatus);
+            }
+        }
+
+        return redirect()->route('member.checkout')->with('chooseShipmentPrice_success', "Kamu memilih {$serviceName} ({$serviceDescription})!");
+    }
+
+
     /**
      * Display a listing of the resource.
      */
@@ -176,7 +326,7 @@ class OrderController extends Controller
                 ->orderByDesc('total_quantity')
                 ->take(4)
                 ->get();
-            $shipment_price = $cart->getShipmentPrice();
+            $shipment_price = $cart->shipment_price;
             $address = Address::where('user_id', Auth::user()->id)->get();
 
             $coupons = Coupon::all();
@@ -200,6 +350,11 @@ class OrderController extends Controller
             $customer = User::where('id', Auth::user()->id)->first();
             $reward_now = $customer->reward * $point->money_per_poin;
 
+            $responseCities = Http::withHeaders([
+                'key' => '1b3d1a91f7ab9a1c6dcc5543cb9192fb'
+            ])->get('https://pro.rajaongkir.com/api/city');
+            $cities = $responseCities['rajaongkir']['results'];
+
             return view('customer.checkout', [
                 "TabTitle" => "Checkout",
                 "active_2" => "text-yellow-500 rounded md:bg-transparent md:p-0",
@@ -212,7 +367,8 @@ class OrderController extends Controller
                 "total_poin" => $total_poin,
                 "total_money" => $poin_to_money,
                 "reward_now" => $reward_now,
-                "point" => $point
+                "point" => $point,
+                "cities" => $cities
             ]);
         }
     }
@@ -266,13 +422,12 @@ class OrderController extends Controller
      */
     public function store(Request $request)
     {
-        // dd($request->total_poin);
         $validatedData = $request->validate([
             'address_id' => 'required_without:address|integer',
             'address' => 'required_if:address_id,0|string|nullable|max:100',
-            'city' => 'required|string|max:50',
-            'province' => 'required|string|max:50',
-            'postal_code' => 'required|numeric',
+            // 'city' => 'required|string|max:50',
+            // 'province' => 'required|string|max:50',
+            // 'postal_code' => 'required|numeric',
             'note' => 'nullable|string|max:255',
             'payment_upload' => 'required|image|file|max:5000',
             'total_poin' => 'required|numeric',
@@ -281,14 +436,14 @@ class OrderController extends Controller
             'address_id.required_without' => 'Alamat Pengiriman wajib diisi!',
             'address.required_if' => 'Alamat Pengiriman wajib diisi!',
             'address.max' => 'Maksimal :max karakter!',
-            'city.required' => 'Kota wajib diisi!',
-            'city.string' => 'Kota wajib berupa karakter!',
-            'city.max' => 'Maksimal :max karakter!',
-            'province.required' => 'Provinsi wajib diisi!',
-            'province.string' => 'Provinsi wajib berupa karakter!',
-            'province.max' => 'Maksimal :max karakter!',
-            'postal_code.required' => 'Kode Pos wajib diisi!',
-            'postal_code.numeric' => 'Kode Pos wajib berupa angka!',
+            // 'city.required' => 'Kota wajib diisi!',
+            // 'city.string' => 'Kota wajib berupa karakter!',
+            // 'city.max' => 'Maksimal :max karakter!',
+            // 'province.required' => 'Provinsi wajib diisi!',
+            // 'province.string' => 'Provinsi wajib berupa karakter!',
+            // 'province.max' => 'Maksimal :max karakter!',
+            // 'postal_code.required' => 'Kode Pos wajib diisi!',
+            // 'postal_code.numeric' => 'Kode Pos wajib berupa angka!',
             'note.max' => 'Maksimal :max karakter!',
             'payment_upload.required' => 'Mohon upload bukti pembayaran anda!',
             'payment_upload.image' => 'File wajib berupa gambar!',
@@ -298,42 +453,81 @@ class OrderController extends Controller
             'reward_now.numeric' => 'Total reward sekarang wajib berupa angka!',
         ]);
 
-        // Hapus semua sesi yang terkait dengan couponStatus
-        $activeCoupons = Session::get('activeCoupons', []);
-        foreach ($activeCoupons as $couponId) {
-            Session::forget('couponStatus_' . $couponId);
-        }
-
-        // Hapus sesi activeCoupons
-        Session::forget('activeCoupons');
-
-        // Hapus sesi originalPrice yang mungkin ada
-        $cart = Cart::where('user_id', Auth::user()->id)->first();
-        if ($cart) {
-            foreach ($cart->cart_detail as $cart_detail) {
-                Session::forget('originalPrice_' . $cart_detail->id);
-            }
-        }
-
-        Session::forget([
-            'checkout.address',
-            'checkout.city',
-            'checkout.province',
-            'checkout.postal_code',
-            'checkout.note',
-        ]);
-
         $order_date = now();
 
         $cart = Cart::where('user_id', Auth::user()->id)->first();
         $cart_details = $cart->cart_detail;
+        $total_weight = $cart_details->sum('weight');
 
         $customer = User::where('id', Auth::user()->id)->first();
         $point = Point::first();
 
+        $responseCities = Http::withHeaders([
+            'key' => '1b3d1a91f7ab9a1c6dcc5543cb9192fb'
+        ])->get('https://pro.rajaongkir.com/api/city');
+        $cities = $responseCities['rajaongkir']['results'];
+
+        $customer_city = null;
+        $customer_province = null;
+        $customer_postal_code = null;
+        foreach ($cities as $city) {
+            if ($city['city_id'] == $request->city) {
+                $customer_city = $city['city_name'];
+                $customer_province = $city['province'];
+                $customer_postal_code = $city['postal_code'];
+                break;
+            }
+        }
+
+        $origin_id = null;
+        foreach ($cities as $city) {
+            if ($city['city_name'] == 'Surabaya') {
+                $origin_id = $city['city_id'];
+                break;
+            }
+        }
+
+        $responseCost = Http::withHeaders([
+            'key' => '1b3d1a91f7ab9a1c6dcc5543cb9192fb',
+        ])->post('https://pro.rajaongkir.com/api/cost', [
+            'origin' => $origin_id,
+            'originType' => 'city',
+            'destination' => $request->destination_city,
+            'destinationType' => 'city',
+            'weight' => $total_weight,
+            'courier' => $request->courier
+        ]);
+        $costs = $responseCost['rajaongkir']['results'];
+
+        $courierName = null;
+        $serviceName = null;
+        $shipment_estimation = null;
+        $shipment_price_check = null;
+        foreach ($costs as $cost) {
+            if ($cost['code'] == $request->courier) {
+                $courierName = $cost['name'];
+                foreach ($cost['costs'] as $index => $cost_detail) {
+                    $serviceName = $cost_detail['service'];
+                    foreach ($cost_detail['cost'] as $cost_value) {
+                        $shipment_price_check = $cost_value['value'];
+                        $shipment_estimation = $cost_value['etd'];
+                        break; // Keluar dari loop paling dalam
+                    }
+                    break; // Keluar dari loop tengah
+                }
+                break; // Keluar dari loop terluar
+            }
+        }
+
+        if($shipment_price_check != $cart->shipment_price) {
+            return redirect()->back()->withErrors(['courierForgotten_error' => "Oops, kamu lupa memilih jasa pengiriman yang akan digunakan!"]);
+        }
+
+        $shipment_service = $courierName . ', ' . $serviceName;
+
         if (Session::has('pointStatus')) {
             Session::forget('pointStatus');
-            $total_price_beforeReward = $cart_details->sum('price') + $cart->getShipmentPrice();
+            $total_price_beforeReward = $cart_details->sum('price') + $cart->shipment_price;
             $reward_now = $validatedData['reward_now'];
             if ($reward_now >= $total_price_beforeReward) {
                 $total_price = 0;
@@ -345,13 +539,11 @@ class OrderController extends Controller
                 'reward' => $convertReward_toPoint
             ]);
         } else {
-            $total_price = $cart_details->sum('price') + $cart->getShipmentPrice();
+            $total_price = $cart_details->sum('price') + $cart->shipment_price;
         }
         $customer->update([
             'reward' => $customer->reward + $validatedData['total_poin']
         ]);
-
-        $total_weight = $cart_details->sum('weight');
 
         if ($request->file('payment_upload')) {
             $validatedData['payment'] = $request->file('payment_upload')->store('bukti_transfer', ['disk' => 'public']);
@@ -366,7 +558,9 @@ class OrderController extends Controller
                     'total_price' => $total_price,
                     'total_weight' => $total_weight,
                     'payment' => $validatedData['payment'],
-                    'note' => $validatedData['note']
+                    'note' => $validatedData['note'],
+                    'shipment_service' => $shipment_service,
+                    'shipment_estimation' => $shipment_estimation,
                 ]);
             } else {
                 $order = Order::create([
@@ -375,16 +569,19 @@ class OrderController extends Controller
                     'order_date' => $order_date,
                     'total_price' => $total_price,
                     'total_weight' => $total_weight,
-                    'payment' => $validatedData['payment']
+                    'payment' => $validatedData['payment'],
+                    'shipment_service' => $shipment_service,
+                    'shipment_estimation' => $shipment_estimation,
                 ]);
             }
         } else {
             $address = Address::create([
                 'user_id' => Auth::user()->id,
                 'address' => $validatedData['address'],
-                'city' => $validatedData['city'],
-                'province' => $validatedData['province'],
-                'postal_code' => $validatedData['postal_code']
+                'city' => $customer_city,
+                'city_id' => $request->city,
+                'province' => $customer_province,
+                'postal_code' => $customer_postal_code
             ]);
             if ($validatedData['note']) {
                 $order = Order::create([
@@ -394,7 +591,9 @@ class OrderController extends Controller
                     'total_price' => $total_price,
                     'total_weight' => $total_weight,
                     'payment' => $validatedData['payment'],
-                    'note' => $validatedData['note']
+                    'note' => $validatedData['note'],
+                    'shipment_service' => $shipment_service,
+                    'shipment_estimation' => $shipment_estimation,
                 ]);
             } else {
                 $order = Order::create([
@@ -403,7 +602,9 @@ class OrderController extends Controller
                     'order_date' => $order_date,
                     'total_price' => $total_price,
                     'total_weight' => $total_weight,
-                    'payment' => $validatedData['payment']
+                    'payment' => $validatedData['payment'],
+                    'shipment_service' => $shipment_service,
+                    'shipment_estimation' => $shipment_estimation,
                 ]);
             }
         }
@@ -419,6 +620,48 @@ class OrderController extends Controller
         }
 
         $cart->delete();
+
+        // Hapus semua sesi yang terkait dengan couponStatus
+        $activeCoupons = Session::get('activeCoupons', []);
+        foreach ($activeCoupons as $couponId) {
+            Session::forget('couponStatus_' . $couponId);
+        }
+        // Hapus sesi activeCoupons
+        Session::forget('activeCoupons');
+
+        // Hapus semua sesi yang terkait dengan arraycourierStatus
+        $activeCouriersStatus = Session::get('arraycourierStatus', []);
+        foreach ($activeCouriersStatus as $courierStatus) {
+            Session::forget('courierStatus_' . $courierStatus);
+        }
+        // Hapus sesi arraycourierStatus
+        Session::forget('arraycourierStatus');
+
+       // Mendapatkan semua sesi yang terkait dengan arraycostStatus
+       $activeCostStatus = Session::get('arraycostStatus', []);
+       // Menghapus semua sesi yang terkait dengan arraycostStatus
+       foreach ($activeCostStatus as $costStatus) {
+           Session::forget($costStatus); // Hapus sesi berdasarkan kunci yang disimpan
+       }
+       // Hapus sesi arraycostStatus
+       Session::forget('arraycostStatus');
+
+        // Hapus sesi originalPrice yang mungkin ada
+        $cart = Cart::where('user_id', Auth::user()->id)->first();
+        if ($cart) {
+            foreach ($cart->cart_detail as $cart_detail) {
+                Session::forget('originalPrice_' . $cart_detail->id);
+            }
+        }
+
+        Session::forget([
+            'checkout.address_id',
+            'checkout.address',
+            'checkout.city',
+            // 'checkout.province',
+            // 'checkout.postal_code',
+            'checkout.note',
+        ]);
 
         return redirect()->route('products')->with('order_success', 'Pemesanan anda berhasil! <br><a href="' . route('member.orderhistory') . '" class="inline-flex items-center font-bold text-yellow-500 hover:underline">Check Status Pesanan <svg class="ml-1 w-4 h-4 text-yellow-500" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10"> <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M1 5h12m0 0L9 1m4 4L9 9" /> </svg></a>');
     }

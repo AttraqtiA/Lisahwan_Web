@@ -2,14 +2,15 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Models\Cart;
 use App\Models\User;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
-use App\Providers\RouteServiceProvider;
 
+use App\Providers\RouteServiceProvider;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 
@@ -47,8 +48,49 @@ class LoginController extends Controller
 
     public function clearSession(Request $request)
     {
-        $request->session()->flush();
-        return redirect()->route('login');
+        // Hapus semua sesi yang terkait dengan couponStatus
+        $activeCoupons = Session::get('activeCoupons', []);
+        foreach ($activeCoupons as $couponId) {
+            Session::forget('couponStatus_' . $couponId);
+        }
+        // Hapus sesi activeCoupons
+        Session::forget('activeCoupons');
+
+        // Hapus semua sesi yang terkait dengan arraycourierStatus
+        $activeCouriersStatus = Session::get('arraycourierStatus', []);
+        foreach ($activeCouriersStatus as $courierStatus) {
+            Session::forget('courierStatus_' . $courierStatus);
+        }
+        // Hapus sesi arraycourierStatus
+        Session::forget('arraycourierStatus');
+
+        // Mendapatkan semua sesi yang terkait dengan arraycostStatus
+        $activeCostStatus = Session::get('arraycostStatus', []);
+        // Menghapus semua sesi yang terkait dengan arraycostStatus
+        foreach ($activeCostStatus as $costStatus) {
+            Session::forget($costStatus); // Hapus sesi berdasarkan kunci yang disimpan
+        }
+        // Hapus sesi arraycostStatus
+        Session::forget('arraycostStatus');
+
+        // Hapus sesi originalPrice yang mungkin ada
+        $cart = Cart::where('user_id', Auth::user()->id)->first();
+        if ($cart) {
+            foreach ($cart->cart_detail as $cart_detail) {
+                Session::forget('originalPrice_' . $cart_detail->id);
+            }
+        }
+
+        Session::forget([
+            'checkout.address_id',
+            'checkout.address',
+            'checkout.city',
+            // 'checkout.province',
+            // 'checkout.postal_code',
+            'checkout.note',
+        ]);
+
+        dd(Session::all());
     }
 
     public function login(Request $request)
