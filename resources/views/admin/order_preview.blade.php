@@ -21,7 +21,7 @@
         </button>
     </div>
 
-    <div class="ml-2 md:ml-0 grid grid-cols-3 py-6 px-6 gap-y-4">
+    <div class="ml-2 md:ml-0 grid grid-cols-2 lg:grid-cols-3 py-6 px-6 gap-y-4">
         <div class="flex flex-col justify-center items-start">
             <p class="text-sm font-semibold text-gray-900">
                 Tanggal Pemesanan:
@@ -54,7 +54,7 @@
                 </p>
             @else
                 <p class="text-sm font-medium text-gray-400">
-                    -
+                    {{ $order->shipment_estimation }} hari
                 </p>
             @endif
         </div>
@@ -72,6 +72,14 @@
             </p>
             <p class="text-sm font-medium text-gray-400">
                 {{ $order->total_weight }} gram
+            </p>
+        </div>
+        <div class="flex flex-col justify-center items-start">
+            <p class="text-sm font-semibold text-gray-900">
+                Jasa Pengiriman:
+            </p>
+            <p class="text-sm font-medium text-gray-400">
+                {{ $order->shipment_service }}
             </p>
         </div>
     </div>

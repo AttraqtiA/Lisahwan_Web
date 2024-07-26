@@ -152,6 +152,96 @@
                 </div>
             </div>
         @enderror
+        @error('paymentUrl_ERROR')
+            <div data-aos="zoom-in-down" data-aos-anchor-placement="top-bottom" data-aos-duration="800"
+                class="w-10/12 md:w-9/12 lg:w-6/12 flex justify-center items-center p-4 {{ $errors->has('paymentUrl_ERROR') ? 'mt-8' : '' }} text-sm rounded-lg bg-gray-900 text-red-400"
+                role="alert">
+                <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                    fill="currentColor" viewBox="0 0 20 20">
+                    <path
+                        d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Zm3.707 11.793a1 1 0 1 1-1.414 1.414L10 11.414l-2.293 2.293a1 1 0 0 1-1.414-1.414L8.586 10 6.293 7.707a1 1 0 0 1 1.414-1.414L10 8.586l2.293-2.293a1 1 0 0 1 1.414 1.414L11.414 10l2.293 2.293Z" />
+                </svg>
+                <span class="sr-only">Info</span>
+                <div>
+                    <span class="font-medium">{{ $message }}
+                </div>
+            </div>
+        @enderror
+        @error('pendingPayment_ERROR')
+            <div data-aos="zoom-in-down" data-aos-anchor-placement="top-bottom" data-aos-duration="800"
+                class="w-10/12 md:w-9/12 lg:w-6/12 flex justify-center items-center p-4 {{ $errors->has('pendingPayment_ERROR') ? 'mt-8' : '' }} text-sm rounded-lg bg-gray-900 text-red-400"
+                role="alert">
+                <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                    fill="currentColor" viewBox="0 0 20 20">
+                    <path
+                        d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Zm3.707 11.793a1 1 0 1 1-1.414 1.414L10 11.414l-2.293 2.293a1 1 0 0 1-1.414-1.414L8.586 10 6.293 7.707a1 1 0 0 1 1.414-1.414L10 8.586l2.293-2.293a1 1 0 0 1 1.414 1.414L11.414 10l2.293 2.293Z" />
+                </svg>
+                <span class="sr-only">Info</span>
+                <div>
+                    <span class="font-medium">{{ $message }}
+                </div>
+            </div>
+        @enderror
+        @error('denyPayment_ERROR')
+            <div data-aos="zoom-in-down" data-aos-anchor-placement="top-bottom" data-aos-duration="800"
+                class="w-10/12 md:w-9/12 lg:w-6/12 flex justify-center items-center p-4 {{ $errors->has('denyPayment_ERROR') ? 'mt-8' : '' }} text-sm rounded-lg bg-gray-900 text-red-400"
+                role="alert">
+                <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                    fill="currentColor" viewBox="0 0 20 20">
+                    <path
+                        d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Zm3.707 11.793a1 1 0 1 1-1.414 1.414L10 11.414l-2.293 2.293a1 1 0 0 1-1.414-1.414L8.586 10 6.293 7.707a1 1 0 0 1 1.414-1.414L10 8.586l2.293-2.293a1 1 0 0 1 1.414 1.414L11.414 10l2.293 2.293Z" />
+                </svg>
+                <span class="sr-only">Info</span>
+                <div>
+                    <span class="font-medium">{{ $message }}
+                </div>
+            </div>
+        @enderror
+        @error('expirePayment_ERROR')
+            <div data-aos="zoom-in-down" data-aos-anchor-placement="top-bottom" data-aos-duration="800"
+                class="w-10/12 md:w-9/12 lg:w-6/12 flex justify-center items-center p-4 {{ $errors->has('expirePayment_ERROR') ? 'mt-8' : '' }} text-sm rounded-lg bg-gray-900 text-red-400"
+                role="alert">
+                <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                    fill="currentColor" viewBox="0 0 20 20">
+                    <path
+                        d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Zm3.707 11.793a1 1 0 1 1-1.414 1.414L10 11.414l-2.293 2.293a1 1 0 0 1-1.414-1.414L8.586 10 6.293 7.707a1 1 0 0 1 1.414-1.414L10 8.586l2.293-2.293a1 1 0 0 1 1.414 1.414L11.414 10l2.293 2.293Z" />
+                </svg>
+                <span class="sr-only">Info</span>
+                <div>
+                    <span class="font-medium">{{ $message }}
+                </div>
+            </div>
+        @enderror
+        @error('unverifiedSignatureKey_ERROR')
+            <div data-aos="zoom-in-down" data-aos-anchor-placement="top-bottom" data-aos-duration="800"
+                class="w-10/12 md:w-9/12 lg:w-6/12 flex justify-center items-center p-4 {{ $errors->has('unverifiedSignatureKey_ERROR') ? 'mt-8' : '' }} text-sm rounded-lg bg-gray-900 text-red-400"
+                role="alert">
+                <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                    fill="currentColor" viewBox="0 0 20 20">
+                    <path
+                        d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Zm3.707 11.793a1 1 0 1 1-1.414 1.414L10 11.414l-2.293 2.293a1 1 0 0 1-1.414-1.414L8.586 10 6.293 7.707a1 1 0 0 1 1.414-1.414L10 8.586l2.293-2.293a1 1 0 0 1 1.414 1.414L11.414 10l2.293 2.293Z" />
+                </svg>
+                <span class="sr-only">Info</span>
+                <div>
+                    <span class="font-medium">{{ $message }}
+                </div>
+            </div>
+        @enderror
+        @error('anotherPayment_ERROR')
+            <div data-aos="zoom-in-down" data-aos-anchor-placement="top-bottom" data-aos-duration="800"
+                class="w-10/12 md:w-9/12 lg:w-6/12 flex justify-center items-center p-4 {{ $errors->has('anotherPayment_ERROR') ? 'mt-8' : '' }} text-sm rounded-lg bg-gray-900 text-red-400"
+                role="alert">
+                <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                    fill="currentColor" viewBox="0 0 20 20">
+                    <path
+                        d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Zm3.707 11.793a1 1 0 1 1-1.414 1.414L10 11.414l-2.293 2.293a1 1 0 0 1-1.414-1.414L8.586 10 6.293 7.707a1 1 0 0 1 1.414-1.414L10 8.586l2.293-2.293a1 1 0 0 1 1.414 1.414L11.414 10l2.293 2.293Z" />
+                </svg>
+                <span class="sr-only">Info</span>
+                <div>
+                    <span class="font-medium">{{ $message }}
+                </div>
+            </div>
+        @enderror
         <div class="flex flex-col gap-y-8 lg:gap-y-8 p-8 sm:p-12 mx-auto w-full">
             <div class="flex flex-col lg:flex-row w-full col-span-2 lg:gap-x-6">
                 <div class="flex flex-col mx-auto w-full mb-8 lg:mb-0">
@@ -168,6 +258,7 @@
                         <input type="hidden" value="{{ $total_poin }}" name="total_poin">
                         <input type="hidden" value="{{ $reward_now }}" name="reward_now">
                         <input type="hidden" id="courier_hidden" value="" name="courier">
+                        <input type="hidden" id="service_hidden" value="" name="service">
                         <input type="hidden" id="destination_city" name="destination_city"
                             value="{{ old('city', session('checkout.city')) }}">
                         <div data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="800"
@@ -220,8 +311,8 @@
                                     for="city" class="block mb-2 text-sm font-semibold text-gray-900">Kota</label>
                                 <select data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="800"
                                     id="city" name="city"
-                                    class="{{ $errors->has('city') ? 'bg-red-100 border-red-400 text-red-500 placeholder-red-700 focus:ring-red-500 focus:border-red-500' : 'bg-white border-yellow-500 text-gray-900 placeholder-gray-400  focus:ring-yellow-500 focus:border-yellow-500' }} rounded-lg border-1 text-sm block w-full p-2.5 mt-3">
-                                    <option value="0">Pilih kota</option>
+                                    class="{{ $errors->has('destination_city') ? 'bg-red-100 border-red-400 text-red-500 placeholder-red-700 focus:ring-red-500 focus:border-red-500' : 'bg-white border-yellow-500 text-gray-900 placeholder-gray-400  focus:ring-yellow-500 focus:border-yellow-500' }} rounded-lg border-1 text-sm block w-full p-2.5 mt-3">
+                                    <option value="">Pilih kota</option>
                                     @foreach ($cities as $city)
                                         <option value="{{ $city['city_id'] }}"
                                             {{ old('city', session('checkout.city')) == $city['city_id'] ? 'selected' : '' }}>
@@ -284,42 +375,34 @@
                                         <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
                                             fill="none" viewBox="0 0 14 14">
                                             <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                                                stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
+                                                stroke-width="1" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
                                         </svg>
                                         <span class="sr-only">Close modal</span>
                                     </button>
                                     <div class="p-4 md:p-5 text-center">
-                                        <span class="block text-base font-semibold text-gray-900">Upload Bukti
-                                            Pembayaran</span>
-                                        <span class="block mb-3 text-xl font-bold text-yellow-500">No Rek BCA 5120164866
-                                            (a.n. Hendra)</span>
-                                        <div id="imagePreview" class="mb-3"></div>
-                                        <div class="flex justify-center items-center w-full">
-                                            <label for="payment_upload"
-                                                class="flex flex-col justify-center items-center w-full h-44 bg-gray-50 rounded-lg border-1 border-gray-300 border-dashed cursor-pointer hover:bg-gray-100">
-                                                <input type="file" name="payment_upload" id="payment_upload"
-                                                    class="hidden" onchange="displayImagePreview(this)">
-                                                <div class="flex flex-col justify-center items-center w-full pt-5 pb-6">
-                                                    <svg aria-hidden="true" class="mb-3 w-10 h-10 text-gray-400"
-                                                        fill="none" stroke="currentColor" viewBox="0 0 24 24"
-                                                        xmlns="http://www.w3.org/2000/svg">
-                                                        <path stroke-linecap="round" stroke-linejoin="round"
-                                                            stroke-width="2"
-                                                            d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
-                                                    </svg>
-                                                    <p class="mb-2 text-sm text-gray-500">
-                                                        <span class="font-semibold">Klik untuk upload</span>
-                                                    </p>
-                                                    <p class="text-xs text-gray-500">PNG, JPG atau JPEG (Ukuran File MAX.
-                                                        5MB)</p>
-                                                </div>
-                                            </label>
+                                        <svg class="mx-auto mb-4 text-gray-400 w-14 h-14" aria-hidden="true"
+                                            xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                                stroke-width="2"
+                                                d="M9 10V6a3 3 0 0 1 3-3v0a3 3 0 0 1 3 3v4m3-2 .917 11.923A1 1 0 0 1 17.92 21H6.08a1 1 0 0 1-.997-1.077L6 8h12Z" />
+                                        </svg>
+                                        <h3 class="mb-5 text-lg font-normal text-gray-500">Apakah anda sudah yakin dengan
+                                            detail pemesanan anda?
+                                        </h3>
+                                        <div
+                                            class="w-full justify-center items-center flex flex-col sm:flex-row space-y-2 sm:space-x-2 sm:space-y-0">
+                                            <button type="submit"
+                                                class="w-full justify-center text-white inline-flex bg-yellow-500 hover:bg-yellow-600 focus:ring-2 focus:outline-none focus:ring-yellow-500 font-medium rounded-lg text-sm px-5 py-2.5 text-center">Ya,
+                                                yakin</button>
+                                            <button data-modal-toggle="payment-modal" type="button"
+                                                class="w-full text-gray-500 bg-white hover:bg-gray-100 focus:ring-2 focus:outline-none focus:ring-gray-200 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10">Tidak,
+                                                batal</button>
                                         </div>
-                                        <button type="submit"
+                                        {{-- <button type="submit"
                                             onclick="return confirm('Apakah anda sudah yakin dengan detail pemesanan anda?')"
                                             class="cursor-pointer mt-3 w-full text-white bg-yellow-500 hover:bg-yellow-600 font-medium rounded-lg text-base px-5 py-2.5 text-center items-center">
                                             Selesaikan Pembayaran
-                                        </button>
+                                        </button> --}}
                                     </div>
                                 </div>
                             </div>
@@ -331,6 +414,7 @@
                         @php
                             $courierStatus_lion = Session::get('courierStatus_lion');
                             $courierStatus_sicepat = Session::get('courierStatus_sicepat');
+                            // Session::forget('costs');
                             // Session::forget([
                             //     'checkout.address',
                             //     'checkout.city',
@@ -343,7 +427,7 @@
                             value="{{ old('address_id', session('checkout.address_id')) }}">
                         <input type="hidden" id="destination_address" name="address"
                             value="{{ old('address', session('checkout.address')) }}">
-                        <input type="hidden" id="destination_city" name="city"
+                        <input type="hidden" id="destination_city_1" name="city"
                             value="{{ old('city', session('checkout.city')) }}">
                         <input type="hidden" id="destination_note" name="note"
                             value="{{ old('note', session('checkout.note')) }}">
@@ -389,7 +473,8 @@
                             </div>
                         </div>
                     </form>
-                    @if (session('costs'))
+                    @if (session('costs') && (Session::has('courierStatus_lion') || Session::has('courierStatus_sicepat')))
+                        {{-- @dd(session('costs')) --}}
                         <div data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="800"
                             class="mt-3 w-full bg-gray-900 divide-y divide-gray-100 rounded-lg shadow">
                             <ul class="p-2 space-y-1 text-sm text-yellow-500" aria-labelledby="dropdownToggleButton">
@@ -400,6 +485,7 @@
                                             $sessionKey =
                                                 'costStatus_' . $index . '_' . $cityName . '_' . $costs['code'];
                                             $costStatus = Session::get($sessionKey);
+                                            // dd($costStatus);
                                         @endphp
                                         <form id="checkboxCostForm_{{ $index }}"
                                             action="{{ route('member.pilihOngkir', $index) }}" method="POST"
@@ -422,7 +508,8 @@
                                                     <label class="inline-flex items-center w-full cursor-pointer">
                                                         <input type="checkbox"
                                                             id="autoSubmitCheckboxCost_{{ $index }}"
-                                                            value="" {{ isset($costStatus) ? 'checked' : '' }}
+                                                            value="{{ $cost['service'] }}"
+                                                            {{ isset($costStatus) ? 'checked' : '' }}
                                                             class="cost-checkbox sr-only peer">
                                                         <div
                                                             class="relative w-9 h-5 bg-gray-600 peer-focus:outline-none peer-focus:ring-2 peer-focus:ring-yellow-500 rounded-full peer peer-checked:after:translate-x-full rtl:peer-checked:after:translate-x-[-100%] peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-yellow-500">
@@ -450,8 +537,6 @@
                             </ul>
                         </div>
                     @endif
-
-
                     @if (count($coupons) > 0)
                         <form action="{{ route('member.cekKupon') }}" method="POST" enctype="multipart/form-data"
                             class="flex flex-row mb-4 mt-6">
@@ -503,7 +588,7 @@
                                 data-dropdown-placement="bottom"
                                 class="flex flex-row justify-center w-full text-yellow-500 bg-gray-900 hover:bg-gray-950 focus:ring-2 focus:outline-none focus:ring-yellow-500 font-medium rounded-lg text-sm px-5 py-2.5 text-center items-center"
                                 type="button">
-                                Lihat kupon mu
+                                Lihat kupon anda
                                 <svg class="w-2.5 h-2.5 ms-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
                                     fill="none" viewBox="0 0 10 6">
                                     <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
@@ -794,12 +879,20 @@
                                     </label>
                                 </form>
                                 @if (Session::has('pointStatus'))
-                                    <span class="flex flex-row  items-center text-gray-900 text-sm">*Poin mu sekarang:
-                                        {{ abs(number_format(($countSubtotal + $shipment_price - $reward_now) / $point->money_per_poin, 0, ',', '.')) }}<img
-                                            src="/images/coin_icon.png" alt="Poin" class="w-4 h-4 ms-1"></span>
+                                    @if ($reward_now < $countSubtotal + $shipment_price)
+                                        <span class="flex flex-row  items-center text-gray-900 text-sm">*Poin anda
+                                            sekarang:
+                                            {{ abs(number_format(0, 0, ',', '.')) }}<img src="/images/coin_icon.png"
+                                                alt="Poin" class="w-4 h-4 ms-1"></span>
+                                    @else
+                                        <span class="flex flex-row  items-center text-gray-900 text-sm">*Poin anda
+                                            sekarang:
+                                            {{ abs(number_format(($countSubtotal + $shipment_price - $reward_now) / $point->money_per_poin, 0, ',', '')) }}<img
+                                                src="/images/coin_icon.png" alt="Poin" class="w-4 h-4 ms-1"></span>
+                                    @endif
                                 @else
-                                    <span class="flex flex-row  items-center text-gray-900 text-sm">*Poin mu sekarang:
-                                        {{ number_format(Auth::user()->reward, 0, ',', '.') }}<img
+                                    <span class="flex flex-row  items-center text-gray-900 text-sm">*Poin anda sekarang:
+                                        {{ abs(number_format(Auth::user()->reward, 0, ',', '')) }}<img
                                             src="/images/coin_icon.png" alt="Poin" class="w-4 h-4 ms-1"></span>
                                 @endif
                             </div>
@@ -949,10 +1042,20 @@
                 // Set nilai input hidden dengan nilai dari checkbox yang dicheck
                 $('#courier_hidden').val(checkedValue ||
                     ''); // Jika tidak ada yang dicheck, set sebagai string kosong
+                console.log("0: " + $('#courier_hidden').val());
             }
 
             // Panggil fungsi updateCourierHidden saat halaman dimuat, jika ada checkbox yang sudah dicheck
             updateCourierHidden();
+        });
+
+        $(document).ready(function() {
+            function updateCostHidden() {
+                var checkedValue = $('.cost-checkbox:checked').val();
+                $('#service_hidden').val(checkedValue || '');
+            }
+
+            updateCostHidden();
         });
 
         $(document).ready(function() {
@@ -1077,8 +1180,20 @@
             // Panggil fungsi untuk setiap input
             updateHideInput('#address_id', '#destination_address_id');
             updateHideInput('#address', '#destination_address');
-            updateHideInput('#city', '#destination_city');
+            updateHideInput('#city', '#destination_city_1');
             updateHideInput('#note', '#destination_note');
+        });
+
+        $(document).ready(function() {
+            // Fungsi untuk memperbarui nilai input tersembunyi
+            function updateHideInput(inputId, hiddenInputId) {
+                $(inputId).on('input', function() {
+                    $(hiddenInputId).val($(this).val());
+                });
+            }
+
+            // Panggil fungsi untuk setiap input
+            updateHideInput('#city', '#destination_city');
         });
 
         $(document).ready(function() {
@@ -1090,6 +1205,9 @@
             }
 
             @if (session('costs'))
+                {{-- @php
+                    // @dd(session('costs'))
+                @endphp --}}
                 // Daftar form ID yang digunakan
                 var formIds = [
                     @foreach (session('costs')['results'] as $costs)

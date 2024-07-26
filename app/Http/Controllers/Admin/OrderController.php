@@ -24,6 +24,13 @@ class OrderController extends Controller
      */
     public function index(Request $request)
     {
+        Order::where(function ($query) {
+            $query->where('acceptbyAdmin_status', 'pending')
+                ->orWhere('acceptbyAdmin_status', 'unpaid');
+        })
+            ->where('created_at', '<', Carbon::now()->subMinutes(10))
+            ->delete();
+
         $ordersQuery = Order::query();
 
         // Initialize $parsedDate to null
@@ -428,8 +435,8 @@ class OrderController extends Controller
 
         $mpdf->WriteHTML(view("admin.receiptCart", ['cart' => $cart]));
 
-        // Set session untuk menandai bahwa struk sudah dicetak
-        session(['printed' => true]);
+        // // Set session untuk menandai bahwa struk sudah dicetak
+        // session(['printed' => true]);
 
         $mpdf->Output();
     }
@@ -458,6 +465,13 @@ class OrderController extends Controller
 
     public function history(Request $request)
     {
+        Order::where(function ($query) {
+            $query->where('acceptbyAdmin_status', 'pending')
+                ->orWhere('acceptbyAdmin_status', 'unpaid');
+        })
+            ->where('created_at', '<', Carbon::now()->subMinutes(10))
+            ->delete();
+
         $ordersQuery = Order::query();
 
         // Initialize $parsedDate to null

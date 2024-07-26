@@ -17,6 +17,36 @@
                 </div>
             </div>
         @endif
+        @if (session('capturePayment_SUCCESSFULL'))
+            <div data-aos="zoom-in-down" data-aos-anchor-placement="top-bottom" data-aos-duration="800"
+                class="w-10/12 md:w-9/12 lg:w-6/12 flex justify-center items-center p-4 mt-8 text-sm rounded-lg bg-gray-900 text-green-400"
+                role="alert">
+                <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                    fill="currentColor" viewBox="0 0 20 20">
+                    <path
+                        d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Zm3.707 8.207-4 4a1 1 0 0 1-1.414 0l-2-2a1 1 0 0 1 1.414-1.414L9 10.586l3.293-3.293a1 1 0 0 1 1.414 1.414Z" />
+                </svg>
+                <span class="sr-only">Info</span>
+                <div>
+                    <span class="font-medium">{{ session('capturePayment_SUCCESSFULL') }}
+                </div>
+            </div>
+        @endif
+        @if (session('settlementPayment_SUCCESSFULL'))
+            <div data-aos="zoom-in-down" data-aos-anchor-placement="top-bottom" data-aos-duration="800"
+                class="w-10/12 md:w-9/12 lg:w-6/12 flex justify-center items-center p-4 mt-8 text-sm rounded-lg bg-gray-900 text-green-400"
+                role="alert">
+                <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                    fill="currentColor" viewBox="0 0 20 20">
+                    <path
+                        d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Zm3.707 8.207-4 4a1 1 0 0 1-1.414 0l-2-2a1 1 0 0 1 1.414-1.414L9 10.586l3.293-3.293a1 1 0 0 1 1.414 1.414Z" />
+                </svg>
+                <span class="sr-only">Info</span>
+                <div>
+                    <span class="font-medium">{{ session('settlementPayment_SUCCESSFULL') }}
+                </div>
+            </div>
+        @endif
         <div class="mx-auto w-11/12 sm:max-w-screen-xl text-center sm:col-span-2 md:col-span-2 lg:col-span-4 mt-16">
             <h1 data-aos="fade-down" data-aos-anchor-placement="top-bottom" data-aos-duration="800"
                 class="mb-8 text-4xl font-extrabold tracking-tight leading-none text-gray-900 md:text-5xl lg:text-6xl">
@@ -27,7 +57,7 @@
         <div data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="800"
             class="flex flex-col p-12 mx-auto justify-center items-center gap-y-6">
             @foreach ($orders as $order)
-                <form action="{{ route('member.orderhistory.update', $order->id) }}" method="POST">
+                <form action="{{ route('member.orderhistory.update', $order->id) }}" method="POST" class="w-full">
                     @method('patch')
                     @csrf
                     <div
@@ -69,7 +99,7 @@
                                     </p>
                                 @else
                                     <p class="text-xs font-medium text-gray-400 text-center">
-                                        -
+                                        {{ $order->shipment_estimation }} hari
                                     </p>
                                 @endif
                             </div>
@@ -164,8 +194,8 @@
                                             class="mt-5 sm:mt-0 inline-flex justify-center items-center bg-yellow-100 text-yellow-800 sm:text-xs md:text-sm font-medium px-3 py-1.5 rounded border border-yellow-500"><svg
                                                 class="w-3 h-3 mr-1 text-yellow-800" aria-hidden="true"
                                                 xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 18">
-                                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                                                    stroke-width="2" d="M9 1v16M1 9h16" />
+                                                <path stroke="currentColor" stroke-linecap="round"
+                                                    stroke-linejoin="round" stroke-width="2" d="M9 1v16M1 9h16" />
                                             </svg> {{ $order_detail->quantity }} buah (Rp.
                                             {{ number_format($order_detail->price, 0, ',', '.') }})</span>
                                     </div>

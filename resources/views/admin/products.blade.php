@@ -705,18 +705,20 @@
                                                             stroke="currentColor" viewbox="0 0 24 24"
                                                             xmlns="http://www.w3.org/2000/svg">
                                                             <path stroke-linecap="round" stroke-linejoin="round"
-                                                                stroke-width="2"
+                                                                stroke-width="1"
                                                                 d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                                                         </svg>
                                                         <h3 class="mb-5 text-lg font-normal text-gray-500">Apakah anda
                                                             yakin ingin menghapus produk ini?
                                                         </h3>
+                                                        <div class="w-full justify-center items-center flex flex-col sm:flex-row space-y-2 sm:space-x-2 sm:space-y-0">
                                                         <button type="submit" id="delete" name="delete"
-                                                            class="w-full sm:w-auto justify-center text-white inline-flex bg-red-500 hover:bg-red-600 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2">Ya,
+                                                            class="w-full justify-center text-white inline-flex bg-red-500 hover:bg-red-600 focus:ring-2 focus:outline-none focus:ring-yellow-500 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2">Ya,
                                                             yakin</button>
                                                         <button data-modal-toggle="delete-modal" type="button"
-                                                            class="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10">Tidak,
+                                                            class="w-full text-gray-500 bg-white hover:bg-gray-100 focus:ring-2 focus:outline-none focus:ring-gray-200 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10">Tidak,
                                                             batal</button>
+                                                        </div>
                                                     </div>
                                                 </form>
                                             </div>

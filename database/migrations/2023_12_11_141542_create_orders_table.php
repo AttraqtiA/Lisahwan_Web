@@ -22,13 +22,13 @@ return new class extends Migration
             $table->dateTime('arrived_date')->nullable(true);
             $table->bigInteger('total_price')->nullable(false);
             $table->integer('total_weight')->nullable(false);
-            $table->string('payment')->nullable(false);
+            $table->string('payment')->nullable(true);
             $table->string('note')->nullable(true);
             $table->string('shipment_service')->nullable(false);
             $table->string('shipment_estimation')->nullable(false);
             $table->enum('is_print', ['pending', 'sudah'])->default('pending');
             $table->enum('shipment_status', ['pending', 'sudah'])->default('pending');
-            $table->enum('acceptbyAdmin_status', ['pending', 'sudah'])->default('pending');
+            $table->string('acceptbyAdmin_status')->default('unpaid');
             $table->enum('acceptbyCustomer_status', ['pending', 'sudah'])->default('pending');
             $table->timestamps();
         });

@@ -11,11 +11,13 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cookie;
+use Illuminate\Support\Facades\Session;
 
 class ProductController extends Controller
 {
     public function home(Request $request)
     {
+        // Session::forget('pointStatus');
         if (Auth::check()) {
             // Query untuk mendapatkan cart_user yang lebih dari 7 hari
             $cart_user = Cart::where('user_id', Auth::user()->id)

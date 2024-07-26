@@ -82,7 +82,7 @@
                     </div>
                 @endif
             </div>
-            <div data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="800"
+            <div
                 class="bg-white relative shadow-md rounded-md sm:rounded-lg overflow-hidden m-2 sm:m-0">
                 <div
                     class="flex flex-col md:flex-row md:items-center md:justify-between space-y-3 md:space-y-0 md:space-x-4 p-4">
@@ -584,7 +584,7 @@
                                                                 value="{{ old('shipment_date', $order->shipment_date ? \Carbon\Carbon::parse($order->shipment_date)->format('Y-m-d\TH:i') : '') }}"
                                                                 required>
                                                         </div>
-                                                        <div class="w-full">
+                                                        {{-- <div class="w-full">
                                                             <label for="arrived_date"
                                                                 class="block mb-2 text-sm font-medium text-gray-900">Order
                                                                 Sampai</label>
@@ -593,7 +593,7 @@
                                                                 class="{{ $errors->has('arrived_date') ? 'bg-red-100 border-red-400 text-red-500 placeholder-red-700 focus:ring-red-500 focus:border-red-500' : 'bg-white border-yellow-500 text-gray-900 placeholder-gray-400  focus:ring-yellow-500 focus:border-yellow-500' }} rounded-lg border-1 text-sm block w-full p-2.5"
                                                                 value="{{ old('arrived_date', $order->arrived_date ? \Carbon\Carbon::parse($order->arrived_date)->format('Y-m-d\TH:i') : '') }}"
                                                                 required>
-                                                        </div>
+                                                        </div> --}}
                                                     </div>
                                                 </div>
                                                 <div class="items-center space-y-2 sm:flex sm:space-y-0 sm:space-x-2">
