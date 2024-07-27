@@ -131,7 +131,7 @@
                                     <span
                                         class="inline-flex items-center bg-green-100 text-green-800 text-xs font-medium px-3 py-1.5 rounded-lg">
                                         <span class="w-2 h-2 me-1 bg-green-500 rounded-full"></span>
-                                        Sedang Dikirim
+                                        {{ $order->shipment_status }}
                                     </span>
                                 @else
                                     <span

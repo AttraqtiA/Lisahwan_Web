@@ -14,6 +14,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Http;
 
 class CartController extends Controller
 {
@@ -231,7 +232,7 @@ class CartController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy($id)
+    public function destroy(Request $request, $id)
     {
         $cartDetail = CartDetail::find($id);
         $productId = $cartDetail->product->id;
@@ -243,6 +244,37 @@ class CartController extends Controller
             $cartDetail->product->update([
                 'stock' => $cartDetail->product->stock + $cartDetail->quantity
             ]);
+
+            $responseCities = Http::withHeaders([
+                'key' => '1b3d1a91f7ab9a1c6dcc5543cb9192fb'
+            ])->get('https://pro.rajaongkir.com/api/city');
+            $cities = $responseCities['rajaongkir']['results'];
+
+            $origin_id = null;
+            foreach ($cities as $city) {
+                if ($city['city_name'] == 'Surabaya') {
+                    $origin_id = $city['city_id'];
+                    break;
+                }
+            }
+
+            $cart = Cart::where('user_id', Auth::user()->id)->first();
+            $cart_details = $cart->cart_detail;
+            $courier = $cart->courier;
+            $total_weight = $cart_details->sum('weight');
+
+            $responseCost = Http::withHeaders([
+                'key' => '1b3d1a91f7ab9a1c6dcc5543cb9192fb',
+            ])->post('https://pro.rajaongkir.com/api/cost', [
+                'origin' => $origin_id,
+                'originType' => 'city',
+                'destination' => $request->city,
+                'destinationType' => 'city',
+                'weight' => $total_weight,
+                'courier' => $courier
+            ]);
+            $costs = $responseCost['rajaongkir'];
+            // dd($costs);
 
             // Hapus CartDetail
             $cartDetail->delete();
@@ -259,7 +291,10 @@ class CartController extends Controller
                 // Jika tidak ada cart_detail, hapus juga keranjangnya
                 $cart->delete();
             }
-            return back()->with('deleteCart_success', 'Pesanan berhasil dihapus!');
+            return back()->with([
+                'deleteCart_success' => 'Pesanan berhasil dihapus!',
+                'costs' => $costs
+            ]);
         }
     }
 }

@@ -66,6 +66,21 @@
                         </div>
                     </div>
                 @enderror
+                @error('waybill')
+                <div data-aos="zoom-in-down" data-aos-anchor-placement="top-bottom" data-aos-duration="800"
+                    class="w-10/12 md:w-9/12 lg:w-6/12 flex justify-center items-center p-4 {{ $errors->has('waybill') ? 'mb-2' : '' }} text-sm rounded-lg bg-gray-900 text-red-400"
+                    role="alert">
+                    <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                        fill="currentColor" viewBox="0 0 20 20">
+                        <path
+                            d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Zm3.707 11.793a1 1 0 1 1-1.414 1.414L10 11.414l-2.293 2.293a1 1 0 0 1-1.414-1.414L8.586 10 6.293 7.707a1 1 0 0 1 1.414-1.414L10 8.586l2.293-2.293a1 1 0 0 1 1.414 1.414L11.414 10l2.293 2.293Z" />
+                    </svg>
+                    <span class="sr-only">Info</span>
+                    <div>
+                        <span class="font-medium">{{ $message }}
+                    </div>
+                </div>
+                @enderror
                 @if (session('updateOrderStatus_success'))
                     <div data-aos="zoom-in-down" data-aos-anchor-placement="top-bottom" data-aos-duration="800"
                         class="w-10/12 md:w-9/12 lg:w-6/12 flex justify-center items-center p-4 text-sm rounded-lg bg-gray-900 text-green-400"
@@ -127,7 +142,7 @@
                         <span data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="800"
                             class="mt-2 lg:mt-0 flex flex-row justify-center items-center bg-green-300 text-green-900 text-sm text-center font-medium px-3 py-2 rounded-full">
                             <span class="w-2 h-2 me-2 bg-green-500 rounded-full"></span>
-                            Total Penjualan: Rp.{{ number_format($orders->sum('total_price'), 0, ',', '.') }}
+                            Total Penjualan: Rp.{{ number_format($orders->where('acceptbyAdmin_status', 'paid')->sum('total_price'), 0, ',', '.') }}
                         </span>
                     </div>
                 </div>
@@ -139,12 +154,12 @@
                                 <th scope="col" class="p-4">No.</th>
                                 <th scope="col" class="p-4">Customer</th>
                                 <th scope="col" class="p-4 text-yellow-500">Cek</th>
-                                <th scope="col" class="p-4">Masuk</th>
-                                <th scope="col" class="p-4">Dikirim</th>
-                                <th scope="col" class="p-4">Sampai</th>
+                                <th scope="col" class="p-4">Pembayaran</th>
+                                <th scope="col" class="p-4">Pengiriman</th>
+                                <th scope="col" class="p-4">Penerimaan</th>
                                 <th scope="col" class="p-4">No Telp</th>
                                 <th scope="col" class="p-4">Alamat</th>
-                                <th scope="col" class="p-4">Pembayaran</th>
+                                {{-- <th scope="col" class="p-4">Pembayaran</th> --}}
                                 <th scope="col" class="p-4">Struk</th>
                             </tr>
                         </thead>
@@ -238,20 +253,16 @@
                                             </div>
                                         </td>
 
-                                        @if ($order->acceptbyAdmin_status == 'sudah')
-                                            <td class="font-medium text-green-400 whitespace-nowrap">
-                                                Sudah</td>
+                                        @if ($order->acceptbyAdmin_status == 'paid')
+                                        <td class="font-medium text-green-400 whitespace-nowrap">{{ ucwords($order->acceptbyAdmin_status) }}</td>
                                         @else
-                                            <td class="font-medium text-red-700 whitespace-nowrap">
-                                                Pending</td>
+                                            <td class="font-medium text-red-700 whitespace-nowrap">{{ ucwords($order->acceptbyAdmin_status) }}</td>
                                         @endif
 
-                                        @if ($order->shipment_status == 'sudah')
-                                            <td class="font-medium text-green-400 whitespace-nowrap">
-                                                Sudah</td>
+                                        @if ($order->shipment_status != 'pending')
+                                        <td class="font-medium text-green-400 whitespace-nowrap">{{ ucwords($order->shipment_status) }}</td>
                                         @else
-                                            <td class="font-medium text-red-700 whitespace-nowrap">
-                                                Pending</td>
+                                        <td class="font-medium text-red-700 whitespace-nowrap">Belum</td>
                                         @endif
 
                                         @if ($order->acceptbyCustomer_status == 'sudah')
@@ -259,7 +270,7 @@
                                                 Sudah</td>
                                         @else
                                             <td class="font-medium text-red-700 whitespace-nowrap">
-                                                Pending</td>
+                                                Belum</td>
                                         @endif
 
                                         <td class="font-medium text-gray-900 whitespace-nowrap">
@@ -360,7 +371,7 @@
                                             </div>
                                         </div>
 
-                                        <td class="px-3 lg:px-0">
+                                        {{-- <td class="px-3 lg:px-0">
                                             <div class="flex justify-center">
                                                 <button type="button" data-modal-target="payment{{ $order->id }}"
                                                     data-modal-toggle="payment{{ $order->id }}"
@@ -374,7 +385,7 @@
                                                     Pembayaran
                                                 </button>
                                             </div>
-                                        </td>
+                                        </td> --}}
                                         <td class="px-3 lg:px-0">
                                             @if ($order->user_id == 1 || $order->user_id == 2)
                                                 <div class="flex justify-center">
@@ -523,9 +534,19 @@
                                                             @method('put')
                                                             @csrf
                                                 @endif
-                                                <div class="flex flex-col mb-8">
-                                                    <p class="text-center font-semibold col-span-3 mb-2">Order Status
-                                                    </p>
+                                                <div class="flex flex-col mb-4">
+                                                    <p class="text-center font-semibold col-span-3 mb-4">Nomor Resi Pengiriman</p>
+                                                    <div
+                                                        class="flex flex-col justify-center items-center w-full">
+                                                        <div>
+                                                            <label for="acceptbyAdmin_status"
+                                                                class="block mb-2 text-sm font-medium text-gray-900 text-center">Mohon masukkan nomor resi pengiriman terkait order ini!</label>
+                                                                <input type="text" id="waybill" name="waybill"
+                                                                aria-describedby="helper-text-explanation"
+                                                                class="{{ $errors->has('waybill') ? 'bg-red-100 border-red-400 text-red-500 placeholder-red-700 focus:ring-red-500 focus:border-red-500' : 'bg-white border-yellow-500 text-gray-900 placeholder-gray-400  focus:ring-yellow-500 focus:border-yellow-500' }} text-center rounded-lg border-1 text-sm block w-full p-2.5 mb-4"
+                                                                value="{{ old('waybill', $order->waybill) }}" placeholder="(Contoh: SOCAG00183235715)">
+                                                        </div>
+                                                    {{-- <p class="text-center font-semibold col-span-3 mb-2">Order Status</p>
                                                     <div
                                                         class="flex flex-col sm:flex-row justify-center w-full sm:space-x-2 sm:space-y-0 space-y-4 mb-6">
                                                         <div>
@@ -544,8 +565,8 @@
                                                                     Sudah
                                                                 </option>
                                                             </select>
-                                                        </div>
-
+                                                        </div> --}}
+{{--
                                                         <div>
                                                             <label for="shipment_status"
                                                                 class="block mb-2 text-sm font-medium text-gray-900">Dikirim
@@ -582,7 +603,7 @@
                                                                 class="{{ $errors->has('shipment_date') ? 'bg-red-100 border-red-400 text-red-500 placeholder-red-700 focus:ring-red-500 focus:border-red-500' : 'bg-white border-yellow-500 text-gray-900 placeholder-gray-400  focus:ring-yellow-500 focus:border-yellow-500' }} rounded-lg border-1 text-sm block w-full p-2.5"
                                                                 value="{{ old('shipment_date', $order->shipment_date ? \Carbon\Carbon::parse($order->shipment_date)->format('Y-m-d\TH:i') : '') }}"
                                                                 required>
-                                                        </div>
+                                                        </div> --}}
                                                         {{-- <div class="w-full">
                                                             <label for="arrived_date"
                                                                 class="block mb-2 text-sm font-medium text-gray-900">Order
@@ -595,13 +616,13 @@
                                                         </div> --}}
                                                     </div>
                                                 </div>
-                                                <div class="items-center space-y-2 sm:flex sm:space-y-0 sm:space-x-2">
+                                                <div class="justify-center items-center w-full space-y-2 sm:flex sm:space-y-0 sm:space-x-2">
                                                     <button type="submit"
-                                                        class="w-full sm:w-auto justify-center text-white inline-flex bg-yellow-500 hover:bg-yellow-600 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">Update
+                                                        class="w-full justify-center text-white inline-flex bg-yellow-500 hover:bg-yellow-600 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">Update
                                                         Order</button>
                                                     <button data-modal-toggle="update-modal{{ $order->id }}"
                                                         type="button"
-                                                        class="w-full justify-center sm:w-auto text-white inline-flex items-center bg-red-500 hover:bg-red-600 focus:ring-4 focus:outline-none focus:ring-primary-300 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 focus:z-10">
+                                                        class="w-full justify-center text-white inline-flex items-center bg-red-500 hover:bg-red-600 focus:ring-4 focus:outline-none focus:ring-primary-300 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 focus:z-10">
                                                         <svg class="mr-1 -ml-1 w-5 h-5" fill="currentColor"
                                                             viewbox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                                                             <path fill-rule="evenodd"
@@ -616,7 +637,7 @@
                                         </div>
                                     </div>
 
-                                    <div id="payment{{ $order->id }}" tabindex="-1" aria-hidden="true"
+                                    {{-- <div id="payment{{ $order->id }}" tabindex="-1" aria-hidden="true"
                                         class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] md:h-full">
                                         <div class="relative p-4 w-full max-w-3xl h-full md:h-auto">
                                             <!-- Modal content -->
@@ -681,7 +702,7 @@
                                                 @endif
                                             </div>
                                         </div>
-                                    </div>
+                                    </div> --}}
                                     @php
                                         $orderNumber++;
                                     @endphp

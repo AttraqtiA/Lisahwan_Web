@@ -32,7 +32,7 @@ class OrderController extends Controller
         $statusCode = $request->query('status_code');
         $transactionStatus = $request->query('transaction_status');
 
-        $order = Order::find($orderId);
+        $order = Order::where('midtrans_order_id', $orderId)->first();
         $cart = Cart::where('user_id', optional($order)->user_id)->first();
 
         // Logika untuk menampilkan pesan berdasarkan status transaksi
@@ -944,26 +944,49 @@ class OrderController extends Controller
             return redirect()->route('products')->with('empty_order', 'Oops! Anda belum belanja sama sekali!');
         } else {
             foreach ($orders as $order) {
-                $orderDate = Carbon::parse($order->order_date);
-                $currentDate = Carbon::now();
-                $daysDifference = $currentDate->diffInDays($orderDate);
+                // $orderDate = Carbon::parse($order->order_date);
+                // $currentDate = Carbon::now();
+                // $daysDifference = $currentDate->diffInDays($orderDate);
 
-                // Ambil estimasi pengiriman dari data order
-                // Asumsi bahwa $order->delivery_estimate berisi string seperti "1-2" atau "5"
-                $deliveryEstimate = $order->shipment_estimation;
+                // // Ambil estimasi pengiriman dari data order
+                // // Asumsi bahwa $order->delivery_estimate berisi string seperti "1-2" atau "5"
+                // $deliveryEstimate = $order->shipment_estimation;
 
-                // Konversi estimasi hari pengiriman menjadi jumlah hari maksimal
-                if (strpos($deliveryEstimate, '-') !== false) {
-                    $parts = explode('-', $deliveryEstimate);
-                    $estimateDays = (int)$parts[1];
-                } else {
-                    $estimateDays = (int)$deliveryEstimate;
-                }
+                // // Konversi estimasi hari pengiriman menjadi jumlah hari maksimal
+                // if (strpos($deliveryEstimate, '-') !== false) {
+                //     $parts = explode('-', $deliveryEstimate);
+                //     $estimateDays = (int)$parts[1];
+                // } else {
+                //     $estimateDays = (int)$deliveryEstimate;
+                // }
 
-                if ($daysDifference > $estimateDays) {
-                    $arrivedDate = $orderDate->copy()->addDays($estimateDays);
-                    $order->update(['arrived_date' => $arrivedDate]);
-                    $order->update(['acceptbyCustomer_status' => 'Sudah']);
+                // if ($daysDifference > $estimateDays) {
+                //     $arrivedDate = $orderDate->copy()->addDays($estimateDays);
+                //     $order->update(['arrived_date' => $arrivedDate]);
+                //     $order->update(['acceptbyCustomer_status' => 'Sudah']);
+                // }
+
+                $courier = '';
+                $waybill =  $order->waybill;
+                if($waybill != '') {
+                    // dd($waybill);
+                    if (stripos($order->shipment_service, 'JNE') !== false) {
+                        $courier = 'jne';
+                    } elseif (stripos($order->shipment_service, 'SiCepat') !== false) {
+                        $courier = 'sicepat';
+                    }
+
+                    $responseWaybills = Http::withHeaders([
+                        'key' => '1b3d1a91f7ab9a1c6dcc5543cb9192fb',
+                    ])->post('https://pro.rajaongkir.com/api/waybill', [
+                        'waybill' => $waybill,
+                        'courier' => $courier
+                    ]);
+                    // dd($responseWaybills['rajaongkir']);
+                    $waybills = $responseWaybills['rajaongkir']['result'];
+                    if($waybills['delivery_status']['pod_date'] != "" || $waybills['delivery_status']['pod_date'] != null) {
+                        $order->update(['arrived_date' => $waybills['delivery_status']['pod_date'] . ' ' . $waybills['delivery_status']['pod_time']]);
+                    }
                 }
             }
             return view(
@@ -1137,12 +1160,14 @@ class OrderController extends Controller
         //     $validatedData['payment'] = $request->file('payment_upload')->store('bukti_transfer', ['disk' => 'public']);
         // }
 
+        $midtrans_order_id = rand();
         if ($validatedData['address_id']) {
             $address = Address::find($validatedData['address_id']);
             if ($validatedData['note']) {
                 $order = Order::create([
                     'user_id' => Auth::user()->id,
                     'address_id' => $validatedData['address_id'],
+                    'midtrans_order_id' => $midtrans_order_id,
                     'order_date' => $order_date,
                     'total_price' => $total_price,
                     'total_weight' => $total_weight,
@@ -1155,6 +1180,7 @@ class OrderController extends Controller
                 $order = Order::create([
                     'user_id' => Auth::user()->id,
                     'address_id' => $validatedData['address_id'],
+                    'midtrans_order_id' => $midtrans_order_id,
                     'order_date' => $order_date,
                     'total_price' => $total_price,
                     'total_weight' => $total_weight,
@@ -1167,6 +1193,7 @@ class OrderController extends Controller
             $address = Address::create([
                 'user_id' => Auth::user()->id,
                 'address' => $validatedData['address'],
+                'midtrans_order_id' => $midtrans_order_id,
                 'city' => $customer_city,
                 'city_id' => $request->city,
                 'province' => $customer_province,
@@ -1176,6 +1203,7 @@ class OrderController extends Controller
                 $order = Order::create([
                     'user_id' => Auth::user()->id,
                     'address_id' => $address->id,
+                    'midtrans_order_id' => $midtrans_order_id,
                     'order_date' => $order_date,
                     'total_price' => $total_price,
                     'total_weight' => $total_weight,
@@ -1188,6 +1216,7 @@ class OrderController extends Controller
                 $order = Order::create([
                     'user_id' => Auth::user()->id,
                     'address_id' => $address->id,
+                    'midtrans_order_id' => $midtrans_order_id,
                     'order_date' => $order_date,
                     'total_price' => $total_price,
                     'total_weight' => $total_weight,
@@ -1241,7 +1270,7 @@ class OrderController extends Controller
         // Siapkan parameter untuk Midtrans
         $params = [
             'transaction_details' => [
-                'order_id' => $order->id,
+                'order_id' => $order->midtrans_order_id,
                 'gross_amount' => $total_price,
             ],
             'item_details' => $item_details,
@@ -1278,7 +1307,7 @@ class OrderController extends Controller
         } catch (\Exception $e) {
             Session::put('costs', $costs);
             return back()->withErrors([
-                'paymentUrl_ERROR', 'Error saat melakukan proses pembayaran: ' . $e->getMessage() . '!'
+                'paymentUrl_ERROR' => 'Error saat melakukan proses pembayaran! Silahkan menghubungi Lisahwan™ (082230308030)!'
             ]);
             // return redirect()->route('products')->with('order_success', 'Pemesanan anda berhasil! <br><a href="' . route('member.orderhistory') . '" class="inline-flex items-center font-bold text-yellow-500 hover:underline">Check Status Pesanan <svg class="ml-1 w-4 h-4 text-yellow-500" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10"> <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M1 5h12m0 0L9 1m4 4L9 9" /> </svg></a>');
         }

@@ -14,6 +14,7 @@ use App\Models\OrderDetail;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Session;
 use App\Http\Controllers\Controller; // tambah ini buat yg folder per role
 
@@ -26,7 +27,11 @@ class OrderController extends Controller
     {
         Order::where(function ($query) {
             $query->where('acceptbyAdmin_status', 'pending')
-                ->orWhere('acceptbyAdmin_status', 'unpaid');
+                ->orWhere('acceptbyAdmin_status', 'unpaid')
+                ->orWhere('acceptbyAdmin_status', 'expire')
+                ->orWhere('acceptbyAdmin_status', 'cancel')
+                ->orWhere('acceptbyAdmin_status', 'refund')
+                ->orWhere('acceptbyAdmin_status', 'partial_refund');
         })
             ->where('created_at', '<', Carbon::now()->subMinutes(10))
             ->delete();
@@ -467,7 +472,11 @@ class OrderController extends Controller
     {
         Order::where(function ($query) {
             $query->where('acceptbyAdmin_status', 'pending')
-                ->orWhere('acceptbyAdmin_status', 'unpaid');
+                ->orWhere('acceptbyAdmin_status', 'unpaid')
+                ->orWhere('acceptbyAdmin_status', 'expire')
+                ->orWhere('acceptbyAdmin_status', 'cancel')
+                ->orWhere('acceptbyAdmin_status', 'refund')
+                ->orWhere('acceptbyAdmin_status', 'partial_refund');
         })
             ->where('created_at', '<', Carbon::now()->subMinutes(10))
             ->delete();
@@ -593,25 +602,55 @@ class OrderController extends Controller
      */
     public function updateToday(Request $request, Order $order)
     {
+        // $validatedData = $request->validate([
+        //     'acceptbyAdmin_status' => 'required',
+        //     'shipment_status' => 'required',
+        //     'shipment_date' => 'required|date_format:Y-m-d\TH:i',
+        //     'arrived_date' => 'required|date_format:Y-m-d\TH:i'
+        // ], [
+        //     'acceptbyAdmin_status.required' => 'Status penerimaan oleh Admin wajib diisi!',
+        //     'shipment_status.required' => 'Status pengiriman wajib diisi!',
+        //     'shipment_date.required' => 'Tanggal pengiriman wajib diisi!',
+        //     'shipment_date.date_format' => 'Format tanggal pengiriman tidak valid!',
+        //     'arrived_date.required' => 'Tanggal sampai wajib diisi!',
+        //     'arrived_date.date_format' => 'Format tanggal sampai tidak valid!'
+        // ]);
+
+        // $order->update([
+        //     'acceptbyAdmin_status' => $validatedData['acceptbyAdmin_status'],
+        //     'shipment_status' => $validatedData['shipment_status'],
+        //     'shipment_date' => $validatedData['shipment_date'],
+        //     'arrived_date' => $validatedData['arrived_date']
+        // ]);
+
         $validatedData = $request->validate([
-            'acceptbyAdmin_status' => 'required',
-            'shipment_status' => 'required',
-            'shipment_date' => 'required|date_format:Y-m-d\TH:i',
-            'arrived_date' => 'required|date_format:Y-m-d\TH:i'
+            'waybill' => 'required|string',
         ], [
-            'acceptbyAdmin_status.required' => 'Status penerimaan oleh Admin wajib diisi!',
-            'shipment_status.required' => 'Status pengiriman wajib diisi!',
-            'shipment_date.required' => 'Tanggal pengiriman wajib diisi!',
-            'shipment_date.date_format' => 'Format tanggal pengiriman tidak valid!',
-            'arrived_date.required' => 'Tanggal sampai wajib diisi!',
-            'arrived_date.date_format' => 'Format tanggal sampai tidak valid!'
+            'waybill.required' => 'Nomor resi pengiriman wajib diisi!',
+            'waybill.string' => 'Nomor resi pengiriman wajib berupa karakter!'
         ]);
 
+        $courier = '';
+        $waybill =  $validatedData['waybill'];
+        if (stripos($order->shipment_service, 'JNE') !== false) {
+            $courier = 'jne';
+        } elseif (stripos($order->shipment_service, 'SiCepat') !== false) {
+            $courier = 'sicepat';
+        }
+
+        $responseWaybills = Http::withHeaders([
+            'key' => '1b3d1a91f7ab9a1c6dcc5543cb9192fb',
+        ])->post('https://pro.rajaongkir.com/api/waybill', [
+            'waybill' => $waybill,
+            'courier' => $courier
+        ]);
+        // dd($responseWaybills['rajaongkir']);
+        $waybills = $responseWaybills['rajaongkir']['result'];
+
         $order->update([
-            'acceptbyAdmin_status' => $validatedData['acceptbyAdmin_status'],
-            'shipment_status' => $validatedData['shipment_status'],
-            'shipment_date' => $validatedData['shipment_date'],
-            'arrived_date' => $validatedData['arrived_date']
+            'waybill' => $validatedData['waybill'],
+            'shipment_status' => $waybills['summary']['status'],
+            'shipment_date' => $waybills['details']['waybill_date'] . ' ' . $waybills['details']['waybill_time'],
         ]);
 
         return redirect()->route('admin.admin')->with('updateOrderStatus_success', 'Status order berhasil diperbarui!');
@@ -619,25 +658,55 @@ class OrderController extends Controller
 
     public function updateHistory(Request $request, Order $order)
     {
+        // $validatedData = $request->validate([
+        //     'acceptbyAdmin_status' => 'required',
+        //     'shipment_status' => 'required',
+        //     'shipment_date' => 'required|date_format:Y-m-d\TH:i',
+        //     'arrived_date' => 'required|date_format:Y-m-d\TH:i'
+        // ], [
+        //     'acceptbyAdmin_status.required' => 'Status penerimaan oleh Admin wajib diisi!',
+        //     'shipment_status.required' => 'Status pengiriman wajib diisi!',
+        //     'shipment_date.required' => 'Tanggal pengiriman wajib diisi!',
+        //     'shipment_date.date_format' => 'Format tanggal pengiriman tidak valid!',
+        //     'arrived_date.required' => 'Tanggal sampai wajib diisi!',
+        //     'arrived_date.date_format' => 'Format tanggal sampai tidak valid!'
+        // ]);
+
+        // $order->update([
+        //     'acceptbyAdmin_status' => $validatedData['acceptbyAdmin_status'],
+        //     'shipment_status' => $validatedData['shipment_status'],
+        //     'shipment_date' => $validatedData['shipment_date'],
+        //     'arrived_date' => $validatedData['arrived_date']
+        // ]);
+
         $validatedData = $request->validate([
-            'acceptbyAdmin_status' => 'required',
-            'shipment_status' => 'required',
-            'shipment_date' => 'required|date_format:Y-m-d\TH:i',
-            'arrived_date' => 'required|date_format:Y-m-d\TH:i'
+            'waybill' => 'required|string',
         ], [
-            'acceptbyAdmin_status.required' => 'Status penerimaan oleh Admin wajib diisi!',
-            'shipment_status.required' => 'Status pengiriman wajib diisi!',
-            'shipment_date.required' => 'Tanggal pengiriman wajib diisi!',
-            'shipment_date.date_format' => 'Format tanggal pengiriman tidak valid!',
-            'arrived_date.required' => 'Tanggal sampai wajib diisi!',
-            'arrived_date.date_format' => 'Format tanggal sampai tidak valid!'
+            'waybill.required' => 'Nomor resi pengiriman wajib diisi!',
+            'waybill.string' => 'Nomor resi pengiriman wajib berupa karakter!'
         ]);
 
+        $courier = '';
+        $waybill =  $validatedData['waybill'];
+        if (stripos($order->shipment_service, 'JNE') !== false) {
+            $courier = 'jne';
+        } elseif (stripos($order->shipment_service, 'SiCepat') !== false) {
+            $courier = 'sicepat';
+        }
+
+        $responseWaybills = Http::withHeaders([
+            'key' => '1b3d1a91f7ab9a1c6dcc5543cb9192fb',
+        ])->post('https://pro.rajaongkir.com/api/waybill', [
+            'waybill' => $waybill,
+            'courier' => $courier
+        ]);
+        // dd($responseWaybills['rajaongkir']);
+        $waybills = $responseWaybills['rajaongkir']['result'];
+
         $order->update([
-            'acceptbyAdmin_status' => $validatedData['acceptbyAdmin_status'],
-            'shipment_status' => $validatedData['shipment_status'],
-            'shipment_date' => $validatedData['shipment_date'],
-            'arrived_date' => $validatedData['arrived_date']
+            'waybill' => $validatedData['waybill'],
+            'shipment_status' => $waybills['summary']['status'],
+            'shipment_date' => $waybills['details']['waybill_date'] . ' ' . $waybills['details']['waybill_time'],
         ]);
 
         return redirect()->route('owner.order_history')->with('updateOrderStatus_success', 'Status order berhasil diperbarui!');

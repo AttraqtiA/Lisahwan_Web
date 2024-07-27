@@ -27,7 +27,7 @@ class PaymentNotificationController extends Controller
 
         $hashed = hash('sha512', $orderId . $statusCode . $grossAmount . $serverKey);
 
-        $order = Order::find($orderId);
+        $order = Order::where('midtrans_order_id', $orderId)->first();
 
         if ($hashed == $signatureKey) {
             if ($transactionStatus == 'capture' || $transactionStatus == 'settlement') {

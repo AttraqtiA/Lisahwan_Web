@@ -752,6 +752,7 @@
                                                         method="POST">
                                                         @method('delete')
                                                         @csrf
+                                                        <input type="hidden" id="destination_city_2" value="" name="city">
                                                         <button type="submit"
                                                             class="cursor-pointer text-xs sm:text-sm font-medium text-yellow-500 hover:text-yellow-600"
                                                             onclick="return confirm('Apakah anda ingin menghapus pesanan ini?')">
@@ -1181,6 +1182,7 @@
             updateHideInput('#address_id', '#destination_address_id');
             updateHideInput('#address', '#destination_address');
             updateHideInput('#city', '#destination_city_1');
+            updateHideInput('#city', '#destination_city_2');
             updateHideInput('#note', '#destination_note');
         });
 
