@@ -3,9 +3,11 @@
 namespace App\Http\Controllers\Owner;
 
 use Carbon\Carbon;
+use App\Models\Cart;
 use App\Models\Product;
 use App\Models\Production;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use App\Http\Controllers\Controller; // tambah ini buat yg folder per role
 
@@ -41,10 +43,15 @@ class ProductController extends Controller
                 });
         })->paginate(10)->withQueryString();
 
+        // Fetch user cart details
+        $cart_user = Cart::where('user_id', Auth::user()->id)->first();
+        $carts = $cart_user ? $cart_user->cart_detail : null;
+
         return view('admin.products', [
             "TabTitle" => "Daftar Seluruh Produk",
             "active_3" => "text-yellow-500",
             "products" => $products,
+            "carts" => $carts,
         ]);
     }
 
@@ -62,18 +69,19 @@ class ProductController extends Controller
     public function store(Request $request)
     {
         $validatedData = $request->validate([
-            'name' => 'required|string|unique:products|max:20',
+            'name' => 'required|string|unique:products|max:30',
             'price' => 'required|numeric|min:1000',
             'stock' => 'required|numeric|min:1',
             'weight' => 'required|numeric|min:1',
-            'discount' => 'required|numeric|between:1,100',
+            'discount' => 'required|numeric|between:0,100',
             'description' => 'required|string|max:255',
-            'image' => 'required|image|mimes:jpeg,png,jpg|max:5000'
+            'image' => 'required|image|mimes:jpeg,png,jpg|max:5000',
+            'special_status' => 'required|string'
         ], [
             'name.required' => 'Nama produk wajib diisi!',
             'name.string' => 'Nama produk wajib berupa karakter!',
             'name.unique' => 'Nama produk wajib berbeda dari produk yang sudah ada!',
-            'name.max' => 'Nama produk maksimal 20 karakter!',
+            'name.max' => 'Nama produk maksimal 30 karakter!',
             'price.required' => 'Harga wajib diisi!',
             'price.numeric' => 'Harga wajib berupa angka!',
             'price.min' => 'Harga minimal Rp. 1.000!',
@@ -85,7 +93,7 @@ class ProductController extends Controller
             'weight.min' => 'Berat minimal 1 gram!',
             'discount.required' => 'Diskon diisi!',
             'discount.numeric' => 'Diskon berupa angka!',
-            'discount.between' => 'Diskon wajib berada dalam rentang 1 sampai 100!',
+            'discount.between' => 'Diskon wajib berada dalam rentang 0 sampai 100!',
             'description.required' => 'Deskripsi wajib diisi!',
             'description.string' => 'Deskripsi wajib berupa karakter!',
             'description.max' => 'Deskripsi maksimal 255 karakter!',
@@ -93,6 +101,8 @@ class ProductController extends Controller
             'image.image' => 'File wajib berupa gambar!',
             'image.mimes' => 'File gambar wajib berupa .jpeg, .jpg, .png!',
             'image.max' => 'Maksimal ukuran gambar 5MB!',
+            'special_status.required' => 'Status spesial wajib diisi!',
+            'special_status.string' => 'Status spesial wajib berupa karakter!'
         ]);
 
         // cek apakah ada inputan file berupa image, kalau ada file image dimasukkan ke folder image di public lalu pathnya masuk ke database
@@ -112,6 +122,7 @@ class ProductController extends Controller
                 'weight' => $validatedData['weight'],
                 'discount' => $validatedData['discount'],
                 'image' => $validatedData['image'],
+                'special_status' => $validatedData['special_status'],
             ]);
 
             Production::create([
@@ -128,6 +139,7 @@ class ProductController extends Controller
                 'stock' => $validatedData['stock'],
                 'weight' => $validatedData['weight'],
                 'discount' => $validatedData['discount'],
+                'special_status' => $validatedData['special_status'],
             ]);
 
             Production::create([
@@ -246,15 +258,16 @@ class ProductController extends Controller
     public function update(Request $request, $id)
     {
         $validatedData = $request->validate([
-            'name_edit' => 'required|string|max:20',
+            'name_edit' => 'required|string|max:30',
             'price_edit' => 'required|numeric|min:1000',
             'weight_edit' => 'required|numeric|min:1',
-            'discount_edit' => 'required|numeric|between:1,100',
+            'discount_edit' => 'required|numeric|between:0,100',
             'description_edit' => 'required|string|max:255',
+            'special_status' => 'required|string'
         ], [
             'name_edit.required' => 'Nama produk wajib diisi!',
             'name_edit.string' => 'Nama produk wajib berupa karakter!',
-            'name_edit.max' => 'Nama produk maksimal 20 karakter!',
+            'name_edit.max' => 'Nama produk maksimal 30 karakter!',
             'price_edit.required' => 'Harga wajib diisi!',
             'price_edit.numeric' => 'Harga wajib berupa angka!',
             'price_edit.min' => 'Harga minimal Rp. 1.000!',
@@ -263,10 +276,12 @@ class ProductController extends Controller
             'weight_edit.min' => 'Berat minimal 1 gram!',
             'discount_edit.required' => 'Diskon diisi!',
             'discount_edit.numeric' => 'Diskon berupa angka!',
-            'discount_edit.between' => 'Diskon wajib berada dalam rentang 1 sampai 100!',
+            'discount_edit.between' => 'Diskon wajib berada dalam rentang 0 sampai 100!',
             'description_edit.required' => 'Deskripsi wajib diisi!',
             'description_edit.string' => 'Deskripsi wajib berupa karakter!',
             'description_edit.max' => 'Deskripsi maksimal 255 karakter!',
+            'special_status.required' => 'Status spesial wajib diisi!',
+            'special_status.string' => 'Status spesial wajib berupa karakter!'
         ]);
 
         $product = Product::find($id);
@@ -277,6 +292,7 @@ class ProductController extends Controller
             'price' => $validatedData['price_edit'],
             'weight' => $validatedData['weight_edit'],
             'discount' => $validatedData['discount_edit'],
+            'special_status' => $validatedData['special_status'],
         ]);
 
         return back()->with('updateProduct_success', "{$product->name} berhasil diperbarui!");

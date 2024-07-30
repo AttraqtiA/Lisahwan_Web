@@ -20,4 +20,3 @@ Route::post('/midtrans/notification', [PaymentNotificationController::class, 'pa
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
-

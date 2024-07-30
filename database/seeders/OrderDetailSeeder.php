@@ -56,7 +56,8 @@ class OrderDetailSeeder extends Seeder
             'quantity' => 5,
             'price' => 5000,
             'weight' => 1000,
-        ]); OrderDetail::create([
+        ]);
+        OrderDetail::create([
             'order_id' => 1,
             'product_id' => 3,
             'quantity' => 5,
@@ -70,7 +71,8 @@ class OrderDetailSeeder extends Seeder
             'quantity' => 5,
             'price' => 2000,
             'weight' => 1000,
-        ]); OrderDetail::create([
+        ]);
+        OrderDetail::create([
             'order_id' => 1,
             'product_id' => 4,
             'quantity' => 5,

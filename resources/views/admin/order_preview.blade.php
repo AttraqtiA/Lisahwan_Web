@@ -21,7 +21,7 @@
         </button>
     </div>
 
-    <div class="ml-2 md:ml-0 grid grid-cols-2 lg:grid-cols-3 py-6 px-6 gap-y-4">
+    <div class="ml-2 md:ml-0 grid grid-cols-2 lg:grid-cols-3 py-6 px-6 gap-y-4 items-start">
         <div class="flex flex-col justify-center items-start">
             <p class="text-sm font-semibold text-gray-900">
                 Tanggal Pemesanan:
@@ -36,7 +36,8 @@
             </p>
             @if ($order->shipment_date)
                 <p class="text-sm font-medium text-gray-400">
-                    {{ date('d F Y', strtotime($order->shipment_date)) }}, {{ date('H:i', strtotime($order->shipment_date)) }}
+                    {{ date('d F Y', strtotime($order->shipment_date)) }},
+                    {{ date('H:i', strtotime($order->shipment_date)) }}
                 </p>
             @else
                 <p class="text-sm font-medium text-gray-400">
@@ -50,11 +51,12 @@
             </p>
             @if ($order->arrived_date)
                 <p class="text-sm font-medium text-gray-400">
-                    {{ date('d F Y', strtotime($order->arrived_date)) }}, {{ date('H:i', strtotime($order->arrived_date)) }}
+                    {{ date('d F Y', strtotime($order->arrived_date)) }},
+                    {{ date('H:i', strtotime($order->arrived_date)) }}
                 </p>
             @else
                 <p class="text-sm font-medium text-gray-400">
-                    {{ $order->shipment_estimation }} hari
+                    {{ $order->shipment_estimation }}{{ stripos($order->shipment_estimation, 'hari') === false ? ' hari' : '' }}
                 </p>
             @endif
         </div>
@@ -82,15 +84,95 @@
                 {{ $order->shipment_service }}
             </p>
         </div>
-    </div>
 
-    <div class="flex flex-col justify-center items-start px-6 mb-6">
-        <p class="text-sm font-semibold text-gray-900">
-            Catatan:
-        </p>
-        <p class="text-sm font-medium text-gray-400">
-            {{ $order->note }}
-        </p>
+        <div class="flex flex-col justify-center items-start w-3/4">
+            <p class="text-sm font-semibold text-gray-900">
+                Catatan:
+            </p>
+            <p class="text-sm font-medium text-gray-400">
+                {{ $order->note }}
+            </p>
+        </div>
+
+        <div class="flex flex-col justify-center items-start">
+            <p class="text-sm font-semibold text-gray-900">
+                Jenis Pembayaran:
+            </p>
+            <p class="text-sm font-medium text-gray-400">
+                @if (strlen($order->payment) >= 10)
+                    QRIS BCA
+                @else
+                    {{ ucfirst($order->payment) }}
+                @endif
+            </p>
+        </div>
+
+        @if (strlen($order->payment) >= 10)
+            <div class="flex flex-col justify-center items-start">
+                <button type="button" data-modal-target="payment{{ $order->id }}"
+                    data-modal-toggle="payment{{ $order->id }}"
+                    class="py-2 px-3 flex items-center text-sm font-medium text-center text-gray-600 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-primary-700 focus:z-10 focus:ring-4 focus:ring-gray-200">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 24 24" fill="currentColor"
+                        class="w-4 h-4 mr-2 -ml-0.5">
+                        <path d="M12 15a3 3 0 100-6 3 3 0 000 6z" />
+                        <path fill-rule="evenodd" clip-rule="evenodd"
+                            d="M1.323 11.447C2.811 6.976 7.028 3.75 12.001 3.75c4.97 0 9.185 3.223 10.675 7.69.12.362.12.752 0 1.113-1.487 4.471-5.705 7.697-10.677 7.697-4.97 0-9.186-3.223-10.675-7.69a1.762 1.762 0 010-1.113zM17.25 12a5.25 5.25 0 11-10.5 0 5.25 5.25 0 0110.5 0z" />
+                    </svg>
+                    Bukti TF QRIS
+                </button>
+            </div>
+        @endif
+        <div id="payment{{ $order->id }}" tabindex="-1" aria-hidden="true"
+            class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] md:h-full">
+            <div class="relative p-4 w-full max-w-3xl h-full md:h-auto">
+                <!-- Modal content -->
+                <div id="update-modal-content" class="relative p-4 bg-gray-900 rounded-lg shadow sm:p-5">
+                    <!-- Modal header -->
+                    <div
+                        class="flex justify-between items-center pb-4 mb-4 rounded-t border-b border-yellow-500 sm:mb-5">
+                        <div class="flex items-center mr-3">
+                            @if ($order->user->profile_picture == null)
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                    stroke-width="1.5" stroke="currentColor"
+                                    class="w-8 h-8 mr-3 rounded-full text-gray-700">
+                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                        d="M17.982 18.725A7.488 7.488 0 0012 15.75a7.488 7.488 0 00-5.982 2.975m11.963 0a9 9 0 10-11.963 0m11.963 0A8.966 8.966 0 0112 21a8.966 8.966 0 01-5.982-2.275M15 9.75a3 3 0 11-6 0 3 3 0 016 0z" />
+                                </svg>
+                            @elseif (strlen($order->user->profile_picture) > 25)
+                                <img src="{{ asset('storage/' . $order->user->profile_picture) }}"
+                                    alt="profile picture" class="w-8 h-8 mr-3 object-cover object-center rounded-full">
+                            @else
+                                <img src="/images/profile_picture/{{ $order->user->profile_picture }}"
+                                    alt="profile picture" class="w-8 h-8 mr-3 object-cover object-center rounded-full">
+                            @endif
+                            <h3 class="text-lg font-semibold text-yellow-500">
+                                Bukti TF QRIS a.n. {{ $order->user->name }}</h3>
+                        </div>
+                        <button type="button"
+                            class="text-yellow-500 bg-transparent hover:bg-gray-800 hover:text-yellow-500 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center"
+                            data-modal-toggle="payment{{ $order->id }}">
+                            <svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewbox="0 0 20 20"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd"
+                                    d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                                    clip-rule="evenodd" />
+                            </svg>
+                            <span class="sr-only">Close modal</span>
+                        </button>
+                    </div>
+                    <!-- Modal body -->
+
+                    @if ($order->payment != null || $order->payment != '')
+                        <img src="{{ asset('storage/' . $order->payment) }}"
+                            alt="{{ asset('storage/' . $order->payment) }}"
+                            class="mt-3 w-96 mx-auto rounded-lg object-cover">
+                    @else
+                        <p class="mt-3 text-red-700 text-center font-semibold">
+                            Belum ada bukti pembayaran</p>
+                    @endif
+                </div>
+            </div>
+        </div>
     </div>
 
     <div class="flex flex-row items-start space-x-2 mb-4 px-6">
@@ -114,7 +196,7 @@
                 <span
                     class="inline-flex items-center bg-green-100 text-green-800 text-sm font-medium px-2 py-1.5 rounded-lg">
                     <span class="w-2.5 h-2 mr-2 bg-green-500 rounded-full"></span>
-                    {{ $order->shipment_status }}
+                    {{ ucfirst($order->shipment_status) }}
                 </span>
             @else
                 <span
@@ -146,7 +228,8 @@
     @foreach ($order->order_detail as $order_detail)
         <div class="flex flex-col justify-center w-full p-6">
             <img class="mb-4 h-40 w-40 object-cover object-bottom rounded-lg drop-shadow-md"
-                src="/images/fotoproduk/{{ $order_detail->product->image }}" alt="{{ $order_detail->product->name }}">
+                src="/images/fotoproduk/{{ $order_detail->product->image }}"
+                alt="{{ $order_detail->product->name }}">
             <div class="flex flex-col justify-center space-y-4">
                 <div class="flex flex-col">
                     <p class="text-base font-semibold text-gray-900">
@@ -174,10 +257,10 @@
                     </div>
                     <span
                         class="ml-8 inline-flex justify-center items-center bg-yellow-100 text-yellow-800 text-sm font-medium px-3 py-1.5 rounded border border-yellow-500"><svg
-                            class="w-3 h-3 mr-1 text-yellow-800" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
-                            fill="none" viewBox="0 0 18 18">
-                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M9 1v16M1 9h16" />
+                            class="w-3 h-3 mr-1 text-yellow-800" aria-hidden="true"
+                            xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 18">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                stroke-width="2" d="M9 1v16M1 9h16" />
                         </svg> {{ $order_detail->quantity }} buah (Rp.
                         {{ number_format($order_detail->price, 0, ',', '.') }})</span>
                 </div>

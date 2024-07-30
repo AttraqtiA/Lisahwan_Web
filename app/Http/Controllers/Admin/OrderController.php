@@ -113,6 +113,31 @@ class OrderController extends Controller
         $cart_user = Cart::where('user_id', Auth::user()->id)->first();
         $carts = $cart_user ? $cart_user->cart_detail : null;
 
+        foreach ($orders as $order) {
+            $courier = '';
+            $waybill =  $order->waybill;
+            if ($waybill != '') {
+                if (stripos($order->shipment_service, 'JNE') !== false) {
+                    $courier = 'jne';
+                } elseif (stripos($order->shipment_service, 'SiCepat') !== false) {
+                    $courier = 'sicepat';
+                }
+
+                $responseWaybills = Http::withHeaders([
+                    'key' => '1b3d1a91f7ab9a1c6dcc5543cb9192fb',
+                ])->post('https://pro.rajaongkir.com/api/waybill', [
+                    'waybill' => $waybill,
+                    'courier' => $courier
+                ]);
+                // dd($responseWaybills['rajaongkir']);
+                $waybills = $responseWaybills['rajaongkir']['result'];
+
+                $order->update([
+                    'shipment_status' => $waybills['summary']['status']
+                ]);
+            }
+        }
+
         return view('admin.admin_dashboard', [
             "TabTitle" => "Daftar Order Hari ini dan Kemarin",
             "active_1" => "text-yellow-500",
@@ -402,7 +427,7 @@ class OrderController extends Controller
             'total_weight' => $total_weight,
             'payment' => $validatedData['payment'],
             'note' => "Transaksi dilakukan oleh " . Auth::user()->name,
-            'acceptbyAdmin_status' => "sudah",
+            'acceptbyAdmin_status' => "paid",
             'acceptbyCustomer_status' => "sudah",
             'shipment_status' => "sudah"
         ]);
@@ -435,7 +460,8 @@ class OrderController extends Controller
             'margin_top' => 0,
             'margin_bottom' => 0,
             'margin_header' => 0,
-            'margin_footer' => 0
+            'margin_footer' => 0,
+            'orientation' => 'P'
         ]);
 
         $mpdf->WriteHTML(view("admin.receiptCart", ['cart' => $cart]));
@@ -457,10 +483,31 @@ class OrderController extends Controller
             'margin_top' => 0,
             'margin_bottom' => 0,
             'margin_header' => 0,
-            'margin_footer' => 0
+            'margin_footer' => 0,
+            'orientation' => 'P'
         ]);
 
         $mpdf->WriteHTML(view("admin.receiptOrder", ['order' => $order]));
+
+        $mpdf->Output();
+    }
+
+    public function generateShipmentLabel($id)
+    {
+        $order = Order::where('id', $id)->first();
+
+        $mpdf = new \Mpdf\Mpdf([
+            'mode' => 'utf-8', 'format' => 'A6',
+            'margin_left' => 0,
+            'margin_right' => 0,
+            'margin_top' => 0,
+            'margin_bottom' => 0,
+            'margin_header' => 0,
+            'margin_footer' => 0,
+            'orientation' => 'L'
+        ]);
+
+        $mpdf->WriteHTML(view("admin.shipmentLabel", ['order' => $order]));
 
         $mpdf->Output();
     }
@@ -554,6 +601,31 @@ class OrderController extends Controller
         // Fetch user cart details
         $cart_user = Cart::where('user_id', Auth::user()->id)->first();
         $carts = $cart_user ? $cart_user->cart_detail : null;
+
+        foreach ($orders as $order) {
+            $courier = '';
+            $waybill =  $order->waybill;
+            if ($waybill != '') {
+                if (stripos($order->shipment_service, 'JNE') !== false) {
+                    $courier = 'jne';
+                } elseif (stripos($order->shipment_service, 'SiCepat') !== false) {
+                    $courier = 'sicepat';
+                }
+
+                $responseWaybills = Http::withHeaders([
+                    'key' => '1b3d1a91f7ab9a1c6dcc5543cb9192fb',
+                ])->post('https://pro.rajaongkir.com/api/waybill', [
+                    'waybill' => $waybill,
+                    'courier' => $courier
+                ]);
+                // dd($responseWaybills['rajaongkir']);
+                $waybills = $responseWaybills['rajaongkir']['result'];
+
+                $order->update([
+                    'shipment_status' => $waybills['summary']['status']
+                ]);
+            }
+        }
 
         return view('admin.order_history', [
             "TabTitle" => "Daftar Seluruh Order",

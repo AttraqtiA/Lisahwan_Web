@@ -82,6 +82,21 @@
                         </div>
                     </div>
                 @enderror
+                @error('special_status')
+                    <div data-aos="zoom-in-down" data-aos-anchor-placement="top-bottom" data-aos-duration="800"
+                        class="w-10/12 md:w-9/12 lg:w-6/12 flex justify-center items-center p-4 {{ $errors->has('special_status') ? 'mb-2' : '' }} text-sm rounded-lg bg-gray-900 text-red-400"
+                        role="alert">
+                        <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                            fill="currentColor" viewBox="0 0 20 20">
+                            <path
+                                d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Zm3.707 11.793a1 1 0 1 1-1.414 1.414L10 11.414l-2.293 2.293a1 1 0 0 1-1.414-1.414L8.586 10 6.293 7.707a1 1 0 0 1 1.414-1.414L10 8.586l2.293-2.293a1 1 0 0 1 1.414 1.414L11.414 10l2.293 2.293Z" />
+                        </svg>
+                        <span class="sr-only">Info</span>
+                        <div>
+                            <span class="font-medium">{{ $message }}
+                        </div>
+                    </div>
+                @enderror
                 @error('description')
                     <div data-aos="zoom-in-down" data-aos-anchor-placement="top-bottom" data-aos-duration="800"
                         class="w-10/12 md:w-9/12 lg:w-6/12 flex justify-center items-center p-4 {{ $errors->has('description') ? 'mb-2' : '' }} text-sm rounded-lg bg-gray-900 text-red-400"
@@ -172,6 +187,21 @@
                         </div>
                     </div>
                 @enderror
+                @error('special_status_edit')
+                    <div data-aos="zoom-in-down" data-aos-anchor-placement="top-bottom" data-aos-duration="800"
+                        class="w-10/12 md:w-9/12 lg:w-6/12 flex justify-center items-center p-4 {{ $errors->has('special_status_edit') ? 'mb-2' : '' }} text-sm rounded-lg bg-gray-900 text-red-400"
+                        role="alert">
+                        <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                            fill="currentColor" viewBox="0 0 20 20">
+                            <path
+                                d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Zm3.707 11.793a1 1 0 1 1-1.414 1.414L10 11.414l-2.293 2.293a1 1 0 0 1-1.414-1.414L8.586 10 6.293 7.707a1 1 0 0 1 1.414-1.414L10 8.586l2.293-2.293a1 1 0 0 1 1.414 1.414L11.414 10l2.293 2.293Z" />
+                        </svg>
+                        <span class="sr-only">Info</span>
+                        <div>
+                            <span class="font-medium">{{ $message }}
+                        </div>
+                    </div>
+                @enderror
                 @error('description_edit')
                     <div data-aos="zoom-in-down" data-aos-anchor-placement="top-bottom" data-aos-duration="800"
                         class="w-10/12 md:w-9/12 lg:w-6/12 flex justify-center items-center p-4 {{ $errors->has('description_edit') ? 'mb-2' : '' }} text-sm rounded-lg bg-gray-900 text-red-400"
@@ -248,8 +278,7 @@
                     </div>
                 @endif
             </div>
-            <div
-                class="bg-white relative shadow-md rounded-md sm:rounded-lg overflow-hidden m-2 sm:m-0">
+            <div class="bg-white relative shadow-md rounded-md sm:rounded-lg overflow-hidden m-2 sm:m-0">
                 <div
                     class="flex flex-col md:flex-row md:items-center md:justify-between space-y-3 md:space-y-0 md:space-x-4 p-4">
                     <div class="flex-1 flex items-center space-x-2">
@@ -279,7 +308,7 @@
                                 </div>
                                 <input type="search" name="search" id="simple-search" placeholder="Cari produk"
                                     required
-                                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full pl-10 p-2">
+                                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-yellow-500 focus:border-yellow-500 block w-full pl-10 p-2">
                             </div>
 
                             <button type="submit" class="bg-yellow-500 ml-2 p-2 rounded-lg text-sm">
@@ -332,23 +361,33 @@
                                         <td class="p-4 w-4">
                                             {{ $loop->index + ($products->currentPage() - 1) * $products->perPage() + 1 }}
                                         </td>
-                                        <th scope="row" class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap">
+                                        <td scope="row" class="font-medium text-gray-900 whitespace-nowrap">
                                             <div class="flex items-center mr-3">
-                                                @if (strlen($product->image) > 25)
-                                                    <img src="{{ asset('storage/' . $product->image) }}"
-                                                        alt="product image"
-                                                        class="w-8 h-8 mr-3 object-cover object-center rounded-md">
-                                                @else
-                                                    <img src="/images/fotoproduk/{{ $product->image }}"
-                                                        alt="product image"
-                                                        class="w-8 h-8 mr-3 object-cover object-center rounded-md">
-                                                @endif
-
-                                                <p>{{ $product->name }}</p>
+                                                <div class="relative">
+                                                    @if (strlen($product->image) > 25)
+                                                        <img src="{{ asset('storage/' . $product->image) }}"
+                                                            alt="product image"
+                                                            class="w-10 h-10 mr-3 object-cover object-center rounded-full">
+                                                    @else
+                                                        <img src="/images/fotoproduk/{{ $product->image }}"
+                                                            alt="product image"
+                                                            class="w-10 h-10 mr-3 object-cover object-center rounded-full">
+                                                    @endif
+                                                    @if ($product->special_status == 'ya')
+                                                        <span
+                                                            class="top-0 left-7 absolute w-3 h-3 bg-green-500 rounded-full border border-1 border-yellow"></span>
+                                                    @endif
+                                                </div>
+                                                <p class="truncate hover:w-full">{{ $product->name }}</p>
                                             </div>
-                                        </th>
-                                        <td class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap">Rp.
-                                            {{ number_format($product->price, 0, ',', '.') }}</td>
+                                        </td>
+                                        @if ($product->discount != 0)
+                                            <td class="px-4 py-3 font-medium text-red-600 whitespace-nowrap">Rp.
+                                                {{ number_format($product->countDiscount(), 0, ',', '.') }}</td>
+                                        @else
+                                            <td class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap">Rp.
+                                                {{ number_format($product->price, 0, ',', '.') }}</td>
+                                        @endif
                                         <td class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap">
                                             {{ $product->stock }}</td>
                                         <td class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap">
@@ -432,8 +471,9 @@
                                                     Edit
                                                 </button>
 
-                                                <button type="button" data-modal-target="delete-modal"
-                                                    data-modal-toggle="delete-modal"
+                                                <button type="button"
+                                                    data-modal-target="delete-modal{{ $product->id }}"
+                                                    data-modal-toggle="delete-modal{{ $product->id }}"
                                                     class="flex items-center text-red-500 hover:text-white border border-red-500 hover:bg-red-600 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-3 py-2 text-center"
                                                     onclick="changeDeleteModal('{{ route('owner.admin_products.destroy', $product->id) }}')">
                                                     <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2 -ml-0.5"
@@ -515,6 +555,23 @@
                                                                 min="0" required>
                                                         </div>
                                                         <div class="sm:col-span-2">
+                                                            <label for="special_status"
+                                                                class="block mb-2 text-sm font-medium text-gray-900">Atur
+                                                                Spesial</label>
+                                                            <select data-aos="fade-up"
+                                                                data-aos-anchor-placement="top-bottom"
+                                                                data-aos-duration="800" id="special_status"
+                                                                name="special_status"
+                                                                class="{{ $errors->has('special_status') ? 'bg-red-100 border-red-400 text-red-500 placeholder-red-700 focus:ring-red-500 focus:border-red-500' : 'bg-white border-yellow-500 text-gray-900 placeholder-gray-400  focus:ring-yellow-500 focus:border-yellow-500' }} rounded-lg border-1 text-sm block w-full p-2.5 mt-3">
+                                                                <option value="tidak"
+                                                                    {{ old('special_status', $product->special_status) == 'tidak' ? 'selected' : '' }}>
+                                                                    Tidak</option>
+                                                                <option value="ya"
+                                                                    {{ old('special_status', $product->special_status) == 'ya' ? 'selected' : '' }}>
+                                                                    Ya</option>
+                                                            </select>
+                                                        </div>
+                                                        <div class="sm:col-span-2">
                                                             <label for="description_edit"
                                                                 class="block mb-2 text-sm font-medium text-gray-900">Deskripsi</label>
                                                             <textarea name="description_edit" id="description_edit" rows="4"
@@ -522,15 +579,15 @@
                                                         </div>
                                                         <p
                                                             class="mb-4 text-red-700 text-xs text-center md:text-start sm:col-span-2">
-                                                            *Untuk edit foto produk, mohon ke halaman 'Detail'!</p>
+                                                            *Untuk edit foto dan stok produk, mohon ke halaman 'Detail'!</p>
                                                     </div>
                                                     <div class="items-center space-y-2 sm:flex sm:space-y-0 sm:space-x-2">
                                                         <button type="submit"
-                                                            class="w-full sm:w-auto justify-center text-white inline-flex bg-yellow-500 hover:bg-yellow-600 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">Perbarui
+                                                            class="w-full sm:w-auto justify-center text-white inline-flex bg-yellow-500 hover:bg-yellow-600 focus:ring-4 focus:outline-none focus:ring-yellow-500 font-medium rounded-lg text-sm px-5 py-2.5 text-center">Perbarui
                                                             Produk</button>
                                                         <button data-modal-toggle="update-modal{{ $product->id }}"
                                                             type="button"
-                                                            class="w-full sm:w-auto justify-center text-white inline-flex bg-red-500 hover:bg-red-600 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">
+                                                            class="w-full sm:w-auto justify-center text-white inline-flex bg-red-500 hover:bg-red-600 focus:ring-4 focus:outline-none focus:ring-red-500 font-medium rounded-lg text-sm px-5 py-2.5 text-center">
                                                             <svg class="mr-1 -ml-1 w-5 h-5" fill="currentColor"
                                                                 viewbox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                                                                 <path fill-rule="evenodd"
@@ -619,6 +676,23 @@
                                                                     value="{{ old('discount') }}" min="0"
                                                                     required>
                                                             </div>
+                                                            <div>
+                                                                <label for="special_status"
+                                                                    class="block mb-2 text-sm font-medium text-gray-900">Atur
+                                                                    Spesial</label>
+                                                                <select data-aos="fade-up"
+                                                                    data-aos-anchor-placement="top-bottom"
+                                                                    data-aos-duration="800" id="special_status"
+                                                                    name="special_status"
+                                                                    class="{{ $errors->has('special_status') ? 'bg-red-100 border-red-400 text-red-500 placeholder-red-700 focus:ring-red-500 focus:border-red-500' : 'bg-white border-yellow-500 text-gray-900 placeholder-gray-400  focus:ring-yellow-500 focus:border-yellow-500' }} rounded-lg border-1 text-sm block w-full p-2.5 mt-3">
+                                                                    <option value="tidak"
+                                                                        {{ old('special_status') == 'tidak' ? 'selected' : '' }}>
+                                                                        Tidak</option>
+                                                                    <option value="ya"
+                                                                        {{ old('special_status') == 'ya' ? 'selected' : '' }}>
+                                                                        Ya</option>
+                                                                </select>
+                                                            </div>
                                                         </div>
 
                                                         <div class="sm:col-span-2">
@@ -661,10 +735,10 @@
 
                                                     <div class="items-center space-y-2 sm:flex sm:space-y-0 sm:space-x-2">
                                                         <button type="submit"
-                                                            class="w-full sm:w-auto justify-center text-white inline-flex bg-yellow-500 hover:bg-yellow-600 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">Tambah
+                                                            class="w-full sm:w-auto justify-center text-white inline-flex bg-yellow-500 hover:bg-yellow-600 focus:ring-4 focus:outline-none focus:ring-yellow-500 font-medium rounded-lg text-sm px-5 py-2.5 text-center">Tambah
                                                             Produk</button>
                                                         <button data-modal-toggle="createProductModal" type="button"
-                                                            class="w-full sm:w-auto justify-center text-white inline-flex bg-red-500 hover:bg-red-600 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">
+                                                            class="w-full sm:w-auto justify-center text-white inline-flex bg-red-500 hover:bg-red-600 focus:ring-4 focus:outline-none focus:ring-red-500 font-medium rounded-lg text-sm px-5 py-2.5 text-center">
                                                             <svg class="mr-1 -ml-1 w-5 h-5" fill="currentColor"
                                                                 viewbox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                                                                 <path fill-rule="evenodd"
@@ -679,7 +753,7 @@
                                         </div>
                                     </div>
 
-                                    <div id="delete-modal" tabindex="-1"
+                                    <div id="delete-modal{{ $product->id }}" tabindex="-1"
                                         class="fixed top-0 left-0 right-0 z-50 hidden p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full">
                                         <div class="relative w-full h-auto max-w-md max-h-full">
                                             <div class="relative bg-white rounded-lg shadow">
@@ -711,13 +785,14 @@
                                                         <h3 class="mb-5 text-lg font-normal text-gray-500">Apakah anda
                                                             yakin ingin menghapus produk ini?
                                                         </h3>
-                                                        <div class="w-full justify-center items-center flex flex-col sm:flex-row space-y-2 sm:space-x-2 sm:space-y-0">
-                                                        <button type="submit" id="delete" name="delete"
-                                                            class="w-full justify-center text-white inline-flex bg-red-500 hover:bg-red-600 focus:ring-2 focus:outline-none focus:ring-yellow-500 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2">Ya,
-                                                            yakin</button>
-                                                        <button data-modal-toggle="delete-modal" type="button"
-                                                            class="w-full text-gray-500 bg-white hover:bg-gray-100 focus:ring-2 focus:outline-none focus:ring-gray-200 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10">Tidak,
-                                                            batal</button>
+                                                        <div
+                                                            class="w-full justify-center items-center flex flex-col sm:flex-row space-y-2 sm:space-x-2 sm:space-y-0">
+                                                            <button type="submit" id="delete" name="delete"
+                                                                class="w-full justify-center text-white inline-flex bg-red-500 hover:bg-red-600 focus:ring-2 focus:outline-none focus:ring-yellow-500 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2">Ya,
+                                                                yakin</button>
+                                                            <button data-modal-toggle="delete-modal" type="button"
+                                                                class="w-full text-gray-500 bg-white hover:bg-gray-100 focus:ring-2 focus:outline-none focus:ring-gray-200 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10">Tidak,
+                                                                batal</button>
                                                         </div>
                                                     </div>
                                                 </form>

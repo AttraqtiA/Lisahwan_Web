@@ -206,79 +206,104 @@
         </div>
         <div class = "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 px-12 py-12 mx-auto">
             @foreach ($products as $product)
-                <div class="relative hover:shadow-xl transform transition duration-500 hover:-translate-y-4 hover:z-40">
-                    @if (Auth::check() && (Auth::user()->isAdmin() || Auth::user()->isOwner()))
-                        <a href="{{ route('products') }}">
-                        @else
-                            <a href="{{ route('member.products.show', $product->id) }}">
-                    @endif
-                    <div data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="800"
-                        class="relative w-full h-full rounded-lg bg-gray-900 border-gray-800 mx-auto shadow">
-                        @if (strlen($product->image) > 30)
-                            <img class="h-3/4 rounded-t-lg w-full object-cover"
-                                src="{{ asset('storage/' . $product->image) }}" alt="{{ $product->image }}" />
-                        @else
-                            <img class="h-3/4 rounded-t-lg w-full object-cover"
-                                src="/images/fotoproduk/{{ $product->image }}" alt="{{ $product->image }}" />
+                @if ($product->special_status == 'ya')
+                    <div
+                        class="order-first relative hover:shadow-xl transform transition duration-500 hover:-translate-y-4 hover:z-40">
+                        @if (Auth::check() && (Auth::user()->isAdmin() || Auth::user()->isOwner()))
+                            <a href="{{ route('products') }}">
+                            @else
+                                <a href="{{ route('member.products.show', $product->id) }}">
                         @endif
-
-                        <div class="h-1/4 px-8 pb-2 flex flex-col justify-center items-center">
-                            <h5
-                                class="sm:leading-6 md:leading-normal lg:leading-normal text-xl sm:text-2xl md:text-2xl lg:text-xl font-bold tracking-tight text-yellow-500 text-center">
-                                {{ $product->name }}
-                            </h5>
-                            <div class="flex flex-row w-full justify-center items-center">
-                                @if ($product->discount != 0)
+                        <div data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="800"
+                            class="relative w-full h-full rounded-lg bg-gray-900 border-4 border-yellow-500 mx-auto shadow">
+                            @if (strlen($product->image) > 30)
+                                <img class="h-3/4 w-full object-cover" src="{{ asset('storage/' . $product->image) }}"
+                                    alt="{{ $product->image }}" />
+                            @else
+                                <img class="h-3/4 w-full object-cover" src="/images/fotoproduk/{{ $product->image }}"
+                                    alt="{{ $product->image }}" />
+                            @endif
+                            <div class="h-1/4 px-8 pb-2 flex flex-col justify-center items-center">
+                                <div class="flex flex-row space-x-1 justify-center items-center">
+                                    <svg class="me-1 w-5 h-5 text-yellow-500" aria-hidden="true"
+                                        xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
+                                        <path
+                                            d="m12.75 20.66 6.184-7.098c2.677-2.884 2.559-6.506.754-8.705-.898-1.095-2.206-1.816-3.72-1.855-1.293-.034-2.652.43-3.963 1.442-1.315-1.012-2.678-1.476-3.973-1.442-1.515.04-2.825.76-3.724 1.855-1.806 2.201-1.915 5.823.772 8.706l6.183 7.097c.19.216.46.34.743.34a.985.985 0 0 0 .743-.34Z" />
+                                    </svg>
+                                    <h5
+                                        class="sm:leading-6 md:leading-normal lg:leading-normal text-xl sm:text-2xl md:text-2xl lg:text-xl font-bold tracking-tight text-yellow-500 text-center">
+                                        {{ $product->name }}
+                                    </h5>
+                                    <svg class="me-1 w-5 h-5 text-yellow-500" aria-hidden="true"
+                                        xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
+                                        <path
+                                            d="m12.75 20.66 6.184-7.098c2.677-2.884 2.559-6.506.754-8.705-.898-1.095-2.206-1.816-3.72-1.855-1.293-.034-2.652.43-3.963 1.442-1.315-1.012-2.678-1.476-3.973-1.442-1.515.04-2.825.76-3.724 1.855-1.806 2.201-1.915 5.823.772 8.706l6.183 7.097c.19.216.46.34.743.34a.985.985 0 0 0 .743-.34Z" />
+                                    </svg>
+                                </div>
+                                <div class="flex flex-row w-full justify-center items-center">
+                                    @if ($product->discount != 0)
+                                        <p
+                                            class="text-base sm:text-sm md:text-lg lg:text-sm text-red-500 text-center font-bold line-through	">
+                                            Rp.
+                                            {{ number_format($product->price, 0, ',', '.') }}</p>
+                                        <p
+                                            class="ml-2 flex items-center text-base sm:text-sm md:text-lg lg:text-sm font-bold text-green-500 text-center">
+                                            <svg class="w-4 h-4 mr-2 text-green-500" aria-hidden="true"
+                                                xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
+                                                <path stroke="currentColor" stroke-linecap="round"
+                                                    stroke-linejoin="round" stroke-width="2"
+                                                    d="M1 5h12m0 0L9 1m4 4L9 9" />
+                                            </svg>
+                                            Rp. {{ number_format($product->countDiscount(), 0, ',', '.') }}
+                                        </p>
+                                    @else
+                                        <p
+                                            class="text-base sm:text-sm md:text-lg lg:text-base font-normal text-white text-center">
+                                            Rp.
+                                            {{ number_format($product->price, 0, ',', '.') }}</p>
+                                    @endif
+                                </div>
+                                @if ($product->stock == 0)
                                     <p
-                                        class="text-base sm:text-sm md:text-lg lg:text-sm text-red-500 text-center font-bold line-through	">
-                                        Rp.
-                                        {{ number_format($product->price, 0, ',', '.') }}</p>
-                                    <p
-                                        class="ml-2 flex items-center text-base sm:text-sm md:text-lg lg:text-sm font-bold text-green-500 text-center">
-                                        <svg class="w-4 h-4 mr-2 text-green-500" aria-hidden="true"
-                                            xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
-                                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                                                stroke-width="2" d="M1 5h12m0 0L9 1m4 4L9 9" />
-                                        </svg>
-                                        Rp. {{ number_format($product->countDiscount(), 0, ',', '.') }}
-                                    </p>
+                                        class="text-sm sm:text-base md:text-base lg:text-sm font-normal text-red-600 text-center mt-2">
+                                        Stock Habis!</p>
                                 @else
                                     <p
-                                        class="text-base sm:text-sm md:text-lg lg:text-base font-normal text-white text-center">
-                                        Rp.
-                                        {{ number_format($product->price, 0, ',', '.') }}</p>
+                                        class="text-sm sm:text-base md:text-base lg:text-sm font-normal text-lime-500 text-center mt-2">
+                                        Tersisa {{ $product->stock }}
+                                        stock
+                                        lagi!</p>
                                 @endif
                             </div>
-                            @if ($product->stock == 0)
-                                <p
-                                    class="text-sm sm:text-base md:text-base lg:text-sm font-normal text-red-600 text-center mt-2">
-                                    Stock Habis!</p>
-                            @else
-                                <p
-                                    class="text-sm sm:text-base md:text-base lg:text-sm font-normal text-lime-500 text-center mt-2">
-                                    Tersisa {{ $product->stock }}
-                                    stock
-                                    lagi!</p>
-                            @endif
-                        </div>
-                        </a>
+                            </a>
 
-                        <!--SVG icon di kanan bawah dari gambar -->
-                        <form action="{{ route('member.wishlist.store', $product->id) }}" method="POST">
-                            @csrf
-                            @auth
-                                @if (
-                                    $product->wishlist->where('user_id', Auth::user()->id)->first() &&
-                                        $product->wishlist->where('user_id', Auth::user()->id)->first()->favorite_status == '1')
-                                    <button type="submit">
-                                        <svg class="cursor-pointer absolute w-6 h-6 text-red-600 bottom-4 right-4 hover:text-white"
-                                            aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
-                                            viewBox="0 0 20 18">
-                                            <path
-                                                d="M17.947 2.053a5.209 5.209 0 0 0-3.793-1.53A6.414 6.414 0 0 0 10 2.311 6.482 6.482 0 0 0 5.824.5a5.2 5.2 0 0 0-3.8 1.521c-1.915 1.916-2.315 5.392.625 8.333l7 7a.5.5 0 0 0 .708 0l7-7a6.6 6.6 0 0 0 2.123-4.508 5.179 5.179 0 0 0-1.533-3.793Z" />
-                                        </svg>
-                                    </button>
-                                @else
+                            <!--SVG icon di kanan bawah dari gambar -->
+                            <form action="{{ route('member.wishlist.store', $product->id) }}" method="POST">
+                                @csrf
+                                @auth
+                                    @if (
+                                        $product->wishlist->where('user_id', Auth::user()->id)->first() &&
+                                            $product->wishlist->where('user_id', Auth::user()->id)->first()->favorite_status == '1')
+                                        <button type="submit">
+                                            <svg class="cursor-pointer absolute w-6 h-6 text-red-600 bottom-4 right-4 hover:text-white"
+                                                aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
+                                                viewBox="0 0 20 18">
+                                                <path
+                                                    d="M17.947 2.053a5.209 5.209 0 0 0-3.793-1.53A6.414 6.414 0 0 0 10 2.311 6.482 6.482 0 0 0 5.824.5a5.2 5.2 0 0 0-3.8 1.521c-1.915 1.916-2.315 5.392.625 8.333l7 7a.5.5 0 0 0 .708 0l7-7a6.6 6.6 0 0 0 2.123-4.508 5.179 5.179 0 0 0-1.533-3.793Z" />
+                                            </svg>
+                                        </button>
+                                    @else
+                                        <button type="submit">
+                                            <svg class="cursor-pointer absolute w-6 h-6 text-white bottom-4 right-4 hover:text-red-600"
+                                                aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
+                                                viewBox="0 0 20 18">
+                                                <path
+                                                    d="M17.947 2.053a5.209 5.209 0 0 0-3.793-1.53A6.414 6.414 0 0 0 10 2.311 6.482 6.482 0 0 0 5.824.5a5.2 5.2 0 0 0-3.8 1.521c-1.915 1.916-2.315 5.392.625 8.333l7 7a.5.5 0 0 0 .708 0l7-7a6.6 6.6 0 0 0 2.123-4.508 5.179 5.179 0 0 0-1.533-3.793Z" />
+                                            </svg>
+                                        </button>
+                                    @endif
+                                @endauth
+                                @guest
                                     <button type="submit">
                                         <svg class="cursor-pointer absolute w-6 h-6 text-white bottom-4 right-4 hover:text-red-600"
                                             aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
@@ -287,30 +312,133 @@
                                                 d="M17.947 2.053a5.209 5.209 0 0 0-3.793-1.53A6.414 6.414 0 0 0 10 2.311 6.482 6.482 0 0 0 5.824.5a5.2 5.2 0 0 0-3.8 1.521c-1.915 1.916-2.315 5.392.625 8.333l7 7a.5.5 0 0 0 .708 0l7-7a6.6 6.6 0 0 0 2.123-4.508 5.179 5.179 0 0 0-1.533-3.793Z" />
                                         </svg>
                                     </button>
-                                @endif
-                            @endauth
-                            @guest
-                                <button type="submit">
-                                    <svg class="cursor-pointer absolute w-6 h-6 text-white bottom-4 right-4 hover:text-red-600"
-                                        aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
-                                        viewBox="0 0 20 18">
-                                        <path
-                                            d="M17.947 2.053a5.209 5.209 0 0 0-3.793-1.53A6.414 6.414 0 0 0 10 2.311 6.482 6.482 0 0 0 5.824.5a5.2 5.2 0 0 0-3.8 1.521c-1.915 1.916-2.315 5.392.625 8.333l7 7a.5.5 0 0 0 .708 0l7-7a6.6 6.6 0 0 0 2.123-4.508 5.179 5.179 0 0 0-1.533-3.793Z" />
-                                    </svg>
-                                </button>
-                            @endguest
-                        </form>
+                                @endguest
+                            </form>
 
-                        <!-- Diskon di pojok kanan atas -->
-                        @if ($product->discount != 0)
-                            <div
-                                class="absolute top-0 right-0 m-4 text-lg text-red-600 rounded-lg font-bold bg-gray-900 p-2">
-                                {{ $product->discount }}%</div>
-                        @endif
+                            <!-- Diskon di pojok kanan atas -->
+                            @if ($product->discount != 0)
+                                <div
+                                    class="absolute top-0 right-0 m-4 text-lg text-red-600 rounded-lg font-bold bg-gray-900 p-2">
+                                    {{ $product->discount }}%</div>
+                            @endif
+                            <span
+                                class="m-4 absolute top-0 left-0 inline-flex items-center bg-gray-900 text-yellow-500 text-sm font-semibold px-3 py-2 rounded-full">
+                                <svg class="me-1 w-5 h-5 text-yellow-500" aria-hidden="true"
+                                    xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
+                                    <path
+                                        d="m12.75 20.66 6.184-7.098c2.677-2.884 2.559-6.506.754-8.705-.898-1.095-2.206-1.816-3.72-1.855-1.293-.034-2.652.43-3.963 1.442-1.315-1.012-2.678-1.476-3.973-1.442-1.515.04-2.825.76-3.724 1.855-1.806 2.201-1.915 5.823.772 8.706l6.183 7.097c.19.216.46.34.743.34a.985.985 0 0 0 .743-.34Z" />
+                                </svg>
+                                Produk Spesial
+                            </span>
+                        </div>
                     </div>
-                </div>
+                @else
+                    <div
+                        class="relative hover:shadow-xl transform transition duration-500 hover:-translate-y-4 hover:z-40">
+                        @if (Auth::check() && (Auth::user()->isAdmin() || Auth::user()->isOwner()))
+                            <a href="{{ route('products') }}">
+                            @else
+                                <a href="{{ route('member.products.show', $product->id) }}">
+                        @endif
+                        <div data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="800"
+                            class="relative w-full h-full rounded-lg bg-gray-900 border-gray-800 mx-auto shadow">
+                            @if (strlen($product->image) > 30)
+                                <img class="h-3/4 rounded-t-lg w-full object-cover"
+                                    src="{{ asset('storage/' . $product->image) }}" alt="{{ $product->image }}" />
+                            @else
+                                <img class="h-3/4 rounded-t-lg w-full object-cover"
+                                    src="/images/fotoproduk/{{ $product->image }}" alt="{{ $product->image }}" />
+                            @endif
+                            <div class="h-1/4 px-8 pb-2 flex flex-col justify-center items-center">
+                                <h5
+                                    class="sm:leading-6 md:leading-normal lg:leading-normal text-xl sm:text-2xl md:text-2xl lg:text-xl font-bold tracking-tight text-yellow-500 text-center">
+                                    {{ $product->name }}
+                                </h5>
+                                <div class="flex flex-row w-full justify-center items-center">
+                                    @if ($product->discount != 0)
+                                        <p
+                                            class="text-base sm:text-sm md:text-lg lg:text-sm text-red-500 text-center font-bold line-through	">
+                                            Rp.
+                                            {{ number_format($product->price, 0, ',', '.') }}</p>
+                                        <p
+                                            class="ml-2 flex items-center text-base sm:text-sm md:text-lg lg:text-sm font-bold text-green-500 text-center">
+                                            <svg class="w-4 h-4 mr-2 text-green-500" aria-hidden="true"
+                                                xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
+                                                <path stroke="currentColor" stroke-linecap="round"
+                                                    stroke-linejoin="round" stroke-width="2"
+                                                    d="M1 5h12m0 0L9 1m4 4L9 9" />
+                                            </svg>
+                                            Rp. {{ number_format($product->countDiscount(), 0, ',', '.') }}
+                                        </p>
+                                    @else
+                                        <p
+                                            class="text-base sm:text-sm md:text-lg lg:text-base font-normal text-white text-center">
+                                            Rp.
+                                            {{ number_format($product->price, 0, ',', '.') }}</p>
+                                    @endif
+                                </div>
+                                @if ($product->stock == 0)
+                                    <p
+                                        class="text-sm sm:text-base md:text-base lg:text-sm font-normal text-red-600 text-center mt-2">
+                                        Stock Habis!</p>
+                                @else
+                                    <p
+                                        class="text-sm sm:text-base md:text-base lg:text-sm font-normal text-lime-500 text-center mt-2">
+                                        Tersisa {{ $product->stock }}
+                                        stock
+                                        lagi!</p>
+                                @endif
+                            </div>
+                            </a>
+
+                            <!--SVG icon di kanan bawah dari gambar -->
+                            <form action="{{ route('member.wishlist.store', $product->id) }}" method="POST">
+                                @csrf
+                                @auth
+                                    @if (
+                                        $product->wishlist->where('user_id', Auth::user()->id)->first() &&
+                                            $product->wishlist->where('user_id', Auth::user()->id)->first()->favorite_status == '1')
+                                        <button type="submit">
+                                            <svg class="cursor-pointer absolute w-6 h-6 text-red-600 bottom-4 right-4 hover:text-white"
+                                                aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
+                                                viewBox="0 0 20 18">
+                                                <path
+                                                    d="M17.947 2.053a5.209 5.209 0 0 0-3.793-1.53A6.414 6.414 0 0 0 10 2.311 6.482 6.482 0 0 0 5.824.5a5.2 5.2 0 0 0-3.8 1.521c-1.915 1.916-2.315 5.392.625 8.333l7 7a.5.5 0 0 0 .708 0l7-7a6.6 6.6 0 0 0 2.123-4.508 5.179 5.179 0 0 0-1.533-3.793Z" />
+                                            </svg>
+                                        </button>
+                                    @else
+                                        <button type="submit">
+                                            <svg class="cursor-pointer absolute w-6 h-6 text-white bottom-4 right-4 hover:text-red-600"
+                                                aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
+                                                viewBox="0 0 20 18">
+                                                <path
+                                                    d="M17.947 2.053a5.209 5.209 0 0 0-3.793-1.53A6.414 6.414 0 0 0 10 2.311 6.482 6.482 0 0 0 5.824.5a5.2 5.2 0 0 0-3.8 1.521c-1.915 1.916-2.315 5.392.625 8.333l7 7a.5.5 0 0 0 .708 0l7-7a6.6 6.6 0 0 0 2.123-4.508 5.179 5.179 0 0 0-1.533-3.793Z" />
+                                            </svg>
+                                        </button>
+                                    @endif
+                                @endauth
+                                @guest
+                                    <button type="submit">
+                                        <svg class="cursor-pointer absolute w-6 h-6 text-white bottom-4 right-4 hover:text-red-600"
+                                            aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
+                                            viewBox="0 0 20 18">
+                                            <path
+                                                d="M17.947 2.053a5.209 5.209 0 0 0-3.793-1.53A6.414 6.414 0 0 0 10 2.311 6.482 6.482 0 0 0 5.824.5a5.2 5.2 0 0 0-3.8 1.521c-1.915 1.916-2.315 5.392.625 8.333l7 7a.5.5 0 0 0 .708 0l7-7a6.6 6.6 0 0 0 2.123-4.508 5.179 5.179 0 0 0-1.533-3.793Z" />
+                                        </svg>
+                                    </button>
+                                @endguest
+                            </form>
+
+                            <!-- Diskon di pojok kanan atas -->
+                            @if ($product->discount != 0)
+                                <div
+                                    class="absolute top-0 right-0 m-4 text-lg text-red-600 rounded-lg font-bold bg-gray-900 p-2">
+                                    {{ $product->discount }}%</div>
+                            @endif
+                        </div>
+                    </div>
+                @endif
             @endforeach
         </div>
-
     </div>
 @endsection

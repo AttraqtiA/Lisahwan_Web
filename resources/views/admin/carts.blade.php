@@ -280,9 +280,9 @@
                         <form data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="800"
                             action="{{ route('admin.checkout') }}" method="POST" class="w-full">
                             @csrf
-                            <input type="hidden" value="paidcash" name="cash_payment">
+                            <input type="hidden" value="cash" name="cash_payment">
                             <button type="submit"
-                                onclick="return confirm('Apakah anda sudah yakin dengan detail pemesanan anda?')"
+                                onclick="return confirm('Apakah anda sudah yakin dengan detail pesanan anda?')"
                                 class="cursor-pointer mt-2 w-full text-yellow-500 bg-gray-900 hover:bg-gray-950 font-medium rounded-lg text-sm md:text-base px-5 py-2.5 text-center items-center">
                                 Pembayaran Tunai
                             </button>
@@ -292,9 +292,9 @@
                         <form data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="800"
                             action="{{ route('owner.checkout') }}" method="POST" class="w-full">
                             @csrf
-                            <input type="hidden" value="paidcash" name="cash_payment">
+                            <input type="hidden" value="cash" name="cash_payment">
                             <button type="submit"
-                                onclick="return confirm('Apakah anda sudah yakin dengan detail pemesanan anda?')"
+                                onclick="return confirm('Apakah anda sudah yakin dengan detail pesanan anda?')"
                                 class="cursor-pointer mt-2 w-full text-yellow-500 bg-gray-900 hover:bg-gray-950 font-medium rounded-lg text-sm md:text-base px-5 py-2.5 text-center items-center">
                                 Pembayaran Tunai
                             </button>
@@ -323,7 +323,7 @@
                                     <span class="block text-base font-semibold text-gray-900">Upload Bukti
                                         Pembayaran</span>
                                     <img src="/images/qrisbca_lisahwan.jpeg" alt="QRIS BCA" class="w-3/4 h-3/4">
-                                    <span class="block mb-3 text-xl font-bold text-yellow-500">No Rek BCA 5120164866
+                                    <span class="block mb-3 mt-2 text-xl font-bold text-yellow-500">No Rek BCA 5120164866
                                         (a.n.
                                         Hendra)</span>
                                     <div id="imagePreview" class="mb-3"></div>
@@ -356,7 +356,7 @@
                                                 </label>
                                             </div>
                                             <button type="submit"
-                                                onclick="return confirm('Apakah anda sudah yakin dengan detail pemesanan anda?')"
+                                                onclick="return confirm('Apakah anda sudah yakin dengan detail pesanan anda?')"
                                                 class="cursor-pointer mt-3 w-full text-white bg-yellow-500 hover:bg-yellow-600 font-medium rounded-lg text-base px-5 py-2.5 text-center items-center">
                                                 Selesaikan Pembayaran
                                             </button>
@@ -391,7 +391,7 @@
                                                 </label>
                                             </div>
                                             <button type="submit"
-                                                onclick="return confirm('Apakah anda sudah yakin dengan detail pemesanan anda?')"
+                                                onclick="return confirm('Apakah anda sudah yakin dengan detail pesanan anda?')"
                                                 class="cursor-pointer mt-3 w-full text-white bg-yellow-500 hover:bg-yellow-600 font-medium rounded-lg text-base px-5 py-2.5 text-center items-center">
                                                 Selesaikan Pembayaran
                                             </button>

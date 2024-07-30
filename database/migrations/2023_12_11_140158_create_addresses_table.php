@@ -17,7 +17,7 @@ return new class extends Migration
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
             $table->string('address')->nullable(false);
             $table->string('city')->nullable(false);
-            $table->integer('city_id')->nullable(false);
+            $table->integer('city_id')->nullable(true);
             $table->string('province')->nullable(false);
             $table->bigInteger('postal_code')->nullable(false);
             $table->timestamps();

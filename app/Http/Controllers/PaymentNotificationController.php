@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Cart;
 use App\Models\Order;
+use App\Models\Product;
+use App\Models\Production;
 use Midtrans\Notification;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -59,27 +61,82 @@ class PaymentNotificationController extends Controller
                 return response()->json(['message' => 'Payment expired.']);
             } elseif ($transactionStatus == 'cancel') {
                 if ($order) {
-                    $order->delete();
+                    foreach ($order->order_detail as $order_detail) {
+                        $product = Product::where('id', $order_detail->product_id)->first();
+                        $product->update([
+                            'stock' => $product->stock + $order_detail->quantity
+                        ]);
+                        Production::create([
+                            'date' => now(),
+                            'product_id' => $order_detail->product_id,
+                            'quantity' => $order_detail->quantity,
+                            'type' => 'tambah'
+                        ]);
+                    }
                 }
                 return response()->json(['message' => 'Payment canceled.']);
             } elseif ($transactionStatus == 'failure') {
                 if ($order) {
-                    $order->delete();
+                    foreach ($order->order_detail as $order_detail) {
+                        $product = Product::where('id', $order_detail->product_id)->first();
+                        $product->update([
+                            'stock' => $product->stock + $order_detail->quantity
+                        ]);
+                        Production::create([
+                            'date' => now(),
+                            'product_id' => $order_detail->product_id,
+                            'quantity' => $order_detail->quantity,
+                            'type' => 'tambah'
+                        ]);
+                    }
                 }
                 return response()->json(['message' => 'Payment failed.']);
             } elseif ($transactionStatus == 'refund') {
                 if ($order) {
-                    $order->delete();
+                    foreach ($order->order_detail as $order_detail) {
+                        $product = Product::where('id', $order_detail->product_id)->first();
+                        $product->update([
+                            'stock' => $product->stock + $order_detail->quantity
+                        ]);
+                        Production::create([
+                            'date' => now(),
+                            'product_id' => $order_detail->product_id,
+                            'quantity' => $order_detail->quantity,
+                            'type' => 'tambah'
+                        ]);
+                    }
                 }
                 return response()->json(['message' => 'Payment refunded.']);
             } elseif ($transactionStatus == 'partial_refund') {
                 if ($order) {
-                    $order->delete();
+                    foreach ($order->order_detail as $order_detail) {
+                        $product = Product::where('id', $order_detail->product_id)->first();
+                        $product->update([
+                            'stock' => $product->stock + $order_detail->quantity
+                        ]);
+                        Production::create([
+                            'date' => now(),
+                            'product_id' => $order_detail->product_id,
+                            'quantity' => $order_detail->quantity,
+                            'type' => 'tambah'
+                        ]);
+                    }
                 }
                 return response()->json(['message' => 'Payment partial refunded.']);
             } elseif ($transactionStatus == 'authorize') {
                 if ($order) {
-                    $order->delete();
+                    foreach ($order->order_detail as $order_detail) {
+                        $product = Product::where('id', $order_detail->product_id)->first();
+                        $product->update([
+                            'stock' => $product->stock + $order_detail->quantity
+                        ]);
+                        Production::create([
+                            'date' => now(),
+                            'product_id' => $order_detail->product_id,
+                            'quantity' => $order_detail->quantity,
+                            'type' => 'tambah'
+                        ]);
+                    }
                 }
                 return response()->json(['message' => 'Payment authorized.']);
             }

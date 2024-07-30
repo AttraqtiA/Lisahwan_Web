@@ -4,11 +4,13 @@ namespace App\Http\Controllers\Owner;
 
 use Carbon\Carbon;
 
+use App\Models\Cart;
 use App\Models\User;
 use App\Models\Point;
 use App\Models\Coupon;
 use App\Models\Address;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller; // tambah ini buat yg folder per role
 
 class UserController extends Controller
@@ -37,12 +39,17 @@ class UserController extends Controller
         // Ambil kupon yang masih valid
         $coupons = Coupon::where('ending_time', '>=', $now)->get();
 
+        // Fetch user cart details
+        $cart_user = Cart::where('user_id', Auth::user()->id)->first();
+        $carts = $cart_user ? $cart_user->cart_detail : null;
+
         return view('admin.user_list', [
             "TabTitle" => "Daftar Seluruh Pengguna",
             "active_4" => "text-yellow-500",
             "users" => $users,
             "point" => $point,
-            "coupons" => $coupons
+            "coupons" => $coupons,
+            "carts" => $carts
         ]);
     }
 }

@@ -387,7 +387,7 @@
                                                 d="M9 10V6a3 3 0 0 1 3-3v0a3 3 0 0 1 3 3v4m3-2 .917 11.923A1 1 0 0 1 17.92 21H6.08a1 1 0 0 1-.997-1.077L6 8h12Z" />
                                         </svg>
                                         <h3 class="mb-5 text-lg font-normal text-gray-500">Apakah anda sudah yakin dengan
-                                            detail pemesanan anda?
+                                            detail pesanan anda?
                                         </h3>
                                         <div
                                             class="w-full justify-center items-center flex flex-col sm:flex-row space-y-2 sm:space-x-2 sm:space-y-0">
@@ -403,6 +403,45 @@
                                             class="cursor-pointer mt-3 w-full text-white bg-yellow-500 hover:bg-yellow-600 font-medium rounded-lg text-base px-5 py-2.5 text-center items-center">
                                             Selesaikan Pembayaran
                                         </button> --}}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="free-payment-modal" tabindex="-1"
+                            class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
+                            <div class="relative p-4 w-full max-w-lg max-h-full">
+                                <div class="relative rounded-lg shadow bg-gray-900">
+                                    <button type="button"
+                                        class="cursor-pointer absolute top-3 end-2.5 text-green-400 bg-transparent rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center hover:bg-green-600 hover:text-white"
+                                        data-modal-hide="free-payment-modal">
+                                        <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                                            fill="none" viewBox="0 0 14 14">
+                                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                                stroke-width="1" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
+                                        </svg>
+                                        <span class="sr-only">Close modal</span>
+                                    </button>
+                                    <div class="p-4 md:p-5 text-center">
+                                        <svg class="mx-auto mb-4 text-green-400 w-14 h-14" aria-hidden="true"
+                                            xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                                stroke-width="2"
+                                                d="M9 10V6a3 3 0 0 1 3-3v0a3 3 0 0 1 3 3v4m3-2 .917 11.923A1 1 0 0 1 17.92 21H6.08a1 1 0 0 1-.997-1.077L6 8h12Z" />
+                                        </svg>
+                                        <h3 class="mb-5 text-lg font-normal text-green-400">Selamat!!! <br>
+                                            Anda tidak perlu membayar sepeser pun.</h3>
+                                        <div
+                                            class="w-full justify-center items-center flex flex-col sm:flex-row space-y-2 sm:space-x-2 sm:space-y-0">
+                                            <button type="submit"
+                                                class="w-full justify-center text-white inline-flex bg-yellow-500 hover:bg-yellow-600 focus:ring-2 focus:outline-none focus:ring-yellow-500 font-medium rounded-lg text-sm px-5 py-2.5 text-center">Selesai</button>
+                                            <button data-modal-toggle="free-payment-modal" type="button"
+                                                class="w-full text-gray-500 bg-white hover:bg-gray-100 focus:ring-2 focus:outline-none focus:ring-gray-200 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10">Batal</button>
+                                        </div>
+                                        {{-- <button type="submit"
+                                        onclick="return confirm('Apakah anda sudah yakin dengan detail pemesanan anda?')"
+                                        class="cursor-pointer mt-3 w-full text-white bg-yellow-500 hover:bg-yellow-600 font-medium rounded-lg text-base px-5 py-2.5 text-center items-center">
+                                        Selesaikan Pembayaran
+                                    </button> --}}
                                     </div>
                                 </div>
                             </div>
@@ -526,7 +565,7 @@
                                                                 {{ number_format($cost_detail['value'], 0, ',', '.') }}</span>
                                                             <span class="w-2 h-2 bg-gray-700 rounded-full"></span>
                                                             <span class="text-yellow-500 text-sm font-semibold">(Estimasi
-                                                                {{ $cost_detail['etd'] }} hari)</span>
+                                                                {{ $cost_detail['etd'] }}{{ stripos($cost_detail['etd'], 'hari') === false ? ' hari' : '' }})</span>
                                                         @endforeach
                                                     </div>
                                                 </div>
@@ -683,7 +722,7 @@
 
                 <div class="flex flex-col mx-auto w-full">
                     <h1 data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="800"
-                        class="mb-5 text-xl sm:text-2xl lg:text-3xl font-bold text-gray-900">Detail Pemesanan</h1>
+                        class="mb-5 text-xl sm:text-2xl lg:text-3xl font-bold text-gray-900">Detail Pesanan</h1>
                     <div data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="800"
                         class="bg-white border border-gray-300 rounded-lg p-5 drop-shadow-md">
                         @php
@@ -752,7 +791,8 @@
                                                         method="POST">
                                                         @method('delete')
                                                         @csrf
-                                                        <input type="hidden" id="destination_city_2" value="" name="city">
+                                                        <input type="hidden" id="destination_city_2" value=""
+                                                            name="city">
                                                         <button type="submit"
                                                             class="cursor-pointer text-xs sm:text-sm font-medium text-yellow-500 hover:text-yellow-600"
                                                             onclick="return confirm('Apakah anda ingin menghapus pesanan ini?')">
@@ -810,10 +850,15 @@
                                 </p>
                             @endif
                         </div>
-                        <p data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="800"
-                            class="mt-1 text-sm font-normal text-gray-900">
-                            (Estimasi pengiriman 1-3 hari)
-                        </p>
+                        <div data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="800"
+                            class="mt-1 flex flex-row justify-between items-center">
+                            <p class="text-base font-medium text-gray-900">
+                                Biaya Admin:
+                            </p>
+                            <p class="text-base font-medium text-gray-900">
+                                Rp. {{ number_format($admin_fee, 0, ',', '.') }}
+                            </p>
+                        </div>
                         <p data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="800"
                             class="mt-1 text-sm font-medium text-green-500">
                             *Dapatkan <span class="font-bold">{{ number_format($total_poin, 0, ',', '.') }}
@@ -833,10 +878,10 @@
                             <div class="flex flex-col space-y-0 justify-center items-end">
                                 <span
                                     class="font-bold {{ isset($pointStatus) ? 'text-red-600 line-through text-lg' : ' text-xl text-gray-900 ' }}">
-                                    Rp. {{ number_format($countSubtotal + $shipment_price, 0, ',', '.') }}
+                                    Rp. {{ number_format($countSubtotal + $shipment_price + $admin_fee, 0, ',', '.') }}
                                 </span>
                                 @if (isset($pointStatus))
-                                    @if ($reward_now >= $countSubtotal + $shipment_price)
+                                    @if ($reward_now >= $countSubtotal + $shipment_price + $admin_fee)
                                         <span class="text-xl font-bold text-gray-900">
                                             Rp.
                                             {{ number_format(0, 0, ',', '.') }}
@@ -844,7 +889,7 @@
                                     @else
                                         <span class="text-xl font-bold text-gray-900">
                                             Rp.
-                                            {{ number_format($countSubtotal + $shipment_price - $reward_now, 0, ',', '.') }}
+                                            {{ number_format($countSubtotal + $shipment_price + $admin_fee - $reward_now, 0, ',', '.') }}
                                         </span>
                                     @endif
                                 @endif
@@ -880,7 +925,7 @@
                                     </label>
                                 </form>
                                 @if (Session::has('pointStatus'))
-                                    @if ($reward_now < $countSubtotal + $shipment_price)
+                                    @if ($reward_now < $countSubtotal + $shipment_price + $admin_fee)
                                         <span class="flex flex-row  items-center text-gray-900 text-sm">*Poin anda
                                             sekarang:
                                             {{ abs(number_format(0, 0, ',', '.')) }}<img src="/images/coin_icon.png"
@@ -888,7 +933,7 @@
                                     @else
                                         <span class="flex flex-row  items-center text-gray-900 text-sm">*Poin anda
                                             sekarang:
-                                            {{ abs(number_format(($countSubtotal + $shipment_price - $reward_now) / $point->money_per_poin, 0, ',', '')) }}<img
+                                            {{ abs(number_format(($countSubtotal + $shipment_price + $admin_fee - $reward_now) / $point->money_per_poin, 0, ',', '')) }}<img
                                                 src="/images/coin_icon.png" alt="Poin" class="w-4 h-4 ms-1"></span>
                                     @endif
                                 @else
@@ -901,11 +946,20 @@
                         @endif
                         <hr data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="800"
                             class="h-px my-7 border-2 border-yellow-500">
-                        <button data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="800"
-                            type="button" data-modal-target="payment-modal" data-modal-toggle="payment-modal"
-                            class="cursor-pointer w-full text-yellow-500 bg-gray-900 hover:bg-gray-800 font-medium rounded-lg text-base px-5 py-2.5 text-center items-center">
-                            Bayar Sekarang
-                        </button>
+                        @if ($reward_now > $countSubtotal + $shipment_price + $admin_fee && Session::has('pointStatus'))
+                            <button data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="800"
+                                type="button" data-modal-target="free-payment-modal"
+                                data-modal-toggle="free-payment-modal"
+                                class="cursor-pointer w-full text-yellow-500 bg-gray-900 hover:bg-gray-800 font-medium rounded-lg text-base px-5 py-2.5 text-center items-center">
+                                Bayar Sekarang
+                            </button>
+                        @else
+                            <button data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="800"
+                                type="button" data-modal-target="payment-modal" data-modal-toggle="payment-modal"
+                                class="cursor-pointer w-full text-yellow-500 bg-gray-900 hover:bg-gray-800 font-medium rounded-lg text-base px-5 py-2.5 text-center items-center">
+                                Bayar Sekarang
+                            </button>
+                        @endif
                         {{-- @endif --}}
                     </div>
                 </div>

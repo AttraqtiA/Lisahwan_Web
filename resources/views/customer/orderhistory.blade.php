@@ -99,7 +99,7 @@
                                     </p>
                                 @else
                                     <p class="text-xs font-medium text-gray-400 text-center">
-                                        {{ $order->shipment_estimation }} hari
+                                        {{ $order->shipment_estimation }}{{ stripos($order->shipment_estimation, 'hari') === false ? ' hari' : '' }}
                                     </p>
                                 @endif
                             </div>

@@ -48,47 +48,61 @@ class LoginController extends Controller
 
     public function clearSession(Request $request)
     {
-        // Hapus semua sesi yang terkait dengan couponStatus
-        $activeCoupons = Session::get('activeCoupons', []);
-        foreach ($activeCoupons as $couponId) {
-            Session::forget('couponStatus_' . $couponId);
-        }
-        // Hapus sesi activeCoupons
-        Session::forget('activeCoupons');
-
-        // Hapus semua sesi yang terkait dengan arraycourierStatus
-        $activeCouriersStatus = Session::get('arraycourierStatus', []);
-        foreach ($activeCouriersStatus as $courierStatus) {
-            Session::forget('courierStatus_' . $courierStatus);
-        }
-        // Hapus sesi arraycourierStatus
-        Session::forget('arraycourierStatus');
-
-        // Mendapatkan semua sesi yang terkait dengan arraycostStatus
-        $activeCostStatus = Session::get('arraycostStatus', []);
-        // Menghapus semua sesi yang terkait dengan arraycostStatus
-        foreach ($activeCostStatus as $costStatus) {
-            Session::forget($costStatus); // Hapus sesi berdasarkan kunci yang disimpan
-        }
-        // Hapus sesi arraycostStatus
-        Session::forget('arraycostStatus');
-
-        // Hapus sesi originalPrice yang mungkin ada
-        $cart = Cart::where('user_id', Auth::user()->id)->first();
+        $cart = Cart::where('user_id', Auth::id())->first();
         if ($cart) {
+            // Hapus semua sesi yang terkait dengan couponStatus
+            $activeCoupons = Session::get('activeCoupons', []);
+            foreach ($activeCoupons as $couponId) {
+                if (Session::has('couponStatus_' . $couponId)) {
+                    Session::forget('couponStatus_' . $couponId);
+                }
+            }
+            // Hapus sesi activeCoupons
+            if (Session::has('activeCoupons')) {
+                Session::forget('activeCoupons');
+            }
+            // Hapus semua sesi yang terkait dengan arraycourierStatus
+            $activeCouriersStatus = Session::get('arraycourierStatus', []);
+            foreach ($activeCouriersStatus as $courierStatus) {
+                if (Session::has('courierStatus_' . $courierStatus)) {
+                    Session::forget('courierStatus_' . $courierStatus);
+                }
+            }
+            // Hapus sesi arraycourierStatus
+            if (Session::has('arraycourierStatus')) {
+                Session::forget('arraycourierStatus');
+            }
+            // Mendapatkan semua sesi yang terkait dengan arraycostStatus
+            $activeCostStatus = Session::get('arraycostStatus', []);
+            // Menghapus semua sesi yang terkait dengan arraycostStatus
+            foreach ($activeCostStatus as $costStatus) {
+                if (Session::has($costStatus)) {
+                    Session::forget($costStatus); // Hapus sesi berdasarkan kunci yang disimpan
+                }
+            }
+            // Hapus sesi arraycostStatus
+            if (Session::has('arraycostStatus')) {
+                Session::forget('arraycostStatus');
+            }
+            // Hapus sesi originalPrice yang mungkin ada
             foreach ($cart->cart_detail as $cart_detail) {
-                Session::forget('originalPrice_' . $cart_detail->id);
+                if (Session::has('originalPrice_' . $cart_detail->id)) {
+                    Session::forget('originalPrice_' . $cart_detail->id);
+                }
             }
         }
-
-        Session::forget([
-            'checkout.address_id',
-            'checkout.address',
-            'checkout.city',
-            // 'checkout.province',
-            // 'checkout.postal_code',
-            'checkout.note',
-        ]);
+        if (Session::has('checkout.address_id')) {
+            Session::forget('checkout.address_id');
+        }
+        if (Session::has('checkout.address')) {
+            Session::forget('checkout.address');
+        }
+        if (Session::has('checkout.city')) {
+            Session::forget('checkout.city');
+        }
+        if (Session::has('checkout.note')) {
+            Session::forget('checkout.note');
+        }
 
         dd(Session::all());
     }

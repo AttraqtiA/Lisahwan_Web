@@ -48,10 +48,10 @@ class CartController extends Controller
             "quantity" => "required|not_in:0",
             "cost" => "required|not_in:0"
         ], [
-            'quantity.required' => 'Oops! Anda lupa mengisikan jumlah pemesanan!',
-            'quantity.not_in' => 'Oops! Anda lupa mengisikan jumlah pemesanan!',
-            'cost.required' => 'Pastikan anda sudah mengisi jumlah pemesanan!',
-            'cost.not_in' => 'Pastikan anda sudah mengisi jumlah pemesanan!',
+            'quantity.required' => 'Oops! Anda lupa mengisikan jumlah pesanan!',
+            'quantity.not_in' => 'Oops! Anda lupa mengisikan jumlah pesanan!',
+            'cost.required' => 'Pastikan anda sudah mengisi jumlah pesanan!',
+            'cost.not_in' => 'Pastikan anda sudah mengisi jumlah pesanan!',
         ]);
 
         // Membersihkan dari karakter non-numeric, termasuk pemisah ribuan
@@ -183,10 +183,10 @@ class CartController extends Controller
             "quantity" => "required|not_in:0",
             "cost" => "required|not_in:0"
         ], [
-            'quantity.required' => 'Oops! Anda lupa mengisikan jumlah pemesanan!',
-            'quantity.not_in' => 'Oops! Anda lupa mengisikan jumlah pemesanan!',
-            'cost.required' => 'Pastikan anda sudah mengisi jumlah pemesanan!',
-            'cost.not_in' => 'Pastikan anda sudah mengisi jumlah pemesanan!',
+            'quantity.required' => 'Oops! Anda lupa mengisikan jumlah pesanan!',
+            'quantity.not_in' => 'Oops! Anda lupa mengisikan jumlah pesanan!',
+            'cost.required' => 'Pastikan anda sudah mengisi jumlah pesanan!',
+            'cost.not_in' => 'Pastikan anda sudah mengisi jumlah pesanan!',
         ]);
 
         // Membersihkan dari karakter non-numeric, termasuk pemisah ribuan

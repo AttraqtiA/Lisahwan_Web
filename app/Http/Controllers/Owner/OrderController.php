@@ -120,6 +120,31 @@ class OrderController extends Controller
         $cart_user = Cart::where('user_id', Auth::user()->id)->first();
         $carts = $cart_user ? $cart_user->cart_detail : null;
 
+        foreach ($orders as $order) {
+            $courier = '';
+            $waybill =  $order->waybill;
+            if ($waybill != '') {
+                if (stripos($order->shipment_service, 'JNE') !== false) {
+                    $courier = 'jne';
+                } elseif (stripos($order->shipment_service, 'SiCepat') !== false) {
+                    $courier = 'sicepat';
+                }
+
+                $responseWaybills = Http::withHeaders([
+                    'key' => '1b3d1a91f7ab9a1c6dcc5543cb9192fb',
+                ])->post('https://pro.rajaongkir.com/api/waybill', [
+                    'waybill' => $waybill,
+                    'courier' => $courier
+                ]);
+                // dd($responseWaybills['rajaongkir']);
+                $waybills = $responseWaybills['rajaongkir']['result'];
+
+                $order->update([
+                    'shipment_status' => $waybills['summary']['status']
+                ]);
+            }
+        }
+
         return view('admin.admin_dashboard', [
             "TabTitle" => "Daftar Order Hari ini dan Kemarin",
             "active_1" => "text-yellow-500",
@@ -135,12 +160,9 @@ class OrderController extends Controller
     // ====================================== CASHIER MANAGEMENT SYSTEM ======================================
     public function showAllProducts()
     {
+        // Fetch user cart details
         $cart_user = Cart::where('user_id', Auth::user()->id)->first();
-        if (empty($cart_user)) {
-            $carts = null;
-        } else {
-            $carts = $cart_user->cart_detail;
-        }
+        $carts = $cart_user ? $cart_user->cart_detail : null;
         return view('admin.products_order', [
             "TabTitle" => "Daftar Produk Lisahwan",
             "active_5" => "text-yellow-500",
@@ -165,8 +187,8 @@ class OrderController extends Controller
         $validatedData = $request->validate([
             "quantity" => "required|not_in:0",
         ], [
-            'quantity.required' => 'Oops! Anda lupa mengisikan jumlah pemesanan!',
-            'quantity.not_in' => 'Oops! Anda lupa mengisikan jumlah pemesanan!'
+            'quantity.required' => 'Oops! Anda lupa mengisikan jumlah pesanan!',
+            'quantity.not_in' => 'Oops! Anda lupa mengisikan jumlah pesanan!'
         ]);
 
         $total_price = $validatedData['quantity'] * $product->price;
@@ -285,8 +307,8 @@ class OrderController extends Controller
         $validatedData = $request->validate([
             "quantity" => "required|not_in:0"
         ], [
-            'quantity.required' => 'Oops! Anda lupa mengisikan jumlah pemesanan!',
-            'quantity.not_in' => 'Oops! Anda lupa mengisikan jumlah pemesanan!'
+            'quantity.required' => 'Oops! Anda lupa mengisikan jumlah pesanan!',
+            'quantity.not_in' => 'Oops! Anda lupa mengisikan jumlah pesanan!'
         ]);
 
         $total_price = $validatedData['quantity'] * $cart_detail->product->price;
@@ -409,7 +431,7 @@ class OrderController extends Controller
             'total_weight' => $total_weight,
             'payment' => $validatedData['payment'],
             'note' => "Transaksi dilakukan oleh " . Auth::user()->name,
-            'acceptbyAdmin_status' => "sudah",
+            'acceptbyAdmin_status' => "paid",
             'acceptbyCustomer_status' => "sudah",
             'shipment_status' => "sudah"
         ]);
@@ -428,7 +450,7 @@ class OrderController extends Controller
 
         $cart->delete();
 
-        return redirect()->route('owner.products')->with('order_success', 'Pemesanan anda berhasil! <br><a href="' . route('owner.admin') . '" class="inline-flex items-center font-bold text-yellow-500 hover:underline">Check Detail Pesanan <svg class="ml-1 w-4 h-4 text-yellow-500" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10"> <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M1 5h12m0 0L9 1m4 4L9 9" /> </svg></a>');
+        return redirect()->route('owner.products')->with('order_success', 'Pesanan anda berhasil! <br><a href="' . route('owner.admin') . '" class="inline-flex items-center font-bold text-yellow-500 hover:underline">Check Detail Pesanan <svg class="ml-1 w-4 h-4 text-yellow-500" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10"> <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M1 5h12m0 0L9 1m4 4L9 9" /> </svg></a>');
     }
 
     public function generateReceipt_CART($id)
@@ -442,7 +464,8 @@ class OrderController extends Controller
             'margin_top' => 0,
             'margin_bottom' => 0,
             'margin_header' => 0,
-            'margin_footer' => 0
+            'margin_footer' => 0,
+            'orientation' => 'P'
         ]);
 
         $mpdf->WriteHTML(view("admin.receiptCart", ['cart' => $cart]));
@@ -464,10 +487,31 @@ class OrderController extends Controller
             'margin_top' => 0,
             'margin_bottom' => 0,
             'margin_header' => 0,
-            'margin_footer' => 0
+            'margin_footer' => 0,
+            'orientation' => 'P'
         ]);
 
         $mpdf->WriteHTML(view("admin.receiptOrder", ['order' => $order]));
+
+        $mpdf->Output();
+    }
+
+    public function generateShipmentLabel($id)
+    {
+        $order = Order::where('id', $id)->first();
+
+        $mpdf = new \Mpdf\Mpdf([
+            'mode' => 'utf-8', 'format' => 'A6',
+            'margin_left' => 0,
+            'margin_right' => 0,
+            'margin_top' => 0,
+            'margin_bottom' => 0,
+            'margin_header' => 0,
+            'margin_footer' => 0,
+            'orientation' => 'L'
+        ]);
+
+        $mpdf->WriteHTML(view("admin.shipmentLabel", ['order' => $order]));
 
         $mpdf->Output();
     }
@@ -561,6 +605,31 @@ class OrderController extends Controller
         // Fetch user cart details
         $cart_user = Cart::where('user_id', Auth::user()->id)->first();
         $carts = $cart_user ? $cart_user->cart_detail : null;
+
+        foreach ($orders as $order) {
+            $courier = '';
+            $waybill =  $order->waybill;
+            if ($waybill != '') {
+                if (stripos($order->shipment_service, 'JNE') !== false) {
+                    $courier = 'jne';
+                } elseif (stripos($order->shipment_service, 'SiCepat') !== false) {
+                    $courier = 'sicepat';
+                }
+
+                $responseWaybills = Http::withHeaders([
+                    'key' => '1b3d1a91f7ab9a1c6dcc5543cb9192fb',
+                ])->post('https://pro.rajaongkir.com/api/waybill', [
+                    'waybill' => $waybill,
+                    'courier' => $courier
+                ]);
+                // dd($responseWaybills['rajaongkir']);
+                $waybills = $responseWaybills['rajaongkir']['result'];
+
+                $order->update([
+                    'shipment_status' => $waybills['summary']['status']
+                ]);
+            }
+        }
 
         return view('admin.order_history', [
             "TabTitle" => "Daftar Seluruh Order",

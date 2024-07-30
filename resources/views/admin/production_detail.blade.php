@@ -1,7 +1,6 @@
 @extends('layouts.admin.frame_admin')
 
 @section('content_page')
-
     <section class="bg-neutral-200 p-2 sm:p-4 antialiased">
         <div class="mx-auto max-w-screen-2xl pt-20 sm:pt-24 sm:ml-56">
             <div
@@ -73,10 +72,10 @@
                         class="relative p-4 bg-gray-100 rounded-lg">
                         @if (strlen($productDetail->image) > 25)
                             <img src="{{ asset('storage/' . $productDetail->image) }}"
-                                class="h-full w-full object-contain rounded-lg" alt="product Image">
+                                class="h-full w-96 object-contain rounded-lg" alt={{ $productDetail->name }}>
                         @else
                             <img src="/images/fotoproduk/{{ $productDetail->image }}"
-                                class="h-full w-full object-contain rounded-lg" alt="product Image">
+                                class="h-full w-96 object-contain rounded-lg" alt={{ $productDetail->name }}>
                         @endif
                         <div class="absolute top-0 right-0 m-4 text-base text-red-600 rounded-lg font-bold bg-gray-900 p-4">
                             {{ $productDetail->discount }}%</div>
@@ -162,7 +161,7 @@
                                             required>
                                     </div>
                                     <button type="submit"
-                                        class="h-1/2 sm:w-auto justify-center text-white inline-flex bg-yellow-500 hover:bg-yellow-600 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">
+                                        class="h-1/2 sm:w-auto justify-center text-white inline-flex bg-yellow-500 hover:bg-yellow-600 focus:ring-4 focus:outline-none focus:ring-yellow-500 font-medium rounded-lg text-sm px-5 py-2.5 text-center">
                                         Tambah
                                     </button>
                                 </div>
@@ -312,10 +311,10 @@
                         </div>
                         <div class="items-center space-y-2 sm:flex sm:space-y-0 sm:space-x-2">
                             <button type="submit"
-                                class="w-full sm:w-auto justify-center text-white inline-flex bg-yellow-500 hover:bg-yellow-600 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">Perbarui
+                                class="w-full sm:w-auto justify-center text-white inline-flex bg-yellow-500 hover:bg-yellow-600 focus:ring-4 focus:outline-none focus:ring-yellow-500 font-medium rounded-lg text-sm px-5 py-2.5 text-center">Perbarui
                                 Produk</button>
                             <button data-modal-toggle="update-image-modal" type="button"
-                                class="w-full sm:w-auto justify-center text-white inline-flex bg-red-500 hover:bg-red-600 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">
+                                class="w-full sm:w-auto justify-center text-white inline-flex bg-red-500 hover:bg-red-600 focus:ring-4 focus:outline-none focus:ring-red-500 font-medium rounded-lg text-sm px-5 py-2.5 text-center">
                                 <svg class="mr-1 -ml-1 w-5 h-5" fill="currentColor" viewbox="0 0 20 20"
                                     xmlns="http://www.w3.org/2000/svg">
                                     <path fill-rule="evenodd"

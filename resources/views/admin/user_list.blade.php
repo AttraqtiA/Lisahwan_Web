@@ -233,8 +233,7 @@
                     </div>
                 @endif
             </div>
-            <div
-                class="bg-white relative shadow-md sm:rounded-lg overflow-hidden">
+            <div class="bg-white relative shadow-md sm:rounded-lg overflow-hidden">
                 <div
                     class="flex flex-col md:flex-row md:items-center md:justify-between space-y-3 md:space-y-0 md:space-x-4 p-4">
                     <div class="flex-1 flex items-center space-x-2">
@@ -264,7 +263,7 @@
                                 </div>
                                 <input type="search" name="search" id="simple-search" placeholder="Cari user"
                                     required=""
-                                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full pl-10 p-2">
+                                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-yellow-500 focus:border-yellow-500 block w-full pl-10 p-2">
                             </div>
 
                             <button type="submit" class="bg-yellow-500 ml-2 p-2 rounded-lg text-sm">

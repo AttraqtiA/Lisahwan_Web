@@ -96,6 +96,7 @@ Route::group([
 
     Route::get('/admin/print_struk/order/{order_id}', [AdminOrderController::class, 'generateReceipt_ORDER'])->name('printStrukOrder');
     Route::get('/admin/print_struk/cart/{user_id}', [AdminOrderController::class, 'generateReceipt_CART'])->name('printStrukCart');
+    Route::get('/admin/print_label/{order_id}', [OwnerOrderController::class, 'generateShipmentLabel'])->name('printLabelPengiriman');
 });
 //====================================================================================================
 
@@ -171,6 +172,7 @@ Route::group([
 
     Route::get('/admin/print_struk/order/{order_id}', [OwnerOrderController::class, 'generateReceipt_ORDER'])->name('printStrukOrder');
     Route::get('/admin/print_struk/cart/{user_id}', [OwnerOrderController::class, 'generateReceipt_CART'])->name('printStrukCart');
+    Route::get('/admin/print_label/{order_id}', [OwnerOrderController::class, 'generateShipmentLabel'])->name('printLabelPengiriman');
 
     Route::post('/admin/set_point', [PointController::class, 'setPoint'])->name('aturPoin');
     Route::put('/admin/edit_point', [PointController::class, 'editPoint'])->name('ubahPoin');

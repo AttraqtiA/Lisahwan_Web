@@ -34,11 +34,11 @@ class OrderController extends Controller
 
         $order = Order::where('midtrans_order_id', $orderId)->first();
         $cart = Cart::where('user_id', optional($order)->user_id)->first();
+        $customer = User::where('id', optional($order)->user_id)->first();
 
         // Logika untuk menampilkan pesan berdasarkan status transaksi
         if ($transactionStatus == 'capture') {
             if ($cart) {
-                $cart->delete();
                 // Hapus semua sesi yang terkait dengan couponStatus
                 $activeCoupons = Session::get('activeCoupons', []);
                 foreach ($activeCoupons as $couponId) {
@@ -92,10 +92,13 @@ class OrderController extends Controller
             if (Session::has('checkout.note')) {
                 Session::forget('checkout.note');
             }
+            $customer->update([
+                'reward' => $customer->reward + $cart->total_poin
+            ]);
+            $cart->delete();
             return redirect()->route('member.orderhistory')->with('capturePayment_SUCCESSFULL', "Pesanan anda berhasil! Tinjau status pesanan anda disini!");
         } elseif ($transactionStatus == 'settlement') {
             if ($cart) {
-                $cart->delete();
                 // Hapus semua sesi yang terkait dengan couponStatus
                 $activeCoupons = Session::get('activeCoupons', []);
                 foreach ($activeCoupons as $couponId) {
@@ -149,6 +152,10 @@ class OrderController extends Controller
             if (Session::has('checkout.note')) {
                 Session::forget('checkout.note');
             }
+            $customer->update([
+                'reward' => $customer->reward + $cart->total_poin
+            ]);
+            $cart->delete();
             return redirect()->route('member.orderhistory')->with('settlementPayment_SUCCESSFULL', "Pesanan anda berhasil! Tinjau status pesanan anda disini!");
         } elseif ($transactionStatus == 'pending') {
             return redirect()->route('member.checkout')->withErrors(['pendingPayment_ERROR' => "Proses pembayaran anda belum selesai!"]);
@@ -158,7 +165,6 @@ class OrderController extends Controller
             return redirect()->route('member.checkout')->withErrors(['expirePayment_ERROR'  => "Proses pembayaran anda sudah kedaluwarsa, mohon melakukan pembayaran ulang!"]);
         } elseif ($transactionStatus == 'cancel') {
             if ($cart) {
-                $cart->delete();
                 // Hapus semua sesi yang terkait dengan couponStatus
                 $activeCoupons = Session::get('activeCoupons', []);
                 foreach ($activeCoupons as $couponId) {
@@ -212,10 +218,11 @@ class OrderController extends Controller
             if (Session::has('checkout.note')) {
                 Session::forget('checkout.note');
             }
-            return redirect()->route('member.products')->withErrors(['cancelPayment_ERROR' => "Pesanan anda dibatalkan! Silahkan menghubungi Lisahwan™ (082230308030)!"]);
+            $cart->delete();
+            $order->delete();
+            return redirect()->route('products')->withErrors(['cancelPayment_ERROR' => "Pesanan anda dibatalkan! Silahkan menghubungi Lisahwan™ (082230308030)!"]);
         } elseif ($transactionStatus == 'failure') {
             if ($cart) {
-                $cart->delete();
                 // Hapus semua sesi yang terkait dengan couponStatus
                 $activeCoupons = Session::get('activeCoupons', []);
                 foreach ($activeCoupons as $couponId) {
@@ -269,10 +276,11 @@ class OrderController extends Controller
             if (Session::has('checkout.note')) {
                 Session::forget('checkout.note');
             }
-            return redirect()->route('member.products')->withErrors(['failurePayment_ERROR' => "Terjadi kesalahan! Silahkan menghubungi Lisahwan™ (082230308030)!"]);
+            $cart->delete();
+            $order->delete();
+            return redirect()->route('products')->withErrors(['failurePayment_ERROR' => "Terjadi kesalahan! Silahkan menghubungi Lisahwan™ (082230308030)!"]);
         } elseif ($transactionStatus == 'refund') {
             if ($cart) {
-                $cart->delete();
                 // Hapus semua sesi yang terkait dengan couponStatus
                 $activeCoupons = Session::get('activeCoupons', []);
                 foreach ($activeCoupons as $couponId) {
@@ -326,10 +334,11 @@ class OrderController extends Controller
             if (Session::has('checkout.note')) {
                 Session::forget('checkout.note');
             }
-            return redirect()->route('member.products')->withErrors(['refundPayment_ERROR' => "Pembayaran anda di-refund! Silahkan menghubungi Lisahwan™ (082230308030)!"]);
+            $cart->delete();
+            $order->delete();
+            return redirect()->route('products')->withErrors(['refundPayment_ERROR' => "Pembayaran anda di-refund! Silahkan menghubungi Lisahwan™ (082230308030)!"]);
         } elseif ($transactionStatus == 'partial_refund') {
             if ($cart) {
-                $cart->delete();
                 // Hapus semua sesi yang terkait dengan couponStatus
                 $activeCoupons = Session::get('activeCoupons', []);
                 foreach ($activeCoupons as $couponId) {
@@ -383,10 +392,11 @@ class OrderController extends Controller
             if (Session::has('checkout.note')) {
                 Session::forget('checkout.note');
             }
-            return redirect()->route('member.products')->withErrors(['partialRefundPayment_ERROR' => "Pembayaran anda di-refund! Silahkan menghubungi Lisahwan™ (082230308030)!"]);
+            $cart->delete();
+            $order->delete();
+            return redirect()->route('products')->withErrors(['partialRefundPayment_ERROR' => "Pembayaran anda di-refund! Silahkan menghubungi Lisahwan™ (082230308030)!"]);
         } elseif ($transactionStatus == 'authorize') {
             if ($cart) {
-                $cart->delete();
                 // Hapus semua sesi yang terkait dengan couponStatus
                 $activeCoupons = Session::get('activeCoupons', []);
                 foreach ($activeCoupons as $couponId) {
@@ -440,8 +450,11 @@ class OrderController extends Controller
             if (Session::has('checkout.note')) {
                 Session::forget('checkout.note');
             }
-            return redirect()->route('member.products')->withErrors(['authorizePayment_ERROR' => "Pembayaran anda di-authorize! Silahkan menghubungi Lisahwan™ (082230308030)!"]);
+            $cart->delete();
+            $order->delete();
+            return redirect()->route('products')->withErrors(['authorizePayment_ERROR' => "Pembayaran anda di-authorize! Silahkan menghubungi Lisahwan™ (082230308030)!"]);
         } elseif (count($parameters) == 1 && $request->has('order_id')) {
+            // ini kalau payment expire ketika belum memilih metode pembayaran sama sekali
             return redirect()->route('member.checkout')->withErrors(['expirePayment_ERROR'  => "Proses pembayaran anda sudah kedaluwarsa, mohon melakukan pembayaran ulang!"]);
         } else {
             return redirect()->route('member.checkout')->withErrors(['anotherPayment_ERROR'  => "Terjadi kesalahan, mohon melakukan pembayaran ulang!"]);
@@ -667,7 +680,7 @@ class OrderController extends Controller
         $cart = Cart::where('user_id', Auth::user()->id)->first();
         $courier = $cart->courier;
         $sub_total = $cart->cart_detail->sum('price');
-        $total_price = $sub_total + $cart->shipment_price;
+        $total_price = $sub_total + $cart->shipment_price + $cart->admin_fee;
 
         if ($reward >= $total_price) {
             $difference = $total_price;
@@ -712,7 +725,7 @@ class OrderController extends Controller
         } else {
             Session::put('pointStatus', true);
             return back()->with([
-                'activatePoint_success', "Selamat! Anda mendapatkan potongan sebesar Rp. " . number_format($difference, 0, ',', '.') . "!",
+                'activatePoint_success' => "Selamat! Anda mendapatkan potongan sebesar Rp. " . number_format($difference, 0, ',', '.') . "!",
                 'costs' => $costs
             ]);
         }
@@ -885,6 +898,8 @@ class OrderController extends Controller
                 ->take(4)
                 ->get();
             $shipment_price = $cart->shipment_price;
+            $admin_fee = $cart->admin_fee;
+
             $address = Address::where('user_id', Auth::user()->id)->get();
 
             $coupons = Coupon::all();
@@ -904,6 +919,10 @@ class OrderController extends Controller
                 $poin_to_money = 0;
             }
             //
+
+            $cart->update([
+                'total_poin' => $total_poin
+            ]);
 
             $customer = User::where('id', Auth::user()->id)->first();
             $reward_now = $customer->reward * $point->money_per_poin;
@@ -926,7 +945,8 @@ class OrderController extends Controller
                 "total_money" => $poin_to_money,
                 "reward_now" => $reward_now,
                 "point" => $point,
-                "cities" => $cities
+                "cities" => $cities,
+                "admin_fee" => $admin_fee,
             ]);
         }
     }
@@ -968,7 +988,7 @@ class OrderController extends Controller
 
                 $courier = '';
                 $waybill =  $order->waybill;
-                if($waybill != '') {
+                if ($waybill != '') {
                     // dd($waybill);
                     if (stripos($order->shipment_service, 'JNE') !== false) {
                         $courier = 'jne';
@@ -984,7 +1004,7 @@ class OrderController extends Controller
                     ]);
                     // dd($responseWaybills['rajaongkir']);
                     $waybills = $responseWaybills['rajaongkir']['result'];
-                    if($waybills['delivery_status']['pod_date'] != "" || $waybills['delivery_status']['pod_date'] != null) {
+                    if ($waybills['delivery_status']['pod_date'] != "" || $waybills['delivery_status']['pod_date'] != null) {
                         $order->update(['arrived_date' => $waybills['delivery_status']['pod_date'] . ' ' . $waybills['delivery_status']['pod_time']]);
                     }
                 }
@@ -1063,6 +1083,7 @@ class OrderController extends Controller
         $cart_details = $cart->cart_detail;
         $total_weight = $cart_details->sum('weight');
         $shipment_price = $cart->shipment_price;
+        $admin_fee = $cart->admin_fee;
 
         $customer = User::where('id', Auth::user()->id)->first();
         $point = Point::first();
@@ -1138,7 +1159,7 @@ class OrderController extends Controller
 
         if (Session::has('pointStatus')) {
             Session::forget('pointStatus');
-            $total_price_beforeReward = $cart_details->sum('price') + $shipment_price;
+            $total_price_beforeReward = $cart_details->sum('price') + $shipment_price + $admin_fee;
             $reward_now = $validatedData['reward_now'];
             if ($reward_now >= $total_price_beforeReward) {
                 $total_price = 0;
@@ -1150,11 +1171,8 @@ class OrderController extends Controller
                 'reward' => $convertReward_toPoint
             ]);
         } else {
-            $total_price = $cart_details->sum('price') + $shipment_price;
+            $total_price = $cart_details->sum('price') + $shipment_price + $admin_fee;
         }
-        $customer->update([
-            'reward' => $customer->reward + $validatedData['total_poin']
-        ]);
 
         // if ($request->file('payment_upload')) {
         //     $validatedData['payment'] = $request->file('payment_upload')->store('bukti_transfer', ['disk' => 'public']);
@@ -1171,7 +1189,7 @@ class OrderController extends Controller
                     'order_date' => $order_date,
                     'total_price' => $total_price,
                     'total_weight' => $total_weight,
-                    // 'payment' => $validatedData['payment'],
+                    'payment' => 'online',
                     'note' => $validatedData['note'],
                     'shipment_service' => $shipment_service,
                     'shipment_estimation' => $shipment_estimation,
@@ -1184,7 +1202,7 @@ class OrderController extends Controller
                     'order_date' => $order_date,
                     'total_price' => $total_price,
                     'total_weight' => $total_weight,
-                    // 'payment' => $validatedData['payment'],
+                    'payment' => 'online',
                     'shipment_service' => $shipment_service,
                     'shipment_estimation' => $shipment_estimation,
                 ]);
@@ -1207,7 +1225,7 @@ class OrderController extends Controller
                     'order_date' => $order_date,
                     'total_price' => $total_price,
                     'total_weight' => $total_weight,
-                    // 'payment' => $validatedData['payment'],
+                    'payment' => 'online',
                     'note' => $validatedData['note'],
                     'shipment_service' => $shipment_service,
                     'shipment_estimation' => $shipment_estimation,
@@ -1220,7 +1238,7 @@ class OrderController extends Controller
                     'order_date' => $order_date,
                     'total_price' => $total_price,
                     'total_weight' => $total_weight,
-                    // 'payment' => $validatedData['payment'],
+                    'payment' => 'online',
                     'shipment_service' => $shipment_service,
                     'shipment_estimation' => $shipment_estimation,
                 ]);
@@ -1254,6 +1272,14 @@ class OrderController extends Controller
             'price' => $shipment_price,
             'quantity' => 1,
             'name' => 'Shipping Cost'
+        ];
+
+        // Tambahkan biaya admin sebagai item terpisah
+        $item_details[] = [
+            'id' => 'ADMIN_FEE',
+            'price' => $admin_fee,
+            'quantity' => 1,
+            'name' => 'Admin Fee'
         ];
 
         // Tambahkan item diskon berdasarkan poin jika ada pointStatus
@@ -1301,15 +1327,80 @@ class OrderController extends Controller
                 ]
             ],
         ];
-        try {
-            $paymentUrl = Snap::createTransaction($params)->redirect_url;
-            return redirect($paymentUrl);
-        } catch (\Exception $e) {
-            Session::put('costs', $costs);
-            return back()->withErrors([
-                'paymentUrl_ERROR' => 'Error saat melakukan proses pembayaran! Silahkan menghubungi Lisahwan™ (082230308030)!'
+
+        if ($total_price != 0) {
+            try {
+                $paymentUrl = Snap::createTransaction($params)->redirect_url;
+                return redirect($paymentUrl);
+            } catch (\Exception $e) {
+                Session::put('costs', $costs);
+                return back()->withErrors([
+                    'paymentUrl_ERROR' => 'Error saat melakukan proses pembayaran! Silahkan menghubungi Lisahwan™ (082230308030)!'
+                ]);
+            }
+        } elseif ($total_price == 0) {
+            $order->update([
+                'acceptbyAdmin_status' => 'paid'
             ]);
-            // return redirect()->route('products')->with('order_success', 'Pemesanan anda berhasil! <br><a href="' . route('member.orderhistory') . '" class="inline-flex items-center font-bold text-yellow-500 hover:underline">Check Status Pesanan <svg class="ml-1 w-4 h-4 text-yellow-500" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10"> <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M1 5h12m0 0L9 1m4 4L9 9" /> </svg></a>');
+            $customer->update([
+                'reward' => $customer->reward + $validatedData['total_poin']
+            ]);
+            if ($cart) {
+                // Hapus semua sesi yang terkait dengan couponStatus
+                $activeCoupons = Session::get('activeCoupons', []);
+                foreach ($activeCoupons as $couponId) {
+                    if (Session::has('couponStatus_' . $couponId)) {
+                        Session::forget('couponStatus_' . $couponId);
+                    }
+                }
+                // Hapus sesi activeCoupons
+                if (Session::has('activeCoupons')) {
+                    Session::forget('activeCoupons');
+                }
+                // Hapus semua sesi yang terkait dengan arraycourierStatus
+                $activeCouriersStatus = Session::get('arraycourierStatus', []);
+                foreach ($activeCouriersStatus as $courierStatus) {
+                    if (Session::has('courierStatus_' . $courierStatus)) {
+                        Session::forget('courierStatus_' . $courierStatus);
+                    }
+                }
+                // Hapus sesi arraycourierStatus
+                if (Session::has('arraycourierStatus')) {
+                    Session::forget('arraycourierStatus');
+                }
+                // Mendapatkan semua sesi yang terkait dengan arraycostStatus
+                $activeCostStatus = Session::get('arraycostStatus', []);
+                // Menghapus semua sesi yang terkait dengan arraycostStatus
+                foreach ($activeCostStatus as $costStatus) {
+                    if (Session::has($costStatus)) {
+                        Session::forget($costStatus); // Hapus sesi berdasarkan kunci yang disimpan
+                    }
+                }
+                // Hapus sesi arraycostStatus
+                if (Session::has('arraycostStatus')) {
+                    Session::forget('arraycostStatus');
+                }
+                // Hapus sesi originalPrice yang mungkin ada
+                foreach ($cart->cart_detail as $cart_detail) {
+                    if (Session::has('originalPrice_' . $cart_detail->id)) {
+                        Session::forget('originalPrice_' . $cart_detail->id);
+                    }
+                }
+            }
+            if (Session::has('checkout.address_id')) {
+                Session::forget('checkout.address_id');
+            }
+            if (Session::has('checkout.address')) {
+                Session::forget('checkout.address');
+            }
+            if (Session::has('checkout.city')) {
+                Session::forget('checkout.city');
+            }
+            if (Session::has('checkout.note')) {
+                Session::forget('checkout.note');
+            }
+            $cart->delete();
+            return redirect()->route('member.orderhistory')->with('capturePayment_SUCCESSFULL', "Pesanan anda berhasil! Tinjau status pesanan anda disini!");
         }
     }
 

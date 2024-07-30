@@ -19,7 +19,8 @@ return new class extends Migration
             $table->integer('stock')->nullable(false);
             $table->integer('weight')->nullable(false);
             $table->integer('discount')->nullable(true)->default(0);
-            $table->string('image')->nullable(true);
+            $table->string('image')->nullable(false);
+            $table->enum('special_status', ['ya', 'tidak'])->default('tidak');
             $table->timestamps();
         });
     }
