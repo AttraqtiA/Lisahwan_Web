@@ -14,29 +14,37 @@
         <div style="text-align: center; margin-bottom: 2mm;">
             <h1 style="margin: 0; font-size: 14pt;">Label Pengiriman</h1>
         </div>
-        <table style="width: 100%; margin-bottom: 1mm;">
-            <tr>
-                <td>
-                    <div>
-                        <p style="margin: 0; font-size:10pt;"><strong>Penerima:</strong></p>
-                        <p style="margin: 0; font-size:10pt;">{{ $order->user->name }}</p>
-                        <p style="margin: 0; font-size:10pt;">{{ $order->user->phone_number }}</p>
-                        <p style="margin: 0; font-size:10pt;">{{ $order->address->address }},
-                            {{ $order->address->city }}, {{ $order->address->province }},
-                            {{ $order->address->postal_code }}</p>
-                    </div>
-                </td>
-                <td>
-                    <div>
-                        <p style="margin: 0; font-size:10pt;"><strong>Pengirim:</strong></p>
-                        <p style="margin: 0; font-size:10pt;">Lisahwan</p>
-                        <p style="margin: 0; font-size:10pt;">082230308030</p>
-                    </div>
-                </td>
-            </tr>
-        </table>
+        <div style="margin-bottom: 2mm;">
+            <table style="width: 100%; border-collapse: collapse;">
+                <tr>
+                    <td>
+                        <div>
+                            <p style="margin: 0; font-size:10pt;"><strong>Penerima:</strong></p>
+                            <p style="margin: 0; font-size:10pt;">{{ $order->user->name }}</p>
+                            <p style="margin: 0; font-size:10pt;">{{ $order->user->phone_number }}</p>
+                            <p style="margin: 0; font-size:10pt;">{{ $order->address->address }},
+                                {{ $order->address->city }}, {{ $order->address->province }},
+                                {{ $order->address->postal_code }}</p>
+                        </div>
+                    </td>
+                    <td>
+                        <div>
+                            <p style="margin: 0; font-size:10pt;"><strong>Pengirim:</strong></p>
+                            <p style="margin: 0; font-size:10pt;">Lisahwan</p>
+                            <p style="margin: 0; font-size:10pt;">082230308030</p>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <p style="margin: 0; font-size:10pt;"><strong>Kurir:</strong></p>
+                        <p style="margin: 0; font-size:10pt;">{{ $order->shipment_service }}</p>
+                    </td>
+                </tr>
+            </table>
+        </div>
         <div style="margin-bottom: 0mm;">
-            <p style="margin: 0; margin-bottom: 1mm; font-size: 9pt;"><strong>Detail Pesanan:</strong></p>
+            <p style="margin: 0; margin-bottom: 1mm; font-size: 8pt;"><strong>Detail Pesanan:</strong></p>
             <table style="width: 100%; border-collapse: collapse; font-size: 8pt; border: 1px solid #000;">
                 <thead>
                     <tr>
@@ -54,10 +62,10 @@
                     @endforeach
                 </tbody>
             </table>
-            <p style="margin: 0; margin-top: 1mm; font-size: 9pt;"><strong>Total Produk:
+            <p style="margin: 0; margin-top: 1mm; font-size: 8pt;"><strong>Total Produk:
                     {{ $order->order_detail->sum('quantity') }}</strong></p>
         </div>
-        <div style="text-align: center; border-top: 1px solid #000; padding-top: 2mm; margin-top: 2mm;">
+        <div style="text-align: center; border-top: 1px solid #000; padding-top: 2mm; margin-top: 4mm;">
             <p style="margin: 0; margin-bottom: 1mm; font-size: 10pt; text-align: center;"><strong>ISI MUDAH PECAH,
                     JANGAN DIBANTING!</strong></p>
             <img src="{{ url('/images/lisahwan_text.png') }}" alt="Lisahwan"

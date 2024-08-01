@@ -39,7 +39,7 @@ return [
         'web' => [
             'driver' => 'session',
             'provider' => 'users',
-            'remember' => 10080 // Set remember me duration here (minutes)
+            'remember' => now()->addDays(7)->diffInMinutes() // Set remember me duration here (minutes)
         ],
     ],
 

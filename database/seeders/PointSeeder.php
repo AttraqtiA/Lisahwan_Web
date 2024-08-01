@@ -14,8 +14,8 @@ class PointSeeder extends Seeder
     public function run(): void
     {
         Point::create([
-            'percentage_from_totalprice' => 5,
-            'money_per_poin' => 50
+            'percentage_from_totalprice' => 0.1,
+            'money_per_poin' => 30
         ]);
     }
 }

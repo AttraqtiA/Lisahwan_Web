@@ -26,28 +26,6 @@ class ProductSeeder extends Seeder
         ]);
 
         Product::create([
-            'name' => 'Kentang Abon',
-            'description' => 'Dibuat dari kentang pilihan, proses handmade dengan resep bumbu khas Lisahwan, dilapis Abon Sapi terbaik.',
-            'price' => 43000,
-            'stock' => 50,
-            'weight' => 350,
-            'discount' => 0,
-            'image' => 'KentangAbon.jpg',
-            'special_status' => 'tidak'
-        ]);
-
-        Product::create([
-            'name' => 'Kering Kentang',
-            'description' => 'Enak, renyah, bumbu pas, asem manis yang sempurna. Terbuat dari kentang dan kacang pilihan, bikin nagih!',
-            'price' => 47000,
-            'stock' => 50,
-            'weight' => 600,
-            'discount' => 0,
-            'image' => 'KeringKentang.jpg',
-            'special_status' => 'tidak'
-        ]);
-
-        Product::create([
             'name' => 'Teri Jumbo Pedas',
             'description' => 'Cari lauk praktis yang enak? Cobain Teri Jumbo Pedas Lisahwan: gurih, kriuk renyah, manis, pedas pas!',
             'price' => 48000,
@@ -58,17 +36,16 @@ class ProductSeeder extends Seeder
             'special_status' => 'tidak'
         ]);
 
-        // Product::create([
-        //     'name' => 'Kentang Chili',
-        //     'description' => 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Modi commodi illo ea iure quo officiis eveniet dignissimos ab itaque laudantium?',
-        //     'price' => 43000,
-        //     'stock' => 50,
-        //     'weight' => 200,
-        //     'discount' => 0,
-        //     'favorite_status' => '0',
-        //     'image' => 'KentangChili.jpg',
-        //     'special_status' => 'tidak'
-        // ]);
+        Product::create([
+            'name' => 'Teri Balado',
+            'description' => 'Nikmati Teri Balado kami yang lezat! Gabungan sempurna antara pedas dan manis dalam setiap gigitan. Dengan bumbu balado khas Lisahwan, tekstur renyah, dan aroma menggoda, Teri Balado ini cocok untuk menemani momen santai Anda.',
+            'price' => 40000,
+            'stock' => 50,
+            'weight' => 250,
+            'discount' => 0,
+            'image' => 'TeriBalado.jpg',
+            'special_status' => 'tidak'
+        ]);
 
         Product::create([
             'name' => 'Teri Honje',
@@ -78,29 +55,6 @@ class ProductSeeder extends Seeder
             'weight' => 250,
             'discount' => 0,
             'image' => 'TeriHonje.jpg',
-            'special_status' => 'tidak'
-
-        ]);
-
-        Product::create([
-            'name' => 'Dendeng Balado',
-            'description' => 'Siap saji! Aromanya wangi, empuk, dan bumbu baladonya meresap sempurna ke dalam dendengnya. Dibuat dari daging sapi asli. Pasti nikmat!',
-            'price' => 57000,
-            'stock' => 50,
-            'weight' => 250,
-            'discount' => 0,
-            'image' => 'DendengBalado.jpg',
-            'special_status' => 'tidak'
-        ]);
-
-        Product::create([
-            'name' => 'Kering Tempe',
-            'description' => 'Kering Tempe Lisahwan dibuat dengan 100% bahan alami dan berkualitas. Pas banget buat lauk makan, pasti enak dan praktis.',
-            'price' => 55000,
-            'stock' => 50,
-            'weight' => 600,
-            'discount' => 0,
-            'image' => 'KeringTempe.jpg',
             'special_status' => 'tidak'
         ]);
 
@@ -116,6 +70,72 @@ class ProductSeeder extends Seeder
         ]);
 
         Product::create([
+            'name' => 'Kentang Abon',
+            'description' => 'Dibuat dari kentang pilihan, proses handmade dengan resep bumbu khas Lisahwan, dilapis Abon Sapi terbaik.',
+            'price' => 43000,
+            'stock' => 50,
+            'weight' => 350,
+            'discount' => 0,
+            'image' => 'KentangAbon.jpg',
+            'special_status' => 'tidak'
+        ]);
+
+        Product::create([
+            'name' => 'Kentang Ebi',
+            'description' => 'Kentang Ebi Lisahwan: Potongan kentang renyah dengan ebi yang gurih, memberikan perpaduan rasa yang unik dan lezat. Nikmati sebagai lauk atau camilan.',
+            'price' => 98000,
+            'stock' => 50,
+            'weight' => 500,
+            'discount' => 0,
+            'image' => 'KentangEbi.jpg',
+            'special_status' => 'tidak'
+        ]);
+
+        Product::create([
+            'name' => 'Kentang Balado',
+            'description' => 'Kentang Balado Lisahwan: Potongan kentang garing yang dipadu dengan balado pedas dan sedap. Sensasi lezat yang memanjakan lidah Anda.',
+            'price' => 45000,
+            'stock' => 50,
+            'weight' => 400,
+            'discount' => 0,
+            'image' => 'KentangBalado.jpg',
+            'special_status' => 'tidak'
+        ]);
+
+        Product::create([
+            'name' => 'Kentang Udang',
+            'description' => 'Kentang Udang Lisahwan: Kentang pilihan yang dipadu dengan udang berkualitas, memberikan rasa gurih yang sempurna. Pas untuk lauk atau camilan.',
+            'price' => 25000,
+            'stock' => 50,
+            'weight' => 500,
+            'discount' => 0,
+            'image' => 'KentangUdang.jpg',
+            'special_status' => 'tidak'
+        ]);
+
+        Product::create([
+            'name' => 'Kering Kentang',
+            'description' => 'Enak, renyah, bumbu pas, asem manis yang sempurna. Terbuat dari kentang dan kacang pilihan, bikin nagih!',
+            'price' => 47000,
+            'stock' => 50,
+            'weight' => 600,
+            'discount' => 0,
+            'image' => 'KeringKentang.jpg',
+            'special_status' => 'tidak'
+        ]);
+
+        Product::create([
+            'name' => 'Kering Kentang (Toples)',
+            'description' => 'Enak, renyah, bumbu pas, asem manis yang sempurna. Terbuat dari kentang dan kacang pilihan, bikin nagih!',
+            'price' => 47500,
+            'stock' => 50,
+            'weight' => 500,
+            'discount' => 0,
+            'image' => 'KeringKentangToples.jpg',
+            'special_status' => 'tidak'
+        ]);
+
+        Product::create([
             'name' => 'Kering Kentang Teri',
             'description' => 'Kering Kentang Teri Lisahwan ini luar biasa! Kentang renyah dengan kacang, disertai Teri Jumbo yang gurih. Bumbu mantap, perpaduan asem manis dan pedas bikin nagih. Cocok untuk lauk atau cemilan!',
             'price' => 47000,
@@ -123,6 +143,39 @@ class ProductSeeder extends Seeder
             'weight' => 600,
             'discount' => 0,
             'image' => 'KentangTeri.jpeg',
+            'special_status' => 'tidak'
+        ]);
+
+        Product::create([
+            'name' => 'Kering Tempe',
+            'description' => 'Kering Tempe Lisahwan dibuat dengan 100% bahan alami dan berkualitas. Pas banget buat lauk makan, pasti enak dan praktis.',
+            'price' => 55000,
+            'stock' => 50,
+            'weight' => 600,
+            'discount' => 0,
+            'image' => 'KeringTempe.jpg',
+            'special_status' => 'tidak'
+        ]);
+
+        Product::create([
+            'name' => 'Dendeng Balado',
+            'description' => 'Siap saji! Aromanya wangi, empuk, dan bumbu baladonya meresap sempurna ke dalam dendengnya. Dibuat dari daging sapi asli. Pasti nikmat!',
+            'price' => 57000,
+            'stock' => 50,
+            'weight' => 250,
+            'discount' => 0,
+            'image' => 'DendengBalado.jpg',
+            'special_status' => 'tidak'
+        ]);
+
+        Product::create([
+            'name' => 'Grinting Lorjuk',
+            'description' => 'Grinting Lorjuk Lisahwan: Camilan premium dengan cita rasa khas dari lorjuk, lezat dan menggugah selera. Pilihan sempurna untuk dinikmati kapan saja.',
+            'price' => 350000,
+            'stock' => 50,
+            'weight' => 250,
+            'discount' => 0,
+            'image' => 'GrintingLorjuk.jpg',
             'special_status' => 'tidak'
         ]);
 
@@ -148,6 +201,73 @@ class ProductSeeder extends Seeder
             'special_status' => 'tidak'
         ]);
 
+        Product::create([
+            'name' => 'Wader Crispy',
+            'description' => 'Dibuat dari ikan wader hitam dengan baluran tepung spesial, cocok sebagai pelengkap lauk. Kriuk dan gurih! Yuk dicoba!',
+            'price' => 47000,
+            'stock' => 50,
+            'weight' => 400,
+            'discount' => 0,
+            'image' => 'WaderCrispynew.jpg',
+            'special_status' => 'tidak'
+        ]);
+
+        Product::create([
+            'name' => 'Kuku Macan',
+            'description' => 'Krupuk Kuku Macan Lisahwan: Ikan tenggiri, gurih, dan renyah. Kriuk-kriukk enaknya jelas terasa!',
+            'price' => 37000,
+            'stock' => 50,
+            'weight' => 350,
+            'discount' => 0,
+            'image' => 'KukuMacan.jpg',
+            'special_status' => 'tidak'
+        ]);
+
+        Product::create([
+            'name' => 'Rambak Kerbau',
+            'description' => 'Rambak Kerbau Lisahwan: Kerupuk kulit kerbau yang renyah dan gurih. Cocok sebagai teman makan atau camilan yang mengenyangkan.',
+            'price' => 30000,
+            'stock' => 50,
+            'weight' => 500,
+            'discount' => 0,
+            'image' => 'RambakKerbau.jpg',
+            'special_status' => 'tidak'
+        ]);
+
+        Product::create([
+            'name' => 'Spikoe Lisahwan',
+            'description' => 'Spikoe Lisahwan: Kue lapis legit yang lembut dan nikmat. Dibuat dengan bahan berkualitas dan resep tradisional, sempurna untuk berbagai acara.',
+            'price' => 105000,
+            'stock' => 50,
+            'weight' => 800,
+            'discount' => 0,
+            'image' => 'SpikoeLisahwan.jpg',
+            'special_status' => 'ya'
+        ]);
+
+        Product::create([
+            'name' => 'Sambal Cumi',
+            'description' => 'Sambal Cumi Lisahwan: Sensasi pedas dan gurih dari cumi-cumi segar yang diracik dengan bumbu pilihan. Cocok untuk menemani berbagai hidangan.',
+            'price' => 30000,
+            'stock' => 50,
+            'weight' => 250,
+            'discount' => 0,
+            'image' => 'SambalCumi.jpg',
+            'special_status' => 'tidak'
+        ]);
+
+        // Product::create([
+        //     'name' => 'Kentang Chili',
+        //     'description' => 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Modi commodi illo ea iure quo officiis eveniet dignissimos ab itaque laudantium?',
+        //     'price' => 43000,
+        //     'stock' => 50,
+        //     'weight' => 200,
+        //     'discount' => 0,
+        //     'favorite_status' => '0',
+        //     'image' => 'KentangChili.jpg',
+        //     'special_status' => 'tidak'
+        // ]);
+
         // Product::create([
         //     'name' => 'Kentang Teri Ori',
         //     'description' => 'Kentang Teri Ori Lisahwan: Potongan kentang renyah, disempurnakan dengan sentuhan gurih dan krispi teri asli. Sejukkan lidah Anda dengan kelezatan yang otentik.',
@@ -171,60 +291,27 @@ class ProductSeeder extends Seeder
         //     'special_status' => 'tidak'
         // ]);
 
-        Product::create([
-            'name' => 'Kentang Dendeng',
-            'description' => 'Kentang Dendeng Lisahwan: Gurih, renyah, dan lezat. Paduan sempurna antara kentang berkualitas tinggi dan cita rasa dendeng yang memikat. Nikmati sensasi unik dalam setiap suapannya.',
-            'price' => 65000,
-            'stock' => 50,
-            'weight' => 500,
-            'discount' => 0,
-            'image' => 'KentangDendeng.jpg',
-            'special_status' => 'tidak'
-        ]);
+        // Product::create([
+        //     'name' => 'Kentang Dendeng',
+        //     'description' => 'Kentang Dendeng Lisahwan: Gurih, renyah, dan lezat. Paduan sempurna antara kentang berkualitas tinggi dan cita rasa dendeng yang memikat. Nikmati sensasi unik dalam setiap suapannya.',
+        //     'price' => 65000,
+        //     'stock' => 50,
+        //     'weight' => 500,
+        //     'discount' => 0,
+        //     'image' => 'KentangDendeng.jpg',
+        //     'special_status' => 'tidak'
+        // ]);
 
-        Product::create([
-            'name' => 'Wader Crispy',
-            'description' => 'Dibuat dari ikan wader hitam dengan baluran tepung spesial, cocok sebagai pelengkap lauk. Kriuk dan gurih! Yuk dicoba!',
-            'price' => 47000,
-            'stock' => 50,
-            'weight' => 400,
-            'discount' => 0,
-            'image' => 'WaderCrispy.jpg',
-            'special_status' => 'tidak'
-        ]);
-
-        Product::create([
-            'name' => 'Kuku Macan',
-            'description' => 'Krupuk Kuku Macan Lisahwan: Ikan tenggiri, gurih, dan renyah. Kriuk-kriukk enaknya jelas terasa!',
-            'price' => 37000,
-            'stock' => 50,
-            'weight' => 350,
-            'discount' => 0,
-            'image' => 'KukuMacan.jpg',
-            'special_status' => 'tidak'
-        ]);
-
-        Product::create([
-            'name' => 'Teri Ijo',
-            'description' => 'Teri Ijo Lisahwan: Gurih, segar, dan lezat. Pilihan camilan yang memikat dengan kelezatan ikan teri hijau dalam setiap sajian.',
-            'price' => 40000,
-            'stock' => 50,
-            'weight' => 250,
-            'discount' => 0,
-            'image' => 'TeriIjo.jpg',
-            'special_status' => 'tidak'
-        ]);
-
-        Product::create([
-            'name' => 'Teri Balado',
-            'description' => 'Nikmati Teri Balado kami yang lezat! Gabungan sempurna antara pedas dan manis dalam setiap gigitan. Dengan bumbu balado khas Lisahwan, tekstur renyah, dan aroma menggoda, Teri Balado ini cocok untuk menemani momen santai Anda.',
-            'price' => 40000,
-            'stock' => 50,
-            'weight' => 250,
-            'discount' => 0,
-            'image' => 'TeriBalado.jpg',
-            'special_status' => 'tidak'
-        ]);
+        // Product::create([
+        //     'name' => 'Teri Ijo',
+        //     'description' => 'Teri Ijo Lisahwan: Gurih, segar, dan lezat. Pilihan camilan yang memikat dengan kelezatan ikan teri hijau dalam setiap sajian.',
+        //     'price' => 40000,
+        //     'stock' => 50,
+        //     'weight' => 250,
+        //     'discount' => 0,
+        //     'image' => 'TeriIjo.jpg',
+        //     'special_status' => 'tidak'
+        // ]);
 
         // Product::create([
         //     'name' => 'Ikan Seriding',
@@ -237,17 +324,6 @@ class ProductSeeder extends Seeder
         //     'special_status' => 'tidak'
         // ]);
 
-        Product::create([
-            'name' => 'Kentang Balado',
-            'description' => 'Kentang Balado Lisahwan: Potongan kentang garing yang dipadu dengan balado pedas dan sedap. Sensasi lezat yang memanjakan lidah Anda.',
-            'price' => 45000,
-            'stock' => 50,
-            'weight' => 400,
-            'discount' => 0,
-            'image' => 'KentangBalado.jpg',
-            'special_status' => 'tidak'
-        ]);
-
         // Product::create([
         //     'name' => 'Kering Kentang (Jar)',
         //     'description' => 'Enak, renyah, bumbu pas, asem manis yang sempurna. Terbuat dari kentang dan kacang pilihan, bikin nagih!',
@@ -258,38 +334,5 @@ class ProductSeeder extends Seeder
         //     'image' => 'KeringKentangJar.jpg',
         //     'special_status' => 'tidak'
         // ]);
-
-        Product::create([
-            'name' => 'Sambal Cumi',
-            'description' => 'Belum ada deskripsi!',
-            'price' => 30000,
-            'stock' => 50,
-            'weight' => 250,
-            'discount' => 0,
-            'image' => 'SambalCumi.jpg',
-            'special_status' => 'tidak'
-        ]);
-
-        Product::create([
-            'name' => 'Kentang Ebi',
-            'description' => 'Belum ada deskripsi!',
-            'price' => 98000,
-            'stock' => 50,
-            'weight' => 500,
-            'discount' => 0,
-            'image' => 'KentangEbi.jpg',
-            'special_status' => 'tidak'
-        ]);
-
-        Product::create([
-            'name' => 'Spikoe Lisahwan',
-            'description' => 'Belum ada deskripsi!',
-            'price' => 105000,
-            'stock' => 50,
-            'weight' => 800,
-            'discount' => 0,
-            'image' => 'SpikoeLisahwan.jpg',
-            'special_status' => 'tidak'
-        ]);
     }
 }

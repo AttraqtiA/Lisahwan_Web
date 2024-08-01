@@ -463,14 +463,6 @@ class OrderController extends Controller
 
     public function checkCoupon(Request $request)
     {
-        $validatedData = $request->validate([
-            "coupon" => "required|string|max:20",
-        ], [
-            'coupon.required' => 'Nama kupon wajib diisi!',
-            'coupon.string' => 'Nama kupon wajib berupa karakter!',
-            'coupon.max' => 'Nama kupon maksimal 20 karakter!',
-        ]);
-
         // Simpan data alamat ke session
         $request->session()->put('checkout.address_id', $request->address_id);
         $request->session()->put('checkout.address', $request->address);
@@ -478,6 +470,28 @@ class OrderController extends Controller
         // $request->session()->put('checkout.province', $request->province);
         // $request->session()->put('checkout.postal_code', $request->postal_code);
         $request->session()->put('checkout.note', $request->note);
+
+        // Ambil data keranjang pengguna
+        $cart = Cart::where('user_id', Auth::user()->id)->first();
+        $courier = $cart ? $cart->courier : null;
+
+        if (!$request->city && !$courier) {
+            return redirect()->back()->withErrors(['couriercityForgotten_error' => "Oops, anda lupa memilih jasa pengiriman dan kota tujuan!"]);
+        }
+        if (!$request->city) {
+            return redirect()->back()->withErrors(['cityForgotten_error' => "Oops, anda lupa memilih kota tujuan!"]);
+        }
+        if (!$courier) {
+            return redirect()->back()->withErrors(['courierForgotten_error' => "Oops, anda lupa memilih jasa pengiriman yang akan digunakan!"]);
+        }
+
+        $validatedData = $request->validate([
+            "coupon" => "required|string|max:20",
+        ], [
+            'coupon.required' => 'Nama kupon wajib diisi!',
+            'coupon.string' => 'Nama kupon wajib berupa karakter!',
+            'coupon.max' => 'Nama kupon maksimal 20 karakter!',
+        ]);
 
         $coupon = Coupon::where('title', $validatedData['coupon'])->first();
 
@@ -494,9 +508,7 @@ class OrderController extends Controller
             }
         }
 
-        $cart = Cart::where('user_id', Auth::user()->id)->first();
         $cart_details = $cart->cart_detail;
-        $courier = $cart->courier;
         $total_weight = $cart_details->sum('weight');
 
         $responseCost = Http::withHeaders([
@@ -550,6 +562,21 @@ class OrderController extends Controller
         // $request->session()->put('checkout.postal_code', $request->postal_code);
         $request->session()->put('checkout.note', $request->note);
 
+        // Ambil data keranjang pengguna
+        $cart = Cart::where('user_id', Auth::user()->id)->first();
+        $courier = $cart ? $cart->courier : null;
+
+        // Pengecekan kondisi untuk city dan courier
+        if (!$request->city && !$courier) {
+            return redirect()->back()->withErrors(['couriercityForgotten_error' => "Oops, anda lupa memilih jasa pengiriman dan kota tujuan!"]);
+        }
+        if (!$request->city) {
+            return redirect()->back()->withErrors(['cityForgotten_error' => "Oops, anda lupa memilih kota tujuan!"]);
+        }
+        if (!$courier) {
+            return redirect()->back()->withErrors(['courierForgotten_error' => "Oops, anda lupa memilih jasa pengiriman yang akan digunakan!"]);
+        }
+
         $coupon = Coupon::findOrFail($id);
         $user_coupon = $coupon->usercoupon->where('user_id', Auth::user()->id)->where("coupon_id", $id)->first();
 
@@ -569,9 +596,7 @@ class OrderController extends Controller
             }
         }
 
-        $cart = Cart::where('user_id', Auth::user()->id)->first();
         $cart_details = $cart->cart_detail;
-        $courier = $cart->courier;
         $total_weight = $cart_details->sum('weight');
 
         $responseCost = Http::withHeaders([
@@ -673,12 +698,25 @@ class OrderController extends Controller
         // $request->session()->put('checkout.postal_code', $request->postal_code);
         $request->session()->put('checkout.note', $request->note);
 
+        // Ambil data keranjang pengguna
+        $cart = Cart::where('user_id', Auth::user()->id)->first();
+        $courier = $cart ? $cart->courier : null;
+
+        // Pengecekan kondisi untuk city dan courier
+        if (!$request->city && !$courier) {
+            return redirect()->back()->withErrors(['couriercityForgotten_error' => "Oops, anda lupa memilih jasa pengiriman dan kota tujuan!"]);
+        }
+        if (!$request->city) {
+            return redirect()->back()->withErrors(['cityForgotten_error' => "Oops, anda lupa memilih kota tujuan!"]);
+        }
+        if (!$courier) {
+            return redirect()->back()->withErrors(['courierForgotten_error' => "Oops, anda lupa memilih jasa pengiriman yang akan digunakan!"]);
+        }
+
         $user = User::where('id', Auth::user()->id)->first();
         $point = Point::first();
         $reward = $user->reward * $point->money_per_poin;
 
-        $cart = Cart::where('user_id', Auth::user()->id)->first();
-        $courier = $cart->courier;
         $sub_total = $cart->cart_detail->sum('price');
         $total_price = $sub_total + $cart->shipment_price + $cart->admin_fee;
 
@@ -909,23 +947,24 @@ class OrderController extends Controller
             $point = Point::first();
             if ($point) {
                 $total_price = $cart->cart_detail->sum('price');
-                $total_poin = floor($total_price * ($point->percentage_from_totalprice / 100));
+                $total_poin = $total_price * ($point->percentage_from_totalprice / 100);
 
                 // Membulatkan ke bawah ke kelipatan 1000 terdekat
-                $total_poin = floor($total_poin / 1000) * 1000;
+                $total_poin = floor($total_poin / 10) * 10; // Membulatkan ke kelipatan 10
                 $poin_to_money = $total_poin * $point->money_per_poin;
+
+                $cart->update([
+                    'total_poin' => $total_poin
+                ]);
+
+                $customer = User::where('id', Auth::user()->id)->first();
+                $reward_now = $customer->reward * $point->money_per_poin;
             } else {
                 $total_poin = 0;
                 $poin_to_money = 0;
+                $reward_now = 0;
             }
             //
-
-            $cart->update([
-                'total_poin' => $total_poin
-            ]);
-
-            $customer = User::where('id', Auth::user()->id)->first();
-            $reward_now = $customer->reward * $point->money_per_poin;
 
             $responseCities = Http::withHeaders([
                 'key' => '1b3d1a91f7ab9a1c6dcc5543cb9192fb'

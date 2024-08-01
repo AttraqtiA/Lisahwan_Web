@@ -31,8 +31,10 @@ use App\Http\Controllers\Member\TestimonyController as MemberTestimonyController
 */
 
 Route::get('/clear-session', [LoginController::class, 'clearSession'])->name('clear.session');
-// Route::get('/foo', function () {
-//   Artisan::call('storage:link');
+// Route::get('/storage-link', function () {
+//     $targetFolder = storage_path('app/public');
+//     $linkFolder = $_SERVER['DOCUMENT_ROOT'] . '/storage';
+//     symlink($targetFolder, $linkFoldder);
 // });
 //====================================== BISA DIAKSES SEMUA ROLE ======================================
 Route::get('/', [ProductController::class, 'home']); // HOME PAGE (CHECKED)

@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('points', function (Blueprint $table) {
             $table->id();
-            $table->integer('percentage_from_totalprice')->nullable(false);
+            $table->decimal('percentage_from_totalprice')->nullable(false);
             $table->integer('money_per_poin')->nullable(false);
             $table->timestamps();
         });

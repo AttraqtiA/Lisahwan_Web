@@ -17,7 +17,7 @@ return new class extends Migration
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
             $table->bigInteger('shipment_price')->default(0);
             $table->string('courier')->default("");
-            $table->bigInteger('admin_fee')->default(5000);
+            $table->bigInteger('admin_fee')->default(4000);
             $table->bigInteger('total_poin')->default(0);
             $table->timestamps();
         });

@@ -234,8 +234,23 @@ class CartController extends Controller
      */
     public function destroy(Request $request, $id)
     {
-        $cartDetail = CartDetail::find($id);
-        $productId = $cartDetail->product->id;
+        // Ambil data keranjang pengguna
+        $cart = Cart::where('user_id', Auth::user()->id)->first();
+        $courier = $cart ? $cart->courier : null;
+
+        // Pengecekan kondisi untuk city dan courier
+        if (!$request->city && !$courier) {
+            return redirect()->back()->withErrors(['couriercityForgotten_error' => "Oops, anda lupa memilih jasa pengiriman dan kota tujuan!"]);
+        }
+        if (!$request->city) {
+            return redirect()->back()->withErrors(['cityForgotten_error' => "Oops, anda lupa memilih kota tujuan!"]);
+        }
+        if (!$courier) {
+            return redirect()->back()->withErrors(['courierForgotten_error' => "Oops, anda lupa memilih jasa pengiriman yang akan digunakan!"]);
+        }
+
+        // Ambil detail keranjang yang akan dihapus
+        $cartDetail = $cart->cart_detail->where('id', $id)->first();
         if ($cartDetail) {
             // Temukan Cart yang sesuai dengan relasi
             $cart = $cartDetail->cart;
@@ -245,11 +260,13 @@ class CartController extends Controller
                 'stock' => $cartDetail->product->stock + $cartDetail->quantity
             ]);
 
+            // Ambil data kota dari API RajaOngkir
             $responseCities = Http::withHeaders([
                 'key' => '1b3d1a91f7ab9a1c6dcc5543cb9192fb'
             ])->get('https://pro.rajaongkir.com/api/city');
             $cities = $responseCities['rajaongkir']['results'];
 
+            // Cari ID kota asal (Surabaya)
             $origin_id = null;
             foreach ($cities as $city) {
                 if ($city['city_name'] == 'Surabaya') {
@@ -258,11 +275,11 @@ class CartController extends Controller
                 }
             }
 
-            $cart = Cart::where('user_id', Auth::user()->id)->first();
+            // Hitung total berat keranjang
             $cart_details = $cart->cart_detail;
-            $courier = $cart->courier;
             $total_weight = $cart_details->sum('weight');
 
+            // Hitung biaya pengiriman
             $responseCost = Http::withHeaders([
                 'key' => '1b3d1a91f7ab9a1c6dcc5543cb9192fb',
             ])->post('https://pro.rajaongkir.com/api/cost', [
@@ -274,27 +291,34 @@ class CartController extends Controller
                 'courier' => $courier
             ]);
             $costs = $responseCost['rajaongkir'];
-            // dd($costs);
 
             // Hapus CartDetail
             $cartDetail->delete();
 
+            // Buat log produksi
             Production::create([
                 'date' => now(),
-                'product_id' => $productId,
+                'product_id' => $cartDetail->product->id,
                 'quantity' => $cartDetail->quantity,
                 'type' => 'tambah'
             ]);
+
+            // Refresh cart data after deleting cartDetail
+            $cart->refresh();
 
             // Periksa apakah setelah menghapus CartDetail, tidak ada lagi cart_detail dalam keranjang
             if ($cart && $cart->cart_detail->isEmpty()) {
                 // Jika tidak ada cart_detail, hapus juga keranjangnya
                 $cart->delete();
             }
+
             return back()->with([
                 'deleteCart_success' => 'Pesanan berhasil dihapus!',
                 'costs' => $costs
             ]);
         }
+
+        // Jika cartDetail tidak ditemukan
+        return back()->withErrors(['error' => 'Detail keranjang tidak ditemukan']);
     }
 }

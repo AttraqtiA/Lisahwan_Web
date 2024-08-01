@@ -129,7 +129,7 @@
                 </div>
             </div>
             <div class="flex flex-col h-full">
-                <h1 data-aos="fade-right" data-aos-anchor-placement="top-bottom" data-aos-duration="800"
+                <h1 data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="800"
                     class="text-2xl lg:text-3xl font-semibold text-gray-900 sm:text-center lg:text-start">Ulasan Produk
                 </h1>
                 <hr data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="800"
@@ -221,9 +221,9 @@
             </div>
             <div class="flex flex-col">
                 <div class="flex flex-row justify-between items-center">
-                    <h1 data-aos="fade-right" data-aos-anchor-placement="top-bottom" data-aos-duration="800"
+                    <h1 data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="800"
                         class="text-xl sm:text-2xl lg:text-3xl font-semibold text-gray-900">Produk Lainnya</h1>
-                    <a data-aos="fade-left" data-aos-anchor-placement="top-bottom" data-aos-duration="800"
+                    <a data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="800"
                         href="{{ route('products') }}">
                         <p class="text-base font-medium text-yellow-500 hover:text-yellow-600">Lihat semua</p>
                     </a>

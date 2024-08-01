@@ -1,29 +1,30 @@
 <footer class="p-4 bg-gray-900 sm:p-8">
     <div class="mx-auto w-full">
-        <div class="w-full text-white flex flex-col md:flex-row justify-center gap-6 md:gap-4 px-4 md:pr-4">
-            <div class="mt-6 md:mt-0 w-32">
-                <a href="/" class="">
-                    <img src="/images/lisahwan_logo.png" class="mr-3 w-16 sm:w-24" alt="Gosyen Logo" />
-                </a>
+        <div
+            class="w-full text-white flex flex-col md:flex-row justify-center space-y-4 md:space-y-0 md:space-x-4 px-4 md:pr-4">
+            <div class="mt-6 md:mt-0 flex flex-col lg:flex-row space-y-4 lg:space-y-0 lg:space-x-4 md:w-2/4">
+                <div class="">
+                    <a href="/" class="">
+                        <img src="/images/lisahwan_logo.png" class="mr-3 w-16 sm:w-20" alt="Gosyen Logo" />
+                    </a>
+                </div>
+                <div class="">
+                    <h2 class="text-lg font-semibold uppercase">Lisahwan</h2>
+                    <p>Oleh-oleh Khas Surabaya</p>
+                </div>
             </div>
-            <div class="w-full md:w-1/2">
-                <h2 class="mb-6 text-lg font-semibold uppercase">Lisahwan Surabaya</h2>
-                <p>Premium, Teri Oven, Balado, Kerupuk, Kentang, Dendeng, Snacks, Cemilan, Kualitas, Homemade, Terlaris,
-                    Fast
-                    Respon, Enak</p>
-            </div>
-            <div>
-                <h2 class="mb-6 text-lg font-semibold uppercase">Kontak kami</h2>
-                <div class="flex flex-col md:flex-row gap-6 md:gap-4 lg:gap-4">
-                    <div class="flex flex-col gap-4 w-9/12">
-                        <a class="flex flex-row items-center gap-4"
+            <div class="w-full">
+                <h2 class="mb-2 text-lg font-semibold uppercase">Kontak kami</h2>
+                <div class="flex flex-col md:flex-row md:space-x-4">
+                    <div class="flex flex-col gap-2 mb-8 md:mb-0 w-full md:w-3/4">
+                        <a class="flex flex-row items-center gap-4 w-fit"
                             href="https://www.google.com/maps/place/Jl.+Jemur+Andayani+XIII+No.6,+Jemur+Wonosari,+Kec.+Wonocolo,+Surabaya,+Jawa+Timur+60237/@-7.3285967,112.7316548,17z/data=!3m1!4b1!4m6!3m5!1s0x2dd7fb41eea3ee81:0x83d2a1606a6f6179!8m2!3d-7.3285967!4d112.7342297!16s%2Fg%2F11c24f323l?entry=ttu"
                             target="_blank">
                             <img src="/images/map_logo.png" class="w-6 h-7" alt="Alamat">
                             <p class="hover:underline">Jl. Jemur Andayani XIII No. 6, Kota
                                 Surabaya, Jawa Timur - 60237</p>
                         </a>
-                        <a class="flex flex-row items-center gap-3"
+                        <a class="flex flex-row items-center gap-3 w-fit"
                             href="https://api.whatsapp.com/send?phone=6282230308030" target="_blank">
                             <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="currentColor"
                                 style="color: #128c7e" viewBox="0 0 24 24">
@@ -33,19 +34,24 @@
                             <p class="hover:underline">(+62)822-3030-8030</p>
                         </a>
                     </div>
-                    <div class="flex flex-col gap-4 w-3/12">
-                        <a class="flex flex-row items-center gap-3 mt-2 md:mt-0"
-                            href="https://www.instagram.com/lisahwan" target="_blank">
+                    <div class="flex flex-col gap-2 w-3/12">
+                        <a class="flex flex-row items-center gap-3 w-fit" href="https://www.instagram.com/lisahwan"
+                            target="_blank">
                             <img src="/images/instagram_logo.png" class="w-6" alt="Instagram">
                             <p class="hover:underline">Lisahwan</p>
                         </a>
-                        <a class="flex flex-row items-center gap-3 mt-2 md:mt-0"
+                        <a class="flex flex-row items-center gap-3 mt-2 md:mt-0 w-fit"
+                            href="https://www.instagram.com/lisahwan.cakery" target="_blank">
+                            <img src="/images/instagram_logo.png" class="w-6" alt="Instagram">
+                            <p class="hover:underline">Lisahwan Cakery</p>
+                        </a>
+                        <a class="flex flex-row items-center gap-3 mt-2 md:mt-0 w-fit"
                             href="https://www.tokopedia.com/lisahwan" target="_blank">
                             <img src="/images/tokopedia_logo.png" class="w-6" alt="Tokopedia">
                             <p class="hover:underline">Lisahwan</p>
                         </a>
-                        <a class="flex flex-row items-center gap-3 mt-2 md:mt-0" href="https://shopee.co.id/lisahwan"
-                            target="_blank">
+                        <a class="flex flex-row items-center gap-3 mt-2 md:mt-0 w-fit"
+                            href="https://shopee.co.id/lisahwan" target="_blank">
                             <img src="/images/shopee_logo.png" class="w-6" alt="Shopee">
                             <p class="hover:underline">Lisahwan</p>
                         </a>

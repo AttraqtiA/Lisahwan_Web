@@ -152,6 +152,21 @@
                 </div>
             </div>
         @enderror
+        @error('couriercityForgotten_error')
+            <div data-aos="zoom-in-down" data-aos-anchor-placement="top-bottom" data-aos-duration="800"
+                class="w-10/12 md:w-9/12 lg:w-6/12 flex justify-center items-center p-4 {{ $errors->has('couriercityForgotten_error') ? 'mt-8' : '' }} text-sm rounded-lg bg-gray-900 text-red-400"
+                role="alert">
+                <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                    fill="currentColor" viewBox="0 0 20 20">
+                    <path
+                        d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Zm3.707 11.793a1 1 0 1 1-1.414 1.414L10 11.414l-2.293 2.293a1 1 0 0 1-1.414-1.414L8.586 10 6.293 7.707a1 1 0 0 1 1.414-1.414L10 8.586l2.293-2.293a1 1 0 0 1 1.414 1.414L11.414 10l2.293 2.293Z" />
+                </svg>
+                <span class="sr-only">Info</span>
+                <div>
+                    <span class="font-medium">{{ $message }}
+                </div>
+            </div>
+        @enderror
         @error('paymentUrl_ERROR')
             <div data-aos="zoom-in-down" data-aos-anchor-placement="top-bottom" data-aos-duration="800"
                 class="w-10/12 md:w-9/12 lg:w-6/12 flex justify-center items-center p-4 {{ $errors->has('paymentUrl_ERROR') ? 'mt-8' : '' }} text-sm rounded-lg bg-gray-900 text-red-400"
@@ -474,7 +489,7 @@
                             <label data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="800"
                                 for="ongkir" class="block mb-3 text-sm font-semibold text-gray-900">Cek
                                 Ongkir</label>
-                            <div class="flex flex-col lg:flex-row lg:space-x-2 space-y-2 lg:space-y-0 w-full lg:w-2/4">
+                            <div class="flex flex-col lg:flex-row lg:space-x-2 space-y-2 lg:space-y-0 w-full lg:w-3/4">
                                 <div data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="800"
                                     type="submit"
                                     class="w-full flex flex-row  text-sm font-medium text-yellow-500 bg-gray-900 rounded-lg justify-center items-center">
@@ -831,7 +846,7 @@
                             <p class="text-base font-medium text-gray-900">
                                 Subtotal:
                             </p>
-                            <p class="text-base font-medium text-gray-900">
+                            <p class="text-base text-right font-medium text-gray-900">
                                 Rp. {{ number_format($countSubtotal, 0, ',', '.') }}
                             </p>
                         </div>
@@ -841,11 +856,11 @@
                                 Biaya Pengiriman:
                             </p>
                             @if ($shipment_price == 0)
-                                <p class="text-base font-medium text-red-600">
-                                    (Belum memilih ongkir pengiriman)
+                                <p class="text-base text-right font-medium text-red-600">
+                                    (Belum ada)
                                 </p>
                             @else
-                                <p class="text-base font-medium text-gray-900">
+                                <p class="text-base text-right font-medium text-gray-900">
                                     Rp. {{ number_format($shipment_price, 0, ',', '.') }}
                                 </p>
                             @endif
@@ -855,7 +870,7 @@
                             <p class="text-base font-medium text-gray-900">
                                 Biaya Admin:
                             </p>
-                            <p class="text-base font-medium text-gray-900">
+                            <p class="text-base text-right font-medium text-gray-900">
                                 Rp. {{ number_format($admin_fee, 0, ',', '.') }}
                             </p>
                         </div>
@@ -966,14 +981,14 @@
             </div>
             <div class="flex flex-col col-span-2">
                 <div class="flex flex-row justify-between items-center">
-                    <h1 data-aos="fade-right" data-aos-anchor-placement="top-bottom" data-aos-duration="800"
+                    <h1 data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="800"
                         class="text-xl sm:text-2xl lg:text-3xl font-bold text-gray-900">Produk Bestseller</h1>
-                    <a data-aos="fade-left" data-aos-anchor-placement="top-bottom" data-aos-duration="800"
+                    <a data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="800"
                         href="{{ route('products') }}">
                         <p class="text-base font-medium text-yellow-500 hover:text-yellow-600">Lihat semua</p>
                     </a>
                 </div>
-                <hr class="h-px my-2 border-0 bg-gray-400">
+                <hr data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="800" class="h-px my-2 border-0 bg-gray-400">
                 <div
                     class = "pt-2 grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3 mx-auto @if (count($products_bestseller) == 0) h-full justify-center items-center @endif">
                     @if (count($products_bestseller) > 0)

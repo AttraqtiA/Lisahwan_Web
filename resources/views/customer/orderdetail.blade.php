@@ -228,11 +228,11 @@
             </div>
             <div class="flex flex-col h-full">
                 <div class="flex flex-row justify-between items-center">
-                    <h1 data-aos="fade-right" data-aos-anchor-placement="top-bottom" data-aos-duration="800"
+                    <h1 data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="800"
                         class="text-xl sm:text-2xl lg:text-3xl font-semibold text-gray-900">Ulasan Produk</h1>
                     @if ($check_order_user)
                         @if (!$check_testimonies)
-                            <button data-aos="fade-left" data-aos-anchor-placement="top-bottom" data-aos-duration="800"
+                            <button data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="800"
                                 type="button" data-modal-target="add_testimony_modal"
                                 data-modal-toggle="add_testimony_modal"
                                 class="inline-flex cursor-pointer text-white bg-yellow-500 hover:bg-yellow-600 font-medium rounded-lg text-sm px-3 py-2.5 text-center items-center">
@@ -513,15 +513,15 @@
             </div>
             <div class="flex flex-col">
                 <div class="flex flex-row justify-between items-center">
-                    <h1 data-aos="fade-right" data-aos-anchor-placement="top-bottom" data-aos-duration="800"
+                    <h1 data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="800"
                         class="text-xl sm:text-2xl lg:text-3xl font-semibold text-gray-900">Produk Lainnya</h1>
-                    <a data-aos="fade-left" data-aos-anchor-placement="top-bottom" data-aos-duration="800"
+                    <a data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="800"
                         href="{{ route('products') }}">
                         <p class="text-base font-medium text-yellow-500 hover:text-yellow-600">Lihat semua</p>
                     </a>
                 </div>
                 <hr data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="800"
-                    class="h-px my-2 border-0 bg-gray-400">
+                    class="h-px my-3 border-0 bg-gray-400">
                 <div
                     class = "grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-3 p-4 mx-auto @if (count($products_bestseller) == 0) h-full justify-center items-center @endif">
                     @if (count($products_bestseller) > 0)

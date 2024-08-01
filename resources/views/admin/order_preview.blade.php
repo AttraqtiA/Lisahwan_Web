@@ -81,7 +81,11 @@
                 Jasa Pengiriman:
             </p>
             <p class="text-sm font-medium text-gray-400">
-                {{ $order->shipment_service }}
+                @if (strlen($order->payment) >= 10 || $order->payment == 'cash')
+                    -
+                @else
+                    {{ $order->shipment_service }}
+                @endif
             </p>
         </div>
 

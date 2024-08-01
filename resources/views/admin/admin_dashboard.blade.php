@@ -175,11 +175,11 @@
                                 @foreach ($orders as $order)
                                     <tr data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="800"
                                         class="border-b hover:bg-gray-100">
-                                        <td class="p-4 w-4">
+                                        <td class="p-4">
                                             {{ $orderNumber }}
                                         </td>
-                                        <td scope="row" class="pe-12 lg:pe-0 font-medium text-gray-900">
-                                            <div class="ml-4 flex items-center w-full">
+                                        <td scope="row" class="px-2 font-medium text-gray-900">
+                                            <div class="flex items-center w-full">
                                                 @if ($order->user->profile_picture == null)
                                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none"
                                                         viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
@@ -201,7 +201,7 @@
                                                 </div>
                                             </div>
                                         </td>
-                                        <td class="font-medium text-gray-900 whitespace-nowrap">
+                                        <td class="px-2 font-medium text-gray-900 whitespace-nowrap">
                                             <div class="flex justify-center items-center space-x-2">
                                                 <button type="button"
                                                     data-drawer-target="order-detail{{ $order->id }}"
@@ -277,11 +277,11 @@
                                                 Belum</td>
                                         @endif
 
-                                        <td class="font-medium text-gray-900 whitespace-nowrap">
+                                        <td class="px-2 font-medium text-gray-900 whitespace-nowrap">
                                             {{ substr($order->user->phone_number, 0, 4) . '-' . substr($order->user->phone_number, 4, 4) . '-' . substr($order->user->phone_number, 8) }}
                                         </td>
 
-                                        <td class="px-3 lg:px-0">
+                                        <td class="px-2">
                                             @if ($order->user_id == 1 || $order->user_id == 2)
                                                 <div class="flex justify-center">
                                                     <button type="button" data-modal-target="address-modal"
@@ -390,7 +390,7 @@
                                                 </button>
                                             </div>
                                         </td> --}}
-                                        <td class="px-3 lg:px-0">
+                                        <td class="px-2">
                                             @if ($order->shipment_service == null || $order->shipment_service == '')
                                                 <div class="flex justify-center">
                                                     @if (Auth::user()->isAdmin())
@@ -469,7 +469,7 @@
                                                 </div>
                                             @endif
                                         </td>
-                                        <td class="px-3 lg:px-0.5">
+                                        <td class="pl-2 pr-4">
                                             @if ($order->shipment_service != null || $order->shipment_service != '')
                                                 <div class="flex justify-center">
                                                     @if (Auth::user()->isAdmin())

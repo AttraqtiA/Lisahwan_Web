@@ -82,8 +82,7 @@
                     </div>
                 @endif
             </div>
-            <div
-                class="bg-white relative shadow-md rounded-md sm:rounded-lg overflow-hidden m-2 sm:m-0">
+            <div class="bg-white relative shadow-md rounded-md sm:rounded-lg overflow-hidden m-2 sm:m-0">
                 <div
                     class="flex flex-col md:flex-row md:items-center md:justify-between space-y-3 md:space-y-0 md:space-x-4 p-4">
                     <div class="flex-1 flex items-center space-x-2">
@@ -128,7 +127,8 @@
                         <span data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="800"
                             class="mt-2 lg:mt-0 flex flex-row justify-center items-center bg-green-300 text-green-900 text-sm text-center font-medium px-3 py-2 rounded-full">
                             <span class="w-2 h-2 me-2 bg-green-500 rounded-full"></span>
-                            Total Penjualan: Rp.{{ number_format($orders->where('acceptbyAdmin_status', 'paid')->sum('total_price'), 0, ',', '.') }}
+                            Total Penjualan:
+                            Rp.{{ number_format($orders->where('acceptbyAdmin_status', 'paid')->sum('total_price'), 0, ',', '.') }}
                         </span>
                     </div>
                 </div>
@@ -161,11 +161,11 @@
                                 @foreach ($orders as $order)
                                     <tr data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="800"
                                         class="border-b hover:bg-gray-100">
-                                        <td class="p-4 w-4">
+                                        <td class="p-4">
                                             {{ $orderNumber }}
                                         </td>
-                                        <td scope="row" class="pe-12 lg:pe-0 font-medium text-gray-900">
-                                            <div class="ml-4 flex items-center w-full">
+                                        <td scope="row" class="px-2 font-medium text-gray-900">
+                                            <div class="flex items-center w-full">
                                                 @if ($order->user->profile_picture == null)
                                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none"
                                                         viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
@@ -187,7 +187,7 @@
                                                 </div>
                                             </div>
                                         </td>
-                                        <td class="font-medium text-gray-900 whitespace-nowrap">
+                                        <td class="px-2 font-medium text-gray-900 whitespace-nowrap">
                                             <div class="flex justify-center items-center space-x-2">
                                                 <button type="button"
                                                     data-drawer-target="order-detail{{ $order->id }}"
@@ -241,15 +241,18 @@
                                         </td>
 
                                         @if ($order->acceptbyAdmin_status == 'paid')
-                                        <td class="font-medium text-green-400 whitespace-nowrap">{{ ucwords($order->acceptbyAdmin_status) }}</td>
+                                            <td class="font-medium text-green-400 whitespace-nowrap">
+                                                {{ ucwords($order->acceptbyAdmin_status) }}</td>
                                         @else
-                                            <td class="font-medium text-red-700 whitespace-nowrap">{{ ucwords($order->acceptbyAdmin_status) }}</td>
+                                            <td class="font-medium text-red-700 whitespace-nowrap">
+                                                {{ ucwords($order->acceptbyAdmin_status) }}</td>
                                         @endif
 
                                         @if ($order->shipment_status != 'pending')
-                                        <td class="font-medium text-green-400 whitespace-nowrap">{{ ucwords($order->shipment_status) }}</td>
+                                            <td class="font-medium text-green-400 whitespace-nowrap">
+                                                {{ ucwords($order->shipment_status) }}</td>
                                         @else
-                                        <td class="font-medium text-red-700 whitespace-nowrap">Belum</td>
+                                            <td class="font-medium text-red-700 whitespace-nowrap">Belum</td>
                                         @endif
 
                                         @if ($order->acceptbyCustomer_status == 'sudah')
@@ -260,11 +263,11 @@
                                                 Belum</td>
                                         @endif
 
-                                        <td class="font-medium text-gray-900 whitespace-nowrap">
+                                        <td class="px-2 font-medium text-gray-900 whitespace-nowrap">
                                             {{ substr($order->user->phone_number, 0, 4) . '-' . substr($order->user->phone_number, 4, 4) . '-' . substr($order->user->phone_number, 8) }}
                                         </td>
 
-                                        <td class="px-3 lg:px-0">
+                                        <td class="px-2">
                                             @if ($order->user_id == 1 || $order->user_id == 2)
                                                 <div class="flex justify-center">
                                                     <button type="button" data-modal-target="address-modal"
@@ -373,7 +376,7 @@
                                                 </button>
                                             </div>
                                         </td> --}}
-                                        <td class="px-3 lg:px-0">
+                                        <td class="px-2">
                                             @if ($order->shipment_service == null || $order->shipment_service == '')
                                                 <div class="flex justify-center">
                                                     @if (Auth::user()->isAdmin())
@@ -452,7 +455,7 @@
                                                 </div>
                                             @endif
                                         </td>
-                                        <td class="px-3 lg:px-0.5">
+                                        <td class="pl-2 pr-4">
                                             @if ($order->shipment_service != null || $order->shipment_service != '')
                                                 <div class="flex justify-center">
                                                     @if (Auth::user()->isAdmin())
@@ -603,18 +606,20 @@
                                                             @csrf
                                                 @endif
                                                 <div class="flex flex-col mb-4">
-                                                    <p class="text-center font-semibold col-span-3 mb-4">Nomor Resi Pengiriman</p>
-                                                    <div
-                                                        class="flex flex-col justify-center items-center w-full">
+                                                    <p class="text-center font-semibold col-span-3 mb-4">Nomor Resi
+                                                        Pengiriman</p>
+                                                    <div class="flex flex-col justify-center items-center w-full">
                                                         <div>
                                                             <label for="acceptbyAdmin_status"
-                                                                class="block mb-2 text-sm font-medium text-gray-900 text-center">Mohon masukkan nomor resi pengiriman terkait order ini!</label>
-                                                                <input type="text" id="waybill" name="waybill"
+                                                                class="block mb-2 text-sm font-medium text-gray-900 text-center">Mohon
+                                                                masukkan nomor resi pengiriman terkait order ini!</label>
+                                                            <input type="text" id="waybill" name="waybill"
                                                                 aria-describedby="helper-text-explanation"
                                                                 class="{{ $errors->has('waybill') ? 'bg-red-100 border-red-400 text-red-500 placeholder-red-700 focus:ring-red-500 focus:border-red-500' : 'bg-white border-yellow-500 text-gray-900 placeholder-gray-400  focus:ring-yellow-500 focus:border-yellow-500' }} text-center rounded-lg border-1 text-sm block w-full p-2.5 mb-4"
-                                                                value="{{ old('waybill', $order->waybill) }}" placeholder="(Contoh: SOCAG00183235715)">
+                                                                value="{{ old('waybill', $order->waybill) }}"
+                                                                placeholder="(Contoh: SOCAG00183235715)">
                                                         </div>
-                                                    {{-- <p class="text-center font-semibold col-span-3 mb-2">Order Status
+                                                        {{-- <p class="text-center font-semibold col-span-3 mb-2">Order Status
                                                     </p>
                                                     <div
                                                         class="flex flex-col sm:flex-row justify-center w-full sm:space-x-2 sm:space-y-0 space-y-4 mb-6">
@@ -685,7 +690,8 @@
                                                         </div> --}}
                                                     </div>
                                                 </div>
-                                                <div class="justify-center items-center w-full space-y-2 sm:flex sm:space-y-0 sm:space-x-2">
+                                                <div
+                                                    class="justify-center items-center w-full space-y-2 sm:flex sm:space-y-0 sm:space-x-2">
                                                     <button type="submit"
                                                         class="w-full justify-center text-white inline-flex bg-yellow-500 hover:bg-yellow-600 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">Update
                                                         Order</button>

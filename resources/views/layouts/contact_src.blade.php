@@ -8,8 +8,8 @@
         @guest
             <a data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="800"
                 href="{{ route('register') }}"
-                class="inline-flex justify-center items-center py-4 px-7 text-lg font-medium text-center text-white rounded-xl bg-amber-500 hover:bg-amber-400 focus:ring-4 focus:ring-yellow-300">
-                Jadi Member
+                class="inline-flex justify-center items-center py-4 px-7 text-lg font-medium text-center text-white rounded-xl bg-yellow-500 hover:bg-yellow-600 focus:ring-4 focus:ring-yellow-300">
+                Order Sekarang
                 <svg class="w-5 h-5 ml-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                     <path fill-rule="evenodd"
                         d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z"
@@ -21,7 +21,7 @@
         @auth
             <a data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="800"
                 href="{{ route('products') }}"
-                class="inline-flex justify-center items-center py-4 px-7 text-lg font-medium text-center text-white rounded-xl bg-amber-500 hover:bg-amber-400 focus:ring-4 focus:ring-yellow-300">
+                class="inline-flex justify-center items-center py-4 px-7 text-lg font-medium text-center text-white rounded-xl bg-yellow-500 hover:bg-yellow-600 focus:ring-4 focus:ring-yellow-300">
                 Lihat Produk
                 <svg class="w-5 h-5 ms-2 rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
                     fill="none" viewBox="0 0 14 10">

@@ -33,7 +33,7 @@ class OrderController extends Controller
                 ->orWhere('acceptbyAdmin_status', 'refund')
                 ->orWhere('acceptbyAdmin_status', 'partial_refund');
         })
-            ->where('created_at', '<', Carbon::now()->subMinutes(10))
+            ->where('created_at', '<', Carbon::now()->subHours(24))
             ->delete();
 
         $ordersQuery = Order::query();
@@ -525,7 +525,7 @@ class OrderController extends Controller
                 ->orWhere('acceptbyAdmin_status', 'refund')
                 ->orWhere('acceptbyAdmin_status', 'partial_refund');
         })
-            ->where('created_at', '<', Carbon::now()->subMinutes(10))
+            ->where('created_at', '<', Carbon::now()->subHours(24))
             ->delete();
 
         $ordersQuery = Order::query();
