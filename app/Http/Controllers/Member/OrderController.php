@@ -992,7 +992,7 @@ class OrderController extends Controller
 
     public function show_orderhistory()
     {
-        $orders = Order::where('user_id', Auth::user()->id)->orderByDesc('id')->paginate(4);
+        $orders = Order::where('user_id', Auth::user()->id)->where('acceptbyAdmin_status', 'paid')->orderByDesc('id')->paginate(4);
         $cart_user = Cart::where('user_id', Auth::user()->id)->first();
         if (empty($cart_user)) {
             $carts = null;
@@ -1197,7 +1197,6 @@ class OrderController extends Controller
         $shipment_service = $courierName . ', ' . $serviceName;
 
         if (Session::has('pointStatus')) {
-            Session::forget('pointStatus');
             $total_price_beforeReward = $cart_details->sum('price') + $shipment_price + $admin_fee;
             $reward_now = $validatedData['reward_now'];
             if ($reward_now >= $total_price_beforeReward) {
@@ -1299,7 +1298,7 @@ class OrderController extends Controller
         foreach ($cart_details as $cart_detail) {
             $item_details[] = [
                 'id' => $cart_detail->product_id,
-                'price' => $cart_detail->product->price,
+                'price' => $cart_detail->price / $cart_detail->quantity,
                 'quantity' => $cart_detail->quantity,
                 'name' => $cart_detail->product->name, // Asumsi Anda memiliki relasi produk
             ];

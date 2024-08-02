@@ -702,15 +702,16 @@
                                                                 class="relative w-9 h-5 bg-gray-600 peer-focus:outline-none peer-focus:ring-2 peer-focus:ring-yellow-500 rounded-full peer peer-checked:after:translate-x-full rtl:peer-checked:after:translate-x-[-100%] peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-yellow-500">
                                                             </div>
                                                             <span
-                                                                class="ms-3 text-sm font-medium text-yellow-500">{{ $coupon->coupon->title }}</span>
+                                                                class="ms-3 text-xs sm:text-sm font-medium text-yellow-500">{{ $coupon->coupon->title }}</span>
                                                         </label>
                                                         <div
                                                             class="w-full flex flex-row space-x-2 items-center lg:justify-center">
                                                             <span
-                                                                class="text-yellow-500 text-sm font-semibold">{{ $coupon->quantity }}
+                                                                class="text-yellow-500 text-xs sm:text-sm font-semibold">{{ $coupon->quantity }}
                                                                 kupon</span>
                                                             <span class="w-2 h-2 bg-gray-700 rounded-full"></span>
-                                                            <span class="text-yellow-500 text-sm font-semibold">(Berlaku
+                                                            <span
+                                                                class="text-yellow-500 text-xs sm:text-sm font-semibold">(Berlaku
                                                                 sampai
                                                                 {{ date('d F Y', strtotime($coupon->coupon->ending_time)) }})</span>
                                                         </div>
@@ -988,7 +989,8 @@
                         <p class="text-base font-medium text-yellow-500 hover:text-yellow-600">Lihat semua</p>
                     </a>
                 </div>
-                <hr data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="800" class="h-px my-2 border-0 bg-gray-400">
+                <hr data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="800"
+                    class="h-px my-2 border-0 bg-gray-400">
                 <div
                     class = "pt-2 grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3 mx-auto @if (count($products_bestseller) == 0) h-full justify-center items-center @endif">
                     @if (count($products_bestseller) > 0)

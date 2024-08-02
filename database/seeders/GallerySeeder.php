@@ -20,6 +20,12 @@ class GallerySeeder extends Seeder
         ]);
 
         Gallery::create([
+            'title' => 'Cara Belanja di Website Lisahwan',
+            'content' => 'LisahwanWeb_PromotionalVideo.mp4',
+            'type' => 'video'
+        ]);
+
+        Gallery::create([
             'title' => 'Kualitas Premium & Terjamin',
             'content' => 'GalleryCarousel_11.jpg',
             'type' => 'image'
@@ -31,11 +37,11 @@ class GallerySeeder extends Seeder
             'type' => 'video'
         ]);
 
-        Gallery::create([
-            'title' => 'Kering Kentang Thinwall',
-            'content' => 'KeringKentangThinwall.jpg',
-            'type' => 'image'
-        ]);
+        // Gallery::create([
+        //     'title' => 'Kering Kentang Thinwall',
+        //     'content' => 'KeringKentangThinwall.jpg',
+        //     'type' => 'image'
+        // ]);
 
         Gallery::create([
             'title' => 'Spesialis Teri Oven',

@@ -178,7 +178,7 @@
                                         <td class="p-4">
                                             {{ $orderNumber }}
                                         </td>
-                                        <td scope="row" class="px-2 font-medium text-gray-900">
+                                        <td scope="row" class="px-10 lg:px-2 font-medium text-gray-900">
                                             <div class="flex items-center w-full">
                                                 @if ($order->user->profile_picture == null)
                                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none"

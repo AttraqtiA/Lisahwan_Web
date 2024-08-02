@@ -127,7 +127,7 @@ class ProductSeeder extends Seeder
         Product::create([
             'name' => 'Kering Kentang (Toples)',
             'description' => 'Enak, renyah, bumbu pas, asem manis yang sempurna. Terbuat dari kentang dan kacang pilihan, bikin nagih!',
-            'price' => 47500,
+            'price' => 50000,
             'stock' => 50,
             'weight' => 500,
             'discount' => 0,
