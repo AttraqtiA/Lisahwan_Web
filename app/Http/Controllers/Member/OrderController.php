@@ -553,20 +553,17 @@ class OrderController extends Controller
 
     public function chooseCoupon(Request $request, $id)
     {
-        // dd($request->courier);
-        // Simpan data alamat ke session
+        // Save address data to session
         $request->session()->put('checkout.address_id', $request->address_id);
         $request->session()->put('checkout.address', $request->address);
         $request->session()->put('checkout.city', $request->city);
-        // $request->session()->put('checkout.province', $request->province);
-        // $request->session()->put('checkout.postal_code', $request->postal_code);
         $request->session()->put('checkout.note', $request->note);
 
-        // Ambil data keranjang pengguna
+        // Fetch user's cart
         $cart = Cart::where('user_id', Auth::user()->id)->first();
         $courier = $cart ? $cart->courier : null;
 
-        // Pengecekan kondisi untuk city dan courier
+        // Check for city and courier
         if (!$request->city && !$courier) {
             return redirect()->back()->withErrors(['couriercityForgotten_error' => "Oops, anda lupa memilih jasa pengiriman dan kota tujuan!"]);
         }
@@ -577,12 +574,14 @@ class OrderController extends Controller
             return redirect()->back()->withErrors(['courierForgotten_error' => "Oops, anda lupa memilih jasa pengiriman yang akan digunakan!"]);
         }
 
+        // Fetch coupon and user coupon data
         $coupon = Coupon::findOrFail($id);
         $user_coupon = $coupon->usercoupon->where('user_id', Auth::user()->id)->where("coupon_id", $id)->first();
 
-        $cart = Cart::where('user_id', Auth::user()->id)->first();
+        // Fetch cart details
         $cart_details = $cart->cart_detail;
 
+        // Fetch city data from RajaOngkir API
         $responseCities = Http::withHeaders([
             'key' => '1b3d1a91f7ab9a1c6dcc5543cb9192fb'
         ])->get('https://pro.rajaongkir.com/api/city');
@@ -596,9 +595,10 @@ class OrderController extends Controller
             }
         }
 
-        $cart_details = $cart->cart_detail;
+        // Calculate total weight of cart
         $total_weight = $cart_details->sum('weight');
 
+        // Fetch shipping cost from RajaOngkir API
         $responseCost = Http::withHeaders([
             'key' => '1b3d1a91f7ab9a1c6dcc5543cb9192fb',
         ])->post('https://pro.rajaongkir.com/api/cost', [
@@ -611,36 +611,22 @@ class OrderController extends Controller
         ]);
         $costs = $responseCost['rajaongkir'];
 
+        // If the coupon is already active, deactivate it
         if (Session::has('couponStatus_' . $id)) {
-            // Jika kupon dinonaktifkan
             foreach ($cart_details as $cart_detail) {
-                // Ambil harga asli item dari sesi
+                // Restore original price if it was stored in the session
                 $originalPriceKey = 'originalPrice_' . $cart_detail->id;
-                $originalPrice = Session::get($originalPriceKey);
-
-                // Reset harga item ke harga asli sebelum semua kupon diterapkan
-                $cart_detail->update([
-                    'price' => $originalPrice
-                ]);
-
-                // Terapkan kembali kupon yang masih aktif
-                $activeCoupons = Session::get('activeCoupons', []);
-                foreach ($activeCoupons as $activeCouponId) {
-                    if ($activeCouponId != $id) {
-                        $activeCoupon = Coupon::findOrFail($activeCouponId);
-                        $cart_detail->update([
-                            'price' => $cart_detail->price - ($cart_detail->price * ($activeCoupon->discount / 100))
-                        ]);
-                    }
+                if (Session::has($originalPriceKey)) {
+                    $originalPrice = Session::get($originalPriceKey);
+                    $cart_detail->update(['price' => $originalPrice]);
+                    Session::forget($originalPriceKey); // Clear the stored original price
                 }
             }
 
-            // Update jumlah kupon pengguna
-            $user_coupon->update([
-                'quantity' => $user_coupon->quantity + 1
-            ]);
+            // Increase user coupon quantity back
+            $user_coupon->update(['quantity' => $user_coupon->quantity + 1]);
 
-            // Hapus status kupon dari sesi
+            // Remove the coupon status from the session
             Session::forget('couponStatus_' . $id);
             Session::put('activeCoupons', array_diff(Session::get('activeCoupons', []), [$id]));
 
@@ -649,28 +635,46 @@ class OrderController extends Controller
                 'costs' => $costs
             ]);
         } else {
+            // Deactivate any other active coupons
+            $activeCouponsStatus = Session::get('activeCoupons', []);
+            foreach ($activeCouponsStatus as $couponStatus) {
+                if ($couponStatus != $id) {
+                    $activeCoupon = Coupon::findOrFail($couponStatus);
+                    $activeUserCoupon = $activeCoupon->usercoupon->where('user_id', Auth::user()->id)->where("coupon_id", $couponStatus)->first();
+
+                    foreach ($cart_details as $cart_detail) {
+                        $originalPriceKey = 'originalPrice_' . $cart_detail->id;
+                        if (Session::has($originalPriceKey)) {
+                            $originalPrice = Session::get($originalPriceKey);
+                            $cart_detail->update(['price' => $originalPrice]);
+                            Session::forget($originalPriceKey);
+                        }
+                    }
+
+                    $activeUserCoupon->update(['quantity' => $activeUserCoupon->quantity + 1]);
+
+                    Session::forget('couponStatus_' . $couponStatus);
+                }
+            }
+
+            // Clear all active coupons
+            Session::forget('activeCoupons');
+
+            // Apply the new coupon if valid
             $now = Carbon::now();
             if ($now >= $coupon->starting_time && $now <= $coupon->ending_time && $user_coupon->quantity > 0) {
-                // Jika kupon diaktifkan
                 foreach ($cart_details as $cart_detail) {
-                    // Simpan harga asli item jika belum disimpan
                     $originalPriceKey = 'originalPrice_' . $cart_detail->id;
                     if (!Session::has($originalPriceKey)) {
                         Session::put($originalPriceKey, $cart_detail->price);
                     }
-
-                    // Terapkan diskon kupon
                     $cart_detail->update([
                         'price' => $cart_detail->price - ($cart_detail->price * ($coupon->discount / 100))
                     ]);
                 }
 
-                // Update jumlah kupon pengguna
-                $user_coupon->update([
-                    'quantity' => $user_coupon->quantity - 1
-                ]);
+                $user_coupon->update(['quantity' => $user_coupon->quantity - 1]);
 
-                // Simpan status kupon dan aktifkan kupon ke dalam sesi
                 Session::put('couponStatus_' . $id, true);
                 Session::push('activeCoupons', $id);
 
@@ -678,8 +682,11 @@ class OrderController extends Controller
                     'useCoupon_success' => "Selamat! Anda mendapatkan potongan sebesar {$coupon->discount}%!",
                     'costs' => $costs
                 ]);
+            } elseif ($user_coupon->quantity == 0) {
+                return redirect()->back()->withErrors([
+                    'couponExpired_error' => "Oops, kupon {$coupon->title} sudah habis!"
+                ]);
             } else {
-                Session::put('costs', $costs);
                 return redirect()->back()->withErrors([
                     'couponExpired_error' => "Oops, kupon {$coupon->title} sudah kedaluwarsa!"
                 ]);
@@ -723,7 +730,7 @@ class OrderController extends Controller
         if ($reward >= $total_price) {
             $difference = $total_price;
         } else {
-            $difference = abs($reward - $total_price);
+            $difference = $reward;
         }
 
         $responseCities = Http::withHeaders([
@@ -783,12 +790,12 @@ class OrderController extends Controller
         } else {
             if (!$request->courier) {
                 $courierStatus_lion = Session::get('courierStatus_lion');
-                $courierStatus_sicepat = Session::get('courierStatus_sicepat');
+                $courierStatus_anteraja = Session::get('courierStatus_anteraja');
                 if ($courierStatus_lion) {
                     Session::forget('courierStatus_lion');
                 }
-                if ($courierStatus_sicepat) {
-                    Session::forget('courierStatus_sicepat');
+                if ($courierStatus_anteraja) {
+                    Session::forget('courierStatus_anteraja');
                 }
                 return redirect()->back()->withErrors(['courierForgotten_error' => "Oops, anda lupa memilih jasa pengiriman yang akan digunakan!"]);
             } else {
@@ -992,74 +999,69 @@ class OrderController extends Controller
 
     public function show_orderhistory()
     {
-        $orders = Order::where('user_id', Auth::user()->id)->where('acceptbyAdmin_status', 'paid')->orderByDesc('id')->paginate(4);
+        $orders = Order::where('user_id', Auth::user()->id)
+            ->where('acceptbyAdmin_status', 'paid')
+            ->orderByDesc('id')
+            ->paginate(4);
+
         $cart_user = Cart::where('user_id', Auth::user()->id)->first();
-        if (empty($cart_user)) {
-            $carts = null;
-        } else {
-            $carts = $cart_user->cart_detail;
-        }
+        $carts = $cart_user ? $cart_user->cart_detail : null;
+
         if ($orders->isEmpty()) {
             return redirect()->route('products')->with('empty_order', 'Oops! Anda belum belanja sama sekali!');
-        } else {
-            foreach ($orders as $order) {
-                // $orderDate = Carbon::parse($order->order_date);
-                // $currentDate = Carbon::now();
-                // $daysDifference = $currentDate->diffInDays($orderDate);
+        }
 
-                // // Ambil estimasi pengiriman dari data order
-                // // Asumsi bahwa $order->delivery_estimate berisi string seperti "1-2" atau "5"
-                // $deliveryEstimate = $order->shipment_estimation;
+        $shipment_histories = [];
 
-                // // Konversi estimasi hari pengiriman menjadi jumlah hari maksimal
-                // if (strpos($deliveryEstimate, '-') !== false) {
-                //     $parts = explode('-', $deliveryEstimate);
-                //     $estimateDays = (int)$parts[1];
-                // } else {
-                //     $estimateDays = (int)$deliveryEstimate;
-                // }
+        foreach ($orders as $order) {
+            $courier = '';
+            $waybill = $order->waybill;
 
-                // if ($daysDifference > $estimateDays) {
-                //     $arrivedDate = $orderDate->copy()->addDays($estimateDays);
-                //     $order->update(['arrived_date' => $arrivedDate]);
-                //     $order->update(['acceptbyCustomer_status' => 'Sudah']);
-                // }
+            if ($waybill) {
+                if (stripos($order->shipment_service, 'Lion') !== false) {
+                    $courier = 'lion';
+                } elseif (stripos($order->shipment_service, 'AnterAja') !== false) {
+                    $courier = 'anteraja';
+                }
 
-                $courier = '';
-                $waybill =  $order->waybill;
-                if ($waybill != '') {
-                    // dd($waybill);
-                    if (stripos($order->shipment_service, 'JNE') !== false) {
-                        $courier = 'jne';
-                    } elseif (stripos($order->shipment_service, 'SiCepat') !== false) {
-                        $courier = 'sicepat';
-                    }
+                $responseWaybills = Http::withHeaders([
+                    'key' => '1b3d1a91f7ab9a1c6dcc5543cb9192fb',
+                ])->post('https://pro.rajaongkir.com/api/waybill', [
+                    'waybill' => $waybill,
+                    'courier' => $courier,
+                ]);
 
-                    $responseWaybills = Http::withHeaders([
-                        'key' => '1b3d1a91f7ab9a1c6dcc5543cb9192fb',
-                    ])->post('https://pro.rajaongkir.com/api/waybill', [
-                        'waybill' => $waybill,
-                        'courier' => $courier
+                $responseJson = $responseWaybills->json();
+
+                if (isset($responseJson['rajaongkir']['status']['code']) && $responseJson['rajaongkir']['status']['code'] !== 200) {
+                    return redirect()->back()->withErrors([
+                        'waybillNotValid_error' => 'Nomor resi tidak valid atau informasi pengiriman tidak ditemukan!'
                     ]);
-                    // dd($responseWaybills['rajaongkir']);
-                    $waybills = $responseWaybills['rajaongkir']['result'];
-                    if ($waybills['delivery_status']['pod_date'] != "" || $waybills['delivery_status']['pod_date'] != null) {
-                        $order->update(['arrived_date' => $waybills['delivery_status']['pod_date'] . ' ' . $waybills['delivery_status']['pod_time']]);
+                }
+
+                $waybills = $responseWaybills['rajaongkir']['result'];
+
+                if (!empty($waybills['manifest'])) {
+                    $shipment_histories[$order->id] = $waybills['manifest'];
+
+                    if (!empty($waybills['delivery_status']['pod_date'])) {
+                        $order->update([
+                            'arrived_date' => $waybills['delivery_status']['pod_date'] . ' ' . $waybills['delivery_status']['pod_time']
+                        ]);
                     }
                 }
             }
-            return view(
-                'customer.orderhistory',
-                [
-                    "TabTitle" => "Riwayat Pemesanan",
-                    "active_history" => "text-yellow-500 rounded md:bg-transparent md:p-0",
-                    "pageTitle" => '<mark class="px-2 text-yellow-500 bg-gray-900 rounded">Riwayat</mark> Pemesanan',
-                    'pageDescription' => 'Lacak pesanan anda <span class="underline underline-offset-2 decoration-4 decoration-yellow-500">di sini!</span>',
-                    "orders" => $orders,
-                    "carts" => $carts
-                ]
-            );
         }
+
+        return view('customer.orderhistory', [
+            "TabTitle" => "Riwayat Pemesanan",
+            "active_history" => "text-yellow-500 rounded md:bg-transparent md:p-0",
+            "pageTitle" => '<mark class="px-2 text-yellow-500 bg-gray-900 rounded">Riwayat</mark> Pemesanan',
+            'pageDescription' => 'Lacak pesanan anda <span class="underline underline-offset-2 decoration-4 decoration-yellow-500">di sini!</span>',
+            "orders" => $orders,
+            "carts" => $carts,
+            "shipment_histories" => $shipment_histories,
+        ]);
     }
 
     /**
@@ -1231,6 +1233,7 @@ class OrderController extends Controller
                     'note' => $validatedData['note'],
                     'shipment_service' => $shipment_service,
                     'shipment_estimation' => $shipment_estimation,
+                    'shipment_price' => $shipment_price_check,
                 ]);
             } else {
                 $order = Order::create([
@@ -1243,6 +1246,7 @@ class OrderController extends Controller
                     'payment' => 'online',
                     'shipment_service' => $shipment_service,
                     'shipment_estimation' => $shipment_estimation,
+                    'shipment_price' => $shipment_price_check,
                 ]);
             }
         } else {
@@ -1267,6 +1271,7 @@ class OrderController extends Controller
                     'note' => $validatedData['note'],
                     'shipment_service' => $shipment_service,
                     'shipment_estimation' => $shipment_estimation,
+                    'shipment_price' => $shipment_price_check,
                 ]);
             } else {
                 $order = Order::create([
@@ -1279,6 +1284,7 @@ class OrderController extends Controller
                     'payment' => 'online',
                     'shipment_service' => $shipment_service,
                     'shipment_estimation' => $shipment_estimation,
+                    'shipment_price' => $shipment_price_check,
                 ]);
             }
         }

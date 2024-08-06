@@ -29,7 +29,7 @@ class OrderSeeder extends Seeder
             'shipment_estimation' => '3-4',
             'is_print' => 'pending',
             'shipment_status' => 'pending',
-            'acceptbyAdmin_status' => 'pending',
+            'acceptbyAdmin_status' => 'paid',
             'acceptbyCustomer_status' => 'pending',
         ]);
 
@@ -49,7 +49,7 @@ class OrderSeeder extends Seeder
             'shipment_estimation' => '3-4',
             'is_print' => 'pending',
             'shipment_status' => 'pending',
-            'acceptbyAdmin_status' => 'pending',
+            'acceptbyAdmin_status' => 'paid',
             'acceptbyCustomer_status' => 'pending',
         ]);
 
@@ -69,7 +69,7 @@ class OrderSeeder extends Seeder
             'shipment_estimation' => '3-4',
             'is_print' => 'pending',
             'shipment_status' => 'pending',
-            'acceptbyAdmin_status' => 'pending',
+            'acceptbyAdmin_status' => 'paid',
             'acceptbyCustomer_status' => 'pending',
         ]);
     }

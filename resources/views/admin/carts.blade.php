@@ -47,6 +47,36 @@
                 </div>
             </div>
         @endif
+        @if (session('activateDiscount_success'))
+            <div data-aos="zoom-in-down" data-aos-anchor-placement="top-bottom" data-aos-duration="800"
+                class="w-10/12 md:w-9/12 lg:w-6/12 flex justify-center items-center p-4 mb-12 text-sm rounded-lg bg-gray-900 text-green-400"
+                role="alert">
+                <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                    fill="currentColor" viewBox="0 0 20 20">
+                    <path
+                        d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Zm3.707 8.207-4 4a1 1 0 0 1-1.414 0l-2-2a1 1 0 0 1 1.414-1.414L9 10.586l3.293-3.293a1 1 0 0 1 1.414 1.414Z" />
+                </svg>
+                <span class="sr-only">Info</span>
+                <div>
+                    <span class="font-medium">{{ session('activateDiscount_success') }}
+                </div>
+            </div>
+        @endif
+        @if (session('unactivateDiscount_success'))
+            <div data-aos="zoom-in-down" data-aos-anchor-placement="top-bottom" data-aos-duration="800"
+                class="w-10/12 md:w-9/12 lg:w-6/12 flex justify-center items-center p-4 mb-12 text-sm rounded-lg bg-gray-900 text-green-400"
+                role="alert">
+                <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                    fill="currentColor" viewBox="0 0 20 20">
+                    <path
+                        d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Zm3.707 8.207-4 4a1 1 0 0 1-1.414 0l-2-2a1 1 0 0 1 1.414-1.414L9 10.586l3.293-3.293a1 1 0 0 1 1.414 1.414Z" />
+                </svg>
+                <span class="sr-only">Info</span>
+                <div>
+                    <span class="font-medium">{{ session('unactivateDiscount_success') }}
+                </div>
+            </div>
+        @endif
         @error('quantity')
             <div data-aos="zoom-in-down" data-aos-anchor-placement="top-bottom" data-aos-duration="800"
                 class="w-10/12 md:w-9/12 lg:w-6/12 flex justify-center items-center p-4 mb-12 text-sm rounded-lg bg-gray-900 text-red-400"
@@ -249,7 +279,56 @@
                                 </td>
                                 <td class="bg-gray-900 px-6 py-4 text-center text-sm md:text-base font-bold text-green-500"
                                     colspan="2">
-                                    Rp. {{ number_format($countSubtotal, 0, ',', '.') }}
+                                    <div
+                                        class="flex flex-col space-y-2 lg:space-y-0 lg:flex-row lg:space-x-2 justify-center items-center">
+                                        @php
+                                            $final_price = Session::get('final_price');
+                                            $discountStatus = Session::get('discountStatus');
+                                        @endphp
+
+                                        <span
+                                            class="border-b pb-2 lg:border-0 lg:border-r border-gray-500 lg:pb-0 lg:pr-2 {{ $final_price && $discountStatus ? 'line-through text-red-500 border-0' : '' }}">
+                                            Rp. {{ number_format($countSubtotal, 0, ',', '.') }}
+                                        </span>
+
+                                        @if ($final_price && $discountStatus)
+                                            <span
+                                                class="border-b pb-2 lg:border-0 lg:border-r border-gray-500 lg:pb-0 lg:pr-2">
+                                                Rp. {{ number_format($final_price, 0, ',', '.') }}
+                                            </span>
+                                        @endif
+
+                                        @if (Auth::user()->isOwner())
+                                            <form id="toggleDiscountForm" action="{{ route('owner.aktifDiskon') }}"
+                                                method="GET" class="flex justify-center items-center">
+                                                @csrf
+                                                <label
+                                                    class="inline-flex items-center cursor-pointer bg-gray-900 rounded-full">
+                                                    <input type="checkbox" id="toggleDiscount" value=""
+                                                        {{ $discountStatus ? 'checked' : '' }} class="sr-only peer">
+                                                    <div
+                                                        class="relative w-9 h-5 bg-gray-600 peer-focus:outline-none peer-focus:ring-2 peer-focus:ring-yellow-500 rounded-full peer peer-checked:after:translate-x-full rtl:peer-checked:after:translate-x-[-100%] peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-yellow-500">
+                                                    </div>
+                                                    <span class="ms-2 font-semibold text-yellow-500">5%</span>
+                                                </label>
+                                            </form>
+                                        @endif
+                                        @if (Auth::user()->isAdmin())
+                                            <form id="toggleDiscountForm" action="{{ route('admin.aktifDiskon') }}"
+                                                method="GET" class="flex justify-center items-center">
+                                                @csrf
+                                                <label
+                                                    class="inline-flex items-center cursor-pointer bg-gray-900 rounded-full">
+                                                    <input type="checkbox" id="toggleDiscount" value=""
+                                                        {{ $discountStatus ? 'checked' : '' }} class="sr-only peer">
+                                                    <div
+                                                        class="relative w-9 h-5 bg-gray-600 peer-focus:outline-none peer-focus:ring-2 peer-focus:ring-yellow-500 rounded-full peer peer-checked:after:translate-x-full rtl:peer-checked:after:translate-x-[-100%] peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-yellow-500">
+                                                    </div>
+                                                    <span class="ms-2 font-semibold text-yellow-500">5%</span>
+                                                </label>
+                                            </form>
+                                        @endif
+                                    </div>
                                 </td>
                             </tr>
                         </tbody>
@@ -444,5 +523,11 @@
         // function openReceipt(url) {
         //     window.open(url, '_blank');
         // }
+
+        $(document).ready(function() {
+            $('#toggleDiscount').on('change', function() {
+                $('#toggleDiscountForm').submit();
+            });
+        });
     </script>
 @endsection

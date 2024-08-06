@@ -9,7 +9,7 @@
                 class="flex flex-col justify-center items-center w-full {{ session('setPoint_success') || session('unsetPoint_success') || session('setCoupon_success') || session('deleteCoupon_success') || $errors->has('percentage_from_totalprice') || $errors->has('money_per_poin') || $errors->has('alreadySetPoint_error') || $errors->has('forgotPercentage_error') || $errors->has('forgotMoney_error') || $errors->has('forgotAll_error') || $errors->has('title') || $errors->has('starting_time') || $errors->has('ending_time') || $errors->has('discount') || $errors->has('quantity') ? 'mb-10 mt-6' : '' }}">
                 @error('percentage_from_totalprice')
                     <div data-aos="zoom-in-down" data-aos-anchor-placement="top-bottom" data-aos-duration="800"
-                        class="w-10/12 md:w-9/12 lg:w-6/12 flex justify-center items-center p-4 {{ $errors->has('money_per_poin') ? 'mb-2' : '' }} text-sm rounded-lg bg-gray-900 text-red-400"
+                        class="w-10/12 md:w-9/12 lg:w-6/12 flex justify-center items-center p-4 {{ $errors->has('percentage_from_totalprice') ? 'mb-2' : '' }} text-sm rounded-lg bg-gray-900 text-red-400"
                         role="alert">
                         <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
                             fill="currentColor" viewBox="0 0 20 20">
@@ -24,7 +24,7 @@
                 @enderror
                 @error('money_per_poin')
                     <div data-aos="zoom-in-down" data-aos-anchor-placement="top-bottom" data-aos-duration="800"
-                        class="w-10/12 md:w-9/12 lg:w-6/12 flex justify-center items-center p-4 text-sm rounded-lg bg-gray-900 text-red-400"
+                        class="w-10/12 md:w-9/12 lg:w-6/12 flex justify-center items-center p-4 {{ $errors->has('money_per_poin') ? 'mb-2' : '' }} text-sm rounded-lg bg-gray-900 text-red-400"
                         role="alert">
                         <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
                             fill="currentColor" viewBox="0 0 20 20">
@@ -39,7 +39,7 @@
                 @enderror
                 @error('alreadySetPoint_error')
                     <div data-aos="zoom-in-down" data-aos-anchor-placement="top-bottom" data-aos-duration="800"
-                        class="w-10/12 md:w-9/12 lg:w-6/12 flex justify-center items-center p-4 text-sm rounded-lg bg-gray-900 text-red-400"
+                        class="w-10/12 md:w-9/12 lg:w-6/12 flex justify-center items-center p-4 {{ $errors->has('alreadySetPoint_error') ? 'mb-2' : '' }} text-sm rounded-lg bg-gray-900 text-red-400"
                         role="alert">
                         <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
                             fill="currentColor" viewBox="0 0 20 20">
@@ -54,7 +54,7 @@
                 @enderror
                 @error('forgotPercentage_error')
                     <div data-aos="zoom-in-down" data-aos-anchor-placement="top-bottom" data-aos-duration="800"
-                        class="w-10/12 md:w-9/12 lg:w-6/12 flex justify-center items-center p-4 text-sm rounded-lg bg-gray-900 text-red-400"
+                        class="w-10/12 md:w-9/12 lg:w-6/12 flex justify-center items-center p-4 {{ $errors->has('forgotPercentage_error') ? 'mb-2' : '' }} text-sm rounded-lg bg-gray-900 text-red-400"
                         role="alert">
                         <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
                             fill="currentColor" viewBox="0 0 20 20">
@@ -69,7 +69,7 @@
                 @enderror
                 @error('forgotMoney_error')
                     <div data-aos="zoom-in-down" data-aos-anchor-placement="top-bottom" data-aos-duration="800"
-                        class="w-10/12 md:w-9/12 lg:w-6/12 flex justify-center items-center p-4 text-sm rounded-lg bg-gray-900 text-red-400"
+                        class="w-10/12 md:w-9/12 lg:w-6/12 flex justify-center items-center p-4 {{ $errors->has('forgotMoney_error') ? 'mb-2' : '' }} text-sm rounded-lg bg-gray-900 text-red-400"
                         role="alert">
                         <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
                             fill="currentColor" viewBox="0 0 20 20">
@@ -84,7 +84,7 @@
                 @enderror
                 @error('forgotAll_error')
                     <div data-aos="zoom-in-down" data-aos-anchor-placement="top-bottom" data-aos-duration="800"
-                        class="w-10/12 md:w-9/12 lg:w-6/12 flex justify-center items-center p-4 text-sm rounded-lg bg-gray-900 text-red-400"
+                        class="w-10/12 md:w-9/12 lg:w-6/12 flex justify-center items-center p-4 {{ $errors->has('forgotAll_error') ? 'mb-2' : '' }} text-sm rounded-lg bg-gray-900 text-red-400"
                         role="alert">
                         <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
                             fill="currentColor" viewBox="0 0 20 20">
@@ -525,7 +525,7 @@
                                                     dari
                                                     Total
                                                     Harga</label>
-                                                <input type="number" id="percentage_from_totalprice"
+                                                <input type="number" step="any" id="percentage_from_totalprice"
                                                     name="percentage_from_totalprice"
                                                     aria-describedby="helper-text-explanation"
                                                     class="{{ $errors->has('percentage_from_totalprice') ? 'bg-red-100 border-red-400 text-red-500 placeholder-red-700 focus:ring-red-500 focus:border-red-500' : 'bg-white border-yellow-500 text-gray-900 placeholder-gray-400  focus:ring-yellow-500 focus:border-yellow-500' }} text-center rounded-lg border-1 text-sm block w-full p-2.5 mb-4"
@@ -586,7 +586,7 @@
                                                     dari
                                                     Total
                                                     Harga</label>
-                                                <input type="number" id="percentage_from_totalprice"
+                                                <input type="number" step="any" id="percentage_from_totalprice"
                                                     name="percentage_from_totalprice"
                                                     aria-describedby="helper-text-explanation"
                                                     class="{{ $errors->has('percentage_from_totalprice') ? 'bg-red-100 border-red-400 text-red-500 placeholder-red-700 focus:ring-red-500 focus:border-red-500' : 'bg-white border-yellow-500 text-gray-900 placeholder-gray-400  focus:ring-yellow-500 focus:border-yellow-500' }} text-center rounded-lg border-1 text-sm block w-full p-2.5 mb-4"
@@ -677,7 +677,7 @@
                                             Member</td>
                                     @endif
 
-                                    @if ($user->is_login == 1)
+                                    @if ($user->is_active == 1)
                                         <td class=" px-4">
                                             <div class="flex items-center">
                                                 <div class="h-3 w-3 rounded-full inline-block mr-2 bg-green-400"></div>

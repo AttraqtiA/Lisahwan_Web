@@ -62,7 +62,7 @@
         </div>
         <div class="flex flex-col justify-center items-start">
             <p class="text-sm font-semibold text-gray-900">
-                Total Pemesanan:
+                Total Pesanan:
             </p>
             <p class="text-sm font-medium text-lime-600">
                 Rp. {{ number_format($order->total_price, 0, ',', '.') }}
@@ -84,7 +84,7 @@
                 @if (strlen($order->payment) >= 10 || $order->payment == 'cash')
                     -
                 @else
-                    {{ $order->shipment_service }}
+                    {{ $order->shipment_service }} (Rp. {{ number_format($order->shipment_price, 0, ',', '.') }})
                 @endif
             </p>
         </div>
@@ -94,7 +94,11 @@
                 Catatan:
             </p>
             <p class="text-sm font-medium text-gray-400">
-                {{ $order->note }}
+                @if ($order->note == '' || $order->note == null)
+                    -
+                @else
+                    {{ $order->note }}
+                @endif
             </p>
         </div>
 
@@ -185,13 +189,13 @@
                 <span
                     class="inline-flex items-center bg-green-100 text-green-800 text-sm font-medium px-2 py-1.5 rounded-lg">
                     <span class="w-2.5 h-2 mr-2 bg-green-500 rounded-full"></span>
-                    Sudah Diterima
+                    Sudah Diverifikasi
                 </span>
             @else
                 <span
                     class="inline-flex items-center bg-gray-300 text-gray-600 text-sm font-medium px-2 py-1.5 rounded-lg">
                     <span class="w-2.5 h-2 mr-2 bg-gray-600 rounded-full"></span>
-                    Belum Diterima
+                    Belum Diverifikasi
                 </span>
             @endif
         </div>

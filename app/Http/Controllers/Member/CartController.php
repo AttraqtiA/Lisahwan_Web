@@ -238,15 +238,23 @@ class CartController extends Controller
         $cart = Cart::where('user_id', Auth::user()->id)->first();
         $courier = $cart ? $cart->courier : null;
 
-        // Pengecekan kondisi untuk city dan courier
-        if (!$request->city && !$courier) {
-            return redirect()->back()->withErrors(['couriercityForgotten_error' => "Oops, anda lupa memilih jasa pengiriman dan kota tujuan!"]);
-        }
-        if (!$request->city) {
-            return redirect()->back()->withErrors(['cityForgotten_error' => "Oops, anda lupa memilih kota tujuan!"]);
-        }
-        if (!$courier) {
-            return redirect()->back()->withErrors(['courierForgotten_error' => "Oops, anda lupa memilih jasa pengiriman yang akan digunakan!"]);
+        // Dapatkan URL sebelumnya
+        $previousUrl = url()->previous();
+
+        // Debug untuk memeriksa URL sebelumnya
+        // dd($previousUrl);
+
+        // Pengecekan kondisi untuk city dan courier hanya jika URL sebelumnya adalah member/checkout
+        if (strpos($previousUrl, 'member/checkout') !== false) {
+            if (!$request->city && !$courier) {
+                return redirect()->back()->withErrors(['couriercityForgotten_error' => "Oops, anda lupa memilih jasa pengiriman dan kota tujuan!"]);
+            }
+            if (!$request->city) {
+                return redirect()->back()->withErrors(['cityForgotten_error' => "Oops, anda lupa memilih kota tujuan!"]);
+            }
+            if (!$courier) {
+                return redirect()->back()->withErrors(['courierForgotten_error' => "Oops, anda lupa memilih jasa pengiriman yang akan digunakan!"]);
+            }
         }
 
         // Ambil detail keranjang yang akan dihapus
@@ -260,37 +268,41 @@ class CartController extends Controller
                 'stock' => $cartDetail->product->stock + $cartDetail->quantity
             ]);
 
-            // Ambil data kota dari API RajaOngkir
-            $responseCities = Http::withHeaders([
-                'key' => '1b3d1a91f7ab9a1c6dcc5543cb9192fb'
-            ])->get('https://pro.rajaongkir.com/api/city');
-            $cities = $responseCities['rajaongkir']['results'];
+            // Pengecekan dan pemanggilan API RajaOngkir hanya jika URL adalah member/checkout
+            $costs = null;
+            if (strpos($previousUrl, 'member/checkout') !== false) {
+                // Ambil data kota dari API RajaOngkir
+                $responseCities = Http::withHeaders([
+                    'key' => '1b3d1a91f7ab9a1c6dcc5543cb9192fb'
+                ])->get('https://pro.rajaongkir.com/api/city');
+                $cities = $responseCities['rajaongkir']['results'];
 
-            // Cari ID kota asal (Surabaya)
-            $origin_id = null;
-            foreach ($cities as $city) {
-                if ($city['city_name'] == 'Surabaya') {
-                    $origin_id = $city['city_id'];
-                    break;
+                // Cari ID kota asal (Surabaya)
+                $origin_id = null;
+                foreach ($cities as $city) {
+                    if ($city['city_name'] == 'Surabaya') {
+                        $origin_id = $city['city_id'];
+                        break;
+                    }
                 }
+
+                // Hitung total berat keranjang
+                $cart_details = $cart->cart_detail;
+                $total_weight = $cart_details->sum('weight');
+
+                // Hitung biaya pengiriman
+                $responseCost = Http::withHeaders([
+                    'key' => '1b3d1a91f7ab9a1c6dcc5543cb9192fb',
+                ])->post('https://pro.rajaongkir.com/api/cost', [
+                    'origin' => $origin_id,
+                    'originType' => 'city',
+                    'destination' => $request->city,
+                    'destinationType' => 'city',
+                    'weight' => $total_weight,
+                    'courier' => $courier
+                ]);
+                $costs = $responseCost['rajaongkir'];
             }
-
-            // Hitung total berat keranjang
-            $cart_details = $cart->cart_detail;
-            $total_weight = $cart_details->sum('weight');
-
-            // Hitung biaya pengiriman
-            $responseCost = Http::withHeaders([
-                'key' => '1b3d1a91f7ab9a1c6dcc5543cb9192fb',
-            ])->post('https://pro.rajaongkir.com/api/cost', [
-                'origin' => $origin_id,
-                'originType' => 'city',
-                'destination' => $request->city,
-                'destinationType' => 'city',
-                'weight' => $total_weight,
-                'courier' => $courier
-            ]);
-            $costs = $responseCost['rajaongkir'];
 
             // Hapus CartDetail
             $cartDetail->delete();

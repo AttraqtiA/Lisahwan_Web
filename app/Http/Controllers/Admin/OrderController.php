@@ -117,10 +117,10 @@ class OrderController extends Controller
             $courier = '';
             $waybill =  $order->waybill;
             if ($waybill != '') {
-                if (stripos($order->shipment_service, 'JNE') !== false) {
-                    $courier = 'jne';
-                } elseif (stripos($order->shipment_service, 'SiCepat') !== false) {
-                    $courier = 'sicepat';
+                if (stripos($order->shipment_service, 'Lion') !== false) {
+                    $courier = 'lion';
+                } elseif (stripos($order->shipment_service, 'AnterAja') !== false) {
+                    $courier = 'anteraja';
                 }
 
                 $responseWaybills = Http::withHeaders([
@@ -129,7 +129,16 @@ class OrderController extends Controller
                     'waybill' => $waybill,
                     'courier' => $courier
                 ]);
-                // dd($responseWaybills['rajaongkir']);
+
+                // Memeriksa apakah respons dari API valid
+                $responseJson = $responseWaybills->json();
+
+                if (isset($responseJson['rajaongkir']['status']['code']) && $responseJson['rajaongkir']['status']['code'] !== 200) {
+                    return redirect()->back()->withErrors([
+                        'waybillNotValid_error' => 'Nomor resi tidak valid atau informasi pengiriman tidak ditemukan!'
+                    ]);
+                }
+
                 $waybills = $responseWaybills['rajaongkir']['result'];
 
                 $order->update([
@@ -452,6 +461,12 @@ class OrderController extends Controller
     public function generateReceipt_CART($id)
     {
         $cart = Cart::where('user_id', $id)->first();
+        $cart_details = $cart->cart_detail;
+        if (Session::has('final_price') && Session::has('discountStatus')) {
+            $final_price = $cart_details->sum('price') - ($cart_details->sum('price') * (5 / 100));
+        } else {
+            $final_price = 0;
+        }
 
         $mpdf = new \Mpdf\Mpdf([
             'mode' => 'utf-8', 'format' => [58, 210],
@@ -464,10 +479,10 @@ class OrderController extends Controller
             'orientation' => 'P'
         ]);
 
-        $mpdf->WriteHTML(view("admin.receiptCart", ['cart' => $cart]));
-
-        // // Set session untuk menandai bahwa struk sudah dicetak
-        // session(['printed' => true]);
+        $mpdf->WriteHTML(view("admin.receiptCart", [
+            'cart' => $cart,
+            'final_price' => $final_price,
+        ]));
 
         $mpdf->Output();
     }
@@ -475,6 +490,14 @@ class OrderController extends Controller
     public function generateReceipt_ORDER($id)
     {
         $order = Order::where('id', $id)->first();
+        $order_details = $order->order_detail;
+        if ($order_details->sum('price') != $order->total_price) {
+            $final_price = $order_details->sum('price') - ($order_details->sum('price') * (5 / 100));
+            $before_discount_price = $order_details->sum('price');
+        } else {
+            $final_price = 0;
+            $before_discount_price = 0;
+        }
 
         $mpdf = new \Mpdf\Mpdf([
             'mode' => 'utf-8', 'format' => [58, 210],
@@ -487,7 +510,11 @@ class OrderController extends Controller
             'orientation' => 'P'
         ]);
 
-        $mpdf->WriteHTML(view("admin.receiptOrder", ['order' => $order]));
+        $mpdf->WriteHTML(view("admin.receiptOrder", [
+            'order' => $order,
+            'final_price' => $final_price,
+            'before_discount_price' => $before_discount_price,
+        ]));
 
         $mpdf->Output();
     }
@@ -606,10 +633,10 @@ class OrderController extends Controller
             $courier = '';
             $waybill =  $order->waybill;
             if ($waybill != '') {
-                if (stripos($order->shipment_service, 'JNE') !== false) {
-                    $courier = 'jne';
-                } elseif (stripos($order->shipment_service, 'SiCepat') !== false) {
-                    $courier = 'sicepat';
+                if (stripos($order->shipment_service, 'Lion') !== false) {
+                    $courier = 'lion';
+                } elseif (stripos($order->shipment_service, 'AnterAja') !== false) {
+                    $courier = 'anteraja';
                 }
 
                 $responseWaybills = Http::withHeaders([
@@ -618,7 +645,16 @@ class OrderController extends Controller
                     'waybill' => $waybill,
                     'courier' => $courier
                 ]);
-                // dd($responseWaybills['rajaongkir']);
+
+                // Memeriksa apakah respons dari API valid
+                $responseJson = $responseWaybills->json();
+
+                if (isset($responseJson['rajaongkir']['status']['code']) && $responseJson['rajaongkir']['status']['code'] !== 200) {
+                    return redirect()->back()->withErrors([
+                        'waybillNotValid_error' => 'Nomor resi tidak valid atau informasi pengiriman tidak ditemukan!'
+                    ]);
+                }
+
                 $waybills = $responseWaybills['rajaongkir']['result'];
 
                 $order->update([
@@ -704,10 +740,10 @@ class OrderController extends Controller
 
         $courier = '';
         $waybill =  $validatedData['waybill'];
-        if (stripos($order->shipment_service, 'JNE') !== false) {
-            $courier = 'jne';
-        } elseif (stripos($order->shipment_service, 'SiCepat') !== false) {
-            $courier = 'sicepat';
+        if (stripos($order->shipment_service, 'Lion') !== false) {
+            $courier = 'lion';
+        } elseif (stripos($order->shipment_service, 'AnterAja') !== false) {
+            $courier = 'anteraja';
         }
 
         $responseWaybills = Http::withHeaders([
@@ -716,7 +752,16 @@ class OrderController extends Controller
             'waybill' => $waybill,
             'courier' => $courier
         ]);
-        // dd($responseWaybills['rajaongkir']);
+
+        // Memeriksa apakah respons dari API valid
+        $responseJson = $responseWaybills->json();
+
+        if (isset($responseJson['rajaongkir']['status']['code']) && $responseJson['rajaongkir']['status']['code'] !== 200) {
+            return redirect()->back()->withErrors([
+                'waybillNotValid_error' => 'Nomor resi tidak valid atau informasi pengiriman tidak ditemukan!'
+            ]);
+        }
+
         $waybills = $responseWaybills['rajaongkir']['result'];
 
         $order->update([
@@ -760,10 +805,10 @@ class OrderController extends Controller
 
         $courier = '';
         $waybill =  $validatedData['waybill'];
-        if (stripos($order->shipment_service, 'JNE') !== false) {
-            $courier = 'jne';
-        } elseif (stripos($order->shipment_service, 'SiCepat') !== false) {
-            $courier = 'sicepat';
+        if (stripos($order->shipment_service, 'Lion') !== false) {
+            $courier = 'lion';
+        } elseif (stripos($order->shipment_service, 'AnterAja') !== false) {
+            $courier = 'anteraja';
         }
 
         $responseWaybills = Http::withHeaders([
@@ -772,7 +817,16 @@ class OrderController extends Controller
             'waybill' => $waybill,
             'courier' => $courier
         ]);
-        // dd($responseWaybills['rajaongkir']);
+
+        // Memeriksa apakah respons dari API valid
+        $responseJson = $responseWaybills->json();
+
+        if (isset($responseJson['rajaongkir']['status']['code']) && $responseJson['rajaongkir']['status']['code'] !== 200) {
+            return redirect()->back()->withErrors([
+                'waybillNotValid_error' => 'Nomor resi tidak valid atau informasi pengiriman tidak ditemukan!'
+            ]);
+        }
+
         $waybills = $responseWaybills['rajaongkir']['result'];
 
         $order->update([
@@ -782,6 +836,27 @@ class OrderController extends Controller
         ]);
 
         return redirect()->route('owner.order_history')->with('updateOrderStatus_success', 'Status order berhasil diperbarui!');
+    }
+
+    public function activateDiscount()
+    {
+        $cart = Cart::where('user_id', Auth::user()->id)->first();
+        $cart_details = $cart->cart_detail;
+
+        if (Session::has('discountStatus')) {
+            Session::forget('discountStatus');
+            Session::forget('final_price');
+            return back()->with([
+                'unactivateDiscount_success' => "Diskon tidak jadi dipakai!"
+            ]);
+        } else {
+            $final_price = $cart_details->sum('price') - ($cart_details->sum('price') * (5 / 100));
+            Session::put('discountStatus', true);
+            Session::put('final_price', $final_price);
+            return back()->with([
+                'activateDiscount_success' => "Diskon sebesar 5% berhasil dipakai!"
+            ]);
+        }
     }
 
     /**

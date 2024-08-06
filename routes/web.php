@@ -98,7 +98,9 @@ Route::group([
 
     Route::get('/admin/print_struk/order/{order_id}', [AdminOrderController::class, 'generateReceipt_ORDER'])->name('printStrukOrder');
     Route::get('/admin/print_struk/cart/{user_id}', [AdminOrderController::class, 'generateReceipt_CART'])->name('printStrukCart');
-    Route::get('/admin/print_label/{order_id}', [OwnerOrderController::class, 'generateShipmentLabel'])->name('printLabelPengiriman');
+    Route::get('/admin/print_label/{order_id}', [AdminOrderController::class, 'generateShipmentLabel'])->name('printLabelPengiriman');
+
+    Route::get('/admin/activate_discount', [AdminOrderController::class, 'activateDiscount'])->name('aktifDiskon');
 });
 //====================================================================================================
 
@@ -182,6 +184,8 @@ Route::group([
     Route::post('/admin/set_coupon', [CouponController::class, 'setCoupon'])->name('aturKupon');
     Route::put('/admin/edit_coupon/{coupon_id}', [CouponController::class, 'editCoupon'])->name('ubahKupon');
     Route::delete('/admin/delete_coupon/{coupon_id}', [CouponController::class, 'deleteCoupon'])->name('hapusKupon');
+
+    Route::get('/admin/activate_discount', [OwnerOrderController::class, 'activateDiscount'])->name('aktifDiskon');
 });
 //====================================================================================================
 

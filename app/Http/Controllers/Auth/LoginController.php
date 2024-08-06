@@ -129,7 +129,7 @@ class LoginController extends Controller
         // dd($remember);
 
         // Attempt to authenticate the user with email and password
-        if (Auth::attempt(['email' => $validatedData['email'], 'password' => $validatedData['password'], 'is_active' => '1'], $remember)) {
+        if (Auth::attempt(['email' => $validatedData['email'], 'password' => $validatedData['password']], $remember)) {
             // Authentication successful
             $this->isLogin(Auth::id());
 
@@ -165,14 +165,18 @@ class LoginController extends Controller
     {
         $user = User::findOrFail($id);
         return $user->update([
-            'is_login' => '1'
+            'is_login' => '1',
+            'is_active' => '1'
         ]);
     }
 
     public function logout(Request $request)
     {
         $user = User::findOrFail(Auth::id());
-        $user->update(['is_login' => '0']);
+        $user->update([
+            'is_login' => '0',
+            'is_active' => '0'
+        ]);
 
         setcookie('id', '', time() - 3600);
         setcookie('key', '', time() - 3600);

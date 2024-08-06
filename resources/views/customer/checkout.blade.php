@@ -467,7 +467,7 @@
                         @csrf
                         @php
                             $courierStatus_lion = Session::get('courierStatus_lion');
-                            $courierStatus_sicepat = Session::get('courierStatus_sicepat');
+                            $courierStatus_anteraja = Session::get('courierStatus_anteraja');
                             // Session::forget('costs');
                             // Session::forget([
                             //     'checkout.address',
@@ -505,11 +505,11 @@
                                     </div>
                                     <div class="px-4 w-full border-gray-600">
                                         <div class="w-full flex items-center justify-center">
-                                            <input id="sicepat-checkbox-list" type="checkbox" name="courier"
-                                                value="sicepat" {{ isset($courierStatus_sicepat) ? 'checked' : '' }}
+                                            <input id="anteraja-checkbox-list" type="checkbox" name="courier"
+                                                value="anteraja" {{ isset($courierStatus_anteraja) ? 'checked' : '' }}
                                                 class="courier-checkbox w-4 h-4 text-yellow-500 bg-gray-600 rounded focus:ring-yellow-500 focus:ring-1">
-                                            <label for="sicepat-checkbox-list"
-                                                class="py-3 ms-2 text-sm font-medium text-yellow-500">SICEPAT</label>
+                                            <label for="anteraja-checkbox-list"
+                                                class="py-3 ms-2 text-sm font-medium text-yellow-500">ANTERAJA</label>
                                         </div>
                                     </div>
                                 </div>
@@ -527,7 +527,7 @@
                             </div>
                         </div>
                     </form>
-                    @if (session('costs') && (Session::has('courierStatus_lion') || Session::has('courierStatus_sicepat')))
+                    @if (session('costs') && (Session::has('courierStatus_lion') || Session::has('courierStatus_anteraja')))
                         {{-- @dd(session('costs')) --}}
                         <div data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="800"
                             class="mt-3 w-full bg-gray-900 divide-y divide-gray-100 rounded-lg shadow">
@@ -697,19 +697,19 @@
                                                             <input type="checkbox"
                                                                 id="autoSubmitCheckbox_{{ $coupon->coupon->id }}"
                                                                 value="" {{ isset($couponStatus) ? 'checked' : '' }}
-                                                                class="sr-only peer">
+                                                                class="coupon-checkbox sr-only peer">
                                                             <div
                                                                 class="relative w-9 h-5 bg-gray-600 peer-focus:outline-none peer-focus:ring-2 peer-focus:ring-yellow-500 rounded-full peer peer-checked:after:translate-x-full rtl:peer-checked:after:translate-x-[-100%] peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-yellow-500">
                                                             </div>
                                                             <span
                                                                 class="ms-3 text-xs sm:text-sm font-medium text-yellow-500">{{ $coupon->coupon->title }}</span>
                                                         </label>
-                                                        <div
-                                                            class="w-full flex flex-row space-x-2 items-center lg:justify-center">
+                                                        <div class="w-full flex flex-row items-center lg:justify-center">
                                                             <span
                                                                 class="text-yellow-500 text-xs sm:text-sm font-semibold">{{ $coupon->quantity }}
                                                                 kupon</span>
-                                                            <span class="w-2 h-2 bg-gray-700 rounded-full"></span>
+                                                            <span
+                                                                class="w-2 h-2 bg-gray-700 rounded-full mx-1 md:mx-0 lg:mx-1"></span>
                                                             <span
                                                                 class="text-yellow-500 text-xs sm:text-sm font-semibold">(Berlaku
                                                                 sampai
@@ -767,16 +767,14 @@
                                                     ({{ $cart->weight }} gram)
                                                 </p>
                                                 @php
-                                                    $originalPriceKey = 'originalPrice_' . $cart->id;
-                                                    $originalPrice = session($originalPriceKey);
-                                                    $activeCoupons = session('activeCoupons', []);
+                                                    $originalPrice = Session::get('originalPrice_' . $cart->id);
                                                 @endphp
 
                                                 <div class="flex flex-col sm:flex-row justify-between">
                                                     <p class="text-sm sm:text-base font-medium text-gray-900">
                                                         Rp. {{ number_format($cart->price, 0, ',', '.') }}
                                                     </p>
-                                                    @if ($originalPrice && count($activeCoupons))
+                                                    @if ($originalPrice)
                                                         <p
                                                             class="text-sm sm:text-base font-medium text-red-600 line-through">
                                                             Rp. {{ number_format($originalPrice, 0, ',', '.') }}
@@ -1344,6 +1342,14 @@
             $('.cost-checkbox').on('change', function() {
                 if (this.checked) {
                     $('.cost-checkbox').not(this).prop('checked', false);
+                }
+            });
+        });
+
+        $(document).ready(function() {
+            $('.coupon-checkbox').on('change', function() {
+                if (this.checked) {
+                    $('.coupon-checkbox').not(this).prop('checked', false);
                 }
             });
         });

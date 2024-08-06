@@ -19,16 +19,20 @@
         @endif
         <div
             class="grid grid-cols-1 sm:grid-cols-1 lg:grid-cols-2 gap-x-8 gap-y-8 sm:gap-y-8 lg:gap-y-12 p-8 sm:p-12 mx-auto">
-            <div data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="800"
-                class="flex flex-col lg:justify-center">
+            <div data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="800">
                 @if (strlen($cart_detail->product->image) > 30)
                     <img class="lg:h-screen lg:w-screen lg:object-bottom object-cover rounded-lg drop-shadow-md"
                         src="{{ asset('storage/' . $cart_detail->product->image) }}"
-                        alt="{{ $cart_detail->product->image }}" />
+                        alt="{{ $cart_detail->product->name }}" />
                 @else
                     <img class="lg:h-screen lg:w-screen lg:object-bottom object-cover rounded-lg drop-shadow-md"
                         src="/images/fotoproduk/{{ $cart_detail->product->image }}" alt="{{ $cart_detail->product->name }}">
                 @endif
+                <button data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="800" type="button"
+                    onclick="sendWhatsAppMessage('{{ $cart_detail->product->name }}', '{{ $cart_detail->product->price }}', '{{ strlen($cart_detail->product->image) > 30 ? asset('storage/' . $cart_detail->product->image) : asset('images/fotoproduk/' . $cart_detail->product->image) }}')"
+                    class="absolute bottom-4 right-4 lg:bottom-auto lg:top-4 lg:right-4 cursor-pointer border-2 border-yellow-500 text-yellow-500 bg-gray-900 hover:bg-gray-950 font-medium rounded-full text-xs sm:text-sm px-5 py-2.5 text-center inline-flex items-center">
+                    Tanya Admin tentang produk ini?
+                </button>
             </div>
             <div class="flex flex-col justify-center">
                 <div class="h-full flex flex-col justify-center">
@@ -401,5 +405,28 @@
                 inputElement.val(newQuantity);
             }
         });
+
+        function sendWhatsAppMessage(productName, productPrice, productImage) {
+            // Nomor telepon
+            var phone = '6282230308030'; // Format internasional tanpa tanda plus
+
+            // Pesan dengan informasi produk
+            var message = `Halo Lisahwan, saya ingin menanyakan tentang produk berikut ini:
+
+            Nama Produk: ${productName}
+            Harga: ${productPrice}
+            Gambar Produk: ${productImage}
+
+(Tuliskan pertanyaanmu di sini)`;
+
+            // Encode pesan agar sesuai dengan format URL
+            var encodedMessage = encodeURIComponent(message);
+
+            // Buat URL WhatsApp
+            var whatsappUrl = 'https://wa.me/' + phone + '?text=' + encodedMessage;
+
+            // Buka URL di jendela atau tab baru
+            window.open(whatsappUrl, '_blank');
+        }
     </script>
 @endsection

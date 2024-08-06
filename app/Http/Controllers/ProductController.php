@@ -56,13 +56,19 @@ class ProductController extends Controller
             ->orderByDesc('total_quantity')
             ->take(4)
             ->get();
-        // $user = User::where('id', Auth::user()->id)->first();
-        // $cart_user = Cart::where('user_id', $user->id)->first();
-        // if (empty($cart_user)) {
-        //     $carts = null;
-        // } else {
-        //     $carts = $cart_user->cart_detail;
-        // }
+
+        if (Auth::check()) {
+            $user = User::where('id', Auth::user()->id)->first();
+            $cart_user = Cart::where('user_id', $user->id)->first();
+            if (empty($cart_user)) {
+                $carts = null;
+            } else {
+                $carts = $cart_user->cart_detail;
+            }
+        } else {
+            $carts = null;
+        }
+
         return view('index', [
             "TabTitle" => "Lisahwan Surabaya",
             "active_1" => "text-yellow-500 rounded md:bg-transparent md:p-0",
@@ -71,7 +77,7 @@ class ProductController extends Controller
             "carousel_3" => "/images/fotoproduk/GalleryCarousel_8.jpg",
             "carousel_4" => "/images/fotoproduk/GalleryCarousel_13.jpeg",
             "products_bestseller" => $products_bestseller,
-            // "carts" => $carts
+            "carts" => $carts
         ]);
     }
 

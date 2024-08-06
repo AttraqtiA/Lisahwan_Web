@@ -79,6 +79,10 @@
                 </p>
                 <p style="margin: 0rem; padding-bottom: 0.5rem; font-weight: 600; color: black;">
                     Total Harga: Rp.{{ number_format($cart->cart_detail->sum('price'), 0, ',', '.') }}
+                    <br>
+                    @if ($final_price > 0)
+                        <strong>Setelah Diskon: Rp.{{ number_format($final_price, 0, ',', '.') }}</strong>
+                    @endif
                 </p>
                 <div style="border-bottom: 0.125rem solid black; "></div>
                 <p

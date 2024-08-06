@@ -66,6 +66,21 @@
                         </div>
                     </div>
                 @enderror
+                @error('waybillNotValid_error')
+                    <div data-aos="zoom-in-down" data-aos-anchor-placement="top-bottom" data-aos-duration="800"
+                        class="w-10/12 md:w-9/12 lg:w-6/12 flex justify-center items-center p-4 {{ $errors->has('waybillNotValid_error') ? 'mb-2' : '' }} text-sm rounded-lg bg-gray-900 text-red-400"
+                        role="alert">
+                        <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                            fill="currentColor" viewBox="0 0 20 20">
+                            <path
+                                d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Zm3.707 11.793a1 1 0 1 1-1.414 1.414L10 11.414l-2.293 2.293a1 1 0 0 1-1.414-1.414L8.586 10 6.293 7.707a1 1 0 0 1 1.414-1.414L10 8.586l2.293-2.293a1 1 0 0 1 1.414 1.414L11.414 10l2.293 2.293Z" />
+                        </svg>
+                        <span class="sr-only">Info</span>
+                        <div>
+                            <span class="font-medium">{{ $message }}
+                        </div>
+                    </div>
+                @enderror
                 @if (session('updateOrderStatus_success'))
                     <div data-aos="zoom-in-down" data-aos-anchor-placement="top-bottom" data-aos-duration="800"
                         class="w-10/12 md:w-9/12 lg:w-6/12 flex justify-center items-center p-4 text-sm rounded-lg bg-gray-900 text-green-400"
@@ -594,13 +609,13 @@
                                                 <!-- Modal body -->
                                                 @if (Auth::user()->isOwner())
                                                     <form id="update-form"
-                                                        action="{{ route('owner.admin.update', $order) }}" method="POST"
+                                                        action="{{ route('owner.order_history.update', $order) }}" method="POST"
                                                         enctype="multipart/form-data">
                                                         @method('put')
                                                         @csrf
                                                     @elseif (Auth::user()->isAdmin())
                                                         <form id="update-form"
-                                                            action="{{ route('admin.admin.update', $order) }}"
+                                                            action="{{ route('admin.order_history.update', $order) }}"
                                                             method="POST" enctype="multipart/form-data">
                                                             @method('put')
                                                             @csrf
@@ -693,11 +708,11 @@
                                                 <div
                                                     class="justify-center items-center w-full space-y-2 sm:flex sm:space-y-0 sm:space-x-2">
                                                     <button type="submit"
-                                                        class="w-full justify-center text-white inline-flex bg-yellow-500 hover:bg-yellow-600 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">Update
+                                                        class="w-full justify-center text-white inline-flex bg-yellow-500 hover:bg-yellow-600 focus:ring-4 focus:outline-none focus:ring-yellow-500 font-medium rounded-lg text-sm px-5 py-2.5 text-center">Update
                                                         Order</button>
                                                     <button data-modal-toggle="update-modal{{ $order->id }}"
                                                         type="button"
-                                                        class="w-full justify-center text-white inline-flex items-center bg-red-500 hover:bg-red-600 focus:ring-4 focus:outline-none focus:ring-primary-300 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 focus:z-10">
+                                                        class="w-full justify-center text-white inline-flex items-center bg-red-500 hover:bg-red-600 focus:ring-4 focus:outline-none focus:ring-red-500 rounded-lg text-sm font-medium px-5 py-2.5 focus:z-10">
                                                         <svg class="mr-1 -ml-1 w-5 h-5" fill="currentColor"
                                                             viewbox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                                                             <path fill-rule="evenodd"

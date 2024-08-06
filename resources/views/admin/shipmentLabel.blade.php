@@ -38,7 +38,7 @@
                 <tr>
                     <td>
                         <p style="margin: 0; font-size:10pt;"><strong>Kurir:</strong></p>
-                        <p style="margin: 0; font-size:10pt;">{{ $order->shipment_service }}</p>
+                        <p style="margin: 0; font-size:10pt;">{{ $order->shipment_service }} ({{ $order->total_weight }} gram)</p>
                     </td>
                 </tr>
             </table>
@@ -57,7 +57,6 @@
                         <tr>
                             <td style="border: 1px solid #000; padding: 0.5mm;">{{ $order_detail->product->name }}</td>
                             <td style="border: 1px solid #000; padding: 0.5mm;">{{ $order_detail->quantity }}</td>
-                            =
                         </tr>
                     @endforeach
                 </tbody>
@@ -66,10 +65,10 @@
                     {{ $order->order_detail->sum('quantity') }}</strong></p>
         </div>
         <div style="text-align: center; border-top: 1px solid #000; padding-top: 2mm; margin-top: 4mm;">
-            <p style="margin: 0; margin-bottom: 1mm; font-size: 10pt; text-align: center;"><strong>ISI MUDAH PECAH,
-                    JANGAN DIBANTING!</strong></p>
+            {{-- <p style="margin: 0; margin-bottom: 1mm; font-size: 10pt; text-align: center;"><strong>ISI MUDAH PECAH,
+                    JANGAN DIBANTING!</strong></p> --}}
             <img src="{{ url('/images/lisahwan_text.png') }}" alt="Lisahwan"
-                style="filter: contrast(150%) drop-shadow(2px 2px 2px black);" width="100px">
+                style="filter: contrast(150%) drop-shadow(2px 2px 2px black);" width="110px">
         </div>
     </div>
 </body>

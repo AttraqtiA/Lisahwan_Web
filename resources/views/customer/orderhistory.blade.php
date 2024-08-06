@@ -54,10 +54,10 @@
             <p data-aos="fade-down" data-aos-anchor-placement="top-bottom" data-aos-duration="800"
                 class="text-lg font-normal text-gray-900 lg:text-xl sm:px-16 lg:px-48">{!! $pageDescription !!}</p>
         </div>
-        <div data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="800"
-            class="flex flex-col p-12 mx-auto justify-center items-center gap-y-6">
+        <div class="flex flex-col p-12 mx-auto justify-center items-center gap-y-6">
             @foreach ($orders as $order)
-                <form action="{{ route('member.orderhistory.update', $order->id) }}" method="POST" class="w-full">
+                <form data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="800"
+                    action="{{ route('member.orderhistory.update', $order->id) }}" method="POST" class="w-full">
                     @method('patch')
                     @csrf
                     <div
@@ -201,8 +201,53 @@
                                     </div>
                                 </div>
                             </div>
-                            <hr class="h-px border-0 bg-gray-300">
                         @endforeach
+                        @if (isset($shipment_histories[$order->id]))
+                            <hr class="h-px border-0 bg-gray-300">
+                            <div class="space-y-4 p-7">
+                                <h3 class="text-base text-center font-semibold text-gray-900">Riwayat Pengiriman</h3>
+                                <div class="flex flex-col justify-center items-center">
+                                    <div
+                                        class="flex flex-col bg-neutral-100 rounded-lg justify-center items-center p-6 w-full sm:w-fit">
+                                        @foreach ($shipment_histories[$order->id] as $index => $shipment_history)
+                                            <div class="w-full flex flex-row justify-start items-start space-x-4">
+                                                <div class="relative flex flex-col justify-center items-center h-full">
+                                                    <span
+                                                        class="flex h-8 w-8 items-center justify-center rounded-full bg-gray-900 text-yellow-500 ring-4 ring-yellow-500">
+                                                        <svg class="h-4 w-4" aria-hidden="true"
+                                                            xmlns="http://www.w3.org/2000/svg" fill="none"
+                                                            viewBox="0 0 24 24">
+                                                            <path stroke="currentColor" stroke-linecap="round"
+                                                                stroke-linejoin="round" stroke-width="4"
+                                                                d="M5 11.917 9.724 16.5 19 7.5" />
+                                                        </svg>
+                                                    </span>
+                                                    @if (!$loop->last)
+                                                        <div
+                                                            class="absolute top-9 left-1/2 transform -translate-x-1/2 w-0.5 h-60 sm:h-14 bg-gray-400">
+                                                        </div>
+                                                    @endif
+                                                </div>
+                                                <div class="flex flex-col space-y-1 mb-4">
+                                                    <span class="text-base font-semibold">
+                                                        {{ \Carbon\Carbon::parse($shipment_history['manifest_date'])->format('d F Y') }},
+                                                        {{ \Carbon\Carbon::createFromFormat('H:i', $shipment_history['manifest_time'])->format('g:i A') }}
+                                                    </span>
+                                                    <span
+                                                        class="text-sm font-normal">{{ $shipment_history['manifest_description'] }}</span>
+                                                </div>
+                                            </div>
+                                        @endforeach
+                                    </div>
+                                </div>
+                            </div>
+                        @else
+                            <hr class="h-px border-0 bg-gray-300">
+                            <div class="p-7 space-y-1">
+                                <h3 class="text-sm lg:text-base text-center font-medium text-gray-400">Belum ada riwayat
+                                    pengiriman...</h3>
+                            </div>
+                        @endif
                         @if ($order->arrived_date)
                             <div
                                 class="text-gray-900 bg-yellow-500 font-semibold rounded-b-lg text-sm sm:text-sm md:text-sm lg:text-sm p-5 inline-flex justify-center items-center w-full">

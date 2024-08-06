@@ -94,7 +94,13 @@
                     Total Produk: {{ $order->order_detail->sum('quantity') }}
                 </p>
                 <p style="margin: 0rem; padding-bottom: 0.5rem; font-weight: 600; color: black;">
-                    Total Harga: Rp.{{ number_format($order->total_price, 0, ',', '.') }}
+                    @if ($final_price > 0)
+                        Total Harga: Rp.{{ number_format($before_discount_price, 0, ',', '.') }}
+                        <br>
+                        <strong>Setelah Diskon: Rp.{{ number_format($final_price, 0, ',', '.') }}</strong>
+                    @else
+                        Total Harga: Rp.{{ number_format($order->total_price, 0, ',', '.') }}
+                    @endif
                 </p>
                 <div style="border-bottom: 0.125rem solid black; "></div>
                 <p
