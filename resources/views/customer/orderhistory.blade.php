@@ -54,7 +54,7 @@
             <p data-aos="fade-down" data-aos-anchor-placement="top-bottom" data-aos-duration="800"
                 class="text-lg font-normal text-gray-900 lg:text-xl sm:px-16 lg:px-48">{!! $pageDescription !!}</p>
         </div>
-        <div class="flex flex-col p-12 mx-auto justify-center items-center gap-y-6">
+        <div class="flex flex-col p-12 mx-auto justify-center items-center gap-y-6 w-full">
             @foreach ($orders as $order)
                 <form data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="800"
                     action="{{ route('member.orderhistory.update', $order->id) }}" method="POST" class="w-full">
@@ -208,7 +208,7 @@
                                 <h3 class="text-base text-center font-semibold text-gray-900">Riwayat Pengiriman</h3>
                                 <div class="flex flex-col justify-center items-center">
                                     <div
-                                        class="flex flex-col bg-neutral-100 rounded-lg justify-center items-center p-6 w-full sm:w-fit">
+                                        class="flex flex-col bg-neutral-100 rounded-lg justify-center items-center p-6 sm:w-fit">
                                         @foreach ($shipment_histories[$order->id] as $index => $shipment_history)
                                             <div class="w-full flex flex-row justify-start items-start space-x-4">
                                                 <div class="relative flex flex-col justify-center items-center h-full">
@@ -222,9 +222,9 @@
                                                                 d="M5 11.917 9.724 16.5 19 7.5" />
                                                         </svg>
                                                     </span>
-                                                    @if (!$loop->last)
+                                                    @if (!$loop->last && count($shipment_histories[$order->id]) > 1)
                                                         <div
-                                                            class="absolute top-9 left-1/2 transform -translate-x-1/2 w-0.5 h-60 sm:h-14 bg-gray-400">
+                                                            class="absolute top-9 left-1/2 transform -translate-x-1/2 w-0.5 h-60 sm:h-20 lg:h-16 bg-gray-400">
                                                         </div>
                                                     @endif
                                                 </div>

@@ -1043,12 +1043,25 @@ class OrderController extends Controller
 
                 if (!empty($waybills['manifest'])) {
                     $shipment_histories[$order->id] = $waybills['manifest'];
+                }
 
-                    if (!empty($waybills['delivery_status']['pod_date'])) {
-                        $order->update([
-                            'arrived_date' => $waybills['delivery_status']['pod_date'] . ' ' . $waybills['delivery_status']['pod_time']
-                        ]);
-                    }
+                if (!empty($waybills['summary']['status'])) {
+                    $order->update([
+                        'shipment_status' => $waybills['summary']['status']
+                    ]);
+                }
+
+                if (!empty($waybills['details']['waybill_date']) && !empty($waybills['details']['waybill_time'])) {
+                    $order->update([
+                        'shipment_date' => $waybills['details']['waybill_date'] . ' ' . $waybills['details']['waybill_time'],
+                    ]);
+                }
+
+                if (!empty($waybills['delivery_status']['pod_date']) && !empty($waybills['delete_status']['pod_time'])) {
+                    $order->update([
+                        'arrived_date' => $waybills['delivery_status']['pod_date'] . ' ' . $waybills['delivery_status']['pod_time'],
+                        'acceptbyCustomer_status' => 'sudah'
+                    ]);
                 }
             }
         }

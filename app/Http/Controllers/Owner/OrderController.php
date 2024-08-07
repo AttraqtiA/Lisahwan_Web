@@ -148,9 +148,24 @@ class OrderController extends Controller
 
                 $waybills = $responseWaybills['rajaongkir']['result'];
 
-                $order->update([
-                    'shipment_status' => $waybills['summary']['status']
-                ]);
+                if (!empty($waybills['summary']['status'])) {
+                    $order->update([
+                        'shipment_status' => $waybills['summary']['status']
+                    ]);
+                }
+
+                if (!empty($waybills['details']['waybill_date']) && !empty($waybills['details']['waybill_time'])) {
+                    $order->update([
+                        'shipment_date' => $waybills['details']['waybill_date'] . ' ' . $waybills['details']['waybill_time'],
+                    ]);
+                }
+
+                if (!empty($waybills['delivery_status']['pod_date']) && !empty($waybills['delivery_status']['pod_time'])) {
+                    $order->update([
+                        'arrived_date' => $waybills['delivery_status']['pod_date'] . ' ' . $waybills['delivery_status']['pod_time'],
+                        'acceptbyCustomer_status' => 'sudah'
+                    ]);
+                }
             }
         }
 
@@ -644,7 +659,7 @@ class OrderController extends Controller
         foreach ($orders as $order) {
             $courier = '';
             $waybill =  $order->waybill;
-            if ($waybill != '') {
+            if ($waybill) {
                 if (stripos($order->shipment_service, 'Lion') !== false) {
                     $courier = 'lion';
                 } elseif (stripos($order->shipment_service, 'AnterAja') !== false) {
@@ -669,9 +684,24 @@ class OrderController extends Controller
 
                 $waybills = $responseWaybills['rajaongkir']['result'];
 
-                $order->update([
-                    'shipment_status' => $waybills['summary']['status']
-                ]);
+                if (!empty($waybills['summary']['status'])) {
+                    $order->update([
+                        'shipment_status' => $waybills['summary']['status']
+                    ]);
+                }
+
+                if (!empty($waybills['details']['waybill_date']) && !empty($waybills['details']['waybill_time'])) {
+                    $order->update([
+                        'shipment_date' => $waybills['details']['waybill_date'] . ' ' . $waybills['details']['waybill_time'],
+                    ]);
+                }
+
+                if (!empty($waybills['delivery_status']['pod_date']) && !empty($waybills['delivery_status']['pod_time'])) {
+                    $order->update([
+                        'arrived_date' => $waybills['delivery_status']['pod_date'] . ' ' . $waybills['delivery_status']['pod_time'],
+                        'acceptbyCustomer_status' => 'sudah'
+                    ]);
+                }
             }
         }
 
@@ -776,11 +806,18 @@ class OrderController extends Controller
 
         $waybills = $responseWaybills['rajaongkir']['result'];
 
-        $order->update([
-            'waybill' => $validatedData['waybill'],
-            'shipment_status' => $waybills['summary']['status'],
-            'shipment_date' => $waybills['details']['waybill_date'] . ' ' . $waybills['details']['waybill_time'],
-        ]);
+        if (!empty($waybills['summary']['status'])) {
+            $order->update([
+                'waybill' => $validatedData['waybill'],
+                'shipment_status' => $waybills['summary']['status']
+            ]);
+        }
+
+        if (!empty($waybills['details']['waybill_date']) && !empty($waybills['details']['waybill_time'])) {
+            $order->update([
+                'shipment_date' => $waybills['details']['waybill_date'] . ' ' . $waybills['details']['waybill_time']
+            ]);
+        }
 
         return redirect()->route('owner.admin')->with('updateOrderStatus_success', 'Status order berhasil diperbarui!');
     }
@@ -842,12 +879,18 @@ class OrderController extends Controller
 
         $waybills = $responseJson['rajaongkir']['result'];
 
-        // Perbarui status pesanan
-        $order->update([
-            'waybill' => $validatedData['waybill'],
-            'shipment_status' => $waybills['summary']['status'],
-            'shipment_date' => $waybills['details']['waybill_date'] . ' ' . $waybills['details']['waybill_time'],
-        ]);
+        if (!empty($waybills['summary']['status'])) {
+            $order->update([
+                'waybill' => $validatedData['waybill'],
+                'shipment_status' => $waybills['summary']['status']
+            ]);
+        }
+
+        if (!empty($waybills['details']['waybill_date']) && !empty($waybills['details']['waybill_time'])) {
+            $order->update([
+                'shipment_date' => $waybills['details']['waybill_date'] . ' ' . $waybills['details']['waybill_time']
+            ]);
+        }
 
         return redirect()->route('owner.order_history')->with('updateOrderStatus_success', 'Status order berhasil diperbarui!');
     }
