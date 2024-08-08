@@ -13,7 +13,7 @@
                         </path>
                     </svg>
                 </button>
-                <a href="/" class="flex items-center">
+                <a href="/" class="flex items-center invisible sm:visible">
                     <img src="/images/lisahwan_logo.png" class="ml-3 md:ml-0 w-16" alt="Lisahwan Logo" />
                 </a>
             </div>
@@ -21,7 +21,7 @@
             <h1 class="text-base md:text-xl ml-4 md:ml-0 font-semibold text-yellow-500 invisible sm:visible">Selamat
                 datang di Dashboard Lisahwan, {{ Auth::user()->name }}!</h1>
 
-            <div class="flex items-center">
+            <div class="flex items-center justify-end w-24">
                 <div class="flex items-center">
                     @guest
                         <div>
@@ -60,7 +60,7 @@
                     @else
                         <div>
                             <button type="button"
-                                class="flex text-sm bg-gray-800 rounded-full focus:ring focus:ring-gray-500"
+                                class="w-full flex text-sm bg-gray-800 rounded-full focus:ring focus:ring-gray-500"
                                 aria-expanded="false" data-dropdown-toggle="dropdown-user">
                                 <span class="sr-only">Open user menu</span>
                                 @if (is_null(Auth::user()->profile_picture))
@@ -71,7 +71,7 @@
                                     </svg>
                                 @else
                                     @if (Auth::user()->isAdmin() || Auth::user()->isOwner())
-                                        <img class="w-16 sm:w-10 h-10 rounded-full object-cover"
+                                        <img class="w-full sm:w-10 h-10 rounded-full object-cover"
                                             src="{{ asset('images/' . Auth::user()->profile_picture) }}" alt="user photo">
                                     @else
                                         @if (strlen(Auth::user()->profile_picture) > 25)
