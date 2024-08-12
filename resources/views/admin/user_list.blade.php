@@ -4,9 +4,9 @@
 
     <!-- Start block -->
     <section class="bg-neutral-200 p-2 sm:p-4 antialiased">
-        <div class="mx-auto max-w-screen-2xl pt-24 sm:ml-56">
+        <div class="bg-neutral-200 mx-auto max-w-screen-2xl pt-20 sm:pt-24 sm:ml-56">
             <div
-                class="flex flex-col justify-center items-center w-full {{ session('setPoint_success') || session('unsetPoint_success') || session('setCoupon_success') || session('deleteCoupon_success') || $errors->has('percentage_from_totalprice') || $errors->has('money_per_poin') || $errors->has('alreadySetPoint_error') || $errors->has('forgotPercentage_error') || $errors->has('forgotMoney_error') || $errors->has('forgotAll_error') || $errors->has('title') || $errors->has('starting_time') || $errors->has('ending_time') || $errors->has('discount') || $errors->has('quantity') ? 'mb-10 mt-6' : '' }}">
+                class="flex flex-col justify-center items-center w-full {{ session('setPoint_success') || session('unsetPoint_success') || session('setCoupon_success') || session('deleteCoupon_success') || $errors->has('percentage_from_totalprice') || $errors->has('money_per_poin') || $errors->has('alreadySetPoint_error') || $errors->has('forgotPercentage_error') || $errors->has('forgotMoney_error') || $errors->has('forgotAll_error') || $errors->has('title') || $errors->has('starting_time') || $errors->has('ending_time') || $errors->has('discount') || $errors->has('quantity') ? 'mb-6 mt-10 sm:mb-10 sm:mt-4' : '' }}">
                 @error('percentage_from_totalprice')
                     <div data-aos="zoom-in-down" data-aos-anchor-placement="top-bottom" data-aos-duration="800"
                         class="w-10/12 md:w-9/12 lg:w-6/12 flex justify-center items-center p-4 {{ $errors->has('percentage_from_totalprice') ? 'mb-2' : '' }} text-sm rounded-lg bg-gray-900 text-red-400"
@@ -233,7 +233,7 @@
                     </div>
                 @endif
             </div>
-            <div class="bg-white relative shadow-md sm:rounded-lg overflow-hidden">
+            <div class="bg-white relative shadow-md rounded-md sm:rounded-lg overflow-hidden m-2 mt-8 sm:m-0">
                 <div
                     class="flex flex-col md:flex-row md:items-center md:justify-between space-y-3 md:space-y-0 md:space-x-4 p-4">
                     <div class="flex-1 flex items-center space-x-2">

@@ -5,8 +5,8 @@
     <section class="bg-neutral-200 p-2 sm:p-4 antialiased">
         <div class="bg-neutral-200 mx-auto max-w-screen-2xl pt-20 sm:pt-24 sm:ml-56">
             <div
-                class="flex flex-col justify-center items-center w-full {{ session('updateOrderStatus_success') || $errors->has('acceptbyAdmin_status') || $errors->has('shipment_status') || $errors->has('shipment_date') || $errors->has('arrived_date') ? 'mb-10 mt-6' : '' }}">
-                @error('acceptbyAdmin_status')
+            class="flex flex-col justify-center items-center w-full {{ session('updateOrderStatus_success') || $errors->has('acceptbyAdmin_status') || $errors->has('shipment_status') || $errors->has('shipment_date') || $errors->has('arrived_date') || $errors->has('waybill') || $errors->has('waybillNotValid_error') ? 'mb-6 mt-10 sm:mb-10 sm:mt-4' : '' }}">
+            @error('acceptbyAdmin_status')
                     <div data-aos="zoom-in-down" data-aos-anchor-placement="top-bottom" data-aos-duration="800"
                         class="w-10/12 md:w-9/12 lg:w-6/12 flex justify-center items-center p-4 {{ $errors->has('acceptbyAdmin_status') ? 'mb-2' : '' }} text-sm rounded-lg bg-gray-900 text-red-400"
                         role="alert">

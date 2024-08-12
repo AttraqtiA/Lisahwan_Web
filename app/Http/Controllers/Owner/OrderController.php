@@ -871,6 +871,8 @@ class OrderController extends Controller
         // Memeriksa apakah respons dari API valid
         $responseJson = $responseWaybills->json();
 
+        // dd($responseJson);
+
         if (isset($responseJson['rajaongkir']['status']['code']) && $responseJson['rajaongkir']['status']['code'] !== 200) {
             return redirect()->back()->withErrors([
                 'waybillNotValid_error' => 'Nomor resi tidak valid atau informasi pengiriman tidak ditemukan!'

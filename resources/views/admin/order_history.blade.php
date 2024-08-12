@@ -5,7 +5,7 @@
     <section class="bg-neutral-200 p-2 sm:p-4 antialiased">
         <div class="bg-neutral-200 mx-auto max-w-screen-2xl pt-20 sm:pt-24 sm:ml-56">
             <div
-                class="flex flex-col justify-center items-center w-full {{ session('updateOrderStatus_success') || $errors->has('acceptbyAdmin_status') || $errors->has('shipment_status') || $errors->has('shipment_date') || $errors->has('arrived_date') ? 'mb-10 mt-6' : '' }}">
+                class="flex flex-col justify-center items-center w-full {{ session('updateOrderStatus_success') || $errors->has('acceptbyAdmin_status') || $errors->has('shipment_status') || $errors->has('shipment_date') || $errors->has('arrived_date') || $errors->has('waybill') || $errors->has('waybillNotValid_error') ? 'mb-6 mt-10 sm:mb-10 sm:mt-4' : '' }}">
                 @error('acceptbyAdmin_status')
                     <div data-aos="zoom-in-down" data-aos-anchor-placement="top-bottom" data-aos-duration="800"
                         class="w-10/12 md:w-9/12 lg:w-6/12 flex justify-center items-center p-4 {{ $errors->has('acceptbyAdmin_status') ? 'mb-2' : '' }} text-sm rounded-lg bg-gray-900 text-red-400"
@@ -54,6 +54,21 @@
                 @error('arrived_date')
                     <div data-aos="zoom-in-down" data-aos-anchor-placement="top-bottom" data-aos-duration="800"
                         class="w-10/12 md:w-9/12 lg:w-6/12 flex justify-center items-center p-4 {{ $errors->has('acceptbyAdmin_status') ? 'mb-2' : '' }} text-sm rounded-lg bg-gray-900 text-red-400"
+                        role="alert">
+                        <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                            fill="currentColor" viewBox="0 0 20 20">
+                            <path
+                                d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Zm3.707 11.793a1 1 0 1 1-1.414 1.414L10 11.414l-2.293 2.293a1 1 0 0 1-1.414-1.414L8.586 10 6.293 7.707a1 1 0 0 1 1.414-1.414L10 8.586l2.293-2.293a1 1 0 0 1 1.414 1.414L11.414 10l2.293 2.293Z" />
+                        </svg>
+                        <span class="sr-only">Info</span>
+                        <div>
+                            <span class="font-medium">{{ $message }}
+                        </div>
+                    </div>
+                @enderror
+                @error('waybill')
+                    <div data-aos="zoom-in-down" data-aos-anchor-placement="top-bottom" data-aos-duration="800"
+                        class="w-10/12 md:w-9/12 lg:w-6/12 flex justify-center items-center p-4 {{ $errors->has('waybill') ? 'mb-2' : '' }} text-sm rounded-lg bg-gray-900 text-red-400"
                         role="alert">
                         <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
                             fill="currentColor" viewBox="0 0 20 20">
@@ -609,8 +624,8 @@
                                                 <!-- Modal body -->
                                                 @if (Auth::user()->isOwner())
                                                     <form id="update-form"
-                                                        action="{{ route('owner.order_history.update', $order) }}" method="POST"
-                                                        enctype="multipart/form-data">
+                                                        action="{{ route('owner.order_history.update', $order) }}"
+                                                        method="POST" enctype="multipart/form-data">
                                                         @method('put')
                                                         @csrf
                                                     @elseif (Auth::user()->isAdmin())
