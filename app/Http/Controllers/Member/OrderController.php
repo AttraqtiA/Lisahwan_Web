@@ -923,7 +923,8 @@ class OrderController extends Controller
         }
 
         return redirect()->route('member.checkout')->with([
-            'chooseShipmentPrice_success', "Anda memilih {$serviceName} ({$serviceDescription})!",
+            'chooseShipmentPrice_success',
+            "Anda memilih {$serviceName} ({$serviceDescription})!",
             'costs' => $costs
         ]);
     }
@@ -1004,8 +1005,58 @@ class OrderController extends Controller
             ->orderByDesc('id')
             ->paginate(4);
 
-        $cart_user = Cart::where('user_id', Auth::user()->id)->first();
-        $carts = $cart_user ? $cart_user->cart_detail : null;
+        // Query untuk mendapatkan cart_user yang lebih dari 7 hari
+        $cart_user = Cart::where('user_id', Auth::user()->id)
+            ->where('created_at', '<', Carbon::now()->subDays(7))
+            ->first();
+
+        // Jika cart_user ditemukan dan sudah lebih dari 7 hari, hapus
+        if (!empty($cart_user)) {
+            $cart_user->delete();
+            $carts = null;
+            $shipment_price = null;
+            $admin_fee = null;
+            $reward_now = null;
+            $point = null;
+        } else {
+            // Jika tidak ditemukan cart_user yang lebih dari 7 hari, cari cart_user biasa
+            $cart_user = Cart::where('user_id', Auth::user()->id)->first();
+            if (empty($cart_user)) {
+                $carts = null;
+                $shipment_price = null;
+                $admin_fee = null;
+                $reward_now = null;
+                $point = null;
+            } else {
+                $shipment_price = $cart_user->shipment_price;
+                $admin_fee = $cart_user->admin_fee;
+
+                // REWARD POIN SYSTEM
+                $point = Point::first();
+                if ($point) {
+                    $total_price = $cart_user->cart_detail->sum('price');
+                    $total_poin = $total_price * ($point->percentage_from_totalprice / 100);
+
+                    // Membulatkan ke bawah ke kelipatan 1000 terdekat
+                    $total_poin = floor($total_poin / 10) * 10; // Membulatkan ke kelipatan 10
+                    $poin_to_money = $total_poin * $point->money_per_poin;
+
+                    $cart_user->update([
+                        'total_poin' => $total_poin
+                    ]);
+
+                    $customer = User::where('id', Auth::user()->id)->first();
+                    $reward_now = $customer->reward * $point->money_per_poin;
+                } else {
+                    $total_poin = 0;
+                    $poin_to_money = 0;
+                    $reward_now = 0;
+                }
+                //
+
+                $carts = $cart_user->cart_detail;
+            }
+        }
 
         if ($orders->isEmpty()) {
             return redirect()->route('products')->with('empty_order', 'Oops! Anda belum belanja sama sekali!');
@@ -1074,6 +1125,10 @@ class OrderController extends Controller
             "orders" => $orders,
             "carts" => $carts,
             "shipment_histories" => $shipment_histories,
+            "shipment_price" => $shipment_price,
+            "admin_fee" => $admin_fee,
+            "reward_now" => $reward_now,
+            "point" => $point
         ]);
     }
 

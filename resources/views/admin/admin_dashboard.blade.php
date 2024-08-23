@@ -800,7 +800,7 @@
                                                             class="mt-3 w-96 mx-auto rounded-lg object-cover">
                                                     @endif
                                                 @else
-                                                    <p class="mt-3 text-red-700 text-center font-semibold text-gray-900">
+                                                    <p class="mt-3 text-red-700 text-center font-semibold">
                                                         Belum ada bukti pembayaran</p>
                                                 @endif
                                             </div>

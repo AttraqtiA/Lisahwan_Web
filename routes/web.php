@@ -2,15 +2,18 @@
 
 use Carbon\Carbon;
 use App\Models\Cart;
+use App\Models\User;
+use App\Models\Point;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PointController;
 use App\Http\Controllers\CouponController;
 use App\Http\Controllers\GalleryController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Owner\UserController;
 use App\Http\Controllers\Admin\OrderController as AdminOrderController;
-use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Member\CartController as MemberCartController;
 use App\Http\Controllers\Owner\OrderController as OwnerOrderController;
 use App\Http\Controllers\Member\OrderController as MemberOrderController;
@@ -50,19 +53,57 @@ Route::get('/contactus', function () {
         if (!empty($cart_user)) {
             $cart_user->delete();
             $carts = null;
+            $shipment_price = null;
+            $admin_fee = null;
+            $reward_now = null;
+            $point = null;
         } else {
             // Jika tidak ditemukan cart_user yang lebih dari 7 hari, cari cart_user biasa
             $cart_user = Cart::where('user_id', Auth::user()->id)->first();
             if (empty($cart_user)) {
                 $carts = null;
+                $shipment_price = null;
+                $admin_fee = null;
+                $reward_now = null;
+                $point = null;
             } else {
+                $shipment_price = $cart_user->shipment_price;
+                $admin_fee = $cart_user->admin_fee;
+
+                // REWARD POIN SYSTEM
+                $point = Point::first();
+                if ($point) {
+                    $total_price = $cart_user->cart_detail->sum('price');
+                    $total_poin = $total_price * ($point->percentage_from_totalprice / 100);
+
+                    // Membulatkan ke bawah ke kelipatan 1000 terdekat
+                    $total_poin = floor($total_poin / 10) * 10; // Membulatkan ke kelipatan 10
+                    $poin_to_money = $total_poin * $point->money_per_poin;
+
+                    $cart_user->update([
+                        'total_poin' => $total_poin
+                    ]);
+
+                    $customer = User::where('id', Auth::user()->id)->first();
+                    $reward_now = $customer->reward * $point->money_per_poin;
+                } else {
+                    $total_poin = 0;
+                    $poin_to_money = 0;
+                    $reward_now = 0;
+                }
+                //
+
                 $carts = $cart_user->cart_detail;
             }
         }
         $data = [
             "TabTitle" => "Kontak Lisahwan",
             "active_4" => "text-yellow-500 rounded md:bg-transparent md:p-0",
-            "carts" => $carts
+            "carts" => $carts,
+            "shipment_price" => $shipment_price,
+            "admin_fee" => $admin_fee,
+            "reward_now" => $reward_now,
+            "point" => $point
         ];
     } else {
         $data = [

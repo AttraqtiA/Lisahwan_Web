@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Member;
 
 use Carbon\Carbon;
 use App\Models\Cart;
+use App\Models\User;
+use App\Models\Point;
 use App\Models\Product;
 use App\Models\Wishlist;
 use Illuminate\Http\Request;
@@ -26,12 +28,46 @@ class WishlistController extends Controller
         if (!empty($cart_user)) {
             $cart_user->delete();
             $carts = null;
+            $shipment_price = null;
+            $admin_fee = null;
+            $reward_now = null;
+            $point = null;
         } else {
             // Jika tidak ditemukan cart_user yang lebih dari 7 hari, cari cart_user biasa
             $cart_user = Cart::where('user_id', Auth::user()->id)->first();
             if (empty($cart_user)) {
                 $carts = null;
+                $shipment_price = null;
+                $admin_fee = null;
+                $reward_now = null;
+                $point = null;
             } else {
+                $shipment_price = $cart_user->shipment_price;
+                $admin_fee = $cart_user->admin_fee;
+
+                // REWARD POIN SYSTEM
+                $point = Point::first();
+                if ($point) {
+                    $total_price = $cart_user->cart_detail->sum('price');
+                    $total_poin = $total_price * ($point->percentage_from_totalprice / 100);
+
+                    // Membulatkan ke bawah ke kelipatan 1000 terdekat
+                    $total_poin = floor($total_poin / 10) * 10; // Membulatkan ke kelipatan 10
+                    $poin_to_money = $total_poin * $point->money_per_poin;
+
+                    $cart_user->update([
+                        'total_poin' => $total_poin
+                    ]);
+
+                    $customer = User::where('id', Auth::user()->id)->first();
+                    $reward_now = $customer->reward * $point->money_per_poin;
+                } else {
+                    $total_poin = 0;
+                    $poin_to_money = 0;
+                    $reward_now = 0;
+                }
+                //
+
                 $carts = $cart_user->cart_detail;
             }
         }
@@ -41,7 +77,11 @@ class WishlistController extends Controller
             "pageTitle" => '<mark class="px-2 text-yellow-500 bg-gray-900 rounded">Wishlist</mark>',
             'pageDescription' => 'Tambah produk favorit anda di <span class="underline underline-offset-2 decoration-4 decoration-yellow-500">Wishlist!</span>',
             "wishlists" => $wishlists,
-            "carts" => $carts
+            "carts" => $carts,
+            "shipment_price" => $shipment_price,
+            "admin_fee" => $admin_fee,
+            "reward_now" => $reward_now,
+            "point" => $point
         ]);
     }
 

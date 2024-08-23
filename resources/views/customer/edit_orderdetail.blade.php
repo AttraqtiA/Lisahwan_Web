@@ -379,18 +379,6 @@
                 updateSubtotal();
             });
 
-            // Menambahkan event listener untuk tombol decrement
-            $('#input-decrement-{{ $cart_detail->product->id }}').on('click', function() {
-                changeQuantity(-1);
-                updateSubtotal();
-            });
-
-            // Menambahkan event listener untuk tombol increment
-            $('#input-increment-{{ $cart_detail->product->id }}').on('click', function() {
-                changeQuantity(1);
-                updateSubtotal();
-            });
-
             // Fungsi untuk mengubah kuantitas
             function changeQuantity(change) {
                 var currentQuantity = parseInt(inputElement.val());
@@ -404,6 +392,18 @@
 
                 inputElement.val(newQuantity);
             }
+
+            // Menambahkan event listener untuk tombol decrement
+            $('#input-decrement-{{ $cart_detail->product->id }}').on('click', function() {
+                changeQuantity(-1);
+                updateSubtotal();
+            });
+
+            // Menambahkan event listener untuk tombol increment
+            $('#input-increment-{{ $cart_detail->product->id }}').on('click', function() {
+                changeQuantity(1);
+                updateSubtotal();
+            });
         });
 
         function sendWhatsAppMessage(productName, productPrice, productImage) {

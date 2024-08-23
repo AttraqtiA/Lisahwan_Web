@@ -26,9 +26,117 @@
     {{-- <script src='resources/js/script.js' defer></script> --}}
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+    <style>
+        /* Style for loading page */
+        .loading-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.7);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            z-index: 9999;
+            display: none;
+            /* Hidden by default */
+        }
+
+        .spinner-square {
+            display: flex;
+            flex-direction: row;
+            width: 90px;
+            height: 120px;
+        }
+
+        .spinner-square .square {
+            width: 17px;
+            height: 80px;
+            margin: auto;
+            border-radius: 4px;
+        }
+
+        .square-1 {
+            animation: square-anim 1200ms cubic-bezier(0.445, 0.05, 0.55, 0.95) 0s infinite;
+        }
+
+        .square-2 {
+            animation: square-anim 1200ms cubic-bezier(0.445, 0.05, 0.55, 0.95) 200ms infinite;
+        }
+
+        .square-3 {
+            animation: square-anim 1200ms cubic-bezier(0.445, 0.05, 0.55, 0.95) 400ms infinite;
+        }
+
+        @keyframes square-anim {
+            0% {
+                height: 60px;
+                background-color: #eab308;
+                /* Warna dasar kuning */
+            }
+
+            20% {
+                height: 60px;
+                background-color: #eac918;
+                /* Warna kuning lebih terang */
+            }
+
+            40% {
+                height: 90px;
+                background-color: #111827;
+                /* Warna kuning lebih cerah */
+            }
+
+            80% {
+                height: 60px;
+                background-color: #eac918;
+                /* Kembali ke warna kuning lebih terang */
+            }
+
+            100% {
+                height: 60px;
+                background-color: #eab308;
+                /* Kembali ke warna dasar kuning */
+            }
+        }
+
+        /* Style for the tagline */
+        .loading-tagline {
+            margin-top: 0px;
+            font-size: 20px;
+            color: #111827;
+            font-weight: 800;
+            text-align: center;
+        }
+
+        .brand-tagline {
+            font-size: 18px;
+            color: #111827;
+            font-weight: 400;
+            text-align: center;
+            font-style: italic;
+        }
+    </style>
 </head>
 
 <body class="flex flex-col h-full bg-neutral-200">
+    <!-- Loading Page -->
+    <div class="loading-overlay" id="loadingOverlay">
+        <div class="spinner-square">
+            <div class="square-1 square"></div>
+            <div class="square-2 square"></div>
+            <div class="square-3 square"></div>
+        </div>
+        <div class="loading-tagline">
+            Loading...
+        </div>
+        <div class="brand-tagline">
+            ~ A taste you'll remember ~
+        </div>
+    </div>
     <div class="flex flex-col h-full bg-neutral-200" style="font-family: 'Montserrat';">
         <div>
             @include('layouts.admin.topbar')
@@ -42,6 +150,59 @@
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
         AOS.init();
+
+        $(document).ready(function() {
+            // console.log('AWAL SAAT DOM SIAP', sessionStorage.getItem('loadingDisplayed'));
+
+            // Periksa loading status segera setelah DOM siap
+            if (sessionStorage.getItem('loadingDisplayed') === 'true') {
+                $('#loadingOverlay').css('display', 'flex');
+            } else {
+                $('#loadingOverlay').css('display', 'none');
+            }
+
+            // Show loading page on form submit
+            $('form').on('submit', function() {
+                $('#loadingOverlay').css('display', 'flex');
+
+                // Disable semua tombol submit dalam form
+                $(this).find('button[type=submit]').prop('disabled', true);
+
+                // Set status loading di sessionStorage
+                sessionStorage.setItem('loadingDisplayed', true);
+            });
+
+            // Hide loading page once the page is fully loaded
+            $(window).on('load', function() {
+                // console.log('RELOAD', sessionStorage.getItem('loadingDisplayed'));
+
+                $('#loadingOverlay').css('display', 'none');
+
+                // Enable all submit buttons
+                $('button[type=submit]').prop('disabled', false);
+
+                // Set status loading di sessionStorage
+                sessionStorage.setItem('loadingDisplayed', false);
+
+                // console.log('RELOAD BERUBAH', sessionStorage.getItem('loadingDisplayed'));
+            });
+            // Handle browser back/forward navigation using pageshow event
+            $(window).on('pageshow', function(event) {
+                // console.log('PAGESHOW', sessionStorage.getItem('loadingDisplayed'));
+
+                // Enable all submit buttons
+                $('button[type=submit]').prop('disabled', false);
+
+                // event.originalEvent.persisted adalah properti yang mengindikasikan apakah halaman dipulihkan dari cache atau tidak.
+                // Ini adalah cara yang lebih handal untuk menangani skenario di mana pengguna kembali ke halaman sebelumnya dengan tombol back di browser.
+                if (event.originalEvent.persisted) {
+                    // console.log('BACK', sessionStorage.getItem('loadingDisplayed'));
+                    $('#loadingOverlay').css('display', 'none');
+                } else if (sessionStorage.getItem('loadingDisplayed') === 'false') {
+                    $('#loadingOverlay').css('display', 'none');
+                }
+            });
+        });
     </script>
 </body>
 

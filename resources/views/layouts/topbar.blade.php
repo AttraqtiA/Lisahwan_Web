@@ -284,11 +284,21 @@
                                 {{ Auth::user()->email }}
                             </p>
                             @if (Session::has('pointStatus'))
-                                <p class="flex flex-row mt-4 text-sm text-gray-900 font-semibold truncate" role="none">
-                                    Poin:
-                                    {{ abs(number_format(($countSubtotal + $shipment_price + $admin_fee - $reward_now) / $point->money_per_poin, 0, ',', '')) }}
-                                    <img src="/images/coin_icon.png" alt="Poin" class="w-4 h-4 ms-1">
-                                </p>
+                                @if ($reward_now <= $countSubtotal + $shipment_price + $admin_fee)
+                                    <p class="flex flex-row mt-4 text-sm text-gray-900 font-semibold truncate"
+                                        role="none">
+                                        Poin:
+                                        {{ abs(number_format(0, 0, ',', '.')) }}
+                                        <img src="/images/coin_icon.png" alt="Poin" class="w-4 h-4 ms-1">
+                                    </p>
+                                @else
+                                    <p class="flex flex-row mt-4 text-sm text-gray-900 font-semibold truncate"
+                                        role="none">
+                                        Poin:
+                                        {{ abs(number_format(($countSubtotal + $shipment_price + $admin_fee - $reward_now) / $point->money_per_poin, 0, ',', '')) }}
+                                        <img src="/images/coin_icon.png" alt="Poin" class="w-4 h-4 ms-1">
+                                    </p>
+                                @endif
                             @else
                                 <p class="flex flex-row mt-4 text-sm text-gray-900 font-semibold truncate" role="none">
                                     Poin: {{ number_format(Auth::user()->reward, 0, ',', '') }}<img

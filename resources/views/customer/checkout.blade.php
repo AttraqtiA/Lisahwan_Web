@@ -939,7 +939,7 @@
                                     </label>
                                 </form>
                                 @if (Session::has('pointStatus'))
-                                    @if ($reward_now < $countSubtotal + $shipment_price + $admin_fee)
+                                    @if ($reward_now <= $countSubtotal + $shipment_price + $admin_fee)
                                         <span class="flex flex-row  items-center text-gray-900 text-sm">*Poin anda
                                             sekarang:
                                             {{ abs(number_format(0, 0, ',', '.')) }}<img src="/images/coin_icon.png"
@@ -1112,7 +1112,7 @@
                 // Set nilai input hidden dengan nilai dari checkbox yang dicheck
                 $('#courier_hidden').val(checkedValue ||
                     ''); // Jika tidak ada yang dicheck, set sebagai string kosong
-                console.log("0: " + $('#courier_hidden').val());
+                // console.log("0: " + $('#courier_hidden').val());
             }
 
             // Panggil fungsi updateCourierHidden saat halaman dimuat, jika ada checkbox yang sudah dicheck
@@ -1193,6 +1193,15 @@
                 // Mengambil id form dari checkbox yang berubah
                 var formId = $(this).attr('id').replace('autoSubmitCheckbox_', 'checkboxForm_');
 
+                // Tampilkan loading sebelum submit
+                $('#loadingOverlay').css('display', 'flex');
+
+                // Disable checkbox yang berubah
+                $(this).prop('disabled', true);
+
+                // Set status loading di sessionStorage
+                sessionStorage.setItem('loadingDisplayed', true);
+
                 // Melakukan submit form yang sesuai dengan id
                 $('#' + formId).submit();
             });
@@ -1201,6 +1210,16 @@
         $(document).ready(function() {
             $('[id^=autoSubmitCheckboxCost_]').change(function() {
                 var formId = $(this).attr('id').replace('autoSubmitCheckboxCost_', 'checkboxCostForm_');
+
+                // Tampilkan loading sebelum submit
+                $('#loadingOverlay').css('display', 'flex');
+
+                // Disable checkbox yang berubah
+                $(this).prop('disabled', true);
+
+                // Set status loading di sessionStorage
+                sessionStorage.setItem('loadingDisplayed', true);
+
                 $('#' + formId).submit();
             });
         });
@@ -1326,6 +1345,15 @@
 
         $(document).ready(function() {
             $('#togglePoint').on('change', function() {
+                // Tampilkan loading sebelum submit
+                $('#loadingOverlay').css('display', 'flex');
+
+                // Disable checkbox yang berubah
+                $(this).prop('disabled', true);
+
+                // Set status loading di sessionStorage
+                sessionStorage.setItem('loadingDisplayed', true);
+
                 $('#togglePointForm').submit();
             });
         });
