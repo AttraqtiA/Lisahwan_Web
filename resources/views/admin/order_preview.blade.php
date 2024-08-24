@@ -129,58 +129,61 @@
                     Bukti TF QRIS
                 </button>
             </div>
-        @endif
-        <div id="payment{{ $order->id }}" tabindex="-1" aria-hidden="true"
-            class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] md:h-full">
-            <div class="relative p-4 w-full max-w-3xl h-full md:h-auto">
-                <!-- Modal content -->
-                <div id="update-modal-content" class="relative p-4 bg-gray-900 rounded-lg shadow sm:p-5">
-                    <!-- Modal header -->
-                    <div
-                        class="flex justify-between items-center pb-4 mb-4 rounded-t border-b border-yellow-500 sm:mb-5">
-                        <div class="flex items-center mr-3">
-                            @if ($order->user->profile_picture == null)
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                    stroke-width="1.5" stroke="currentColor"
-                                    class="w-8 h-8 mr-3 rounded-full text-gray-700">
-                                    <path stroke-linecap="round" stroke-linejoin="round"
-                                        d="M17.982 18.725A7.488 7.488 0 0012 15.75a7.488 7.488 0 00-5.982 2.975m11.963 0a9 9 0 10-11.963 0m11.963 0A8.966 8.966 0 0112 21a8.966 8.966 0 01-5.982-2.275M15 9.75a3 3 0 11-6 0 3 3 0 016 0z" />
-                                </svg>
-                            @elseif (strlen($order->user->profile_picture) > 25)
-                                <img src="{{ asset('storage/' . $order->user->profile_picture) }}"
-                                    alt="profile picture" class="w-8 h-8 mr-3 object-cover object-center rounded-full">
-                            @else
-                                <img src="/images/profile_picture/{{ $order->user->profile_picture }}"
-                                    alt="profile picture" class="w-8 h-8 mr-3 object-cover object-center rounded-full">
-                            @endif
-                            <h3 class="text-lg font-semibold text-yellow-500">
-                                Bukti TF QRIS a.n. {{ $order->user->name }}</h3>
-                        </div>
-                        <button type="button"
-                            class="text-yellow-500 bg-transparent hover:bg-gray-800 hover:text-yellow-500 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center"
-                            data-modal-toggle="payment{{ $order->id }}">
-                            <svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewbox="0 0 20 20"
-                                xmlns="http://www.w3.org/2000/svg">
-                                <path fill-rule="evenodd"
-                                    d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
-                                    clip-rule="evenodd" />
-                            </svg>
-                            <span class="sr-only">Close modal</span>
-                        </button>
-                    </div>
-                    <!-- Modal body -->
 
-                    @if ($order->payment != null || $order->payment != '')
-                        <img src="{{ asset('storage/' . $order->payment) }}"
-                            alt="{{ asset('storage/' . $order->payment) }}"
-                            class="mt-3 w-96 mx-auto rounded-lg object-cover">
-                    @else
-                        <p class="mt-3 text-red-700 text-center font-semibold">
-                            Belum ada bukti pembayaran</p>
-                    @endif
+            <div id="payment{{ $order->id }}" tabindex="-1" aria-hidden="true"
+                class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] md:h-full">
+                <div class="relative p-4 w-full max-w-3xl h-full md:h-auto">
+                    <!-- Modal content -->
+                    <div id="update-modal-content" class="relative p-4 bg-gray-900 rounded-lg shadow sm:p-5">
+                        <!-- Modal header -->
+                        <div
+                            class="flex justify-between items-center pb-4 mb-4 rounded-t border-b border-yellow-500 sm:mb-5">
+                            <div class="flex items-center mr-3">
+                                @if ($order->user->profile_picture == null)
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                        stroke-width="1.5" stroke="currentColor"
+                                        class="w-8 h-8 mr-3 rounded-full text-gray-700">
+                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                            d="M17.982 18.725A7.488 7.488 0 0012 15.75a7.488 7.488 0 00-5.982 2.975m11.963 0a9 9 0 10-11.963 0m11.963 0A8.966 8.966 0 0112 21a8.966 8.966 0 01-5.982-2.275M15 9.75a3 3 0 11-6 0 3 3 0 016 0z" />
+                                    </svg>
+                                @elseif (strlen($order->user->profile_picture) > 25)
+                                    <img src="{{ asset('storage/' . $order->user->profile_picture) }}"
+                                        alt="profile picture"
+                                        class="w-8 h-8 mr-3 object-cover object-center rounded-full">
+                                @else
+                                    <img src="/images/profile_picture/{{ $order->user->profile_picture }}"
+                                        alt="profile picture"
+                                        class="w-8 h-8 mr-3 object-cover object-center rounded-full">
+                                @endif
+                                <h3 class="text-lg font-semibold text-yellow-500">
+                                    Bukti TF QRIS a.n. {{ $order->user->name }}</h3>
+                            </div>
+                            <button type="button"
+                                class="text-yellow-500 bg-transparent hover:bg-gray-800 hover:text-yellow-500 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center"
+                                data-modal-toggle="payment{{ $order->id }}">
+                                <svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewbox="0 0 20 20"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <path fill-rule="evenodd"
+                                        d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                                        clip-rule="evenodd" />
+                                </svg>
+                                <span class="sr-only">Close modal</span>
+                            </button>
+                        </div>
+                        <!-- Modal body -->
+
+                        @if ($order->payment != null || $order->payment != '')
+                            <img src="{{ asset('storage/' . $order->payment) }}"
+                                alt="{{ asset('storage/' . $order->payment) }}"
+                                class="mt-3 w-96 mx-auto rounded-lg object-cover">
+                        @else
+                            <p class="mt-3 text-red-700 text-center font-semibold">
+                                Belum ada bukti pembayaran</p>
+                        @endif
+                    </div>
                 </div>
             </div>
-        </div>
+        @endif
     </div>
 
     <div class="flex flex-row items-start space-x-2 mb-4 px-6">

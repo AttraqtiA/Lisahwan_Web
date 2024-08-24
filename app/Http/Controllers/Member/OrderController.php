@@ -831,21 +831,42 @@ class OrderController extends Controller
                 ]);
                 $costs = $responseCost['rajaongkir'];
 
-                Session::push('arraycourierStatus', $request->courier);
-                Session::put('courierStatus_' . $request->courier, true);
-
-                $activeCouriersStatus = Session::get('arraycourierStatus', []);
-                foreach ($activeCouriersStatus as $courierStatus) {
-                    if ($courierStatus != $request->courier) {
-                        Session::put('arraycourierStatus', array_diff(Session::get('arraycourierStatus', []), [$courierStatus]));
-                        Session::forget('courierStatus_' . $courierStatus);
+                if (!empty($costs['results'])) {
+                    // Periksa apakah costs di dalam results kosong
+                    $allCostsEmpty = true;
+                    foreach ($costs['results'] as $result) {
+                        if (!empty($result['costs'])) {
+                            $allCostsEmpty = false;
+                            break;
+                        }
                     }
-                }
 
-                return back()->with([
-                    'costs' => $costs,
-                    'courier' => $request->courier
-                ]);
+                    if ($allCostsEmpty) {
+                        return back()->withErrors([
+                            'service_NOTAVAILABLE' => 'Layanan pengiriman tidak tersedia! Mohon memilih jasa pengiriman yang lain!'
+                        ]);
+                    } else {
+                        Session::push('arraycourierStatus', $request->courier);
+                        Session::put('courierStatus_' . $request->courier, true);
+
+                        $activeCouriersStatus = Session::get('arraycourierStatus', []);
+                        foreach ($activeCouriersStatus as $courierStatus) {
+                            if ($courierStatus != $request->courier) {
+                                Session::put('arraycourierStatus', array_diff(Session::get('arraycourierStatus', []), [$courierStatus]));
+                                Session::forget('courierStatus_' . $courierStatus);
+                            }
+                        }
+
+                        return back()->with([
+                            'costs' => $costs,
+                            'courier' => $request->courier
+                        ]);
+                    }
+                } else {
+                    return back()->withErrors([
+                        'service_NOTAVAILABLE' => 'Layanan pengiriman tidak tersedia! Mohon memilih jasa pengiriman yang lain!'
+                    ]);
+                }
             }
         }
     }

@@ -257,6 +257,21 @@
                 </div>
             </div>
         @enderror
+        @error('service_NOTAVAILABLE')
+            <div data-aos="zoom-in-down" data-aos-anchor-placement="top-bottom" data-aos-duration="800"
+                class="w-10/12 md:w-9/12 lg:w-6/12 flex justify-center items-center p-4 {{ $errors->has('service_NOTAVAILABLE') ? 'mt-8' : '' }} text-sm rounded-lg bg-gray-900 text-red-400"
+                role="alert">
+                <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                    fill="currentColor" viewBox="0 0 20 20">
+                    <path
+                        d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Zm3.707 11.793a1 1 0 1 1-1.414 1.414L10 11.414l-2.293 2.293a1 1 0 0 1-1.414-1.414L8.586 10 6.293 7.707a1 1 0 0 1 1.414-1.414L10 8.586l2.293-2.293a1 1 0 0 1 1.414 1.414L11.414 10l2.293 2.293Z" />
+                </svg>
+                <span class="sr-only">Info</span>
+                <div>
+                    <span class="font-medium">{{ $message }}
+                </div>
+            </div>
+        @enderror
         <div class="flex flex-col gap-y-8 lg:gap-y-8 p-8 sm:p-12 mx-auto w-full">
             <div class="flex flex-col lg:flex-row w-full col-span-2 lg:gap-x-6">
                 <div class="flex flex-col mx-auto w-full mb-8 lg:mb-0">
@@ -489,7 +504,7 @@
                             <label data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="800"
                                 for="ongkir" class="block mb-3 text-sm font-semibold text-gray-900">Cek
                                 Ongkir</label>
-                            <div class="flex flex-col lg:flex-row lg:space-x-2 space-y-2 lg:space-y-0 w-full lg:w-3/4">
+                            <div class="flex flex-col lg:flex-row lg:space-x-2 space-y-2 lg:space-y-0 w-full">
                                 <div data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="800"
                                     type="submit"
                                     class="w-full flex flex-row  text-sm font-medium text-yellow-500 bg-gray-900 rounded-lg justify-center items-center">
@@ -515,7 +530,7 @@
                                 </div>
                                 <button data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="800"
                                     type="submit"
-                                    class="flex flex-row items-center justify-center w-full lg:w-60 cursor-pointer text-yellow-500 bg-gray-900 hover:bg-gray-950 font-medium rounded-lg text-sm px-3 py-2.5 text-center">
+                                    class="flex flex-row items-center justify-center w-full cursor-pointer text-yellow-500 bg-gray-900 hover:bg-gray-950 font-medium rounded-lg text-sm px-3 py-2.5 text-center">
                                     <svg class="w-4 h-4 mr-2 text-yellow-500" aria-hidden="true"
                                         xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
                                         <path fill-rule="evenodd"
@@ -611,15 +626,15 @@
                                 <label data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="800"
                                     for="coupon" class="block mb-3 text-sm font-semibold text-gray-900">Cek
                                     Kupon</label>
-                                <div class="flex flex-row space-x-2 w-full">
+                                <div class="flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-2 w-full">
                                     <input data-aos="fade-up" data-aos-anchor-placement="top-bottom"
                                         data-aos-duration="800" type="text" name="coupon" id="coupon"
                                         value="{{ old('coupon') }}"
-                                        class="{{ $errors->has('coupon') || $errors->has('alreadyAddCoupon_error') || $errors->has('incorrectCoupon_error') ? 'bg-red-100 border-red-400 text-red-500 placeholder-red-700 focus:ring-red-500 focus:border-red-500' : 'bg-white border-yellow-500 text-gray-900 placeholder-gray-400  focus:ring-yellow-500 focus:border-yellow-500' }} rounded-lg border-1 text-sm block p-2.5"
+                                        class="{{ $errors->has('coupon') || $errors->has('alreadyAddCoupon_error') || $errors->has('incorrectCoupon_error') ? 'bg-red-100 border-red-400 text-red-500 placeholder-red-700 focus:ring-red-500 focus:border-red-500' : 'bg-white border-yellow-500 text-gray-900 placeholder-gray-400  focus:ring-yellow-500 focus:border-yellow-500' }} w-full rounded-lg border-1 text-sm block p-2.5"
                                         placeholder="(Contoh: JULYCERIA)">
                                     <button data-aos="fade-up" data-aos-anchor-placement="top-bottom"
                                         data-aos-duration="800" type="submit"
-                                        class="flex flex-row items-center justify-center w-full lg:w-36 cursor-pointer text-yellow-500 bg-gray-900 hover:bg-gray-950 font-medium rounded-lg text-sm px-3 py-2.5 text-center">
+                                        class="flex flex-row items-center justify-center w-full cursor-pointer text-yellow-500 bg-gray-900 hover:bg-gray-950 font-medium rounded-lg text-sm px-3 py-2.5 text-center">
                                         <svg class="w-4 h-4 mr-2 text-yellow-500" aria-hidden="true"
                                             xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
                                             <path fill-rule="evenodd"

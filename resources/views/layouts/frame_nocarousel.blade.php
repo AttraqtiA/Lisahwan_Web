@@ -179,24 +179,17 @@
             });
 
             // Hide loading page once the page is fully loaded
-            $(window).on('load', function() {
-                // console.log('RELOAD', sessionStorage.getItem('loadingDisplayed'));
-
-                $('#loadingOverlay').css('display', 'none');
-
-                // Enable all submit buttons
-                $('button[type=submit]').prop('disabled', false);
-
-                // Enable all checkboxes that were disabled
-                $('[id^=autoSubmitCheckbox_]').prop('disabled', false);
-                $('[id^=autoSubmitCheckboxCost_]').prop('disabled', false);
-                $('[id^=togglePoint]').prop('disabled', false);
-
-                // Set status loading di sessionStorage
-                sessionStorage.setItem('loadingDisplayed', false);
-
-                // console.log('RELOAD BERUBAH', sessionStorage.getItem('loadingDisplayed'));
-            });
+            // console.log('RELOAD', sessionStorage.getItem('loadingDisplayed'));
+            $('#loadingOverlay').css('display', 'none');
+            // Enable all submit buttons
+            $('button[type=submit]').prop('disabled', false);
+            // Enable all checkboxes that were disabled
+            $('[id^=autoSubmitCheckbox_]').prop('disabled', false);
+            $('[id^=autoSubmitCheckboxCost_]').prop('disabled', false);
+            $('[id^=togglePoint]').prop('disabled', false);
+            // Set status loading di sessionStorage
+            sessionStorage.setItem('loadingDisplayed', false);
+            // console.log('RELOAD BERUBAH', sessionStorage.getItem('loadingDisplayed'));
 
             // Handle browser back/forward navigation using pageshow event
             $(window).on('pageshow', function(event) {
