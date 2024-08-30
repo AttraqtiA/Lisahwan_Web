@@ -158,10 +158,19 @@ class OrderController extends Controller
             $cart->delete();
             return redirect()->route('member.orderhistory')->with('settlementPayment_SUCCESSFULL', "Pesanan anda berhasil! Tinjau status pesanan anda disini!");
         } elseif ($transactionStatus == 'pending') {
+            $customer->update([
+                'reward' => $customer->reward + $customer->old_reward
+            ]);
             return redirect()->route('member.checkout')->withErrors(['pendingPayment_ERROR' => "Proses pembayaran anda belum selesai!"]);
         } elseif ($transactionStatus == 'deny') {
+            $customer->update([
+                'reward' => $customer->reward + $customer->old_reward
+            ]);
             return redirect()->route('member.checkout')->withErrors(['denyPayment_ERROR' => "Pembayaran anda ditolak!"]);
         } elseif ($transactionStatus == 'expire') {
+            $customer->update([
+                'reward' => $customer->reward + $customer->old_reward
+            ]);
             return redirect()->route('member.checkout')->withErrors(['expirePayment_ERROR'  => "Proses pembayaran anda sudah kedaluwarsa, mohon melakukan pembayaran ulang!"]);
         } elseif ($transactionStatus == 'cancel') {
             if ($cart) {
@@ -218,6 +227,9 @@ class OrderController extends Controller
             if (Session::has('checkout.note')) {
                 Session::forget('checkout.note');
             }
+            $customer->update([
+                'reward' => $customer->reward + $customer->old_reward
+            ]);
             $cart->delete();
             $order->delete();
             return redirect()->route('products')->withErrors(['cancelPayment_ERROR' => "Pesanan anda dibatalkan! Silahkan menghubungi Lisahwan™ (082230308030)!"]);
@@ -276,6 +288,9 @@ class OrderController extends Controller
             if (Session::has('checkout.note')) {
                 Session::forget('checkout.note');
             }
+            $customer->update([
+                'reward' => $customer->reward + $customer->old_reward
+            ]);
             $cart->delete();
             $order->delete();
             return redirect()->route('products')->withErrors(['failurePayment_ERROR' => "Terjadi kesalahan! Silahkan menghubungi Lisahwan™ (082230308030)!"]);
@@ -334,6 +349,9 @@ class OrderController extends Controller
             if (Session::has('checkout.note')) {
                 Session::forget('checkout.note');
             }
+            $customer->update([
+                'reward' => $customer->reward + $customer->old_reward
+            ]);
             $cart->delete();
             $order->delete();
             return redirect()->route('products')->withErrors(['refundPayment_ERROR' => "Pembayaran anda di-refund! Silahkan menghubungi Lisahwan™ (082230308030)!"]);
@@ -392,6 +410,9 @@ class OrderController extends Controller
             if (Session::has('checkout.note')) {
                 Session::forget('checkout.note');
             }
+            $customer->update([
+                'reward' => $customer->reward + $customer->old_reward
+            ]);
             $cart->delete();
             $order->delete();
             return redirect()->route('products')->withErrors(['partialRefundPayment_ERROR' => "Pembayaran anda di-refund! Silahkan menghubungi Lisahwan™ (082230308030)!"]);
@@ -450,13 +471,22 @@ class OrderController extends Controller
             if (Session::has('checkout.note')) {
                 Session::forget('checkout.note');
             }
+            $customer->update([
+                'reward' => $customer->reward + $customer->old_reward
+            ]);
             $cart->delete();
             $order->delete();
             return redirect()->route('products')->withErrors(['authorizePayment_ERROR' => "Pembayaran anda di-authorize! Silahkan menghubungi Lisahwan™ (082230308030)!"]);
         } elseif (count($parameters) == 1 && $request->has('order_id')) {
             // ini kalau payment expire ketika belum memilih metode pembayaran sama sekali
+            $customer->update([
+                'reward' => $customer->reward + $customer->old_reward
+            ]);
             return redirect()->route('member.checkout')->withErrors(['expirePayment_ERROR'  => "Proses pembayaran anda sudah kedaluwarsa, mohon melakukan pembayaran ulang!"]);
         } else {
+            $customer->update([
+                'reward' => $customer->reward + $customer->old_reward
+            ]);
             return redirect()->route('member.checkout')->withErrors(['anotherPayment_ERROR'  => "Terjadi kesalahan, mohon melakukan pembayaran ulang!"]);
         }
     }
@@ -1129,7 +1159,7 @@ class OrderController extends Controller
                     ]);
                 }
 
-                if (!empty($waybills['delivery_status']['pod_date']) && !empty($waybills['delete_status']['pod_time'])) {
+                if (!empty($waybills['delivery_status']['pod_date']) && !empty($waybills['delivery_status']['pod_time'])) {
                     $order->update([
                         'arrived_date' => $waybills['delivery_status']['pod_date'] . ' ' . $waybills['delivery_status']['pod_time'],
                         'acceptbyCustomer_status' => 'sudah'
@@ -1292,13 +1322,18 @@ class OrderController extends Controller
             $reward_now = $validatedData['reward_now'];
             if ($reward_now >= $total_price_beforeReward) {
                 $total_price = 0;
+                $convertReward_toPoint = round(($total_price_beforeReward - $reward_now) / $point->money_per_poin);
+                $customer->update([
+                    'reward' => $convertReward_toPoint,
+                    'old_reward' => $reward_now / 30
+                ]);
             } else {
                 $total_price =  $total_price_beforeReward - $reward_now;
+                $customer->update([
+                    'reward' => 0,
+                    'old_reward' => $reward_now / 30
+                ]);
             }
-            $convertReward_toPoint = $total_price / $point->money_per_poin;
-            $customer->update([
-                'reward' => $convertReward_toPoint
-            ]);
         } else {
             $total_price = $cart_details->sum('price') + $shipment_price + $admin_fee;
         }

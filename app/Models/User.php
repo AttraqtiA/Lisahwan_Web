@@ -28,7 +28,8 @@ class User extends Authenticatable
         'password',
         'phone_number',
         'profile_picture',
-        'reward'
+        'reward',
+        'old_reward'
     ];
 
     // protected $except = [

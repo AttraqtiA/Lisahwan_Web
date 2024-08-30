@@ -893,6 +893,10 @@
                             *Dapatkan <span class="font-bold">{{ number_format($total_poin, 0, ',', '.') }}
                                 poin (Rp. {{ number_format($total_money, 0, ',', '.') }})</span>!
                         </p>
+                        <p data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="800"
+                            class="mt-1 text-sm font-bold text-gray-900">
+                            *Pesanan hari minggu akan diproses pada hari senin!
+                        </p>
                         <hr data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="800"
                             class="h-px my-7 border-2 border-yellow-500">
                         @php
