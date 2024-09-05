@@ -44,55 +44,104 @@ class OrderController extends Controller
         if ($request->has('search')) {
             $searchTerm = $request->search;
 
-            // Attempt to parse the search term as a date
             try {
-                // Parse the search term to find date range or month-year
-                $parsedDate = Carbon::parse($searchTerm, config('app.timezone'));
-
-                // Format the parsed date for comparison with database date fields
-                $formattedDate = $parsedDate->format('Y-m-d');
-
-                $ordersQuery->where(function ($query) use ($formattedDate, $parsedDate) {
-                    // Check if search term is a full date
-                    if ($parsedDate->day != 1 && $parsedDate->month != 1) {
-                        $query->whereDate('order_date', $formattedDate)
-                            ->orWhereDate('shipment_date', $formattedDate)
-                            ->orWhereDate('arrived_date', $formattedDate);
-                    } else {
-                        // Check if search term is a month-year
-                        $query->where(DB::raw('DATE_FORMAT(order_date, "%Y-%m")'), $formattedDate)
-                            ->orWhere(DB::raw('DATE_FORMAT(shipment_date, "%Y-%m")'), $formattedDate)
-                            ->orWhere(DB::raw('DATE_FORMAT(arrived_date, "%Y-%m")'), $formattedDate);
-
-                        // Check if search term is a month only
-                        $query->orWhere(DB::raw('DATE_FORMAT(order_date, "%M")'), 'like', '%' . $parsedDate->format('F') . '%')
-                            ->orWhere(DB::raw('DATE_FORMAT(shipment_date, "%M")'), 'like', '%' . $parsedDate->format('F') . '%')
-                            ->orWhere(DB::raw('DATE_FORMAT(arrived_date, "%M")'), 'like', '%' . $parsedDate->format('F') . '%');
-
-                        // Check if search term is a year only
-                        $query->orWhere(DB::raw('YEAR(order_date)'), 'like', '%' . $parsedDate->format('Y') . '%')
-                            ->orWhere(DB::raw('YEAR(shipment_date)'), 'like', '%' . $parsedDate->format('Y') . '%')
-                            ->orWhere(DB::raw('YEAR(arrived_date)'), 'like', '%' . $parsedDate->format('Y') . '%');
-                    }
-                });
+                // Tangani berbagai format tanggal
+                if (preg_match('/^\d{1,2} [A-Za-z]+ \d{4}$/', $searchTerm)) {
+                    // Format: "6 August 2024"
+                    $parsedDate = Carbon::createFromFormat('j F Y', $searchTerm);
+                    $ordersQuery->whereDate('order_date', $parsedDate)
+                        ->orWhereDate('shipment_date', $parsedDate)
+                        ->orWhereDate('arrived_date', $parsedDate);
+                } elseif (preg_match('/^[A-Za-z]+ \d{4}$/', $searchTerm)) {
+                    // Format: "August 2024"
+                    $parsedDate = Carbon::createFromFormat('F Y', $searchTerm);
+                    $ordersQuery->whereMonth('order_date', $parsedDate->month)
+                        ->whereYear('order_date', $parsedDate->year)
+                        ->orWhere(function ($query) use ($parsedDate) {
+                            $query->whereMonth('shipment_date', $parsedDate->month)
+                                ->whereYear('shipment_date', $parsedDate->year);
+                        })
+                        ->orWhere(function ($query) use ($parsedDate) {
+                            $query->whereMonth('arrived_date', $parsedDate->month)
+                                ->whereYear('arrived_date', $parsedDate->year);
+                        });
+                } elseif (preg_match('/^\d{1,2} [A-Za-z]+$/', $searchTerm)) {
+                    // Format: "6 August"
+                    $parsedDate = Carbon::createFromFormat('j F', $searchTerm);
+                    $ordersQuery->whereDay('order_date', $parsedDate->day)
+                        ->whereMonth('order_date', $parsedDate->month)
+                        ->orWhere(function ($query) use ($parsedDate) {
+                            $query->whereDay('shipment_date', $parsedDate->day)
+                                ->whereMonth('shipment_date', $parsedDate->month);
+                        })
+                        ->orWhere(function ($query) use ($parsedDate) {
+                            $query->whereDay('arrived_date', $parsedDate->day)
+                                ->whereMonth('arrived_date', $parsedDate->month);
+                        });
+                } elseif (preg_match('/^[A-Za-z]+$/', $searchTerm)) {
+                    // Format: "August"
+                    $parsedDate = Carbon::createFromFormat('F', $searchTerm);
+                    $ordersQuery->whereMonth('order_date', $parsedDate->month)
+                        ->orWhereMonth('shipment_date', $parsedDate->month)
+                        ->orWhereMonth('arrived_date', $parsedDate->month);
+                } elseif (preg_match('/^\d{2}-\d{2}-\d{4}$/', $searchTerm)) {
+                    // Format: "06-08-2024"
+                    $parsedDate = Carbon::createFromFormat('d-m-Y', $searchTerm);
+                    $ordersQuery->whereDate('order_date', $parsedDate)
+                        ->orWhereDate('shipment_date', $parsedDate)
+                        ->orWhereDate('arrived_date', $parsedDate);
+                } elseif (preg_match('/^\d{4}-\d{2}-\d{2}$/', $searchTerm)) {
+                    // Format: "2024-08-06"
+                    $parsedDate = Carbon::createFromFormat('Y-m-d', $searchTerm);
+                    $ordersQuery->whereDate('order_date', $parsedDate)
+                        ->orWhereDate('shipment_date', $parsedDate)
+                        ->orWhereDate('arrived_date', $parsedDate);
+                } elseif (preg_match('/^\d{2}\/\d{2}\/\d{4}$/', $searchTerm)) {
+                    // Format: "08/06/2024"
+                    $parsedDate = Carbon::createFromFormat('m/d/Y', $searchTerm);
+                    $ordersQuery->whereDate('order_date', $parsedDate)
+                        ->orWhereDate('shipment_date', $parsedDate)
+                        ->orWhereDate('arrived_date', $parsedDate);
+                } elseif (preg_match('/^\d{2}-\d{2}$/', $searchTerm)) {
+                    // Format: "06-08"
+                    $parsedDate = Carbon::createFromFormat('d-m', $searchTerm);
+                    $ordersQuery->whereDay('order_date', $parsedDate->day)
+                        ->whereMonth('order_date', $parsedDate->month)
+                        ->orWhere(function ($query) use ($parsedDate) {
+                            $query->whereDay('shipment_date', $parsedDate->day)
+                                ->whereMonth('shipment_date', $parsedDate->month);
+                        })
+                        ->orWhere(function ($query) use ($parsedDate) {
+                            $query->whereDay('arrived_date', $parsedDate->day)
+                                ->whereMonth('arrived_date', $parsedDate->month);
+                        });
+                } elseif (preg_match('/^\d{4}$/', $searchTerm)) {
+                    // Format: "2024"
+                    $parsedDate = Carbon::createFromFormat('Y', $searchTerm);
+                    $ordersQuery->whereYear('order_date', $parsedDate->year)
+                        ->orWhereYear('shipment_date', $parsedDate->year)
+                        ->orWhereYear('arrived_date', $parsedDate->year);
+                } else {
+                    // Jika bukan input tanggal yang valid, lempar pengecualian
+                    throw new \Exception('Not a valid date format');
+                }
             } catch (\Exception $e) {
-                // Handle non-date search term (search in other fields)
+                // Penanganan pencarian untuk input yang bukan tanggal
                 $ordersQuery->where(function ($query) use ($searchTerm) {
                     $query->orWhere('is_print', 'like', '%' . $searchTerm . '%')
-                        ->orWhere('shipment_status', 'like', '%' . $searchTerm)
+                        ->orWhere('shipment_status', 'like', '%' . $searchTerm . '%')
                         ->orWhere('acceptbyAdmin_status', 'like', '%' . $searchTerm . '%')
                         ->orWhere('acceptbyCustomer_status', 'like', '%' . $searchTerm . '%')
                         ->orWhere('total_price', 'like', '%' . $searchTerm . '%')
-                        ->orWhere('note', 'like', '%' . $searchTerm . '%');
-
-                    $query->orWhereHas('user', function ($userQuery) use ($searchTerm) {
-                        $userQuery->where('name', 'like', '%' . $searchTerm . '%')
-                            ->orWhere('phone_number', 'like', '%' . $searchTerm . '%');
-                    });
-
-                    $query->orWhereHas('address', function ($addressQuery) use ($searchTerm) {
-                        $addressQuery->where('address', 'like', '%' . $searchTerm . '%');
-                    });
+                        ->orWhere('note', 'like', '%' . $searchTerm . '%')
+                        ->orWhere('shipment_service', 'like', '%' . $searchTerm . '%')
+                        ->orWhereHas('user', function ($userQuery) use ($searchTerm) {
+                            $userQuery->where('name', 'like', '%' . $searchTerm . '%')
+                                ->orWhere('phone_number', 'like', '%' . $searchTerm . '%');
+                        })
+                        ->orWhereHas('address', function ($addressQuery) use ($searchTerm) {
+                            $addressQuery->where('address', 'like', '%' . $searchTerm . '%');
+                        });
                 });
             }
         }
@@ -484,7 +533,8 @@ class OrderController extends Controller
         }
 
         $mpdf = new \Mpdf\Mpdf([
-            'mode' => 'utf-8', 'format' => [58, 210],
+            'mode' => 'utf-8',
+            'format' => [58, 210],
             'margin_left' => 0,
             'margin_right' => 0,
             'margin_top' => 0,
@@ -515,7 +565,8 @@ class OrderController extends Controller
         }
 
         $mpdf = new \Mpdf\Mpdf([
-            'mode' => 'utf-8', 'format' => [58, 210],
+            'mode' => 'utf-8',
+            'format' => [58, 210],
             'margin_left' => 0,
             'margin_right' => 0,
             'margin_top' => 0,
@@ -539,7 +590,8 @@ class OrderController extends Controller
         $order = Order::where('id', $id)->first();
 
         $mpdf = new \Mpdf\Mpdf([
-            'mode' => 'utf-8', 'format' => 'A6',
+            'mode' => 'utf-8',
+            'format' => 'A6',
             'margin_left' => 0,
             'margin_right' => 0,
             'margin_top' => 0,
@@ -578,55 +630,104 @@ class OrderController extends Controller
         if ($request->has('search')) {
             $searchTerm = $request->search;
 
-            // Attempt to parse the search term as a date
             try {
-                // Parse the search term to find date range or month-year
-                $parsedDate = Carbon::parse($searchTerm, config('app.timezone'));
-
-                // Format the parsed date for comparison with database date fields
-                $formattedDate = $parsedDate->format('Y-m-d');
-
-                $ordersQuery->where(function ($query) use ($formattedDate, $parsedDate) {
-                    // Check if search term is a full date
-                    if ($parsedDate->day != 1 && $parsedDate->month != 1) {
-                        $query->whereDate('order_date', $formattedDate)
-                            ->orWhereDate('shipment_date', $formattedDate)
-                            ->orWhereDate('arrived_date', $formattedDate);
-                    } else {
-                        // Check if search term is a month-year
-                        $query->where(DB::raw('DATE_FORMAT(order_date, "%Y-%m")'), $formattedDate)
-                            ->orWhere(DB::raw('DATE_FORMAT(shipment_date, "%Y-%m")'), $formattedDate)
-                            ->orWhere(DB::raw('DATE_FORMAT(arrived_date, "%Y-%m")'), $formattedDate);
-
-                        // Check if search term is a month only
-                        $query->orWhere(DB::raw('DATE_FORMAT(order_date, "%M")'), 'like', '%' . $parsedDate->format('F') . '%')
-                            ->orWhere(DB::raw('DATE_FORMAT(shipment_date, "%M")'), 'like', '%' . $parsedDate->format('F') . '%')
-                            ->orWhere(DB::raw('DATE_FORMAT(arrived_date, "%M")'), 'like', '%' . $parsedDate->format('F') . '%');
-
-                        // Check if search term is a year only
-                        $query->orWhere(DB::raw('YEAR(order_date)'), 'like', '%' . $parsedDate->format('Y') . '%')
-                            ->orWhere(DB::raw('YEAR(shipment_date)'), 'like', '%' . $parsedDate->format('Y') . '%')
-                            ->orWhere(DB::raw('YEAR(arrived_date)'), 'like', '%' . $parsedDate->format('Y') . '%');
-                    }
-                });
+                // Tangani berbagai format tanggal
+                if (preg_match('/^\d{1,2} [A-Za-z]+ \d{4}$/', $searchTerm)) {
+                    // Format: "6 August 2024"
+                    $parsedDate = Carbon::createFromFormat('j F Y', $searchTerm);
+                    $ordersQuery->whereDate('order_date', $parsedDate)
+                        ->orWhereDate('shipment_date', $parsedDate)
+                        ->orWhereDate('arrived_date', $parsedDate);
+                } elseif (preg_match('/^[A-Za-z]+ \d{4}$/', $searchTerm)) {
+                    // Format: "August 2024"
+                    $parsedDate = Carbon::createFromFormat('F Y', $searchTerm);
+                    $ordersQuery->whereMonth('order_date', $parsedDate->month)
+                        ->whereYear('order_date', $parsedDate->year)
+                        ->orWhere(function ($query) use ($parsedDate) {
+                            $query->whereMonth('shipment_date', $parsedDate->month)
+                                ->whereYear('shipment_date', $parsedDate->year);
+                        })
+                        ->orWhere(function ($query) use ($parsedDate) {
+                            $query->whereMonth('arrived_date', $parsedDate->month)
+                                ->whereYear('arrived_date', $parsedDate->year);
+                        });
+                } elseif (preg_match('/^\d{1,2} [A-Za-z]+$/', $searchTerm)) {
+                    // Format: "6 August"
+                    $parsedDate = Carbon::createFromFormat('j F', $searchTerm);
+                    $ordersQuery->whereDay('order_date', $parsedDate->day)
+                        ->whereMonth('order_date', $parsedDate->month)
+                        ->orWhere(function ($query) use ($parsedDate) {
+                            $query->whereDay('shipment_date', $parsedDate->day)
+                                ->whereMonth('shipment_date', $parsedDate->month);
+                        })
+                        ->orWhere(function ($query) use ($parsedDate) {
+                            $query->whereDay('arrived_date', $parsedDate->day)
+                                ->whereMonth('arrived_date', $parsedDate->month);
+                        });
+                } elseif (preg_match('/^[A-Za-z]+$/', $searchTerm)) {
+                    // Format: "August"
+                    $parsedDate = Carbon::createFromFormat('F', $searchTerm);
+                    $ordersQuery->whereMonth('order_date', $parsedDate->month)
+                        ->orWhereMonth('shipment_date', $parsedDate->month)
+                        ->orWhereMonth('arrived_date', $parsedDate->month);
+                } elseif (preg_match('/^\d{2}-\d{2}-\d{4}$/', $searchTerm)) {
+                    // Format: "06-08-2024"
+                    $parsedDate = Carbon::createFromFormat('d-m-Y', $searchTerm);
+                    $ordersQuery->whereDate('order_date', $parsedDate)
+                        ->orWhereDate('shipment_date', $parsedDate)
+                        ->orWhereDate('arrived_date', $parsedDate);
+                } elseif (preg_match('/^\d{4}-\d{2}-\d{2}$/', $searchTerm)) {
+                    // Format: "2024-08-06"
+                    $parsedDate = Carbon::createFromFormat('Y-m-d', $searchTerm);
+                    $ordersQuery->whereDate('order_date', $parsedDate)
+                        ->orWhereDate('shipment_date', $parsedDate)
+                        ->orWhereDate('arrived_date', $parsedDate);
+                } elseif (preg_match('/^\d{2}\/\d{2}\/\d{4}$/', $searchTerm)) {
+                    // Format: "08/06/2024"
+                    $parsedDate = Carbon::createFromFormat('m/d/Y', $searchTerm);
+                    $ordersQuery->whereDate('order_date', $parsedDate)
+                        ->orWhereDate('shipment_date', $parsedDate)
+                        ->orWhereDate('arrived_date', $parsedDate);
+                } elseif (preg_match('/^\d{2}-\d{2}$/', $searchTerm)) {
+                    // Format: "06-08"
+                    $parsedDate = Carbon::createFromFormat('d-m', $searchTerm);
+                    $ordersQuery->whereDay('order_date', $parsedDate->day)
+                        ->whereMonth('order_date', $parsedDate->month)
+                        ->orWhere(function ($query) use ($parsedDate) {
+                            $query->whereDay('shipment_date', $parsedDate->day)
+                                ->whereMonth('shipment_date', $parsedDate->month);
+                        })
+                        ->orWhere(function ($query) use ($parsedDate) {
+                            $query->whereDay('arrived_date', $parsedDate->day)
+                                ->whereMonth('arrived_date', $parsedDate->month);
+                        });
+                } elseif (preg_match('/^\d{4}$/', $searchTerm)) {
+                    // Format: "2024"
+                    $parsedDate = Carbon::createFromFormat('Y', $searchTerm);
+                    $ordersQuery->whereYear('order_date', $parsedDate->year)
+                        ->orWhereYear('shipment_date', $parsedDate->year)
+                        ->orWhereYear('arrived_date', $parsedDate->year);
+                } else {
+                    // Jika bukan input tanggal yang valid, lempar pengecualian
+                    throw new \Exception('Not a valid date format');
+                }
             } catch (\Exception $e) {
-                // Handle non-date search term (search in other fields)
+                // Penanganan pencarian untuk input yang bukan tanggal
                 $ordersQuery->where(function ($query) use ($searchTerm) {
                     $query->orWhere('is_print', 'like', '%' . $searchTerm . '%')
-                        ->orWhere('shipment_status', 'like', '%' . $searchTerm)
+                        ->orWhere('shipment_status', 'like', '%' . $searchTerm . '%')
                         ->orWhere('acceptbyAdmin_status', 'like', '%' . $searchTerm . '%')
                         ->orWhere('acceptbyCustomer_status', 'like', '%' . $searchTerm . '%')
                         ->orWhere('total_price', 'like', '%' . $searchTerm . '%')
-                        ->orWhere('note', 'like', '%' . $searchTerm . '%');
-
-                    $query->orWhereHas('user', function ($userQuery) use ($searchTerm) {
-                        $userQuery->where('name', 'like', '%' . $searchTerm . '%')
-                            ->orWhere('phone_number', 'like', '%' . $searchTerm . '%');
-                    });
-
-                    $query->orWhereHas('address', function ($addressQuery) use ($searchTerm) {
-                        $addressQuery->where('address', 'like', '%' . $searchTerm . '%');
-                    });
+                        ->orWhere('note', 'like', '%' . $searchTerm . '%')
+                        ->orWhere('shipment_service', 'like', '%' . $searchTerm . '%')
+                        ->orWhereHas('user', function ($userQuery) use ($searchTerm) {
+                            $userQuery->where('name', 'like', '%' . $searchTerm . '%')
+                                ->orWhere('phone_number', 'like', '%' . $searchTerm . '%');
+                        })
+                        ->orWhereHas('address', function ($addressQuery) use ($searchTerm) {
+                            $addressQuery->where('address', 'like', '%' . $searchTerm . '%');
+                        });
                 });
             }
         }
