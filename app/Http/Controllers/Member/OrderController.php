@@ -230,6 +230,11 @@ class OrderController extends Controller
             $customer->update([
                 'reward' => $customer->reward + $customer->old_reward
             ]);
+            foreach ($cart->cart_detail as $cart_detail) {
+                $product = $cart_detail->product;
+                $product->stock += $cart_detail->quantity;
+                $product->save();
+            }
             $cart->delete();
             $order->delete();
             return redirect()->route('products')->withErrors(['cancelPayment_ERROR' => "Pesanan anda dibatalkan! Silahkan menghubungi Lisahwan™ (082230308030)!"]);
@@ -291,6 +296,11 @@ class OrderController extends Controller
             $customer->update([
                 'reward' => $customer->reward + $customer->old_reward
             ]);
+            foreach ($cart->cart_detail as $cart_detail) {
+                $product = $cart_detail->product;
+                $product->stock += $cart_detail->quantity;
+                $product->save();
+            }
             $cart->delete();
             $order->delete();
             return redirect()->route('products')->withErrors(['failurePayment_ERROR' => "Terjadi kesalahan! Silahkan menghubungi Lisahwan™ (082230308030)!"]);
@@ -352,6 +362,11 @@ class OrderController extends Controller
             $customer->update([
                 'reward' => $customer->reward + $customer->old_reward
             ]);
+            foreach ($cart->cart_detail as $cart_detail) {
+                $product = $cart_detail->product;
+                $product->stock += $cart_detail->quantity;
+                $product->save();
+            }
             $cart->delete();
             $order->delete();
             return redirect()->route('products')->withErrors(['refundPayment_ERROR' => "Pembayaran anda di-refund! Silahkan menghubungi Lisahwan™ (082230308030)!"]);
@@ -413,6 +428,11 @@ class OrderController extends Controller
             $customer->update([
                 'reward' => $customer->reward + $customer->old_reward
             ]);
+            foreach ($cart->cart_detail as $cart_detail) {
+                $product = $cart_detail->product;
+                $product->stock += $cart_detail->quantity;
+                $product->save();
+            }
             $cart->delete();
             $order->delete();
             return redirect()->route('products')->withErrors(['partialRefundPayment_ERROR' => "Pembayaran anda di-refund! Silahkan menghubungi Lisahwan™ (082230308030)!"]);
@@ -474,6 +494,11 @@ class OrderController extends Controller
             $customer->update([
                 'reward' => $customer->reward + $customer->old_reward
             ]);
+            foreach ($cart->cart_detail as $cart_detail) {
+                $product = $cart_detail->product;
+                $product->stock += $cart_detail->quantity;
+                $product->save();
+            }
             $cart->delete();
             $order->delete();
             return redirect()->route('products')->withErrors(['authorizePayment_ERROR' => "Pembayaran anda di-authorize! Silahkan menghubungi Lisahwan™ (082230308030)!"]);
