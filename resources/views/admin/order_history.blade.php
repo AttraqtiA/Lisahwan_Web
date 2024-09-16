@@ -158,7 +158,7 @@
                             class="mt-2 lg:mt-0 flex flex-row justify-center items-center bg-green-300 text-green-900 text-sm text-center font-medium px-3 py-2 rounded-full">
                             <span class="w-2 h-2 me-2 bg-green-500 rounded-full"></span>
                             Total Penjualan:
-                            Rp.{{ number_format($orders->where('acceptbyAdmin_status', 'paid')->sum('total_price'), 0, ',', '.') }}
+                            Rp. {{ $totalPrice }}
                         </span>
                     </div>
                 </div>

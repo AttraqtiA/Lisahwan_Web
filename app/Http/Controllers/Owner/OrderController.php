@@ -43,7 +43,14 @@ class OrderController extends Controller
         // Hapus kupon yang sudah kedaluwarsa
         Coupon::where('ending_time', '<', $now)->delete();
 
+        // Tentukan rentang tanggal hari ini dan kemarin
+        $startOfDay = Carbon::yesterday()->startOfDay(); // Awal hari kemarin (00:00:00 kemarin)
+        $endOfDay = Carbon::today()->endOfDay(); // Akhir hari ini (23:59:59 hari ini)
+
         $ordersQuery = Order::query();
+
+        // Filter untuk hari ini dan kemarin
+        $ordersQuery->whereBetween('order_date', [$startOfDay, $endOfDay]);
 
         // Initialize $parsedDate to null
         $parsedDate = null;
@@ -56,78 +63,96 @@ class OrderController extends Controller
                 if (preg_match('/^\d{1,2} [A-Za-z]+ \d{4}$/', $searchTerm)) {
                     // Format: "6 August 2024"
                     $parsedDate = Carbon::createFromFormat('j F Y', $searchTerm);
-                    $ordersQuery->whereDate('order_date', $parsedDate)
-                        ->orWhereDate('shipment_date', $parsedDate)
-                        ->orWhereDate('arrived_date', $parsedDate);
+                    $ordersQuery->where(function ($query) use ($parsedDate) {
+                        $query->whereDate('order_date', $parsedDate)
+                            ->orWhereDate('shipment_date', $parsedDate)
+                            ->orWhereDate('arrived_date', $parsedDate);
+                    })->whereBetween('order_date', [$startOfDay, $endOfDay]);
                 } elseif (preg_match('/^[A-Za-z]+ \d{4}$/', $searchTerm)) {
                     // Format: "August 2024"
                     $parsedDate = Carbon::createFromFormat('F Y', $searchTerm);
-                    $ordersQuery->whereMonth('order_date', $parsedDate->month)
-                        ->whereYear('order_date', $parsedDate->year)
-                        ->orWhere(function ($query) use ($parsedDate) {
-                            $query->whereMonth('shipment_date', $parsedDate->month)
-                                ->whereYear('shipment_date', $parsedDate->year);
-                        })
-                        ->orWhere(function ($query) use ($parsedDate) {
-                            $query->whereMonth('arrived_date', $parsedDate->month)
-                                ->whereYear('arrived_date', $parsedDate->year);
-                        });
+                    $ordersQuery->where(function ($query) use ($parsedDate) {
+                        $query->whereMonth('order_date', $parsedDate->month)
+                            ->whereYear('order_date', $parsedDate->year)
+                            ->orWhere(function ($query) use ($parsedDate) {
+                                $query->whereMonth('shipment_date', $parsedDate->month)
+                                    ->whereYear('shipment_date', $parsedDate->year);
+                            })
+                            ->orWhere(function ($query) use ($parsedDate) {
+                                $query->whereMonth('arrived_date', $parsedDate->month)
+                                    ->whereYear('arrived_date', $parsedDate->year);
+                            });
+                    })->whereBetween('order_date', [$startOfDay, $endOfDay]);
                 } elseif (preg_match('/^\d{1,2} [A-Za-z]+$/', $searchTerm)) {
                     // Format: "6 August"
                     $parsedDate = Carbon::createFromFormat('j F', $searchTerm);
-                    $ordersQuery->whereDay('order_date', $parsedDate->day)
-                        ->whereMonth('order_date', $parsedDate->month)
-                        ->orWhere(function ($query) use ($parsedDate) {
-                            $query->whereDay('shipment_date', $parsedDate->day)
-                                ->whereMonth('shipment_date', $parsedDate->month);
-                        })
-                        ->orWhere(function ($query) use ($parsedDate) {
-                            $query->whereDay('arrived_date', $parsedDate->day)
-                                ->whereMonth('arrived_date', $parsedDate->month);
-                        });
+                    $ordersQuery->where(function ($query) use ($parsedDate) {
+                        $query->whereDay('order_date', $parsedDate->day)
+                            ->whereMonth('order_date', $parsedDate->month)
+                            ->orWhere(function ($query) use ($parsedDate) {
+                                $query->whereDay('shipment_date', $parsedDate->day)
+                                    ->whereMonth('shipment_date', $parsedDate->month);
+                            })
+                            ->orWhere(function ($query) use ($parsedDate) {
+                                $query->whereDay('arrived_date', $parsedDate->day)
+                                    ->whereMonth('arrived_date', $parsedDate->month);
+                            });
+                    })->whereBetween('order_date', [$startOfDay, $endOfDay]);
                 } elseif (preg_match('/^[A-Za-z]+$/', $searchTerm)) {
                     // Format: "August"
                     $parsedDate = Carbon::createFromFormat('F', $searchTerm);
-                    $ordersQuery->whereMonth('order_date', $parsedDate->month)
-                        ->orWhereMonth('shipment_date', $parsedDate->month)
-                        ->orWhereMonth('arrived_date', $parsedDate->month);
+                    $ordersQuery->where(function ($query) use ($parsedDate) {
+                        $query->whereMonth('order_date', $parsedDate->month)
+                            ->orWhereMonth('shipment_date', $parsedDate->month)
+                            ->orWhereMonth('arrived_date', $parsedDate->month);
+                    })->whereBetween('order_date', [$startOfDay, $endOfDay]);
                 } elseif (preg_match('/^\d{2}-\d{2}-\d{4}$/', $searchTerm)) {
                     // Format: "06-08-2024"
                     $parsedDate = Carbon::createFromFormat('d-m-Y', $searchTerm);
-                    $ordersQuery->whereDate('order_date', $parsedDate)
-                        ->orWhereDate('shipment_date', $parsedDate)
-                        ->orWhereDate('arrived_date', $parsedDate);
+                    $ordersQuery->where(function ($query) use ($parsedDate) {
+                        $query->whereDate('order_date', $parsedDate)
+                            ->orWhereDate('shipment_date', $parsedDate)
+                            ->orWhereDate('arrived_date', $parsedDate);
+                    })->whereBetween('order_date', [$startOfDay, $endOfDay]);
                 } elseif (preg_match('/^\d{4}-\d{2}-\d{2}$/', $searchTerm)) {
                     // Format: "2024-08-06"
                     $parsedDate = Carbon::createFromFormat('Y-m-d', $searchTerm);
-                    $ordersQuery->whereDate('order_date', $parsedDate)
-                        ->orWhereDate('shipment_date', $parsedDate)
-                        ->orWhereDate('arrived_date', $parsedDate);
+                    $ordersQuery->where(function ($query) use ($parsedDate) {
+                        $query->whereDate('order_date', $parsedDate)
+                            ->orWhereDate('shipment_date', $parsedDate)
+                            ->orWhereDate('arrived_date', $parsedDate);
+                    })->whereBetween('order_date', [$startOfDay, $endOfDay]);
                 } elseif (preg_match('/^\d{2}\/\d{2}\/\d{4}$/', $searchTerm)) {
                     // Format: "08/06/2024"
                     $parsedDate = Carbon::createFromFormat('m/d/Y', $searchTerm);
-                    $ordersQuery->whereDate('order_date', $parsedDate)
-                        ->orWhereDate('shipment_date', $parsedDate)
-                        ->orWhereDate('arrived_date', $parsedDate);
+                    $ordersQuery->where(function ($query) use ($parsedDate) {
+                        $query->whereDate('order_date', $parsedDate)
+                            ->orWhereDate('shipment_date', $parsedDate)
+                            ->orWhereDate('arrived_date', $parsedDate);
+                    })->whereBetween('order_date', [$startOfDay, $endOfDay]);
                 } elseif (preg_match('/^\d{2}-\d{2}$/', $searchTerm)) {
                     // Format: "06-08"
                     $parsedDate = Carbon::createFromFormat('d-m', $searchTerm);
-                    $ordersQuery->whereDay('order_date', $parsedDate->day)
-                        ->whereMonth('order_date', $parsedDate->month)
-                        ->orWhere(function ($query) use ($parsedDate) {
-                            $query->whereDay('shipment_date', $parsedDate->day)
-                                ->whereMonth('shipment_date', $parsedDate->month);
-                        })
-                        ->orWhere(function ($query) use ($parsedDate) {
-                            $query->whereDay('arrived_date', $parsedDate->day)
-                                ->whereMonth('arrived_date', $parsedDate->month);
-                        });
+                    $ordersQuery->where(function ($query) use ($parsedDate) {
+                        $query->whereDay('order_date', $parsedDate->day)
+                            ->whereMonth('order_date', $parsedDate->month)
+                            ->orWhere(function ($query) use ($parsedDate) {
+                                $query->whereDay('shipment_date', $parsedDate->day)
+                                    ->whereMonth('shipment_date', $parsedDate->month);
+                            })
+                            ->orWhere(function ($query) use ($parsedDate) {
+                                $query->whereDay('arrived_date', $parsedDate->day)
+                                    ->whereMonth('arrived_date', $parsedDate->month);
+                            });
+                    })->whereBetween('order_date', [$startOfDay, $endOfDay]);
                 } elseif (preg_match('/^\d{4}$/', $searchTerm)) {
                     // Format: "2024"
                     $parsedDate = Carbon::createFromFormat('Y', $searchTerm);
-                    $ordersQuery->whereYear('order_date', $parsedDate->year)
-                        ->orWhereYear('shipment_date', $parsedDate->year)
-                        ->orWhereYear('arrived_date', $parsedDate->year);
+                    $ordersQuery->where(function ($query) use ($parsedDate) {
+                        $query->whereYear('order_date', $parsedDate->year)
+                            ->orWhereYear('shipment_date', $parsedDate->year)
+                            ->orWhereYear('arrived_date', $parsedDate->year);
+                    })->whereBetween('order_date', [$startOfDay, $endOfDay]);
                 } else {
                     // Jika bukan input tanggal yang valid, lempar pengecualian
                     throw new \Exception('Not a valid date format');
@@ -153,17 +178,19 @@ class OrderController extends Controller
             }
         }
 
+        // Count total orders
+        $totalOrders = $ordersQuery->count();
+
+        // Count total price
+        $totalPrice = number_format($ordersQuery->where(column: 'acceptbyAdmin_status', operator: 'paid')->sum('total_price'), 0, ',', '.');
+
         // Query orders by date criteria
-        $orders = $ordersQuery->where(function ($query) {
-            $query->whereDate('order_date', Carbon::today())
-                ->orWhereDate('order_date', Carbon::yesterday());
-        })->orderBy('created_at', 'desc')->paginate(10);
+        $orders = $ordersQuery
+            ->orderBy('created_at', 'desc')->paginate(10)
+            ->appends(['search' => $request->input('search')]);
 
         // Initialize order number for pagination
         $orderNumber = $orders->firstItem();
-
-        // Count total orders
-        $totalOrders = $ordersQuery->count();
 
         // Fetch user cart details
         $cart_user = Cart::where('user_id', Auth::user()->id)->first();
@@ -224,6 +251,7 @@ class OrderController extends Controller
             "orders" => $orders,
             "orderNumber" => $orderNumber,
             "totalOrders" => $totalOrders,
+            "totalPrice" => $totalPrice,
             'carts' =>  $carts
         ]);
     }
@@ -545,7 +573,8 @@ class OrderController extends Controller
         }
 
         $mpdf = new \Mpdf\Mpdf([
-            'mode' => 'utf-8', 'format' => [58, 210],
+            'mode' => 'utf-8',
+            'format' => [58, 210],
             'margin_left' => 0,
             'margin_right' => 0,
             'margin_top' => 0,
@@ -576,7 +605,8 @@ class OrderController extends Controller
         }
 
         $mpdf = new \Mpdf\Mpdf([
-            'mode' => 'utf-8', 'format' => [58, 210],
+            'mode' => 'utf-8',
+            'format' => [58, 210],
             'margin_left' => 0,
             'margin_right' => 0,
             'margin_top' => 0,
@@ -600,7 +630,8 @@ class OrderController extends Controller
         $order = Order::where('id', $id)->first();
 
         $mpdf = new \Mpdf\Mpdf([
-            'mode' => 'utf-8', 'format' => 'A6',
+            'mode' => 'utf-8',
+            'format' => 'A6',
             'margin_left' => 0,
             'margin_right' => 0,
             'margin_top' => 0,
@@ -741,14 +772,19 @@ class OrderController extends Controller
             }
         }
 
+        // Count total orders
+        $totalOrders = $ordersQuery->count();
+
+        // Count total price
+        $totalPrice = number_format($ordersQuery->where(column: 'acceptbyAdmin_status', operator: 'paid')->sum('total_price'), 0, ',', '.');
+
         // Query orders by date criteria
-        $orders = $ordersQuery->orderBy('created_at', 'desc')->paginate(10);
+        $orders = $ordersQuery->orderBy('created_at', 'desc')
+            ->paginate(10)
+            ->appends(['search' => $request->input('search')]);
 
         // Initialize order number for pagination
         $orderNumber = $orders->firstItem();
-
-        // Count total orders
-        $totalOrders = $ordersQuery->count();
 
         // Fetch user cart details
         $cart_user = Cart::where('user_id', Auth::user()->id)->first();
@@ -809,6 +845,7 @@ class OrderController extends Controller
             "orders" => $orders,
             "orderNumber" => $orderNumber,
             "totalOrders" => $totalOrders,
+            "totalPrice" => $totalPrice,
             'carts' => $carts
         ]);
     }
