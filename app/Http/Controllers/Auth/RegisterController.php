@@ -146,7 +146,6 @@ class RegisterController extends Controller
             'name' => $validatedData['name'],
             'phone_number' => $validatedData['phone_number'],
             'role_id' => 3,
-            'is_active' => '1',
             'email' => $validatedData['email'],
             'password' => Hash::make($validatedData['password']),
         ]);

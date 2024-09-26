@@ -270,10 +270,10 @@
                                 <p class="font-semibold text-white px-2">Search</p>
                             </button>
                         </form>
-                        <div class="flex flex-row justify-center gap-x-2 mt-2 lg:mt-0">
+                        <div class="flex flex-col space-y-2 md:flex-row md:space-y-0 justify-center gap-x-2 mt-2 lg:mt-0">
                             <button data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="800"
                                 type="button" data-modal-target="add_coupon_modal" data-modal-toggle="add_coupon_modal"
-                                class="flex flex-row items-center justify-center w-36 cursor-pointer text-yellow-500 bg-gray-900 hover:bg-gray-950 font-medium rounded-lg text-xs md:text-sm px-3 py-2.5 text-center">
+                                class="flex flex-row items-center justify-center w-full lg:w-36 cursor-pointer text-yellow-500 bg-gray-900 hover:bg-gray-950 font-medium rounded-lg text-xs md:text-sm px-3 py-2.5 text-center">
                                 <svg class="w-4 h-4 mr-2 text-yellow-500" aria-hidden="true"
                                     xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
                                     <path fill-rule="evenodd"
@@ -356,7 +356,7 @@
                             @if (!$coupons->isEmpty())
                                 <button data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="800"
                                     type="button" data-modal-target="coupon_modal" data-modal-toggle="coupon_modal"
-                                    class="flex flex-row items-center justify-center w-36 cursor-pointer text-yellow-500 bg-gray-900 hover:bg-gray-950 font-medium rounded-lg text-xs md:text-sm px-3 py-2.5 text-center">
+                                    class="flex flex-row items-center justify-center  w-full lg:w-36 cursor-pointer text-yellow-500 bg-gray-900 hover:bg-gray-950 font-medium rounded-lg text-xs md:text-sm px-3 py-2.5 text-center">
                                     <svg class="w-4 h-4 mr-2 text-yellow-500" aria-hidden="true"
                                         xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                         fill="currentColor" viewBox="0 0 24 24">
@@ -490,7 +490,7 @@
                         @if ($point)
                             <button data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="800"
                                 type="button" data-modal-target="point_modal" data-modal-toggle="point_modal"
-                                class="flex flex-row items-center justify-center w-36 cursor-pointer text-yellow-500 bg-gray-900 hover:bg-gray-950 font-medium rounded-lg text-xs md:text-sm px-3 py-2.5 text-center">
+                                class="flex flex-row items-center justify-center  w-full lg:w-36 cursor-pointer text-yellow-500 bg-gray-900 hover:bg-gray-950 font-medium rounded-lg text-xs md:text-sm px-3 py-2.5 text-center">
                                 <svg class="w-4 h-4 mr-2 text-yellow-500" aria-hidden="true"
                                     xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
                                     <path fill-rule="evenodd"
@@ -552,7 +552,7 @@
                         @else
                             <button data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="800"
                                 type="button" data-modal-target="point_modal" data-modal-toggle="point_modal"
-                                class="flex flex-row items-center justify-center w-32 cursor-pointer text-yellow-500 bg-gray-900 hover:bg-gray-950 font-medium rounded-lg text-xs md:text-sm px-3 py-2.5 text-center">
+                                class="flex flex-row items-center justify-center  w-full lg:w-36 cursor-pointer text-yellow-500 bg-gray-900 hover:bg-gray-950 font-medium rounded-lg text-xs md:text-sm px-3 py-2.5 text-center">
                                 <svg class="w-4 h-4 mr-2 text-yellow-500" aria-hidden="true"
                                     xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
                                     <path fill-rule="evenodd"
@@ -621,6 +621,7 @@
                             <th scope="col" class="p-4">No.</th>
                             <th scope="col" class="p-4">Nama</th>
                             <th scope="col" class="p-4">Role</th>
+                            <th scope="col" class="p-4">Poin</th>
                             <th scope="col" class="p-4">Status</th>
                             <th scope="col" class="p-4">Email</th>
                             <th scope="col" class="p-4">No Telp/WA</th>
@@ -642,7 +643,7 @@
                                     <td class="p-4 w-4">
                                         {{ $loop->index + ($users->currentPage() - 1) * $users->perPage() + 1 }}
                                     </td>
-                                    <td scope="row" class="pe-12 lg:pe-0 font-medium text-gray-900">
+                                    <td scope="row" class="pe-12 font-medium text-gray-900">
                                         <div class="ml-4 flex items-center w-full">
                                             @if ($user->profile_picture == null)
                                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none"
@@ -676,6 +677,9 @@
                                         <td class="text-center font-medium text-gray-900 whitespace-nowrap p-4">
                                             Member</td>
                                     @endif
+
+                                    <td class="text-center font-medium text-gray-900 whitespace-nowrap px-4">
+                                        {{ $user->reward }}</td>
 
                                     @if ($user->is_active == 1)
                                         <td class=" px-4">
