@@ -10,7 +10,7 @@
 </head>
 
 <body style="font-family: 'Montserrat', sans-serif;">
-    <div style="display: flex; justify-content: center; align-items: center; padding-right: 1rem;">
+    <div style="display: flex; justify-content: center; align-items: center;">
         <div style="width: 100%; border-radius: 0.375rem; padding-left: 1rem; padding-right: 1rem;">
             <img src="/images/lisahwan_text.png" alt="Lisahwan"
                 style="filter: contrast(150%) drop-shadow(2px 2px 2px black);">

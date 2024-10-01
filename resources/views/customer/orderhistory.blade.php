@@ -159,7 +159,7 @@
                                     <div class="felx flex-col">
                                         <p class="text-base font-semibold text-gray-900">{{ $order_detail->product->name }}
                                         </p>
-                                        <p class="text-sm font-normal text-gray-600">
+                                        <p class="text-sm font-normal text-gray-600 break-words whitespace-normal text-left">
                                             {{ $order_detail->product->description }}
                                         </p>
                                         <p class="mt-2 text-sm font-normal text-gray-600">
