@@ -643,7 +643,7 @@
                                     <td class="p-4 w-4">
                                         {{ $loop->index + ($users->currentPage() - 1) * $users->perPage() + 1 }}
                                     </td>
-                                    <td scope="row" class="pe-12 font-medium text-gray-900">
+                                    <td scope="row" class="pe-8 font-medium text-gray-900">
                                         <div class="ml-4 flex items-center w-full">
                                             @if ($user->profile_picture == null)
                                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none"
