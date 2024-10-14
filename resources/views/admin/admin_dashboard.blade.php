@@ -299,8 +299,9 @@
                                         <td class="px-2">
                                             @if ($order->user_id == 1 || $order->user_id == 2)
                                                 <div class="flex justify-center">
-                                                    <button type="button" data-modal-target="address-modal"
-                                                        data-modal-toggle="address-modal"
+                                                    <button type="button"
+                                                        data-modal-target="address-modal-{{ $order->id }}"
+                                                        data-modal-toggle="address-modal-{{ $order->id }}"
                                                         class="py-2 px-3 flex items-center text-sm font-medium text-center text-white focus:outline-none bg-gray-300 rounded-lg hover:bg-gray-300 hover:text-primary-700 focus:z-10 focus:ring-4 focus:ring-gray-300"
                                                         disabled>
                                                         <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 24 24"
@@ -314,8 +315,9 @@
                                                 </div>
                                             @else
                                                 <div class="flex justify-center">
-                                                    <button type="button" data-modal-target="address-modal"
-                                                        data-modal-toggle="address-modal"
+                                                    <button type="button"
+                                                        data-modal-target="address-modal-{{ $order->id }}"
+                                                        data-modal-toggle="address-modal-{{ $order->id }}"
                                                         class="py-2 px-3 flex items-center text-sm font-medium text-center text-gray-600 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-primary-700 focus:z-10 focus:ring-4 focus:ring-gray-200">
                                                         <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 24 24"
                                                             fill="currentColor" class="w-4 h-4 mr-2 -ml-0.5">
@@ -329,7 +331,7 @@
                                             @endif
                                         </td>
 
-                                        <div id="address-modal" tabindex="-1" aria-hidden="true"
+                                        <div id="address-modal-{{ $order->id }}" tabindex="-1" aria-hidden="true"
                                             class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] md:h-full">
                                             <div class="relative p-4 w-full max-w-3xl h-full md:h-auto">
                                                 <!-- Modal content -->
@@ -366,7 +368,7 @@
                                                         </div>
                                                         <button type="button"
                                                             class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center"
-                                                            data-modal-toggle="address-modal">
+                                                            data-modal-toggle="address-modal-{{ $order->id }}">
                                                             <svg aria-hidden="true" class="w-5 h-5" fill="currentColor"
                                                                 viewbox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                                                                 <path fill-rule="evenodd"
@@ -377,11 +379,11 @@
                                                         </button>
                                                     </div>
                                                     <!-- Modal body -->
-                                                    @if ($order->user->address->isNotEmpty())
-                                                        {{ $order->user->address->first()->address }},
-                                                        {{ $order->user->address->first()->city }},
-                                                        {{ $order->user->address->first()->province }},
-                                                        {{ $order->user->address->first()->postal_code }}
+                                                    @if ($order->address->address != '')
+                                                        {{ $order->address->address }},
+                                                        {{ $order->address->city }},
+                                                        {{ $order->address->province }},
+                                                        {{ $order->address->postal_code }}
                                                         </td>
                                                     @else
                                                         Alamat belum diisi

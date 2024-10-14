@@ -584,7 +584,7 @@ class OrderController extends Controller
             'final_price' => $final_price,
         ]));
 
-        $mpdf->Output();
+        $mpdf->Output('receipt-' . $id . '.pdf', 'I');
     }
 
     public function generateReceipt_ORDER($id)
@@ -617,7 +617,7 @@ class OrderController extends Controller
             'before_discount_price' => $before_discount_price,
         ]));
 
-        $mpdf->Output();
+        $mpdf->Output('receipt-' . $id . '.pdf', 'I');
     }
 
     public function generateShipmentLabel($id)
@@ -638,7 +638,7 @@ class OrderController extends Controller
 
         $mpdf->WriteHTML(view("admin.shipmentLabel", ['order' => $order]));
 
-        $mpdf->Output();
+        $mpdf->Output('shipmentLabel-' . $id . '.pdf', 'I');
     }
     // ========================================================================================================
 

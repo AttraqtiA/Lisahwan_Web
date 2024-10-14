@@ -1162,6 +1162,7 @@
                     // $('#province').val('');
                     // $('#postal_code').val('');
                 } else {
+                    $('#new_address_container input').val("");
                     $('#new_address_container').hide();
                     $('#city').val(city).prop('disabled', true);
                     // $('#province').val(province);
