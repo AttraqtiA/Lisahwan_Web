@@ -42,6 +42,7 @@ Route::get('/clear-session', [LoginController::class, 'clearSession'])->name('cl
 //====================================== BISA DIAKSES SEMUA ROLE ======================================
 Route::get('/', [ProductController::class, 'home']); // HOME PAGE (CHECKED)
 Route::get('/products', [ProductController::class, 'index'])->name('products'); // PRODUCTS PAGE (CHECKED)
+Route::get('/products/{product_id}', [ProductController::class, 'show'])->name('member.products.show'); // PUBLIC ORDERDETAIL PAGE
 Route::get('/gallery', [GalleryController::class, 'index']); // GALLERY PAGE (CHECKED)
 Route::get('/contactus', function () {
     if (Auth::check()) {
@@ -152,7 +153,7 @@ Route::group([
     'prefix' => 'member',
     'as' => 'member.'
 ], function () {
-    Route::get('/products/{product_id}', [MemberProductController::class, 'show'])->name('products.show'); // ORDERDETAIL PAGE (CHECKED)
+    // Route::get('/products/{product_id}', [MemberProductController::class, 'show'])->name('products.show'); // ORDERDETAIL PAGE MOVED TO PUBLIC
 
     Route::post('/carts/add/{product_id}', [MemberCartController::class, 'store'])->name('carts.add'); // INSERT TO CART (CHECKED)
     Route::delete('/carts/delete/{cartdetail_id}', [MemberCartController::class, 'destroy'])->name('carts.destroy'); // DELETE CART (CHECKED)

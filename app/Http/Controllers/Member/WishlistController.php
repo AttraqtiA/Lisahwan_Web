@@ -99,7 +99,7 @@ class WishlistController extends Controller
     public function store($id)
     {
         $user_id = Auth::user()->id;
-        $wishlist = Wishlist::where('product_id', $id)->first();
+        $wishlist = Wishlist::where('product_id', $id)->where('user_id', $user_id)->first();
         // $product = Product::where('id', $id)->first();
         if ($wishlist) {
             $wishlist->delete();

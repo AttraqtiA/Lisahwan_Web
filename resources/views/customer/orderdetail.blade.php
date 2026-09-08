@@ -418,7 +418,7 @@
                             <div data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="800"
                                 class="flex flex-row gap-x-3 mt-3 w-full">
                                 <div class="flex-none">
-                                    @if (Auth::user()->profile_picture == null)
+                                    @if ($testimony->user->profile_picture == null)
                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                             stroke-width="1.5" stroke="currentColor"
                                             class="w-12 h-12 rounded-full text-gray-900">
@@ -426,7 +426,7 @@
                                                 d="M17.982 18.725A7.488 7.488 0 0012 15.75a7.488 7.488 0 00-5.982 2.975m11.963 0a9 9 0 10-11.963 0m11.963 0A8.966 8.966 0 0112 21a8.966 8.966 0 01-5.982-2.275M15 9.75a3 3 0 11-6 0 3 3 0 016 0z" />
                                         </svg>
                                     @else
-                                        @if (strlen(Auth::user()->profile_picture) > 25)
+                                        @if (strlen($testimony->user->profile_picture) > 25)
                                             <img class="w-12 h-12 object-top object-cover rounded-full overflow-hidden"
                                                 src="{{ asset('storage/' . $testimony->user->profile_picture) }}"
                                                 alt="{{ $testimony->user->name }}">
@@ -441,7 +441,7 @@
                                     <div class="flex flex-row justify-between items-center">
                                         <h4 class="text-base font-semibold text-gray-900">{{ $testimony->user->name }}
                                         </h4>
-                                        @if ($testimony->user_id == Auth::user()->id)
+                                        @if (Auth::check() && $testimony->user_id == Auth::user()->id)
                                             <form action="{{ route('member.testimony.destroy', $testimony->id) }}"
                                                 method="POST">
                                                 @method('delete')
@@ -452,7 +452,6 @@
                                                     Hapus Ulasan
                                                 </button>
                                             </form>
-                                        @else
                                         @endif
                                     </div>
                                     <p class="text-sm font-normal text-gray-400">
@@ -588,33 +587,46 @@
                                                     lagi!</p>
                                             @endif --}}
                                             <div class="text-right">
-                                                <!-- SVG icon di kanan bawah dari gambar -->
-                                                <form
-                                                    action="{{ route('member.wishlist.store', $bestseller->product->id) }}"
-                                                    method="POST" class="flex justify-end items-center">
-                                                    @csrf
-                                                    @if (
-                                                        $bestseller->product->wishlist->where('user_id', Auth::user()->id)->first() &&
-                                                            $bestseller->product->wishlist->where('user_id', Auth::user()->id)->first()->favorite_status == '1')
-                                                        <button type="submit">
-                                                            <svg class="cursor-pointer w-6 h-6 text-red-600 hover:text-white"
-                                                                aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
-                                                                fill="currentColor" viewBox="0 0 20 18">
-                                                                <path
-                                                                    d="M17.947 2.053a5.209 5.209 0 0 0-3.793-1.53A6.414 6.414 0 0 0 10 2.311 6.482 6.482 0 0 0 5.824.5a5.2 5.2 0 0 0-3.8 1.521c-1.915 1.916-2.315 5.392.625 8.333l7 7a.5.5 0 0 0 .708 0l7-7a6.6 6.6 0 0 0 2.123-4.508 5.179 5.179 0 0 0-1.533-3.793Z" />
-                                                            </svg>
-                                                        </button>
-                                                    @else
-                                                        <button type="submit">
-                                                            <svg class="cursor-pointer w-6 h-6 text-white hover:text-red-600"
-                                                                aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
-                                                                fill="currentColor" viewBox="0 0 20 18">
-                                                                <path
-                                                                    d="M17.947 2.053a5.209 5.209 0 0 0-3.793-1.53A6.414 6.414 0 0 0 10 2.311 6.482 6.482 0 0 0 5.824.5a5.2 5.2 0 0 0-3.8 1.521c-1.915 1.916-2.315 5.392.625 8.333l7 7a.5.5 0 0 0 .708 0l7-7a6.6 6.6 0 0 0 2.123-4.508 5.179 5.179 0 0 0-1.533-3.793Z" />
-                                                            </svg>
-                                                        </button>
-                                                    @endif
-                                                </form>
+                                                @auth
+                                                    <!-- SVG icon di kanan bawah dari gambar -->
+                                                    <form
+                                                        action="{{ route('member.wishlist.store', $bestseller->product->id) }}"
+                                                        method="POST" class="flex justify-end items-center">
+                                                        @csrf
+                                                        @if (
+                                                            $bestseller->product->wishlist->where('user_id', Auth::user()->id)->first() &&
+                                                                $bestseller->product->wishlist->where('user_id', Auth::user()->id)->first()->favorite_status == '1')
+                                                            <button type="submit">
+                                                                <svg class="cursor-pointer w-6 h-6 text-red-600 hover:text-white"
+                                                                    aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                                                                    fill="currentColor" viewBox="0 0 20 18">
+                                                                    <path
+                                                                        d="M17.947 2.053a5.209 5.209 0 0 0-3.793-1.53A6.414 6.414 0 0 0 10 2.311 6.482 6.482 0 0 0 5.824.5a5.2 5.2 0 0 0-3.8 1.521c-1.915 1.916-2.315 5.392.625 8.333l7 7a.5.5 0 0 0 .708 0l7-7a6.6 6.6 0 0 0 2.123-4.508 5.179 5.179 0 0 0-1.533-3.793Z" />
+                                                                </svg>
+                                                            </button>
+                                                        @else
+                                                            <button type="submit">
+                                                                <svg class="cursor-pointer w-6 h-6 text-white hover:text-red-600"
+                                                                    aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                                                                    fill="currentColor" viewBox="0 0 20 18">
+                                                                    <path
+                                                                        d="M17.947 2.053a5.209 5.209 0 0 0-3.793-1.53A6.414 6.414 0 0 0 10 2.311 6.482 6.482 0 0 0 5.824.5a5.2 5.2 0 0 0-3.8 1.521c-1.915 1.916-2.315 5.392.625 8.333l7 7a.5.5 0 0 0 .708 0l7-7a6.6 6.6 0 0 0 2.123-4.508 5.179 5.179 0 0 0-1.533-3.793Z" />
+                                                                </svg>
+                                                            </button>
+                                                        @endif
+                                                    </form>
+                                                @endauth
+                                                @guest
+                                                    <button type="button"
+                                                        onclick="event.preventDefault(); window.location.href='{{ route('login') }}'">
+                                                        <svg class="cursor-pointer w-6 h-6 text-white hover:text-red-600"
+                                                            aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                                                            fill="currentColor" viewBox="0 0 20 18">
+                                                            <path
+                                                                d="M17.947 2.053a5.209 5.209 0 0 0-3.793-1.53A6.414 6.414 0 0 0 10 2.311 6.482 6.482 0 0 0 5.824.5a5.2 5.2 0 0 0-3.8 1.521c-1.915 1.916-2.315 5.392.625 8.333l7 7a.5.5 0 0 0 .708 0l7-7a6.6 6.6 0 0 0 2.123-4.508 5.179 5.179 0 0 0-1.533-3.793Z" />
+                                                        </svg>
+                                                    </button>
+                                                @endguest
                                             </div>
                                         </div>
                                 </a>
