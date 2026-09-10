@@ -1,5 +1,76 @@
 @extends('layouts.frame_nocarousel')
 
+@section('meta_seo')
+    <!-- SEO Standard -->
+    <meta name="description"
+        content="Beli {{ $product->name }} asli di toko online Lisahwan, pusat Spikoe autentik, lauk kering, dan oleh-oleh Surabaya. Pesan sekarang hanya dengan Rp. {{ number_format($product->price, 0, ',', '.') }}.">
+    <meta name="keywords" content="{{ $product->name }}, Lisahwan, spikoe surabaya, oleh-oleh surabaya, lauk kering, camilan">
+
+    <!-- Open Graph (WhatsApp, Facebook, IG Preview) -->
+    <meta property="og:title" content="{{ $product->name }} - Lisahwan Surabaya">
+    <meta property="og:description"
+        content="Pesan {{ $product->name }} seharga Rp. {{ number_format($product->price, 0, ',', '.') }}. Belanja langsung di Lisahwan, pusat Spikoe autentik, lauk kering, dan oleh-oleh Surabaya!">
+    @if (strlen($product->image) > 30)
+        <meta property="og:image" content="{{ asset('storage/' . $product->image) }}">
+    @else
+        <meta property="og:image" content="{{ asset('images/fotoproduk/' . $product->image) }}">
+    @endif
+    <meta property="og:type" content="product">
+    <meta property="og:url" content="{{ request()->url() }}">
+
+    <!-- GEO / JSON-LD Schema Markup (AI & Rich Snippets) -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org/",
+      "@type": "Product",
+      "name": "{{ $product->name }}",
+      "image": [
+        @if (strlen($product->image) > 30)
+            "{{ asset('storage/' . $product->image) }}"
+        @else
+            "{{ asset('images/fotoproduk/' . $product->image) }}"
+        @endif
+      ],
+      "description": "Beli {{ $product->name }} asli di toko online Lisahwan, pusat Spikoe autentik, lauk kering, dan oleh-oleh Surabaya.",
+      "brand": {
+        "@type": "Brand",
+        "name": "Lisahwan"
+      },
+      @if ($product->testimony->count() > 0)
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "{{ round($product->testimony->avg('rating'), 1) }}",
+        "reviewCount": "{{ $product->testimony->count() }}"
+      },
+      "review": [
+        @foreach($product->testimony as $index => $testimony)
+        {
+          "@type": "Review",
+          "reviewRating": {
+            "@type": "Rating",
+            "ratingValue": "{{ $testimony->rating }}",
+            "bestRating": "5"
+          },
+          "author": {
+            "@type": "Person",
+            "name": "{{ $testimony->user->name ?? 'Pelanggan' }}"
+          },
+          "reviewBody": "{{ Str::limit(strip_tags($testimony->review), 150) }}"
+        }{{ $index < $product->testimony->count() - 1 ? ',' : '' }}
+        @endforeach
+      ],
+      @endif
+      "offers": {
+        "@type": "Offer",
+        "url": "{{ request()->url() }}",
+        "priceCurrency": "IDR",
+        "price": "{{ $product->price }}",
+        "availability": "{{ $product->stock > 0 ? 'https://schema.org/InStock' : 'https://schema.org/OutOfStock' }}"
+      }
+    }
+    </script>
+@endsection
+
 @section('content_page')
     <div class="flex flex-col items-center">
         @if (session('deleteCart_success'))

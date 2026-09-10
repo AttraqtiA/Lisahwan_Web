@@ -1,5 +1,31 @@
 @extends('layouts.frame_nocarousel')
 
+@section('meta_seo')
+    <!-- SEO Standard -->
+    <meta name="description"
+        content="Jelajahi galeri foto dan video dari Lisahwan. Lihat lebih dekat kualitas premium produk Spikoe autentik, lauk kering, dan oleh-oleh Surabaya unggulan kami.">
+    <meta name="keywords" content="Galeri Lisahwan, foto spikoe surabaya, video oleh-oleh surabaya, lisahwan surabaya">
+
+    <!-- Open Graph (WhatsApp, Facebook, IG Preview) -->
+    <meta property="og:title" content="Galeri Lisahwan - Lisahwan Surabaya">
+    <meta property="og:description"
+        content="Galeri foto dan video produk unggulan Lisahwan. Lihat langsung kualitas Spikoe autentik, lauk kering, dan oleh-oleh Surabaya terbaik di sini.">
+    <meta property="og:image" content="{{ asset('images/lisahwan_logo.png') }}">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="{{ request()->url() }}">
+
+    <!-- GEO / JSON-LD Schema Markup (ImageGallery) -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "ImageGallery",
+      "name": "Galeri Lisahwan",
+      "url": "{{ request()->url() }}",
+      "description": "Galeri foto dan video produk unggulan Lisahwan Surabaya."
+    }
+    </script>
+@endsection
+
 @section('content_page')
     <div class="mx-auto w-11/12 sm:max-w-screen-xl text-center sm:col-span-2 md:col-span-2 lg:col-span-4 mt-16">
         <h1 data-aos="fade-down" data-aos-anchor-placement="top-bottom" data-aos-duration="800"

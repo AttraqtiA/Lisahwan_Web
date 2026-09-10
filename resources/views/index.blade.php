@@ -1,5 +1,42 @@
 @extends('layouts.frame')
 
+@section('meta_seo')
+    <!-- SEO Standard -->
+    <meta name="description"
+        content="Selamat datang di toko online resmi Lisahwan! Pusat belanja terlengkap. Beli langsung aneka Spikoe autentik, lauk kering, dan oleh-oleh Surabaya kualitas terbaik.">
+    <meta name="keywords"
+        content="Lisahwan, spikoe surabaya, oleh-oleh surabaya, lauk kering surabaya, camilan khas surabaya, kue lapis surabaya">
+
+    <!-- Open Graph (WhatsApp, Facebook, IG Preview) -->
+    <meta property="og:title" content="Lisahwan Surabaya - Oleh-oleh Surabaya">
+    <meta property="og:description"
+        content="Toko online resmi Lisahwan. Pusat belanja Spikoe autentik, lauk kering, dan oleh-oleh Surabaya terbaik. Pesan langsung di sini!">
+    <meta property="og:image" content="{{ asset('images/lisahwan_logo.png') }}">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="{{ request()->url() }}">
+
+    <!-- GEO / JSON-LD Schema Markup (Organization & WebSite) -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "Organization",
+          "name": "Lisahwan",
+          "url": "{{ request()->url() }}",
+          "logo": "{{ asset('images/lisahwan_logo.png') }}",
+          "description": "Toko online resmi Lisahwan. Pusat belanja Spikoe autentik, lauk kering, dan oleh-oleh Surabaya."
+        },
+        {
+          "@type": "WebSite",
+          "name": "Lisahwan Surabaya",
+          "url": "{{ request()->url() }}"
+        }
+      ]
+    }
+    </script>
+@endsection
+
 @section('content_page')
     <section>
         <div class="gap-12 items-center py-8 px-8 mx-auto max-w-screen-xl lg:grid lg:grid-cols-2 lg:py-16 lg:px-16">
@@ -128,9 +165,10 @@
                 <div data-aos="fade-up" data-aos-duration="800" class="flex flex-col items-center text-center">
                     <svg class="w-7 h-7 text-yellow-500" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
                         viewBox="0 0 24 24">
-                        <path fill-rule="evenodd" d="M12 2C6.477 2 2 6.477 2 12s4.477 10 10 10
-                                        10-4.477 10-10S17.523 2 12 2zm4.707 7.293a1 1 0 0 0-1.414 0L11 13.586
-                                        8.707 11.293a1 1 0 1 0-1.414 1.414l3 3a1 1 0 0 0 1.414 0l5-5a1 1 0 0 0 0-1.414z"
+                        <path fill-rule="evenodd"
+                            d="M12 2C6.477 2 2 6.477 2 12s4.477 10 10 10
+                                                                10-4.477 10-10S17.523 2 12 2zm4.707 7.293a1 1 0 0 0-1.414 0L11 13.586
+                                                                8.707 11.293a1 1 0 1 0-1.414 1.414l3 3a1 1 0 0 0 1.414 0l5-5a1 1 0 0 0 0-1.414z"
                             clip-rule="evenodd" />
                     </svg>
                     <h3 class="mt-3 mb-2 text-xl font-bold text-yellow-500">

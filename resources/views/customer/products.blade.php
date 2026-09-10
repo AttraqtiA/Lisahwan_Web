@@ -1,5 +1,32 @@
 @extends('layouts.frame_auth')
 
+@section('meta_seo')
+    <!-- SEO Standard -->
+    <meta name="description"
+        content="Katalog resmi Lisahwan. Beli langsung berbagai pilihan Spikoe autentik, lauk kering, dan oleh-oleh Surabaya. Pesan dengan mudah dan aman di toko online kami!">
+    <meta name="keywords"
+        content="Katalog Lisahwan, menu lisahwan, belanja spikoe surabaya, beli oleh-oleh surabaya, pesan lauk kering, camilan">
+
+    <!-- Open Graph (WhatsApp, Facebook, IG Preview) -->
+    <meta property="og:title" content="Beli Produk Lisahwan Online - Oleh-oleh Surabaya">
+    <meta property="og:description"
+        content="Katalog online Lisahwan! Pesan dan beli langsung berbagai Spikoe autentik, lauk kering, dan oleh-oleh Surabaya dengan mudah.">
+    <meta property="og:image" content="{{ asset('images/lisahwan_logo.png') }}">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="{{ request()->url() }}">
+
+    <!-- GEO / JSON-LD Schema Markup (CollectionPage) -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "CollectionPage",
+      "name": "Katalog Produk Lisahwan",
+      "url": "{{ request()->url() }}",
+      "description": "Katalog online resmi Lisahwan. Beli langsung berbagai pilihan Spikoe autentik, lauk kering, dan oleh-oleh Surabaya."
+    }
+    </script>
+@endsection
+
 @section('content_page')
     <div class="flex flex-col items-center">
         @if (session('deleteCart_success'))

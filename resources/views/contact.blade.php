@@ -1,5 +1,46 @@
 @extends('layouts.frame_auth')
 
+@section('meta_seo')
+    <!-- SEO Standard -->
+    <meta name="description"
+        content="Hubungi toko online Lisahwan untuk pemesanan Spikoe autentik, lauk kering, dan oleh-oleh Surabaya. Kami siap melayani pengiriman pesanan Anda dengan aman dan cepat.">
+    <meta name="keywords"
+        content="Kontak Lisahwan, alamat lisahwan surabaya, nomor telepon lisahwan, pesan spikoe surabaya, hubungi lisahwan">
+
+    <!-- Open Graph (WhatsApp, Facebook, IG Preview) -->
+    <meta property="og:title" content="Hubungi Kami - Lisahwan Surabaya">
+    <meta property="og:description"
+        content="Hubungi Lisahwan untuk pemesanan langsung Spikoe autentik, lauk kering, dan oleh-oleh Surabaya. Kami siap melayani Anda!">
+    <meta property="og:image" content="{{ asset('images/lisahwan_logo.png') }}">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="{{ request()->url() }}">
+
+    <!-- GEO / JSON-LD Schema Markup (LocalBusiness) -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "LocalBusiness",
+      "name": "Lisahwan Surabaya",
+      "image": "{{ asset('images/lisahwan_logo.png') }}",
+      "url": "{{ request()->url() }}",
+      "telephone": "+6282230308030",
+      "hasMap": "https://maps.app.goo.gl/KVMpoi7NC2aTrMWr7",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Surabaya",
+        "addressCountry": "ID"
+      },
+      "sameAs": [
+        "https://api.whatsapp.com/send?phone=6282230308030",
+        "https://www.instagram.com/lisahwan",
+        "https://www.tiktok.com/@lisahwan_official",
+        "https://www.tokopedia.com/lisahwan",
+        "https://shopee.co.id/lisahwan"
+      ]
+    }
+    </script>
+@endsection
+
 @section('content_page')
     <section style="background-image: url('/images/fotoproduk/GalleryCarousel_8.jpg')"
         class="bg-center bg-cover bg-no-repeat bg-gray-700 bg-blend-multiply">
