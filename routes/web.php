@@ -21,6 +21,7 @@ use App\Http\Controllers\Owner\ProductController as OwnerProductController;
 use App\Http\Controllers\Member\ProductController as MemberProductController;
 use App\Http\Controllers\Member\WishlistController as MemberWishlistController;
 use App\Http\Controllers\Member\TestimonyController as MemberTestimonyController;
+use App\Http\Controllers\SitemapController;
 
 /*
 |--------------------------------------------------------------------------
@@ -40,6 +41,7 @@ Route::get('/clear-session', [LoginController::class, 'clearSession'])->name('cl
 //     symlink($targetFolder, $linkFoldder);
 // });
 //====================================== BISA DIAKSES SEMUA ROLE ======================================
+Route::get('/sitemap.xml', [SitemapController::class, 'index'])->name('sitemap');
 Route::get('/', [ProductController::class, 'home']); // HOME PAGE (CHECKED)
 Route::get('/products', [ProductController::class, 'index'])->name('products'); // PRODUCTS PAGE (CHECKED)
 Route::get('/products/{product_id}', [ProductController::class, 'show'])->name('member.products.show'); // PUBLIC ORDERDETAIL PAGE
