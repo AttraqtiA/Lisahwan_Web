@@ -159,7 +159,7 @@ class ProductController extends Controller
         }
 
         return view('index', [
-            "TabTitle" => "Lisahwan Surabaya",
+            "TabTitle" => "Lisahwan",
             "active_1" => "text-yellow-500 rounded md:bg-transparent md:p-0",
             "carousel_1" => "/images/fotoproduk/GalleryCarousel_10.jpg",
             "carousel_2" => "/images/fotoproduk/GalleryCarousel_8.jpg",

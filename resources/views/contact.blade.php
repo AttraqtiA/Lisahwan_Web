@@ -8,7 +8,7 @@
         content="Kontak Lisahwan, alamat lisahwan surabaya, nomor telepon lisahwan, pesan spikoe surabaya, hubungi lisahwan">
 
     <!-- Open Graph (WhatsApp, Facebook, IG Preview) -->
-    <meta property="og:title" content="Hubungi Kami - Lisahwan Surabaya">
+    <meta property="og:title" content="Hubungi Kami - Lisahwan">
     <meta property="og:description"
         content="Hubungi Lisahwan untuk pemesanan langsung Spikoe autentik, lauk kering, dan oleh-oleh Surabaya. Kami siap melayani Anda!">
     <meta property="og:image" content="{{ asset('images/lisahwan_logo.png') }}">
@@ -20,7 +20,7 @@
     {
       "@context": "https://schema.org",
       "@type": "LocalBusiness",
-      "name": "Lisahwan Surabaya",
+      "name": "Lisahwan",
       "image": "{{ asset('images/lisahwan_logo.png') }}",
       "url": "{{ request()->url() }}",
       "telephone": "+6282230308030",

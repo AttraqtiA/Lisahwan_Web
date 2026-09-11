@@ -7,7 +7,7 @@
     <meta name="keywords" content="{{ $product->name }}, Lisahwan, spikoe surabaya, oleh-oleh surabaya, lauk kering, camilan">
 
     <!-- Open Graph (WhatsApp, Facebook, IG Preview) -->
-    <meta property="og:title" content="{{ $product->name }} - Lisahwan Surabaya">
+    <meta property="og:title" content="{{ $product->name }} - Lisahwan">
     <meta property="og:description"
         content="Pesan {{ $product->name }} seharga Rp. {{ number_format($product->price, 0, ',', '.') }}. Belanja langsung di Lisahwan, pusat Spikoe autentik, lauk kering, dan oleh-oleh Surabaya!">
     @if (strlen($product->image) > 30)

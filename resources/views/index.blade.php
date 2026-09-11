@@ -8,7 +8,7 @@
         content="Lisahwan, spikoe surabaya, oleh-oleh surabaya, lauk kering surabaya, camilan khas surabaya, kue lapis surabaya">
 
     <!-- Open Graph (WhatsApp, Facebook, IG Preview) -->
-    <meta property="og:title" content="Lisahwan Surabaya - Oleh-oleh Surabaya">
+    <meta property="og:title" content="Lisahwan - Oleh-oleh Surabaya">
     <meta property="og:description"
         content="Toko online resmi Lisahwan. Pusat belanja Spikoe autentik, lauk kering, dan oleh-oleh Surabaya terbaik. Pesan langsung di sini!">
     <meta property="og:image" content="{{ asset('images/lisahwan_logo.png') }}">
@@ -29,7 +29,7 @@
         },
         {
           "@type": "WebSite",
-          "name": "Lisahwan Surabaya",
+          "name": "Lisahwan",
           "url": "{{ request()->url() }}"
         }
       ]
@@ -38,73 +38,112 @@
 @endsection
 
 @section('content_page')
+    @include('layouts.hero')
     <section>
         <div class="gap-12 items-center py-8 px-8 mx-auto max-w-screen-xl lg:grid lg:grid-cols-2 lg:py-16 lg:px-16">
             <div class="font-light sm:text-lg text-gray-500">
                 <h2 data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="800"
-                    class="mb-3 text-4xl tracking-tight font-extrabold text-gray-900">Brand Story Lisahwan
+                    class="mb-4 text-4xl tracking-tight font-extrabold text-gray-900">Brand Story Lisahwan
                 </h2>
                 <!-- Paragraf utama (always visible) -->
                 <p data-aos="fade-down" data-aos-anchor-placement="top-bottom" data-aos-duration="800" class="mb-4">
-                    Lisahwan berdiri sejak 2007. Berawal dari keluarga yang telah lama berkecimpung di dunia
-                    kuliner dan baking. Nama Lisahwan merupakan perpaduan antara nama pemilik Lisa dan marga
-                    Hwan, menjadi simbol komitmen terhadap kualitas, nilai keluarga, serta setiap produk
-                    Lisahwan yang dibuat dengan hati, karakter, dan tanggung jawab.
+                    Sejak 2007, Lisahwan tumbuh dari kecintaan pada rasa dan tradisi keluarga. Berawal dari Surabaya, kami
+                    menghadirkan berbagai sajian yang terinspirasi dari kekayaan cita rasa Nusantara, mulai dari aneka
+                    camilan dan lauk kering, hingga Spikoe resep keluarga yang telah menjadi <i>signature</i> Lisahwan. Nama
+                    Lisahwan sendiri berasal dari perpaduan nama Lisa dan Hwan, sebuah nama yang terus membawa perjalanan
+                    keluarga kami hingga hari ini.
                 </p>
                 <!-- Hidden content -->
                 <div id="brandStoryMore" class="hidden">
                     <p data-aos="fade-down" data-aos-anchor-placement="top-bottom" data-aos-duration="800" class="mb-4">
-                        Lisahwan hadir dengan produk camilan, lauk kering, hingga Spikoe Lisahwan, resep
-                        keluarga yang kini telah menjadi ikon dan dikenal dengan teksturnya yang lembut serta
-                        kaya rasa. Seluruh produk diracik menggunakan bahan berkualitas dengan sentuhan cita
-                        rasa Nusantara.
+                        Kami senantiasa percaya bahwa rasa yang baik tidak perlu berlebihan. Ia cukup dibuat dengan bahan
+                        yang berkualitas, proses pembuatan yang konsisten, dan perhatian penuh pada setiap detail. Karena
+                        pada akhirnya, yang kami ingin hadirkan bukan sekadar makanan, tetapi <i>rasa yang ingin Anda bawa
+                            pulang.</i>
                     </p>
-                    <p data-aos="fade-down" data-aos-anchor-placement="top-bottom" data-aos-duration="800" class="mb-4">
-                        Dalam perjalanannya, Lisahwan terus tumbuh menjadi brand yang dipercaya karena
-                        konsistensi, kualitas, dan inovasi. Bagi Lisahwan, makanan bukan hanya soal rasa,
-                        tetapi juga pengalaman, cerita, dan hubungan yang selalu dikenang oleh banyak hati.
+                    <p data-aos="fade-down" data-aos-anchor-placement="top-bottom" data-aos-duration="800"
+                        class="mb-4 italic font-medium">
+                        Lisahwan: Sajian Praktis, Cita Rasa Nusantara.
                     </p>
                 </div>
                 <!-- Toggle button -->
                 <button id="toggleBrandStory"
-                    class="mb-6 text-sm text-yellow-500 font-medium hover:underline focus:outline-none">
+                    class="mb-4 text-sm text-yellow-500 font-medium hover:underline focus:outline-none">
                     Lihat lebih lanjut
                 </button>
-                <div class="flex flex-col sm:flex-row gap-y-2 sm:gap-y-0">
-                    @if (!Auth::check())
-                        <a data-aos="fade-down" data-aos-anchor-placement="top-bottom" data-aos-duration="800"
-                            href="{{ route('register') }}"
-                            class="sm:mr-2 cursor-pointer text-white bg-yellow-500 hover:bg-yellow-600 font-medium rounded-lg text-base px-5 py-3 text-center inline-flex items-center justify-center">
-                            Order Sekarang
-                            <svg class="w-5 h-5 ml-1" fill="currentColor" viewBox="0 0 20 20"
-                                xmlns="http://www.w3.org/2000/svg">
-                                <path fill-rule="evenodd"
-                                    d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z"
-                                    clip-rule="evenodd"></path>
-                            </svg>
-                        </a>
-                    @endif
-                    <a data-aos="fade-down" data-aos-anchor-placement="top-bottom" data-aos-duration="800" href="/products"
-                        class="cursor-pointer text-white bg-yellow-500 hover:bg-yellow-600 font-medium rounded-lg text-base px-5 py-3 text-center inline-flex items-center justify-center">
-                        Lihat Produk
-                        <svg class="w-5 h-5 ml-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
-                            viewBox="0 0 24 24">
-                            <path fill-rule="evenodd"
-                                d="M14 7h-4v3a1 1 0 0 1-2 0V7H6a1 1 0 0 0-.997.923l-.917 11.924A2 2 0 0 0 6.08 22h11.84a2 2 0 0 0 1.994-2.153l-.917-11.924A1 1 0 0 0 18 7h-2v3a1 1 0 1 1-2 0V7Zm-2-3a2 2 0 0 0-2 2v1H8V6a4 4 0 0 1 8 0v1h-2V6a2 2 0 0 0-2-2Z"
-                                clip-rule="evenodd" />
-                        </svg>
-                    </a>
-                </div>
             </div>
-            <div data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="800" class="mt-8 lg:mt-0">
-                {{-- <img class="mb-2 sm:mb-4 lg:mb-0 w-full rounded-lg" src="/images/fotoproduk/GalleryCarousel_2.jpg"
-                    alt="GalleryCarousel_2.jpg"> --}}
-                <img class="mt-4 w-full rounded-lg" src="/images/fotoproduk/GalleryCarousel_8.jpg"
-                    alt="GalleryCarousel_2.jpg">
-                {{-- <img class="mb-2 sm:mb-4 lg:mb-0 w-full rounded-lg" src="/images/fotoproduk/GalleryCarousel_11.jpg"
-                    alt="GalleryCarousel_2.jpg">
-                <img class="mt-4 w-full lg:mt-10 rounded-lg" src="/images/fotoproduk/GalleryCarousel_5.jpg"
-                    alt="GalleryCarousel_2.jpg"> --}}
+            <div data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="800"
+                class="mt-6 lg:mt-0 relative w-full rounded-lg overflow-hidden shadow-xl">
+                <div id="brand-story-carousel" class="relative w-full" data-carousel="slide" data-carousel-interval="2000">
+                    <!-- Carousel wrapper -->
+                    <div class="relative w-full aspect-square md:aspect-[4/5] lg:h-[550px] overflow-hidden rounded-lg">
+                        <div class="hidden duration-700 ease-in-out" data-carousel-item="active">
+                            <img src="{{ isset($carousel_1) ? $carousel_1 : asset('images/fotoproduk/GalleryCarousel_10.jpg') }}"
+                                class="absolute block w-full h-full object-cover object-center top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
+                                alt="Produk Lisahwan 1">
+                        </div>
+                        <div class="hidden duration-700 ease-in-out" data-carousel-item>
+                            <img src="{{ isset($carousel_2) ? $carousel_2 : asset('images/fotoproduk/GalleryCarousel_8.jpg') }}"
+                                class="absolute block w-full h-full object-cover object-center top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
+                                alt="Produk Lisahwan 2">
+                        </div>
+                        <div class="hidden duration-700 ease-in-out" data-carousel-item>
+                            <img src="{{ isset($carousel_3) ? $carousel_3 : asset('images/fotoproduk/GalleryCarousel_13.jpeg') }}"
+                                class="absolute block w-full h-full object-cover object-center top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
+                                alt="Produk Lisahwan 3">
+                        </div>
+                        <div class="hidden duration-700 ease-in-out" data-carousel-item>
+                            <img src="{{ isset($carousel_4) ? $carousel_4 : asset('images/fotoproduk/GalleryCarousel_14.jpg') }}"
+                                class="absolute block w-full h-full object-cover object-center top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
+                                alt="Produk Lisahwan 4">
+                        </div>
+                        <div class="hidden duration-700 ease-in-out" data-carousel-item>
+                            <img src="{{ isset($carousel_5) ? $carousel_5 : asset('images/fotoproduk/GalleryCarousel_15.jpg') }}"
+                                class="absolute block w-full h-full object-cover object-center top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
+                                alt="Produk Lisahwan 5">
+                        </div>
+                    </div>
+                    <!-- Slider indicators -->
+                    <div class="absolute z-30 flex space-x-3 -translate-x-1/2 bottom-5 left-1/2">
+                        <button type="button" class="w-3 h-3 rounded-full bg-white/50 hover:bg-white focus:bg-white"
+                            aria-current="true" aria-label="Slide 1" data-carousel-slide-to="0"></button>
+                        <button type="button" class="w-3 h-3 rounded-full bg-white/50 hover:bg-white focus:bg-white"
+                            aria-current="false" aria-label="Slide 2" data-carousel-slide-to="1"></button>
+                        <button type="button" class="w-3 h-3 rounded-full bg-white/50 hover:bg-white focus:bg-white"
+                            aria-current="false" aria-label="Slide 3" data-carousel-slide-to="2"></button>
+                        <button type="button" class="w-3 h-3 rounded-full bg-white/50 hover:bg-white focus:bg-white"
+                            aria-current="false" aria-label="Slide 4" data-carousel-slide-to="3"></button>
+                        <button type="button" class="w-3 h-3 rounded-full bg-white/50 hover:bg-white focus:bg-white"
+                            aria-current="false" aria-label="Slide 5" data-carousel-slide-to="4"></button>
+                    </div>
+                    <!-- Slider controls -->
+                    <button type="button"
+                        class="absolute top-0 left-0 z-30 flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none"
+                        data-carousel-prev>
+                        <span
+                            class="inline-flex items-center justify-center w-8 h-8 rounded-full bg-black/30 group-hover:bg-black/50 group-focus:ring-4 group-focus:ring-yellow-500 group-focus:outline-none transition-all">
+                            <svg class="w-4 h-4 text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                                fill="none" viewBox="0 0 6 10">
+                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                    stroke-width="2" d="M5 1 1 5l4 4" />
+                            </svg>
+                            <span class="sr-only">Previous</span>
+                        </span>
+                    </button>
+                    <button type="button"
+                        class="absolute top-0 right-0 z-30 flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none"
+                        data-carousel-next>
+                        <span
+                            class="inline-flex items-center justify-center w-8 h-8 rounded-full bg-black/30 group-hover:bg-black/50 group-focus:ring-4 group-focus:ring-yellow-500 group-focus:outline-none transition-all">
+                            <svg class="w-4 h-4 text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                                fill="none" viewBox="0 0 6 10">
+                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                    stroke-width="2" d="m1 9 4-4-4-4" />
+                            </svg>
+                            <span class="sr-only">Next</span>
+                        </span>
+                    </button>
+                </div>
             </div>
         </div>
     </section>
@@ -113,7 +152,8 @@
         <div class="py-8 px-8 mx-auto max-w-screen-xl lg:p-16">
             <div data-aos="fade-right" data-aos-anchor-placement="top-bottom" data-aos-duration="800"
                 class="max-w-screen-lg mb-10 w-full">
-                <h2 class="mb-4 text-4xl tracking-tight font-extrabold text-white">Apa saja yang spesial dari Lisahwan?</h2>
+                <h2 class="mb-4 text-4xl tracking-tight font-extrabold text-white">Apa saja yang spesial dari Lisahwan?
+                </h2>
                 <p class="sm:text-xl text-gray-400">
                     Produk Lisahwan dirancang untuk dinikmati oleh seluruh keluarga, mulai dari anak-anak hingga orang
                     dewasa dan orang tua. Dengan rasa yang sesuai selera serta kualitas premium, Lisahwan menjadi pilihan
@@ -167,8 +207,8 @@
                         viewBox="0 0 24 24">
                         <path fill-rule="evenodd"
                             d="M12 2C6.477 2 2 6.477 2 12s4.477 10 10 10
-                                                                10-4.477 10-10S17.523 2 12 2zm4.707 7.293a1 1 0 0 0-1.414 0L11 13.586
-                                                                8.707 11.293a1 1 0 1 0-1.414 1.414l3 3a1 1 0 0 0 1.414 0l5-5a1 1 0 0 0 0-1.414z"
+                                                                            10-4.477 10-10S17.523 2 12 2zm4.707 7.293a1 1 0 0 0-1.414 0L11 13.586
+                                                                            8.707 11.293a1 1 0 1 0-1.414 1.414l3 3a1 1 0 0 0 1.414 0l5-5a1 1 0 0 0 0-1.414z"
                             clip-rule="evenodd" />
                     </svg>
                     <h3 class="mt-3 mb-2 text-xl font-bold text-yellow-500">

@@ -7,7 +7,7 @@
     <meta name="keywords" content="Galeri Lisahwan, foto spikoe surabaya, video oleh-oleh surabaya, lisahwan surabaya">
 
     <!-- Open Graph (WhatsApp, Facebook, IG Preview) -->
-    <meta property="og:title" content="Galeri Lisahwan - Lisahwan Surabaya">
+    <meta property="og:title" content="Galeri Lisahwan - Lisahwan">
     <meta property="og:description"
         content="Galeri foto dan video produk unggulan Lisahwan. Lihat langsung kualitas Spikoe autentik, lauk kering, dan oleh-oleh Surabaya terbaik di sini.">
     <meta property="og:image" content="{{ asset('images/lisahwan_logo.png') }}">
@@ -21,7 +21,7 @@
       "@type": "ImageGallery",
       "name": "Galeri Lisahwan",
       "url": "{{ request()->url() }}",
-      "description": "Galeri foto dan video produk unggulan Lisahwan Surabaya."
+      "description": "Galeri foto dan video produk unggulan Lisahwan."
     }
     </script>
 @endsection

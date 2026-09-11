@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>{{ $TabTitle ?? 'Lisahwan Surabaya' }}</title>
+    <title>{{ $TabTitle ?? 'Lisahwan' }}</title>
     @yield('meta_seo')
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -140,8 +140,6 @@
         <div>
             @include('layouts.topbar')
         </div>
-
-        @include('layouts.carousel')
 
         <div class="bg-neutral-200">
             @yield('content_page')
