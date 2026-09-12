@@ -326,7 +326,7 @@ class OrderController extends Controller
             }
             $cart->delete();
             $order->delete();
-            return redirect()->route('products')->withErrors(['cancelPayment_ERROR' => "Pesanan anda dibatalkan! Silahkan menghubungi Lisahwan™ (082230308030)!"]);
+            return redirect()->route('products')->withErrors(['cancelPayment_ERROR' => "Pesanan anda dibatalkan! Silahkan menghubungi Lisahwan (082230308030)!"]);
         } elseif ($transactionStatus == 'failure') {
             if ($cart) {
                 // Hapus semua sesi yang terkait dengan couponStatus
@@ -413,7 +413,7 @@ class OrderController extends Controller
             }
             $cart->delete();
             $order->delete();
-            return redirect()->route('products')->withErrors(['failurePayment_ERROR' => "Terjadi kesalahan! Silahkan menghubungi Lisahwan™ (082230308030)!"]);
+            return redirect()->route('products')->withErrors(['failurePayment_ERROR' => "Terjadi kesalahan! Silahkan menghubungi Lisahwan (082230308030)!"]);
         } elseif ($transactionStatus == 'refund') {
             if ($cart) {
                 // Hapus semua sesi yang terkait dengan couponStatus
@@ -500,7 +500,7 @@ class OrderController extends Controller
             }
             $cart->delete();
             $order->delete();
-            return redirect()->route('products')->withErrors(['refundPayment_ERROR' => "Pembayaran anda di-refund! Silahkan menghubungi Lisahwan™ (082230308030)!"]);
+            return redirect()->route('products')->withErrors(['refundPayment_ERROR' => "Pembayaran anda di-refund! Silahkan menghubungi Lisahwan (082230308030)!"]);
         } elseif ($transactionStatus == 'partial_refund') {
             if ($cart) {
                 // Hapus semua sesi yang terkait dengan couponStatus
@@ -587,7 +587,7 @@ class OrderController extends Controller
             }
             $cart->delete();
             $order->delete();
-            return redirect()->route('products')->withErrors(['partialRefundPayment_ERROR' => "Pembayaran anda di-refund! Silahkan menghubungi Lisahwan™ (082230308030)!"]);
+            return redirect()->route('products')->withErrors(['partialRefundPayment_ERROR' => "Pembayaran anda di-refund! Silahkan menghubungi Lisahwan (082230308030)!"]);
         } elseif ($transactionStatus == 'authorize') {
             if ($cart) {
                 // Hapus semua sesi yang terkait dengan couponStatus
@@ -674,7 +674,7 @@ class OrderController extends Controller
             }
             $cart->delete();
             $order->delete();
-            return redirect()->route('products')->withErrors(['authorizePayment_ERROR' => "Pembayaran anda di-authorize! Silahkan menghubungi Lisahwan™ (082230308030)!"]);
+            return redirect()->route('products')->withErrors(['authorizePayment_ERROR' => "Pembayaran anda di-authorize! Silahkan menghubungi Lisahwan (082230308030)!"]);
         } elseif (count($parameters) == 1 && $request->has('order_id')) {
             // ini kalau payment expire ketika belum memilih metode pembayaran sama sekali
             $customer->update([

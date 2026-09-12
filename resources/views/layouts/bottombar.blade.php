@@ -63,7 +63,7 @@
 
         <div class="flex items-center px-4 md:px-0">
             <span class="mx-auto text-sm text-gray-500 text-center">© {{ date('Y') }} <a href=""
-                    class="hover:underline">Lisahwan™</a>. All Rights Reserved.
+                    class="hover:underline">Lisahwan</a>. All Rights Reserved.
             </span>
         </div>
     </div>

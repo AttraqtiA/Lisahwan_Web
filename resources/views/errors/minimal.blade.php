@@ -25,7 +25,7 @@
     <div class="relative flex items-center justify-center min-h-screen bg-gray-900">
         <div data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="800" class="max-w-xl mx-auto">
             <div class="flex flex-col justify-center items-center space-y-4">
-                <img src="/images/lisahwan_logo.png" alt="Lisahwan™" class="w-1/5">
+                <img src="/images/lisahwan_logo.png" alt="Lisahwan" class="w-1/5">
                 <div class="flex flex-row justify-center items-center">
                     <div class="pr-4 text-lg font-light text-gray-500 border-r border-gray-500 tracking-wider">
                         @yield('code')
@@ -38,7 +38,7 @@
             <p class="mt-2 text-gray-500 text-base font-normal text-center">
                 Silahkan menghubungi
                 <span class="cursor-pointer underline hover:text-yellow-500"
-                    onclick="sendWhatsAppMessage('{{ View::yieldContent('code') }}')">WhatsApp Lisahwan™
+                    onclick="sendWhatsAppMessage('{{ View::yieldContent('code') }}')">WhatsApp Lisahwan
                     (082230308030)!</span>
             </p>
         </div>
