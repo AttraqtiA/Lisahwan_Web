@@ -22,6 +22,7 @@ use App\Http\Controllers\Member\ProductController as MemberProductController;
 use App\Http\Controllers\Member\WishlistController as MemberWishlistController;
 use App\Http\Controllers\Member\TestimonyController as MemberTestimonyController;
 use App\Http\Controllers\SitemapController;
+use App\Http\Controllers\Owner\CategoryController as OwnerCategoryController;
 
 /*
 |--------------------------------------------------------------------------
@@ -210,6 +211,11 @@ Route::group([
     Route::put('/admin_products/updateImage/{product_id}', [OwnerProductController::class, 'updateImage'])->name('admin_products.updateImage');
     Route::put('/admin_products/addStock/{product_id}', [OwnerProductController::class, 'addStock'])->name('admin_products.addStock');
     Route::delete('/admin_products/destroy/{product_id}', [OwnerProductController::class, 'destroy'])->name('admin_products.destroy');
+
+    Route::get('/admin_categories', [OwnerCategoryController::class, 'index'])->name('admin_categories');
+    Route::post('/admin_categories', [OwnerCategoryController::class, 'store'])->name('admin_categories.store');
+    Route::put('/admin_categories/update/{id}', [OwnerCategoryController::class, 'update'])->name('admin_categories.update');
+    Route::delete('/admin_categories/destroy/{id}', [OwnerCategoryController::class, 'destroy'])->name('admin_categories.destroy');
 
     Route::get('/admin_users', [UserController::class, 'index'])->name('admin_users');
 

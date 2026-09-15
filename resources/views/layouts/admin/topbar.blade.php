@@ -216,6 +216,21 @@
                     </li>
 
                     <li>
+                        <a href="{{ route('owner.admin_categories') }}"
+                            class="flex items-center p-2 text-gray-900 rounded-lg hover:bg-gray-700 group">
+                            <!-- Using a solid grid/layers icon matching size 5x5 -->
+                            <svg class="{{ $active_category ?? 'text-gray-500' }} flex-shrink-0 w-5 h-5 transition duration-75 group-hover:{{ $active_category ?? 'text-gray-100' }}"
+                                aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
+                                viewBox="0 0 20 20">
+                                <path
+                                    d="M5 4a1 1 0 00-2 0v7.268a2 2 0 000 3.464V16a1 1 0 102 0v-1.268a2 2 0 000-3.464V4zM11 4a1 1 0 10-2 0v1.268a2 2 0 000 3.464V16a1 1 0 102 0V8.732a2 2 0 000-3.464V4zM16 3a1 1 0 011 1v7.268a2 2 0 010 3.464V16a1 1 0 11-2 0v-1.268a2 2 0 010-3.464V4a1 1 0 011-1z" />
+                            </svg>
+                            <span
+                                class="text-gray-100 flex-1 ms-3 whitespace-nowrap {{ $active_category ?? '' }}">Categories</span>
+                        </a>
+                    </li>
+
+                    <li>
                         <a href="{{ route('owner.admin_users') }}"
                             class="flex items-center p-2 text-gray-900 rounded-lg hover:bg-gray-700 group">
                             <svg class="{{ $active_4 ?? 'text-gray-500' }} flex-shrink-0 w-5 h-5 transition duration-75 group-hover:{{ $active_4 ?? 'text-gray-100' }}"

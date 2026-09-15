@@ -332,7 +332,7 @@
             </ul>
 
             <button data-collapse-toggle="navbar-sticky" type="button"
-                class="mt-2 ml-2 md:ml-4 inline-flex items-center p-2 w-10 h-10 justify-center text-sm bg-gray-900 border border-gray-500 text-gray-500 rounded-lg lg:hidden focus:outline-none focus:ring-2 focus:ring-gray-200"
+                class="mt-2 ml-2 md:ml-4 inline-flex items-center gap-x-2 px-3 h-10 justify-center text-sm font-medium bg-gray-900 border border-yellow-500 text-yellow-500 rounded-lg lg:hidden hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-yellow-500"
                 aria-controls="navbar-sticky" aria-expanded="false">
                 <span class="sr-only">Open main menu</span>
                 <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
@@ -340,6 +340,7 @@
                     <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                         d="M1 1h15M1 7h15M1 13h15" />
                 </svg>
+                <span>Menu</span>
             </button>
         </div>
         <div class="items-center justify-between hidden w-full lg:flex lg:w-auto lg:order-1" id="navbar-sticky">

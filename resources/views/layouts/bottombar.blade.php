@@ -10,7 +10,7 @@
                 </div>
                 <div class="">
                     <h2 class="text-lg font-semibold uppercase">Lisahwan</h2>
-                    <p>Oleh-oleh Khas Surabaya</p>
+                    <p>Oleh-oleh Surabaya</p>
                 </div>
             </div>
             <div class="w-full">

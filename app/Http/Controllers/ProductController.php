@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Carbon\Carbon;
 use App\Models\Cart;
+use App\Models\Category;
 use App\Models\User;
 use App\Models\Point;
 use App\Models\Product;
@@ -236,13 +237,14 @@ class ProductController extends Controller
                     $carts = $cart_user->cart_detail;
                 }
             }
+            $categories = Category::all();
             return view('customer.products', [
                 "TabTitle" => "Produk Lisahwan",
                 "active_2" => "text-yellow-500 rounded md:bg-transparent md:p-0",
                 "pageTitle" => '<mark class="px-2 text-yellow-500 bg-gray-900 rounded">Produk</mark> Kami',
                 'pageDescription' => 'Jelajahi camilan terbaik di <span class="underline underline-offset-2 decoration-4 decoration-yellow-500">Lisahwan</span> dan pilih favorit Anda sekarang!',
                 "products" => Product::whereNotIn('name', ['Rambak Kerbau'])->get(),
-                // "products" => Product::all(),
+                "categories" => $categories,
                 "carts" => $carts,
                 "shipment_price" => $shipment_price,
                 "admin_fee" => $admin_fee,
@@ -250,13 +252,14 @@ class ProductController extends Controller
                 "point" => $point
             ]);
         } else {
+            $categories = Category::all();
             return view('customer.products', [
                 "TabTitle" => "Produk Lisahwan",
                 "active_2" => "text-yellow-500 rounded md:bg-transparent md:p-0",
                 "pageTitle" => '<mark class="px-2 text-yellow-500 bg-gray-900 rounded">Produk</mark> Kami',
                 'pageDescription' => 'Jelajahi camilan terbaik di <span class="underline underline-offset-2 decoration-4 decoration-yellow-500">Lisahwan</span> dan pilih favorit Anda sekarang!',
                 "products" => Product::whereNotIn('name', ['Rambak Kerbau'])->get(),
-                // "products" => Product::all(),
+                "categories" => $categories,
             ]);
         }
     }

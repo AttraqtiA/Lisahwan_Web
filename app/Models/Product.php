@@ -11,6 +11,11 @@ class Product extends Model
 
     protected $guarded = ['id'];
 
+    public function category()
+    {
+        return $this->belongsTo(Category::class);
+    }
+
     public function wishlist()
     {
         return $this->hasMany(Wishlist::class, 'product_id', 'id');

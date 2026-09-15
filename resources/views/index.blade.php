@@ -152,12 +152,13 @@
         <div class="py-8 px-8 mx-auto max-w-screen-xl lg:p-16">
             <div data-aos="fade-right" data-aos-anchor-placement="top-bottom" data-aos-duration="800"
                 class="max-w-screen-lg mb-10 w-full">
-                <h2 class="mb-4 text-4xl tracking-tight font-extrabold text-white">Apa saja yang spesial dari Lisahwan?
+                <h2 class="mb-4 text-4xl tracking-tight font-extrabold text-white">Apa yang membuat Lisahwan istimewa?
                 </h2>
-                <p class="sm:text-xl text-gray-400">
-                    Produk Lisahwan dirancang untuk dinikmati oleh seluruh keluarga, mulai dari anak-anak hingga orang
-                    dewasa dan orang tua. Dengan rasa yang sesuai selera serta kualitas premium, Lisahwan menjadi pilihan
-                    untuk menemani momen kebersamaan keluarga sekaligus sebagai oleh-oleh spesial bercita rasa Nusantara.
+                <p class="sm:text-xl text-gray-400 leading-relaxed">
+                    Lisahwan menghadirkan camilan renyah, lauk gurih, sambal yang menggugah selera, hingga Spikoe yang
+                    lembut dan klasik. Setiap sajian Lisahwan punya karakternya sendiri, dibuat untuk dinikmati, dibagikan,
+                    dan menjadi bagian dari momen yang sederhana namun berarti. Karena terkadang, satu rasa saja cukup untuk
+                    membuat sebuah momen selalu diingat.
                 </p>
             </div>
             <div class="grid grid-cols-1 lg:grid-cols-3 gap-10 lg:gap-12 mb-12">
@@ -183,7 +184,7 @@
                     <h3 class="mt-3 mb-2 text-xl font-bold text-yellow-500">Value</h3>
                     <p class="text-gray-400">
                         Setiap produk Lisahwan dibuat dari bahan pilihan dengan standar kualitas tinggi,
-                        menghadirkan rasa khas Nusantara yang bernilai dan layak dibagikan.
+                        menghadirkan cita rasa Nusantara yang bernilai dan layak dibagikan.
                     </p>
                 </div>
                 <!-- EXPERIENCE -->
@@ -200,172 +201,143 @@
                     </p>
                 </div>
             </div>
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 max-w-4xl mx-auto">
-                <!-- HALAL -->
-                <div data-aos="fade-up" data-aos-duration="800" class="flex flex-col items-center text-center">
-                    <svg class="w-7 h-7 text-yellow-500" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
-                        viewBox="0 0 24 24">
-                        <path fill-rule="evenodd"
-                            d="M12 2C6.477 2 2 6.477 2 12s4.477 10 10 10
-                                                                            10-4.477 10-10S17.523 2 12 2zm4.707 7.293a1 1 0 0 0-1.414 0L11 13.586
-                                                                            8.707 11.293a1 1 0 1 0-1.414 1.414l3 3a1 1 0 0 0 1.414 0l5-5a1 1 0 0 0 0-1.414z"
-                            clip-rule="evenodd" />
-                    </svg>
-                    <h3 class="mt-3 mb-2 text-xl font-bold text-yellow-500">
-                        Halal
-                    </h3>
-                    <p class="text-gray-400">
-                        Seluruh produk Lisahwan diproses dengan standar yang ketat dan telah
-                        bersertifikasi halal, sebagai komitmen menghadirkan produk yang aman
-                        dan berkualitas.
-                    </p>
-                </div>
-                <!-- FAST RESPONSE -->
-                <div data-aos="fade-up" data-aos-duration="800" class="flex flex-col items-center text-center">
-                    <svg class="w-7 h-7 text-yellow-500" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
-                        viewBox="0 0 20 20">
-                        <path d="M11.3 1L1 11h6l-1 8 10.3-10H10l1.3-8z" />
-                    </svg>
-                    <h3 class="mt-3 mb-2 text-xl font-bold text-yellow-500">
-                        Fast Response
-                    </h3>
-                    <p class="text-gray-400">
-                        Kami berkomitmen memberikan respon cepat dan solutif agar setiap
-                        kebutuhan pelanggan ditangani dengan tepat waktu.
-                    </p>
+            <div data-aos="zoom-in" data-aos-duration="800" data-aos-delay="100"
+                class="flex justify-center mt-14 mb-4 max-w-4xl mx-auto">
+                <div
+                    class="bg-white rounded-3xl p-4 md:p-6 shadow-2xl flex flex-col items-center justify-center transform transition duration-500 hover:scale-105 border border-gray-200 group">
+                    <img src="{{ asset('images/halal_logo.png') }}" alt="Sertifikasi Halal Lisahwan"
+                        class="h-24 md:h-32 object-contain drop-shadow-sm group-hover:drop-shadow-md transition-all">
                 </div>
             </div>
         </div>
     </section>
 
-    <div class="flex flex-col p-8 lg:p-16">
-        <div class="flex flex-row justify-between items-center">
-            <h1 data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="800"
-                class="text-xl lg:text-3xl font-extrabold text-gray-900">Produk Bestseller</h1>
-            <a data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="800"
-                href="{{ route('products') }}">
-                <p class="text-base font-medium text-yellow-500 hover:text-yellow-600">Lihat semua</p>
-            </a>
-        </div>
-        <hr data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="800"
-            class="h-px my-2 border-0 bg-gray-400">
-        <div
-            class = "md:w-full lg:w-4/6 grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6 mt-4 mx-auto @if (count($products_bestseller) == 0) h-full justify-center items-center @endif">
-            @if (count($products_bestseller) > 0)
-                @foreach ($products_bestseller as $bestseller)
-                    <div
-                        class="w-full relative hover:shadow-xl transform transition duration-500 hover:-translate-y-4 hover:z-40 mx-auto">
-                        <a href="{{ route('member.products.show', $bestseller->product->id) }}">
+    @if (false)
+        <div class="flex flex-col p-8 lg:p-16">
+            <div class="flex flex-row justify-between items-center">
+                <h1 data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="800"
+                    class="text-xl lg:text-3xl font-extrabold text-gray-900">Produk Bestseller</h1>
+                <a data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="800"
+                    href="{{ route('products') }}">
+                    <p class="text-base font-medium text-yellow-500 hover:text-yellow-600">Lihat semua</p>
+                </a>
+            </div>
+            <hr data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="800"
+                class="h-px my-2 border-0 bg-gray-400">
+            <div
+                class="md:w-full lg:w-4/6 grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6 mt-4 mx-auto @if (count($products_bestseller) == 0) h-full justify-center items-center @endif">
+                @if (count($products_bestseller) > 0)
+                    @foreach ($products_bestseller as $bestseller)
+                        <div
+                            class="w-full relative hover:shadow-xl transform transition duration-500 hover:-translate-y-4 hover:z-40 mx-auto">
+
                             <div data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="800"
-                                class="relative w-full h-full rounded-lg bg-gray-900 border-gray-800 mx-auto shadow-lg overflow-hidden flex flex-col">
-                                @if (strlen($bestseller->product->image) > 30)
-                                    <img class="w-full h-auto" src="{{ asset('storage/' . $bestseller->product->image) }}"
-                                        alt="{{ $bestseller->product->image }}" />
-                                @else
-                                    <img class="w-full h-auto" src="/images/fotoproduk/{{ $bestseller->product->image }}"
-                                        alt="{{ $bestseller->product->image }}" />
-                                @endif
-                                <div class="p-4 flex flex-col flex-grow">
-                                    <h5
-                                        class="sm:leading-6 md:leading-normal lg:leading-normal text-xl sm:text-3xl md:text-2xl lg:text-xl font-bold tracking-tight text-yellow-500 text-center">
-                                        {{ $bestseller->product->name }}
-                                    </h5>
-                                    <div class="flex flex-row w-full justify-center items-center">
-                                        @if ($bestseller->product->discount != 0)
-                                            <p
-                                                class="text-base sm:text-sm md:text-lg lg:text-sm font-normal text-white text-center">
-                                                Rp.
-                                                {{ number_format($bestseller->product->price, 0, ',', '.') }}</p>
-                                            <p
-                                                class="ml-2 flex items-center text-base sm:text-sm md:text-lg lg:text-sm font-bold text-red-600 text-center">
-                                                <svg class="w-4 h-4 mr-2 text-red-600" aria-hidden="true"
-                                                    xmlns="http://www.w3.org/2000/svg" fill="none"
-                                                    viewBox="0 0 14 10">
-                                                    <path stroke="currentColor" stroke-linecap="round"
-                                                        stroke-linejoin="round" stroke-width="2"
-                                                        d="M1 5h12m0 0L9 1m4 4L9 9" />
-                                                </svg>
-                                                (Rp.
-                                                {{ number_format($bestseller->product->countDiscount(), 0, ',', '.') }})
-                                            </p>
-                                        @else
-                                            <p
-                                                class="text-base sm:text-sm md:text-lg lg:text-base font-normal text-white text-center">
-                                                Rp.
-                                                {{ number_format($bestseller->product->price, 0, ',', '.') }}</p>
-                                        @endif
-                                    </div>
-                                    {{-- @if ($bestseller->product->stock == 0)
-                                        <p
-                                            class="text-sm sm:text-base md:text-base lg:text-sm font-normal text-red-600 text-center mt-2">
-                                            Stok Habis!</p>
+                                class="relative w-full h-full rounded-lg bg-gray-900 border-gray-800 mx-auto shadow-lg overflow-hidden flex flex-col justify-between">
+
+                                <a href="{{ route('member.products.show', $bestseller->product->id) }}"
+                                    class="flex flex-col flex-grow">
+                                    @if (strlen($bestseller->product->image) > 30)
+                                        <img class="w-full h-auto"
+                                            src="{{ asset('storage/' . $bestseller->product->image) }}"
+                                            alt="{{ $bestseller->product->image }}" />
                                     @else
-                                        <p
-                                            class="text-sm sm:text-base md:text-base lg:text-sm font-normal text-lime-500 text-center mt-2">
-                                            Tersisa {{ $bestseller->product->stock }}
-                                            stok
-                                            lagi!</p>
-                                    @endif --}}
-                                    <div class="text-right">
-                                        @auth
-                                            <!-- SVG icon di kanan bawah dari gambar -->
-                                            <form action="{{ route('member.wishlist.store', $bestseller->product->id) }}"
-                                                method="POST" class="flex justify-end items-center">
-                                                @csrf
-                                                @if (
-                                                    $bestseller->product->wishlist->where('user_id', Auth::user()->id)->first() &&
-                                                        $bestseller->product->wishlist->where('user_id', Auth::user()->id)->first()->favorite_status == '1')
-                                                    <button type="submit">
-                                                        <svg class="cursor-pointer w-6 h-6 text-red-600 hover:text-white"
-                                                            aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
-                                                            fill="currentColor" viewBox="0 0 20 18">
-                                                            <path
-                                                                d="M17.947 2.053a5.209 5.209 0 0 0-3.793-1.53A6.414 6.414 0 0 0 10 2.311 6.482 6.482 0 0 0 5.824.5a5.2 5.2 0 0 0-3.8 1.521c-1.915 1.916-2.315 5.392.625 8.333l7 7a.5.5 0 0 0 .708 0l7-7a6.6 6.6 0 0 0 2.123-4.508 5.179 5.179 0 0 0-1.533-3.793Z" />
-                                                        </svg>
-                                                    </button>
-                                                @else
-                                                    <button type="submit">
-                                                        <svg class="cursor-pointer w-6 h-6 text-white hover:text-red-600"
-                                                            aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
-                                                            fill="currentColor" viewBox="0 0 20 18">
-                                                            <path
-                                                                d="M17.947 2.053a5.209 5.209 0 0 0-3.793-1.53A6.414 6.414 0 0 0 10 2.311 6.482 6.482 0 0 0 5.824.5a5.2 5.2 0 0 0-3.8 1.521c-1.915 1.916-2.315 5.392.625 8.333l7 7a.5.5 0 0 0 .708 0l7-7a6.6 6.6 0 0 0 2.123-4.508 5.179 5.179 0 0 0-1.533-3.793Z" />
-                                                        </svg>
-                                                    </button>
-                                                @endif
-                                            </form>
-                                        @endauth
-                                        @guest
-                                            <button type="button"
-                                                onclick="event.preventDefault(); window.location.href='{{ route('login') }}'">
-                                                <svg class="cursor-pointer w-6 h-6 text-white hover:text-red-600"
-                                                    aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
-                                                    viewBox="0 0 20 18">
-                                                    <path
-                                                        d="M17.947 2.053a5.209 5.209 0 0 0-3.793-1.53A6.414 6.414 0 0 0 10 2.311 6.482 6.482 0 0 0 5.824.5a5.2 5.2 0 0 0-3.8 1.521c-1.915 1.916-2.315 5.392.625 8.333l7 7a.5.5 0 0 0 .708 0l7-7a6.6 6.6 0 0 0 2.123-4.508 5.179 5.179 0 0 0-1.533-3.793Z" />
-                                                </svg>
-                                            </button>
-                                        @endguest
+                                        <img class="w-full h-auto"
+                                            src="/images/fotoproduk/{{ $bestseller->product->image }}"
+                                            alt="{{ $bestseller->product->image }}" />
+                                    @endif
+
+                                    <div class="px-4 pt-4 flex flex-col flex-grow">
+                                        <h5
+                                            class="sm:leading-6 md:leading-normal lg:leading-normal text-xl sm:text-3xl md:text-2xl lg:text-xl font-bold tracking-tight text-yellow-500 text-center">
+                                            {{ $bestseller->product->name }}
+                                        </h5>
+                                        <div class="flex flex-row w-full justify-center items-center mt-2">
+                                            @if ($bestseller->product->discount != 0)
+                                                <p
+                                                    class="text-base sm:text-sm md:text-lg lg:text-sm text-red-500 text-center font-bold line-through	">
+                                                    Rp. {{ number_format($bestseller->product->price, 0, ',', '.') }}</p>
+                                                <p
+                                                    class="ml-2 flex items-center text-base sm:text-sm md:text-lg lg:text-sm font-bold text-green-500 text-center">
+                                                    <svg class="w-4 h-4 mr-2 text-green-500" aria-hidden="true"
+                                                        xmlns="http://www.w3.org/2000/svg" fill="none"
+                                                        viewBox="0 0 14 10">
+                                                        <path stroke="currentColor" stroke-linecap="round"
+                                                            stroke-linejoin="round" stroke-width="2"
+                                                            d="M1 5h12m0 0L9 1m4 4L9 9" />
+                                                    </svg>
+                                                    Rp.
+                                                    {{ number_format($bestseller->product->countDiscount(), 0, ',', '.') }}
+                                                </p>
+                                            @else
+                                                <p
+                                                    class="text-base sm:text-sm md:text-lg lg:text-base font-normal text-white text-center">
+                                                    Rp. {{ number_format($bestseller->product->price, 0, ',', '.') }}</p>
+                                            @endif
+                                        </div>
                                     </div>
+                                </a>
+
+                                <div class="px-4 pb-4 pt-2 text-right relative z-20">
+                                    @auth
+                                        <!-- SVG icon di kanan bawah dari gambar -->
+                                        <form action="{{ route('member.wishlist.store', $bestseller->product->id) }}"
+                                            method="POST" class="flex justify-end items-center">
+                                            @csrf
+                                            @if (
+                                                $bestseller->product->wishlist->where('user_id', Auth::user()->id)->first() &&
+                                                    $bestseller->product->wishlist->where('user_id', Auth::user()->id)->first()->favorite_status == '1')
+                                                <button type="submit">
+                                                    <svg class="cursor-pointer w-6 h-6 text-red-600 hover:text-white"
+                                                        aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                                                        fill="currentColor" viewBox="0 0 20 18">
+                                                        <path
+                                                            d="M17.947 2.053a5.209 5.209 0 0 0-3.793-1.53A6.414 6.414 0 0 0 10 2.311 6.482 6.482 0 0 0 5.824.5a5.2 5.2 0 0 0-3.8 1.521c-1.915 1.916-2.315 5.392.625 8.333l7 7a.5.5 0 0 0 .708 0l7-7a6.6 6.6 0 0 0 2.123-4.508 5.179 5.179 0 0 0-1.533-3.793Z" />
+                                                    </svg>
+                                                </button>
+                                            @else
+                                                <button type="submit">
+                                                    <svg class="cursor-pointer w-6 h-6 text-white hover:text-red-600"
+                                                        aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                                                        fill="currentColor" viewBox="0 0 20 18">
+                                                        <path
+                                                            d="M17.947 2.053a5.209 5.209 0 0 0-3.793-1.53A6.414 6.414 0 0 0 10 2.311 6.482 6.482 0 0 0 5.824.5a5.2 5.2 0 0 0-3.8 1.521c-1.915 1.916-2.315 5.392.625 8.333l7 7a.5.5 0 0 0 .708 0l7-7a6.6 6.6 0 0 0 2.123-4.508 5.179 5.179 0 0 0-1.533-3.793Z" />
+                                                    </svg>
+                                                </button>
+                                            @endif
+                                        </form>
+                                    @endauth
+                                    @guest
+                                        <button type="button" class="flex justify-end items-center ml-auto"
+                                            onclick="event.preventDefault(); window.location.href='{{ route('login') }}'">
+                                            <svg class="cursor-pointer w-6 h-6 text-white hover:text-red-600"
+                                                aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
+                                                viewBox="0 0 20 18">
+                                                <path
+                                                    d="M17.947 2.053a5.209 5.209 0 0 0-3.793-1.53A6.414 6.414 0 0 0 10 2.311 6.482 6.482 0 0 0 5.824.5a5.2 5.2 0 0 0-3.8 1.521c-1.915 1.916-2.315 5.392.625 8.333l7 7a.5.5 0 0 0 .708 0l7-7a6.6 6.6 0 0 0 2.123-4.508 5.179 5.179 0 0 0-1.533-3.793Z" />
+                                            </svg>
+                                        </button>
+                                    @endguest
                                 </div>
-                        </a>
-                        <!-- Diskon di pojok kanan atas -->
-                        @if ($bestseller->product->discount != 0)
-                            <div
-                                class="absolute top-0 right-0 m-4 text-lg text-red-600 rounded-lg font-bold bg-gray-900 p-2">
-                                {{ $bestseller->product->discount }}%</div>
-                        @endif
+
+                                <!-- Diskon di pojok kanan atas -->
+                                @if ($bestseller->product->discount != 0)
+                                    <div
+                                        class="absolute top-0 right-0 m-4 text-lg text-red-600 rounded-lg font-bold bg-gray-900 p-2 pointer-events-none">
+                                        {{ $bestseller->product->discount }}%</div>
+                                @endif
+                            </div>
+                        </div>
+                    @endforeach
+                @else
+                    <div class="col-span-2 flex flex-col items-center justify-center">
+                        <h1 data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="800"
+                            class="text-center text-lg font-bold text-gray-400">Mohon maaf, belum ada
+                            produk best seller!</h1>
                     </div>
+                @endif
+            </div>
         </div>
-        @endforeach
-    @else
-        <div class="col-span-2 flex flex-col items-center justify-center">
-            <h1 data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="800"
-                class="text-center text-lg font-bold text-gray-400">Mohon maaf, belum ada
-                produk best seller!</h1>
-        </div>
-        @endif
-    </div>
+    @endif
     <script>
         $(document).ready(function() {
             let isExpanded = false;

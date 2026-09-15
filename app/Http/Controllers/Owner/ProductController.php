@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use App\Http\Controllers\Controller; // tambah ini buat yg folder per role
+use App\Models\Category;
 
 class ProductController extends Controller
 {
@@ -47,11 +48,14 @@ class ProductController extends Controller
         $cart_user = Cart::where('user_id', Auth::user()->id)->first();
         $carts = $cart_user ? $cart_user->cart_detail : null;
 
+        $categories = Category::all();
+
         return view('admin.products', [
             "TabTitle" => "Daftar Seluruh Produk",
             "active_3" => "text-yellow-500",
             "products" => $products,
             "carts" => $carts,
+            "categories" => $categories,
         ]);
     }
 
@@ -70,6 +74,7 @@ class ProductController extends Controller
     {
         $validatedData = $request->validate([
             'name' => 'required|string|unique:products|max:30',
+            'category_id' => 'required|exists:categories,id',
             'price' => 'required|numeric|min:1000',
             'stock' => 'required|numeric|min:1',
             'weight' => 'required|numeric|min:1',
@@ -82,6 +87,8 @@ class ProductController extends Controller
             'name.string' => 'Nama produk wajib berupa karakter!',
             'name.unique' => 'Nama produk wajib berbeda dari produk yang sudah ada!',
             'name.max' => 'Nama produk maksimal 30 karakter!',
+            'category_id.required' => 'Kategori produk wajib dipilih!',
+            'category_id.exists' => 'Kategori produk tidak valid!',
             'price.required' => 'Harga wajib diisi!',
             'price.numeric' => 'Harga wajib berupa angka!',
             'price.min' => 'Harga minimal Rp. 1.000!',
@@ -116,6 +123,7 @@ class ProductController extends Controller
 
             $product = Product::create([
                 'name' => $validatedData['name'],
+                'category_id' => $validatedData['category_id'],
                 'description' => $validatedData['description'],
                 'price' => $validatedData['price'],
                 'stock' => $validatedData['stock'],
@@ -134,6 +142,7 @@ class ProductController extends Controller
         } else {
             $product = Product::create([
                 'name' => $validatedData['name'],
+                'category_id' => $validatedData['category_id'],
                 'description' => $validatedData['description'],
                 'price' => $validatedData['price'],
                 'stock' => $validatedData['stock'],
@@ -259,6 +268,7 @@ class ProductController extends Controller
     {
         $validatedData = $request->validate([
             'name_edit' => 'required|string|max:30',
+            'category_id_edit' => 'required|exists:categories,id',
             'price_edit' => 'required|numeric|min:1000',
             'weight_edit' => 'required|numeric|min:1',
             'discount_edit' => 'required|numeric|between:0,100',
@@ -268,6 +278,8 @@ class ProductController extends Controller
             'name_edit.required' => 'Nama produk wajib diisi!',
             'name_edit.string' => 'Nama produk wajib berupa karakter!',
             'name_edit.max' => 'Nama produk maksimal 30 karakter!',
+            'category_id_edit.required' => 'Kategori produk wajib dipilih!',
+            'category_id_edit.exists' => 'Kategori produk tidak valid!',
             'price_edit.required' => 'Harga wajib diisi!',
             'price_edit.numeric' => 'Harga wajib berupa angka!',
             'price_edit.min' => 'Harga minimal Rp. 1.000!',
@@ -288,6 +300,7 @@ class ProductController extends Controller
 
         $product->update([
             'name' => $validatedData['name_edit'],
+            'category_id' => $validatedData['category_id_edit'],
             'description' => $validatedData['description_edit'],
             'price' => $validatedData['price_edit'],
             'weight' => $validatedData['weight_edit'],

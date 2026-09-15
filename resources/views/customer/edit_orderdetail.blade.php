@@ -2,6 +2,21 @@
 
 @section('content_page')
     <div class="flex flex-col items-center">
+        @if (session('deleteWishlist_success'))
+            <div data-aos="zoom-in-down" data-aos-anchor-placement="top-bottom" data-aos-duration="800"
+                class="w-10/12 md:w-9/12 lg:w-6/12 flex justify-center items-center p-4 mt-8 text-sm rounded-lg bg-gray-900 text-green-400"
+                role="alert">
+                <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                    fill="currentColor" viewBox="0 0 20 20">
+                    <path
+                        d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Zm3.707 8.207-4 4a1 1 0 0 1-1.414 0l-2-2a1 1 0 0 1 1.414-1.414L9 10.586l3.293-3.293a1 1 0 0 1 1.414 1.414Z" />
+                </svg>
+                <span class="sr-only">Info</span>
+                <div>
+                    <span class="font-medium">{!! session('deleteWishlist_success') !!}
+                </div>
+            </div>
+        @endif
         @if (session('deleteCart_success'))
             <div data-aos="zoom-in-down" data-aos-anchor-placement="top-bottom" data-aos-duration="800"
                 class="w-10/12 md:w-9/12 lg:w-6/12 flex justify-center items-center p-4 mt-8 text-sm rounded-lg bg-gray-900 text-green-400"
@@ -240,10 +255,10 @@
                         @foreach ($products_bestseller as $bestseller)
                             <div
                                 class="relative hover:shadow-xl transform transition duration-500 hover:-translate-y-4 hover:z-40">
-                                <a href="{{ route('member.products.show', $bestseller->product->id) }}">
-                                    <div data-aos="fade-up" data-aos-anchor-placement="top-bottom"
-                                        data-aos-duration="800"
-                                        class="relative w-full h-full rounded-lg bg-gray-900 border-gray-800 mx-auto shadow-lg overflow-hidden flex flex-col">
+                                <div data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="800"
+                                    class="relative w-full h-full rounded-lg bg-gray-900 border-gray-800 mx-auto shadow-lg overflow-hidden flex flex-col justify-between">
+                                    <a href="{{ route('member.products.show', $bestseller->product->id) }}"
+                                        class="flex flex-col flex-grow">
                                         @if (strlen($bestseller->product->image) > 30)
                                             <img class="w-full h-auto"
                                                 src="{{ asset('storage/' . $bestseller->product->image) }}"
@@ -253,97 +268,85 @@
                                                 src="/images/fotoproduk/{{ $bestseller->product->image }}"
                                                 alt="{{ $bestseller->product->name }}" />
                                         @endif
-                                        <div class="p-4 flex flex-col flex-grow">
+                                        <div class="px-4 pt-4 flex flex-col flex-grow">
                                             <h5
                                                 class="text-xl sm:text-3xl md:text-2xl lg:text-xl font-bold tracking-tight text-yellow-500 text-center">
                                                 {{ $bestseller->product->name }}
                                             </h5>
-                                            <div class="flex flex-row w-full justify-center items-center">
+                                            <div class="flex flex-row w-full justify-center items-center mt-2">
                                                 @if ($bestseller->product->discount != 0)
                                                     <p
-                                                        class="text-base sm:text-sm md:text-lg lg:text-sm font-normal text-white text-center">
-                                                        Rp.
-                                                        {{ number_format($bestseller->product->price, 0, ',', '.') }}</p>
+                                                        class="text-base sm:text-sm md:text-lg lg:text-sm text-red-500 text-center font-bold line-through">
+                                                        Rp. {{ number_format($bestseller->product->price, 0, ',', '.') }}
+                                                    </p>
                                                     <p
-                                                        class="ml-2 flex items-center text-base sm:text-sm md:text-lg lg:text-sm font-bold text-red-600 text-center">
-                                                        <svg class="w-4 h-4 mr-2 text-red-600" aria-hidden="true"
+                                                        class="ml-2 flex items-center text-base sm:text-sm md:text-lg lg:text-sm font-bold text-green-500 text-center">
+                                                        <svg class="w-4 h-4 mr-2 text-green-500" aria-hidden="true"
                                                             xmlns="http://www.w3.org/2000/svg" fill="none"
                                                             viewBox="0 0 14 10">
                                                             <path stroke="currentColor" stroke-linecap="round"
                                                                 stroke-linejoin="round" stroke-width="2"
                                                                 d="M1 5h12m0 0L9 1m4 4L9 9" />
                                                         </svg>
-                                                        (Rp.
-                                                        {{ number_format($bestseller->product->countDiscount(), 0, ',', '.') }})
+                                                        Rp.
+                                                        {{ number_format($bestseller->product->countDiscount(), 0, ',', '.') }}
                                                     </p>
                                                 @else
                                                     <p
                                                         class="text-base sm:text-sm md:text-lg lg:text-base font-normal text-white text-center">
-                                                        Rp.
-                                                        {{ number_format($bestseller->product->price, 0, ',', '.') }}</p>
+                                                        Rp. {{ number_format($bestseller->product->price, 0, ',', '.') }}
+                                                    </p>
                                                 @endif
                                             </div>
-                                            {{-- @if ($bestseller->product->stock == 0)
-                                                <p
-                                                    class="text-sm sm:text-base md:text-base lg:text-sm font-normal text-red-600 text-center mt-2">
-                                                    Stok Habis!</p>
-                                            @else
-                                                <p
-                                                    class="text-sm sm:text-base md:text-base lg:text-sm font-normal text-lime-500 text-center mt-2">
-                                                    Tersisa {{ $bestseller->product->stock }}
-                                                    stok
-                                                    lagi!</p>
-                                            @endif --}}
-                                            <div class="text-right">
-                                                <!-- SVG icon di kanan bawah dari gambar -->
-                                                <form
-                                                    action="{{ route('member.wishlist.store', $bestseller->product->id) }}"
-                                                    method="POST" class="flex justify-end items-center">
-                                                    @csrf
-                                                    @if (
-                                                        $bestseller->product->wishlist->where('user_id', Auth::user()->id)->first() &&
-                                                            $bestseller->product->wishlist->where('user_id', Auth::user()->id)->first()->favorite_status == '1')
-                                                        <button type="submit">
-                                                            <svg class="cursor-pointer w-6 h-6 text-red-600 hover:text-white"
-                                                                aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
-                                                                fill="currentColor" viewBox="0 0 20 18">
-                                                                <path
-                                                                    d="M17.947 2.053a5.209 5.209 0 0 0-3.793-1.53A6.414 6.414 0 0 0 10 2.311 6.482 6.482 0 0 0 5.824.5a5.2 5.2 0 0 0-3.8 1.521c-1.915 1.916-2.315 5.392.625 8.333l7 7a.5.5 0 0 0 .708 0l7-7a6.6 6.6 0 0 0 2.123-4.508 5.179 5.179 0 0 0-1.533-3.793Z" />
-                                                            </svg>
-                                                        </button>
-                                                    @else
-                                                        <button type="submit">
-                                                            <svg class="cursor-pointer w-6 h-6 text-white hover:text-red-600"
-                                                                aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
-                                                                fill="currentColor" viewBox="0 0 20 18">
-                                                                <path
-                                                                    d="M17.947 2.053a5.209 5.209 0 0 0-3.793-1.53A6.414 6.414 0 0 0 10 2.311 6.482 6.482 0 0 0 5.824.5a5.2 5.2 0 0 0-3.8 1.521c-1.915 1.916-2.315 5.392.625 8.333l7 7a.5.5 0 0 0 .708 0l7-7a6.6 6.6 0 0 0 2.123-4.508 5.179 5.179 0 0 0-1.533-3.793Z" />
-                                                            </svg>
-                                                        </button>
-                                                    @endif
-                                                </form>
-                                            </div>
                                         </div>
-                                </a>
-                                <!-- Diskon di pojok kanan atas -->
-                                @if ($bestseller->product->discount != 0)
-                                    <div
-                                        class="absolute top-0 right-0 m-4 text-lg text-red-600 rounded-lg font-bold bg-gray-900 p-2">
-                                        {{ $bestseller->product->discount }}%</div>
-                                @endif
+                                    </a>
+                                    <div class="px-4 pb-4 pt-2 text-right relative z-20">
+                                        <!-- SVG icon di kanan bawah dari gambar -->
+                                        <form action="{{ route('member.wishlist.store', $bestseller->product->id) }}"
+                                            method="POST" class="flex justify-end items-center">
+                                            @csrf
+                                            @if (
+                                                $bestseller->product->wishlist->where('user_id', Auth::user()->id)->first() &&
+                                                    $bestseller->product->wishlist->where('user_id', Auth::user()->id)->first()->favorite_status == '1')
+                                                <button type="submit">
+                                                    <svg class="cursor-pointer w-6 h-6 text-red-600 hover:text-white"
+                                                        aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                                                        fill="currentColor" viewBox="0 0 20 18">
+                                                        <path
+                                                            d="M17.947 2.053a5.209 5.209 0 0 0-3.793-1.53A6.414 6.414 0 0 0 10 2.311 6.482 6.482 0 0 0 5.824.5a5.2 5.2 0 0 0-3.8 1.521c-1.915 1.916-2.315 5.392.625 8.333l7 7a.5.5 0 0 0 .708 0l7-7a6.6 6.6 0 0 0 2.123-4.508 5.179 5.179 0 0 0-1.533-3.793Z" />
+                                                    </svg>
+                                                </button>
+                                            @else
+                                                <button type="submit">
+                                                    <svg class="cursor-pointer w-6 h-6 text-white hover:text-red-600"
+                                                        aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                                                        fill="currentColor" viewBox="0 0 20 18">
+                                                        <path
+                                                            d="M17.947 2.053a5.209 5.209 0 0 0-3.793-1.53A6.414 6.414 0 0 0 10 2.311 6.482 6.482 0 0 0 5.824.5a5.2 5.2 0 0 0-3.8 1.521c-1.915 1.916-2.315 5.392.625 8.333l7 7a.5.5 0 0 0 .708 0l7-7a6.6 6.6 0 0 0 2.123-4.508 5.179 5.179 0 0 0-1.533-3.793Z" />
+                                                    </svg>
+                                                </button>
+                                            @endif
+                                        </form>
+                                    </div>
+                                    <!-- Diskon di pojok kanan atas -->
+                                    @if ($bestseller->product->discount != 0)
+                                        <div
+                                            class="absolute top-0 right-0 m-4 text-lg text-red-600 rounded-lg font-bold bg-gray-900 p-2 pointer-events-none">
+                                            {{ $bestseller->product->discount }}%</div>
+                                    @endif
+                                </div>
                             </div>
+                        @endforeach
+                    @else
+                        <div class="col-span-2 flex flex-col items-center justify-center">
+                            <h1 data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="800"
+                                class="text-center text-lg font-bold text-gray-400">Mohon maaf, belum ada
+                                produk best seller!</h1>
+                        </div>
+                    @endif
                 </div>
-                @endforeach
-            @else
-                <div class="col-span-2 flex flex-col items-center justify-center">
-                    <h1 data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="800"
-                        class="text-center text-lg font-bold text-gray-400">Mohon maaf, belum ada
-                        produk best seller!</h1>
-                </div>
-                @endif
             </div>
         </div>
-    </div>
     </div>
     @php
         // Tentukan harga berdasarkan apakah produk memiliki diskon atau tidak
