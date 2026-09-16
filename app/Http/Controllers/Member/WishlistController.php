@@ -73,7 +73,7 @@ class WishlistController extends Controller
         }
         return view('customer.wishlist', [
             "TabTitle" => "Wishlist",
-            "active_wishlist" => "text-yellow-500 rounded md:bg-transparent md:p-0",
+            "active_wishlist" => "text-yellow-500 rounded lg:bg-transparent lg:p-0",
             "pageTitle" => '<mark class="px-2 text-yellow-500 bg-gray-900 rounded">Wishlist</mark>',
             'pageDescription' => 'Tambah produk favorit anda di <span class="underline underline-offset-2 decoration-4 decoration-yellow-500">Wishlist!</span>',
             "wishlists" => $wishlists,

@@ -102,7 +102,7 @@ Route::get('/contactus', function () {
         }
         $data = [
             "TabTitle" => "Kontak Lisahwan",
-            "active_4" => "text-yellow-500 rounded md:bg-transparent md:p-0",
+            "active_4" => "text-yellow-500 rounded lg:bg-transparent lg:p-0",
             "carts" => $carts,
             "shipment_price" => $shipment_price,
             "admin_fee" => $admin_fee,
@@ -112,7 +112,7 @@ Route::get('/contactus', function () {
     } else {
         $data = [
             "TabTitle" => "Kontak Lisahwan",
-            "active_4" => "text-yellow-500 rounded md:bg-transparent md:p-0",
+            "active_4" => "text-yellow-500 rounded lg:bg-transparent lg:p-0",
         ];
     }
     return view('contact', $data);

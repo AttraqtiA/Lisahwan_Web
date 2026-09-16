@@ -10,15 +10,17 @@
                 <div
                     class="px-6 mx-auto max-w-screen-xl text-center text-white h-full flex flex-col justify-center items-center">
                     <h2
-                        class="text-center mb-8 sm:mb-10 text-2xl sm:text-3xl md:text-4xl font-bold drop-shadow-md leading-snug">
-                        Tunggu apa lagi? <mark class="px-2 text-yellow-500 bg-gray-900 rounded">Order Sekarang</mark>
-                        juga!
+                        class="text-center mb-4 sm:mb-6 text-2xl sm:text-3xl md:text-4xl font-bold drop-shadow-md leading-snug">
+                        Dapatkan <mark class="px-2 text-yellow-500 bg-gray-900 rounded">500 Poin Gratis</mark>
                     </h2>
+                    <p class="mb-8 sm:mb-10 text-base sm:text-lg md:text-xl text-gray-200 mx-auto drop-shadow px-8">
+                        Bergabung dengan Lisahwan dan dapatkan 500 poin untuk akun baru Anda!
+                    </p>
 
                     @guest
                         <a href="{{ route('register') }}"
                             class="inline-flex justify-center items-center py-3 px-6 sm:py-4 sm:px-7 text-base sm:text-lg font-medium text-center text-white rounded-xl bg-yellow-500 hover:bg-yellow-600 focus:ring-4 focus:ring-yellow-300 transform transition hover:scale-105 shadow-lg">
-                            Order Sekarang
+                            Daftar & Klaim Poin
                             <svg class="w-4 h-4 sm:w-5 sm:h-5 ml-2" fill="currentColor" viewBox="0 0 20 20"
                                 xmlns="http://www.w3.org/2000/svg">
                                 <path fill-rule="evenodd"
@@ -49,13 +51,10 @@
                     class="px-6 mx-auto max-w-screen-xl text-center text-white h-full flex flex-col justify-center items-center">
                     <h2
                         class="text-center mb-4 sm:mb-6 text-2xl sm:text-3xl md:text-4xl font-bold drop-shadow-md leading-snug">
-                        <mark class="px-2 text-yellow-500 bg-gray-900 rounded">Hadirkan
-                            Lisahwan</mark> lebih dekat ke pelanggan Anda.
+                        Jadi <mark class="px-2 text-yellow-500 bg-gray-900 rounded">Reseller Lisahwan</mark>
                     </h2>
-                    <p
-                        class="mb-8 sm:mb-10 text-base sm:text-lg md:text-xl text-gray-200 max-w-2xl mx-auto drop-shadow px-2">
-                        Bawa kelezatan cita rasa Lisahwan ke kota Anda dan dapatkan penawaran khusus untuk kerja sama
-                        berkelanjutan.
+                    <p class="mb-8 sm:mb-10 text-base sm:text-lg md:text-xl text-gray-200 mx-auto drop-shadow px-2">
+                        Bawa Produk Pilihan Lisahwan Lebih Dekat ke Pelanggan di Kota Anda.
                     </p>
 
                     <a href="https://wa.me/6282230308030?text=Halo%20Lisahwan%2C%20saya%20tertarik%20untuk%20bergabung%20menjadi%20reseller."

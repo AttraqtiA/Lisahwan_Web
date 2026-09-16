@@ -23,7 +23,7 @@ class ProductController extends Controller
             "TabTitle" => "Produk Lisahwan",
             "pageTitle" => '<mark class="px-2 text-yellow-500 bg-gray-800 rounded dark:bg-gray-800">Produk</mark> Lisahwan',
             'pageDescription' => 'Temukan sajian <span class="underline underline-offset-2 decoration-4 decoration-yellow-500">Lisahwan</span> sesuai selera dan momen Anda.',
-            "active_2" => "text-white rounded md:bg-transparent md:text-yellow-500 md:p-0 md:dark:text-yellow-500",
+            "active_2" => "text-white rounded lg:bg-transparent lg:text-yellow-500 lg:p-0 lg:dark:text-yellow-500",
             "products" => Product::all(),
         ]);
     }
@@ -170,7 +170,7 @@ class ProductController extends Controller
         $product = Product::find($id);
         return view('customer.orderdetail', [
             "TabTitle" => $product->name,
-            // "active_2" => "text-white rounded md:bg-transparent md:text-yellow-500 md:p-0 md:dark:text-yellow-500",
+            // "active_2" => "text-white rounded lg:bg-transparent lg:text-yellow-500 lg:p-0 lg:dark:text-yellow-500",
             "product" => $product,
         ]);
     }

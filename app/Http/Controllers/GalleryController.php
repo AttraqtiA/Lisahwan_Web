@@ -72,7 +72,7 @@ class GalleryController extends Controller
             }
             return view('gallery_page', [
                 "TabTitle" => "Galeri Lisahwan",
-                "active_3" => "text-yellow-500 rounded md:bg-transparent md:p-0",
+                "active_3" => "text-yellow-500 rounded lg:bg-transparent lg:p-0",
                 "pageTitle" => '<mark class="px-2 text-yellow-500 bg-gray-900 rounded dark:bg-gray-900">Galeri</mark> Lisahwan',
                 'pageDescription' => 'Kisah Rasa <span class="underline underline-offset-2 decoration-4 decoration-yellow-500">Autentik, Lokal, Homemade,</span> dan <span class="underline underline-offset-2 decoration-4 decoration-yellow-500">Premium</span>',
                 "galleries" => Gallery::all(),
@@ -85,7 +85,7 @@ class GalleryController extends Controller
         } else {
             return view('gallery_page', [
                 "TabTitle" => "Galeri Lisahwan",
-                "active_3" => "text-yellow-500 rounded md:bg-transparent md:p-0",
+                "active_3" => "text-yellow-500 rounded lg:bg-transparent lg:p-0",
                 "pageTitle" => '<mark class="px-2 text-yellow-500 bg-gray-900 rounded dark:bg-gray-900">Galeri</mark> Lisahwan',
                 'pageDescription' => 'Kisah Rasa <span class="underline underline-offset-2 decoration-4 decoration-yellow-500">Autentik, Lokal, Homemade,</span> dan <span class="underline underline-offset-2 decoration-4 decoration-yellow-500">Premium</span>',
                 "galleries" => Gallery::all()

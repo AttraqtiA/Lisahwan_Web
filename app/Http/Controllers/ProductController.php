@@ -79,7 +79,7 @@ class ProductController extends Controller
 
         //         return view('customer.products', [
         //             "TabTitle" => "Produk Lisahwan",
-        //             "active_2" => "text-yellow-500 rounded md:bg-transparent md:p-0",
+        //             "active_2" => "text-yellow-500 rounded lg:bg-transparent lg:p-0",
         //             "pageTitle" => '<mark class="px-2 text-yellow-500 bg-gray-900 rounded">Produk</mark> Lisahwan',
         //             'pageDescription' => 'Temukan sajian <span class="underline underline-offset-2 decoration-4 decoration-yellow-500">Lisahwan</span> sesuai selera dan momen Anda.',
         //             "products" => Product::all(),
@@ -161,7 +161,7 @@ class ProductController extends Controller
 
         return view('index', [
             "TabTitle" => "Lisahwan",
-            "active_1" => "text-yellow-500 rounded md:bg-transparent md:p-0",
+            "active_1" => "text-yellow-500 rounded lg:bg-transparent lg:p-0",
             "carousel_1" => "/images/fotoproduk/GalleryCarousel_10.jpg",
             "carousel_2" => "/images/fotoproduk/GalleryCarousel_8.jpg",
             "carousel_3" => "/images/fotoproduk/GalleryCarousel_13.jpeg",
@@ -240,7 +240,7 @@ class ProductController extends Controller
             $categories = Category::all();
             return view('customer.products', [
                 "TabTitle" => "Produk Lisahwan",
-                "active_2" => "text-yellow-500 rounded md:bg-transparent md:p-0",
+                "active_2" => "text-yellow-500 rounded lg:bg-transparent lg:p-0",
                 "pageTitle" => '<mark class="px-2 text-yellow-500 bg-gray-900 rounded">Produk</mark> Lisahwan',
                 'pageDescription' => 'Temukan sajian <span class="underline underline-offset-2 decoration-4 decoration-yellow-500">Lisahwan</span> sesuai selera dan momen Anda.',
                 "products" => Product::whereNotIn('name', ['Rambak Kerbau'])->get(),
@@ -255,7 +255,7 @@ class ProductController extends Controller
             $categories = Category::all();
             return view('customer.products', [
                 "TabTitle" => "Produk Lisahwan",
-                "active_2" => "text-yellow-500 rounded md:bg-transparent md:p-0",
+                "active_2" => "text-yellow-500 rounded lg:bg-transparent lg:p-0",
                 "pageTitle" => '<mark class="px-2 text-yellow-500 bg-gray-900 rounded">Produk</mark> Lisahwan',
                 'pageDescription' => 'Temukan sajian <span class="underline underline-offset-2 decoration-4 decoration-yellow-500">Lisahwan</span> sesuai selera dan momen Anda.',
                 "products" => Product::whereNotIn('name', ['Rambak Kerbau'])->get(),
@@ -350,7 +350,7 @@ class ProductController extends Controller
 
         return view('customer.orderdetail', [
             "TabTitle" => $product->name,
-            "active_2" => "text-yellow-500 rounded md:bg-transparent md:p-0",
+            "active_2" => "text-yellow-500 rounded lg:bg-transparent lg:p-0",
             "product" => $product,
             "total_product" => $total_product,
             "testimonies" => $testimonies,

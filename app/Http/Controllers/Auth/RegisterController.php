@@ -75,6 +75,7 @@ class RegisterController extends Controller
                 'is_active' => '1',
                 'email' => $data['email'],
                 'password' => Hash::make($data['password']),
+                'reward' => 500,
             ]);
         } else {
             return User::create([
@@ -85,6 +86,7 @@ class RegisterController extends Controller
                 'email' => $data['email'],
                 'password' => Hash::make($data['password']),
                 'profile_picture' => $data['profile_picture']->store('upload_images', ['disk' => 'public']),
+                'reward' => 500,
             ]);
         }
     }
@@ -148,6 +150,7 @@ class RegisterController extends Controller
             'role_id' => 3,
             'email' => $validatedData['email'],
             'password' => Hash::make($validatedData['password']),
+            'reward' => 500,
         ]);
 
         return redirect()->route('login');

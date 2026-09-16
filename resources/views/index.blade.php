@@ -43,12 +43,12 @@
         <div class="gap-12 items-center py-8 px-8 mx-auto max-w-screen-xl lg:grid lg:grid-cols-2 lg:py-16 lg:px-16">
             <div class="font-light sm:text-lg text-gray-500">
                 <h2 data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="800"
-                    class="mb-4 text-4xl tracking-tight font-extrabold text-gray-900">Brand Story Lisahwan
+                    class="mb-4 text-4xl tracking-tight font-extrabold text-gray-900">Tentang Lisahwan
                 </h2>
                 <!-- Paragraf utama (always visible) -->
                 <p data-aos="fade-down" data-aos-anchor-placement="top-bottom" data-aos-duration="800" class="mb-4">
                     Sejak 2007, Lisahwan tumbuh dari kecintaan pada rasa dan tradisi keluarga. Berawal dari Surabaya, kami
-                    menghadirkan berbagai sajian yang terinspirasi dari kekayaan cita rasa Nusantara, mulai dari aneka
+                    menghadirkan berbagai sajian yang terinspirasi dari kekayaan cita rasa Nusantara, mulai dari
                     camilan dan lauk kering, hingga Spikoe resep keluarga yang telah menjadi <i>signature</i> Lisahwan. Nama
                     Lisahwan sendiri berasal dari perpaduan nama Lisa dan Hwan, sebuah nama yang terus membawa perjalanan
                     keluarga kami hingga hari ini.

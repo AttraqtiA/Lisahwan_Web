@@ -890,7 +890,7 @@
                 var reader = new FileReader();
                 reader.onload = function(e) {
                     var img = $('<img>').attr('src', e.target.result).addClass(
-                        'w-1/2 md:w-1/4 mx-auto rounded-lg object-cover');
+                        'w-1/2 md:w-1/4 mx-auto aspect-square rounded-lg object-cover');
                     preview.append(img);
                 };
                 reader.readAsDataURL(input.files[0]);
@@ -908,14 +908,14 @@
                 var reader = new FileReader();
                 reader.onload = function(e) {
                     var img = $('<img>').attr('src', e.target.result).addClass(
-                        'w-1/2 md:w-1/4 mx-auto rounded-lg object-cover');
+                        'w-1/2 md:w-1/4 mx-auto aspect-square rounded-lg object-cover');
                     preview.append(img);
                 };
                 reader.readAsDataURL(input.files[0]);
             } else if (existingImageUrl) {
                 // Display existing image if available
                 var existingImg = $('<img>').attr('src', '{{ asset('') }}' + existingImageUrl).addClass(
-                    'w-1/2 md:w-1/4 mx-auto rounded-lg object-cover');
+                    'w-1/2 md:w-1/4 mx-auto aspect-square rounded-lg object-cover');
                 preview.append(existingImg);
             }
         }

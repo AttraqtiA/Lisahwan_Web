@@ -117,7 +117,7 @@ class ProductController extends Controller
 
             return view('customer.orderdetail', [
                 "TabTitle" => $product->name,
-                "active_2" => "text-yellow-500 rounded md:bg-transparent md:p-0",
+                "active_2" => "text-yellow-500 rounded lg:bg-transparent lg:p-0",
                 "product" => $product,
                 "total_product" => $total_product,
                 "testimonies" => $testimonies,

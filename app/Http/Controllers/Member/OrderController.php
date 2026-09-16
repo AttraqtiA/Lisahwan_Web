@@ -1185,7 +1185,7 @@ class OrderController extends Controller
 
             return view('customer.checkout', [
                 "TabTitle" => "Checkout",
-                "active_2" => "text-yellow-500 rounded md:bg-transparent md:p-0",
+                "active_2" => "text-yellow-500 rounded lg:bg-transparent lg:p-0",
                 "products_bestseller" => $products_bestseller,
                 "carts" => $cart->cart_detail,
                 "shipment_price" => $shipment_price,
@@ -1347,7 +1347,7 @@ class OrderController extends Controller
 
         return view('customer.orderhistory', [
             "TabTitle" => "Riwayat Pemesanan",
-            "active_history" => "text-yellow-500 rounded md:bg-transparent md:p-0",
+            "active_history" => "text-yellow-500 rounded lg:bg-transparent lg:p-0",
             "pageTitle" => '<mark class="px-2 text-yellow-500 bg-gray-900 rounded">Riwayat</mark> Pemesanan',
             'pageDescription' => 'Lacak <span class="underline underline-offset-2 decoration-4 decoration-yellow-500">pesanan</span> anda di sini!',
             "orders" => $orders,

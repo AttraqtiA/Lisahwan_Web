@@ -68,20 +68,20 @@
             </div>
             <div
                 class="flex flex-col bg-white relative shadow-md rounded-md sm:rounded-lg overflow-hidden p-8 m-2 mt-8 sm:m-0">
-                <div class="flex flex-col lg:flex-row gap-6 lg:h-96">
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
                     <div data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="800"
-                        class="relative p-4 bg-gray-100 rounded-lg">
+                        class="lg:col-span-4 xl:col-span-5 relative p-4 bg-gray-100 rounded-lg">
                         @if (strlen($productDetail->image) > 25)
                             <img src="{{ asset('storage/' . $productDetail->image) }}"
-                                class="h-full w-96 object-contain rounded-lg" alt={{ $productDetail->name }}>
+                                class="w-full aspect-square object-cover rounded-lg" alt={{ $productDetail->name }}>
                         @else
                             <img src="/images/fotoproduk/{{ $productDetail->image }}"
-                                class="h-full w-96 object-contain rounded-lg" alt={{ $productDetail->name }}>
+                                class="w-full aspect-square object-cover rounded-lg" alt={{ $productDetail->name }}>
                         @endif
                         <div class="absolute top-0 right-0 m-4 text-base text-red-600 rounded-lg font-bold bg-gray-900 p-4">
                             {{ $productDetail->discount }}%</div>
                     </div>
-                    <div class="flex flex-col justify-between">
+                    <div class="lg:col-span-8 xl:col-span-7 flex flex-col justify-between w-full">
                         <div>
                             <h4 data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="800"
                                 class="mb-2 leading-none text-xl font-semibold text-gray-900">
@@ -282,11 +282,11 @@
                             <div id="existingImagePreviewId" class="mb-3">
                                 @if (strlen($productDetail->image) > 25)
                                     <img src="{{ asset('storage/' . $productDetail->image) }}"
-                                        class="w-1/2 md:w-1/4 mx-auto rounded-lg object-cover"
+                                        class="w-1/2 md:w-1/4 aspect-square mx-auto rounded-lg object-cover"
                                         alt="{{ $productDetail->name }}" />
                                 @else
                                     <img src="/images/fotoproduk/{{ $productDetail->image }}"
-                                        class="w-1/2 md:w-1/4 mx-auto rounded-lg object-cover"
+                                        class="w-1/2 md:w-1/4 aspect-square mx-auto rounded-lg object-cover"
                                         alt="{{ $productDetail->name }}" />
                                 @endif
                             </div>
@@ -344,7 +344,7 @@
                 var reader = new FileReader();
                 reader.onload = function(e) {
                     var img = $('<img>').attr('src', e.target.result).addClass(
-                        'w-1/2 md:w-1/4 mx-auto rounded-lg object-cover');
+                        'w-1/2 md:w-1/4 mx-auto aspect-square rounded-lg object-cover');
                     preview.append(img);
                 };
                 reader.readAsDataURL(input.files[0]);
@@ -362,14 +362,14 @@
                 var reader = new FileReader();
                 reader.onload = function(e) {
                     var img = $('<img>').attr('src', e.target.result).addClass(
-                        'w-1/2 md:w-1/4 mx-auto rounded-lg object-cover');
+                        'w-1/2 md:w-1/4 mx-auto aspect-square rounded-lg object-cover');
                     preview.append(img);
                 };
                 reader.readAsDataURL(input.files[0]);
             } else if (existingImageUrl) {
                 // Display existing image if available
                 var existingImg = $('<img>').attr('src', '{{ asset('') }}' + existingImageUrl).addClass(
-                    'w-1/2 md:w-1/4 mx-auto rounded-lg object-cover');
+                    'w-1/2 md:w-1/4 mx-auto aspect-square rounded-lg object-cover');
                 preview.append(existingImg);
             }
         }

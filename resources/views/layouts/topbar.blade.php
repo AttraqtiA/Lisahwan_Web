@@ -3,15 +3,15 @@
         <a href="/" class="flex items-center">
             <img src="/images/lisahwan_logo.png" class="mr-3 w-16" alt="Lisahwan Logo" />
         </a>
-        <div class="flex md:order-2">
+        <div class="flex items-center lg:order-2">
 
             <!-- Right Side Of Navbar -->
-            <ul class="flex flex-row justify-center items-center gap-2 md:gap-4 mt-1 md:mt-0">
+            <ul class="flex flex-row justify-center items-center gap-2 md:gap-4">
                 @auth
                     @if (Auth::user()->isOwner())
                         <li>
                             <a href="{{ route('owner.admin') }}"
-                                class="block py-2 pl-3 pr-4 {{ $active_5 ?? 'text-white rounded md:hover:text-yellow-500 md:p-0' }}">
+                                class="flex items-center justify-center w-10 h-10 {{ $active_5 ?? 'text-white rounded-lg lg:hover:text-yellow-500' }}">
                                 <svg class="w-6 h-6 text-white hover:text-yellow-500" aria-hidden="true"
                                     xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
                                     <path
@@ -25,7 +25,7 @@
                     @if (Auth::user()->isAdmin())
                         <li>
                             <a href="{{ route('admin.admin') }}"
-                                class="block py-2 pl-3 pr-4 {{ $active_5 ?? 'text-white rounded md:hover:text-yellow-500 md:p-0' }}">
+                                class="flex items-center justify-center w-10 h-10 {{ $active_5 ?? 'text-white rounded-lg lg:hover:text-yellow-500' }}">
                                 <svg class="w-6 h-6 text-white hover:text-yellow-500" aria-hidden="true"
                                     xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
                                     <path
@@ -42,20 +42,19 @@
                         <li>
                             <button type="button" data-drawer-target="drawer-right-example"
                                 data-drawer-show="drawer-right-example" data-drawer-placement="right"
-                                aria-controls="drawer-right-example" class="mt-1">
-                                <div class="rounded-lg border border-yellow-500 border-0.5 p-2 relative">
-                                    <svg class="w-6 h-6 text-yellow-500 " aria-hidden="true"
-                                        xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 18 20">
-                                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                                            stroke-width="1"
-                                            d="M6 15a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm0 0h8m-8 0-1-4m9 4a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm-9-4h10l2-7H3m2 7L3 4m0 0-.792-3H1" />
-                                    </svg>
-                                    @if (!empty($carts))
-                                        <div
-                                            class="absolute inline-flex items-center justify-center w-6 h-6 text-xs font-bold text-white bg-red-500 border-2 border-white rounded-full -top-2 -end-2 dark:border-gray-900">
-                                            {{ $carts->sum('quantity') }}</div>
-                                    @endif
-                                </div>
+                                aria-controls="drawer-right-example"
+                                class="relative flex items-center justify-center w-10 h-10 rounded-lg border border-yellow-500">
+                                <svg class="w-6 h-6 text-yellow-500 " aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                                    fill="currentColor" viewBox="0 0 18 20">
+                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                        stroke-width="1"
+                                        d="M6 15a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm0 0h8m-8 0-1-4m9 4a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm-9-4h10l2-7H3m2 7L3 4m0 0-.792-3H1" />
+                                </svg>
+                                @if (!empty($carts))
+                                    <div
+                                        class="absolute inline-flex items-center justify-center w-6 h-6 text-xs font-bold text-white bg-red-500 border-2 border-white rounded-full -top-2 -end-2 dark:border-gray-900">
+                                        {{ $carts->sum('quantity') }}</div>
+                                @endif
                             </button>
                         </li>
                     @endif
@@ -210,11 +209,11 @@
                 @guest
                     <div>
                         <button type="button"
-                            class="flex text-sm bg-gray-800 rounded-full focus:ring focus:ring-gray-500"
+                            class="flex items-center justify-center w-10 h-10 text-sm bg-gray-800 rounded-full focus:ring focus:ring-gray-500"
                             aria-expanded="false" data-dropdown-toggle="dropdown-user">
                             <span class="sr-only">Open user menu</span>
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                stroke-width="1.5" stroke="currentColor" class="w-12 h-12 rounded-full text-white">
+                                stroke-width="1.5" stroke="currentColor" class="w-9 h-9 text-white">
                                 <path stroke-linecap="round" stroke-linejoin="round"
                                     d="M17.982 18.725A7.488 7.488 0 0012 15.75a7.488 7.488 0 00-5.982 2.975m11.963 0a9 9 0 10-11.963 0m11.963 0A8.966 8.966 0 0112 21a8.966 8.966 0 01-5.982-2.275M15 9.75a3 3 0 11-6 0 3 3 0 016 0z" />
                             </svg>
@@ -243,12 +242,12 @@
                 @else
                     <div class="">
                         <button type="button"
-                            class="flex text-sm bg-gray-800 rounded-full focus:ring focus:ring-gray-500"
+                            class="flex items-center justify-center w-10 h-10 text-sm bg-gray-800 rounded-full focus:ring focus:ring-gray-500"
                             aria-expanded="false" data-dropdown-toggle="dropdown-user">
                             <span class="sr-only">Open user menu</span>
                             @if (is_null(Auth::user()->profile_picture))
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                    stroke-width="1.5" stroke="currentColor" class="w-10 h-10 rounded-full text-white">
+                                    stroke-width="1.5" stroke="currentColor" class="w-9 h-9 text-white">
                                     <path stroke-linecap="round" stroke-linejoin="round"
                                         d="M17.982 18.725A7.488 7.488 0 0012 15.75a7.488 7.488 0 00-5.982 2.975m11.963 0a9 9 0 10-11.963 0m11.963 0A8.966 8.966 0 0112 21a8.966 8.966 0 01-5.982-2.275M15 9.75a3 3 0 11-6 0 3 3 0 016 0z" />
                                 </svg>
@@ -332,7 +331,7 @@
             </ul>
 
             <button data-collapse-toggle="navbar-sticky" type="button"
-                class="mt-2 ml-2 md:ml-4 inline-flex items-center gap-x-2 px-3 h-10 justify-center text-sm font-medium bg-gray-900 border border-yellow-500 text-yellow-500 rounded-lg lg:hidden hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-yellow-500"
+                class="ml-2 md:ml-4 inline-flex items-center gap-x-2 px-3 h-10 justify-center text-sm font-medium bg-gray-900 border border-yellow-500 text-yellow-500 rounded-lg lg:hidden hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-yellow-500"
                 aria-controls="navbar-sticky" aria-expanded="false">
                 <span class="sr-only">Open main menu</span>
                 <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
@@ -346,27 +345,27 @@
         <div class="items-center justify-between hidden w-full lg:flex lg:w-auto lg:order-1" id="navbar-sticky">
 
             <ul
-                class="flex flex-col p-4 md:p-0 font-medium rounded-lg bg-gray-900 md:flex-row md:space-x-8  md:border-0 md:bg-gray-900">
+                class="flex flex-col p-4 lg:p-0 font-medium rounded-lg bg-gray-900 lg:flex-row lg:space-x-8 lg:border-0 lg:bg-gray-900">
 
                 <li>
                     <a href="/"
-                        class="block py-2 pl-3 pr-4 {{ $active_1 ?? 'text-white rounded md:hover:text-yellow-500 md:p-0' }}">Home</a>
+                        class="block py-2 pl-3 pr-4 {{ $active_1 ?? 'text-white rounded lg:hover:text-yellow-500 lg:p-0' }}">Home</a>
                 </li>
                 <li>
                     <a href="/products"
-                        class="block py-2 pl-3 pr-4 {{ $active_2 ?? 'text-white rounded md:hover:text-yellow-500 md:p-0' }}"
+                        class="block py-2 pl-3 pr-4 {{ $active_2 ?? 'text-white rounded lg:hover:text-yellow-500 lg:p-0' }}"
                         aria-current="page">Products</a>
                 </li>
                 @auth
                     @if (Auth::user()->isMember())
                         <li>
                             <a href="{{ route('member.wishlist') }}"
-                                class="block py-2 pl-3 pr-4 {{ $active_wishlist ?? 'text-white rounded md:hover:text-yellow-500 md:p-0' }}"
+                                class="block py-2 pl-3 pr-4 {{ $active_wishlist ?? 'text-white rounded lg:hover:text-yellow-500 lg:p-0' }}"
                                 aria-current="page">Wishlist</a>
                         </li>
                         <li>
                             <a href="{{ route('member.orderhistory') }}"
-                                class="block py-2 pl-3 pr-4 {{ $active_history ?? 'text-white rounded md:hover:text-yellow-500 md:p-0' }}"
+                                class="block py-2 pl-3 pr-4 {{ $active_history ?? 'text-white rounded lg:hover:text-yellow-500 lg:p-0' }}"
                                 aria-current="page">Order History</a>
                         </li>
                     @endif
@@ -374,12 +373,12 @@
 
                 <li>
                     <a href="/gallery"
-                        class="block py-2 pl-3 pr-4 {{ $active_3 ?? 'text-white rounded md:hover:text-yellow-500 md:p-0' }}">Gallery</a>
+                        class="block py-2 pl-3 pr-4 {{ $active_3 ?? 'text-white rounded lg:hover:text-yellow-500 lg:p-0' }}">Gallery</a>
                 </li>
 
                 <li>
                     <a href="/contactus"
-                        class="block py-2 pl-3 pr-4 {{ $active_4 ?? 'text-white rounded md:hover:text-yellow-500 md:p-0' }}">Contact
+                        class="block py-2 pl-3 pr-4 {{ $active_4 ?? 'text-white rounded lg:hover:text-yellow-500 lg:p-0' }}">Contact
                         us</a>
                 </li>
             </ul>
