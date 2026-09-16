@@ -1349,7 +1349,7 @@ class OrderController extends Controller
             "TabTitle" => "Riwayat Pemesanan",
             "active_history" => "text-yellow-500 rounded md:bg-transparent md:p-0",
             "pageTitle" => '<mark class="px-2 text-yellow-500 bg-gray-900 rounded">Riwayat</mark> Pemesanan',
-            'pageDescription' => 'Lacak pesanan anda <span class="underline underline-offset-2 decoration-4 decoration-yellow-500">di sini!</span>',
+            'pageDescription' => 'Lacak <span class="underline underline-offset-2 decoration-4 decoration-yellow-500">pesanan</span> anda di sini!',
             "orders" => $orders,
             "carts" => $carts,
             "shipment_histories" => $shipment_histories,

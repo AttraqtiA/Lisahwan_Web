@@ -49,7 +49,7 @@
         @endif
         <div class="mx-auto w-11/12 sm:max-w-screen-xl text-center sm:col-span-2 md:col-span-2 lg:col-span-4 mt-16">
             <h1 data-aos="fade-down" data-aos-anchor-placement="top-bottom" data-aos-duration="800"
-                class="mb-8 text-4xl font-extrabold tracking-tight leading-none text-gray-900 md:text-5xl lg:text-6xl">
+                class="mb-6 text-4xl font-extrabold tracking-tight leading-none text-gray-900 md:text-5xl lg:text-6xl">
                 {!! $pageTitle !!}</h1>
             <p data-aos="fade-down" data-aos-anchor-placement="top-bottom" data-aos-duration="800"
                 class="text-lg font-normal text-gray-900 lg:text-xl sm:px-16 lg:px-48">{!! $pageDescription !!}</p>
@@ -163,10 +163,10 @@
                                             class="text-sm font-normal text-gray-600 break-words whitespace-normal text-left">
                                             {{ $order_detail->product->description }}
                                         </p>
-                                        <p class="mt-2 text-sm font-normal text-gray-600">
+                                        {{-- <p class="mt-2 text-sm font-normal text-gray-600">
                                             ({{ $order_detail->weight }}
                                             gram)
-                                        </p>
+                                        </p> --}}
                                     </div>
                                     <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center">
                                         <div class="flex flex-col justify-center">
@@ -247,7 +247,8 @@
                                                 onclick="toggleHistory({{ $order->id }})"
                                                 class="mt-2 text-xs font-medium text-yellow-600 hover:text-yellow-700 hover:underline focus:outline-none flex items-center transition-all duration-300">
                                                 <span>Lihat Riwayat Sebelumnya
-                                                    ({{ count($shipment_histories[$order->id]) - 3 }})</span>
+                                                    ({{ count($shipment_histories[$order->id]) - 3 }})
+                                                </span>
                                                 <svg id="icon-chevron-{{ $order->id }}"
                                                     class="w-3 h-3 ms-1 transition-transform duration-300"
                                                     aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"

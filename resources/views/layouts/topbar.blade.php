@@ -117,7 +117,7 @@
                                                     {{ $cart->product->name }}</p>
                                                 <p class="text-xs sm:text-sm font-normal text-gray-400">
                                                     {{ $cart->quantity }} buah
-                                                    ({{ $cart->weight }} gram)
+                                                    {{-- ({{ $cart->weight }} gram) --}}
                                                 </p>
                                                 <p class="text-sm sm:text-base font-medium text-white">Rp.
                                                     {{ number_format($cart->price, 0, ',', '.') }}

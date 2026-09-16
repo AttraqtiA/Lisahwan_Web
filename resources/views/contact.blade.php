@@ -3,14 +3,14 @@
 @section('meta_seo')
     <!-- SEO Standard -->
     <meta name="description"
-        content="Hubungi toko online Lisahwan untuk pemesanan Spikoe autentik, lauk kering, dan oleh-oleh Surabaya. Kami siap melayani pengiriman pesanan Anda dengan aman dan cepat.">
+        content="Hubungi Lisahwan untuk pemesanan Spikoe, lauk kering, dan oleh-oleh Surabaya. Kami siap melayani pengiriman pesanan Anda dengan aman dan cepat.">
     <meta name="keywords"
         content="Kontak Lisahwan, alamat lisahwan surabaya, nomor telepon lisahwan, pesan spikoe surabaya, hubungi lisahwan">
 
     <!-- Open Graph (WhatsApp, Facebook, IG Preview) -->
     <meta property="og:title" content="Hubungi Kami - Lisahwan">
     <meta property="og:description"
-        content="Hubungi Lisahwan untuk pemesanan langsung Spikoe autentik, lauk kering, dan oleh-oleh Surabaya. Kami siap melayani Anda!">
+        content="Hubungi Lisahwan untuk pemesanan langsung Spikoe, lauk kering, dan oleh-oleh Surabaya. Kami siap melayani Anda!">
     <meta property="og:image" content="{{ asset('images/lisahwan_logo.png') }}">
     <meta property="og:type" content="website">
     <meta property="og:url" content="{{ request()->url() }}">
@@ -44,14 +44,15 @@
 @section('content_page')
     <section style="background-image: url('/images/fotoproduk/GalleryCarousel_8.jpg')"
         class="bg-center bg-cover bg-no-repeat bg-gray-700 bg-blend-multiply">
-        <div class="px-4 py-20 mx-auto max-w-screen-xl text-center text-white flex flex-col gap-10">
+        <div class="px-4 py-12 mx-auto max-w-screen-xl text-center text-white flex flex-col gap-10">
             <div>
                 <h2 data-aos="fade-down" data-aos-anchor-placement="top-bottom" data-aos-duration="800"
-                    class="text-center mb-4 text-4xl font-bold px-4 lg:px-0">Segera Dapatkan <mark
-                        class="px-2 text-yellow-500 bg-gray-900 rounded">Produk Lisahwan</mark>
+                    class="text-center mb-4 text-4xl font-extrabold tracking-tight leading-none md:text-4xl lg:text-5xl px-4 lg:px-0">
+                    Segera Dapatkan <mark class="px-2 text-yellow-500 bg-gray-900 rounded">Produk Lisahwan</mark>
                     di Tangan Anda!</h2>
-                <h2 data-aos="fade-down" data-aos-anchor-placement="top-bottom" data-aos-duration="800"
-                    class="text-center text-4xl font-bold">Anda Dapat Menghubungi Kami Melalui,</h2>
+                <p data-aos="fade-down" data-aos-anchor-placement="top-bottom" data-aos-duration="800"
+                    class="text-center text-lg font-normal lg:text-xl sm:px-16 lg:px-48">Anda Dapat Menghubungi Kami
+                    Melalui,</p>
             </div>
 
             <div class="flex flex-col lg:flex-row justify-evenly items-center gap-y-4 lg:gap-y-0">

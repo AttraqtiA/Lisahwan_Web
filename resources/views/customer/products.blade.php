@@ -3,14 +3,14 @@
 @section('meta_seo')
     <!-- SEO Standard -->
     <meta name="description"
-        content="Katalog resmi Lisahwan. Beli langsung berbagai pilihan Spikoe autentik, lauk kering, dan oleh-oleh Surabaya. Pesan dengan mudah dan aman di toko online kami!">
+        content="Katalog resmi Lisahwan. Beli langsung berbagai pilihan Spikoe, lauk kering, dan oleh-oleh Surabaya. Pesan dengan mudah dan aman di toko online kami!">
     <meta name="keywords"
         content="Katalog Lisahwan, menu lisahwan, belanja spikoe surabaya, beli oleh-oleh surabaya, pesan lauk kering, camilan">
 
     <!-- Open Graph (WhatsApp, Facebook, IG Preview) -->
     <meta property="og:title" content="Beli Produk Lisahwan Online - Oleh-oleh Surabaya">
     <meta property="og:description"
-        content="Katalog online Lisahwan! Pesan dan beli langsung berbagai Spikoe autentik, lauk kering, dan oleh-oleh Surabaya dengan mudah.">
+        content="Katalog online Lisahwan! Pesan dan beli langsung berbagai Spikoe, lauk kering, dan oleh-oleh Surabaya dengan mudah.">
     <meta property="og:image" content="{{ asset('images/lisahwan_logo.png') }}">
     <meta property="og:type" content="website">
     <meta property="og:url" content="{{ request()->url() }}">
@@ -22,7 +22,7 @@
       "@type": "CollectionPage",
       "name": "Katalog Produk Lisahwan",
       "url": "{{ request()->url() }}",
-      "description": "Katalog online resmi Lisahwan. Beli langsung berbagai pilihan Spikoe autentik, lauk kering, dan oleh-oleh Surabaya."
+      "description": "Katalog online resmi Lisahwan. Beli langsung berbagai pilihan Spikoe, lauk kering, dan oleh-oleh Surabaya."
     }
     </script>
 @endsection
@@ -241,7 +241,7 @@
         @enderror
         <div class="mx-auto w-11/12 sm:max-w-screen-xl text-center sm:col-span-2 md:col-span-2 lg:col-span-4 mt-16">
             <h1 data-aos="fade-down" data-aos-anchor-placement="top-bottom" data-aos-duration="800"
-                class="mb-8 text-4xl font-extrabold tracking-tight leading-none text-gray-900 md:text-5xl lg:text-6xl">
+                class="mb-6 text-4xl font-extrabold tracking-tight leading-none text-gray-900 md:text-5xl lg:text-6xl">
                 {!! $pageTitle !!}</h1>
             <p data-aos="fade-down" data-aos-anchor-placement="top-bottom" data-aos-duration="800"
                 class="text-lg font-normal text-gray-900 lg:text-xl sm:px-16 lg:px-48">{!! $pageDescription !!}</p>
@@ -250,11 +250,6 @@
         <!-- Filter Kategori -->
         <div class="mt-8 mb-4 w-full flex flex-wrap justify-center gap-2 px-4" data-aos="fade-up" data-aos-duration="800"
             id="categoryFilters">
-            <button
-                class="category-btn active px-5 py-2.5 rounded-full text-sm font-semibold transition-all duration-300 bg-yellow-500 text-white shadow-md hover:bg-yellow-600 focus:ring-4 focus:ring-yellow-300"
-                data-filter="all">
-                Semua
-            </button>
             @foreach ($categories as $category)
                 <button
                     class="category-btn px-5 py-2.5 rounded-full text-sm font-semibold transition-all duration-300 bg-white text-gray-700 shadow border border-gray-200 hover:bg-gray-100 hover:text-yellow-600 focus:ring-4 focus:ring-gray-100"
@@ -262,6 +257,11 @@
                     {{ $category->name }}
                 </button>
             @endforeach
+            <button
+                class="category-btn active px-5 py-2.5 rounded-full text-sm font-semibold transition-all duration-300 bg-yellow-500 text-white shadow-md hover:bg-yellow-600 focus:ring-4 focus:ring-yellow-300"
+                data-filter="all">
+                Semua
+            </button>
         </div>
 
         <div class="w-full min-h-[50vh] relative pb-12">
@@ -271,7 +271,7 @@
                         <div data-category-id="{{ $product->category_id }}"
                             class="product-item order-first relative hover:shadow-xl transform transition duration-500 hover:-translate-y-4 hover:z-40">
                             <div data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="800"
-                                class="relative w-full h-full rounded-lg bg-gray-900 border-gray-800 mx-auto shadow-lg overflow-hidden flex flex-col justify-between">
+                                class="relative w-full h-full rounded-lg bg-neutral-200 border-gray-200 mx-auto shadow-lg overflow-hidden flex flex-col justify-between">
 
                                 <a href="{{ route('member.products.show', $product->id) }}"
                                     class="flex flex-col flex-grow">
@@ -285,30 +285,30 @@
 
                                     <div class="px-4 pt-4 flex flex-col flex-grow">
                                         <div class="flex flex-row space-x-1 justify-center items-center">
-                                            <svg class="me-1 w-5 h-5 text-yellow-500" aria-hidden="true"
+                                            {{-- <svg class="me-1 w-5 h-5 text-yellow-500" aria-hidden="true"
                                                 xmlns="http://www.w3.org/2000/svg" fill="currentColor"
                                                 viewBox="0 0 24 24">
                                                 <path
                                                     d="m12.75 20.66 6.184-7.098c2.677-2.884 2.559-6.506.754-8.705-.898-1.095-2.206-1.816-3.72-1.855-1.293-.034-2.652.43-3.963 1.442-1.315-1.012-2.678-1.476-3.973-1.442-1.515.04-2.825.76-3.724 1.855-1.806 2.201-1.915 5.823.772 8.706l6.183 7.097c.19.216.46.34.743.34a.985.985 0 0 0 .743-.34Z" />
-                                            </svg>
+                                            </svg> --}}
                                             <h5
-                                                class="sm:leading-6 md:leading-normal lg:leading-normal text-xl sm:text-2xl md:text-2xl lg:text-xl font-bold tracking-tight text-yellow-500 text-center">
+                                                class="uppercase sm:leading-6 md:leading-normal lg:leading-normal text-lg sm:text-xl lg:text-lg xl:text-xl font-bold tracking-tight text-gray-900 text-center">
                                                 {{ $product->name }}
                                             </h5>
-                                            <svg class="me-1 w-5 h-5 text-yellow-500" aria-hidden="true"
+                                            {{-- <svg class="me-1 w-5 h-5 text-yellow-500" aria-hidden="true"
                                                 xmlns="http://www.w3.org/2000/svg" fill="currentColor"
                                                 viewBox="0 0 24 24">
                                                 <path
                                                     d="m12.75 20.66 6.184-7.098c2.677-2.884 2.559-6.506.754-8.705-.898-1.095-2.206-1.816-3.72-1.855-1.293-.034-2.652.43-3.963 1.442-1.315-1.012-2.678-1.476-3.973-1.442-1.515.04-2.825.76-3.724 1.855-1.806 2.201-1.915 5.823.772 8.706l6.183 7.097c.19.216.46.34.743.34a.985.985 0 0 0 .743-.34Z" />
-                                            </svg>
+                                            </svg> --}}
                                         </div>
                                         <div class="flex flex-row w-full justify-center items-center mt-2">
                                             @if ($product->discount != 0)
                                                 <p
-                                                    class="text-base sm:text-sm md:text-lg lg:text-sm text-red-500 text-center font-bold line-through	">
+                                                    class="text-sm sm:text-base lg:text-sm xl:text-base text-red-500 text-center font-bold line-through	">
                                                     Rp. {{ number_format($product->price, 0, ',', '.') }}</p>
                                                 <p
-                                                    class="ml-2 flex items-center text-base sm:text-sm md:text-lg lg:text-sm font-bold text-green-500 text-center">
+                                                    class="ml-2 flex items-center text-sm sm:text-base lg:text-sm xl:text-base font-bold text-green-500 text-center">
                                                     <svg class="w-4 h-4 mr-2 text-green-500" aria-hidden="true"
                                                         xmlns="http://www.w3.org/2000/svg" fill="none"
                                                         viewBox="0 0 14 10">
@@ -320,10 +320,12 @@
                                                 </p>
                                             @else
                                                 <p
-                                                    class="text-base sm:text-sm md:text-lg lg:text-base font-normal text-white text-center">
+                                                    class="text-base sm:text-lg lg:text-base xl:text-lg font-normal text-gray-900 text-center">
                                                     Rp. {{ number_format($product->price, 0, ',', '.') }}</p>
                                             @endif
                                         </div>
+                                        <p class="text-xs sm:text-sm font-medium text-gray-900 text-center mt-2">Terjual
+                                            {{ $product->order_detail->sum('quantity') }}</p>
                                     </div>
                                 </a>
 
@@ -336,7 +338,7 @@
                                                 $product->wishlist->where('user_id', Auth::user()->id)->first() &&
                                                     $product->wishlist->where('user_id', Auth::user()->id)->first()->favorite_status == '1')
                                                 <button type="submit">
-                                                    <svg class="cursor-pointer w-6 h-6 text-red-600 hover:text-white"
+                                                    <svg class="cursor-pointer w-6 h-6 text-red-600 hover:text-gray-400"
                                                         aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
                                                         fill="currentColor" viewBox="0 0 20 18">
                                                         <path
@@ -345,7 +347,7 @@
                                                 </button>
                                             @else
                                                 <button type="submit">
-                                                    <svg class="cursor-pointer w-6 h-6 text-white hover:text-red-600"
+                                                    <svg class="cursor-pointer w-6 h-6 text-gray-400 hover:text-red-600"
                                                         aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
                                                         fill="currentColor" viewBox="0 0 20 18">
                                                         <path
@@ -356,7 +358,7 @@
                                         @endauth
                                         @guest
                                             <button type="submit">
-                                                <svg class="cursor-pointer w-6 h-6 text-white hover:text-red-600"
+                                                <svg class="cursor-pointer w-6 h-6 text-gray-400 hover:text-red-600"
                                                     aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
                                                     viewBox="0 0 20 18">
                                                     <path
@@ -370,25 +372,25 @@
                                 <!-- Diskon di pojok kanan atas -->
                                 @if ($product->discount != 0)
                                     <div
-                                        class="absolute top-0 right-0 m-4 text-lg text-red-600 rounded-lg font-bold bg-gray-900 p-2 pointer-events-none">
+                                        class="absolute top-0 right-0 m-4 text-lg text-red-600 rounded-lg font-bold bg-red-100 p-2 pointer-events-none">
                                         {{ $product->discount }}%</div>
                                 @endif
-                                <span
-                                    class="m-4 absolute top-0 left-0 inline-flex items-center bg-gray-900 text-yellow-500 text-sm font-semibold px-3 py-2 rounded-full pointer-events-none">
+                                {{-- <span
+                                    class="m-4 absolute top-0 left-0 inline-flex items-center bg-yellow-100 text-yellow-600 text-sm font-semibold px-3 py-2 rounded-full pointer-events-none">
                                     <svg class="me-1 w-5 h-5 text-yellow-500" aria-hidden="true"
                                         xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
                                         <path
                                             d="m12.75 20.66 6.184-7.098c2.677-2.884 2.559-6.506.754-8.705-.898-1.095-2.206-1.816-3.72-1.855-1.293-.034-2.652.43-3.963 1.442-1.315-1.012-2.678-1.476-3.973-1.442-1.515.04-2.825.76-3.724 1.855-1.806 2.201-1.915 5.823.772 8.706l6.183 7.097c.19.216.46.34.743.34a.985.985 0 0 0 .743-.34Z" />
                                     </svg>
                                     Produk Spesial
-                                </span>
+                                </span> --}}
                             </div>
                         </div>
                     @else
                         <div data-category-id="{{ $product->category_id }}"
                             class="product-item relative hover:shadow-xl transform transition duration-500 hover:-translate-y-4 hover:z-40">
                             <div data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="800"
-                                class="relative w-full h-full rounded-lg bg-gray-900 border-gray-800 mx-auto shadow-lg overflow-hidden flex flex-col justify-between">
+                                class="relative w-full h-full rounded-lg bg-neutral-200 border-gray-200 mx-auto shadow-lg overflow-hidden flex flex-col justify-between">
 
                                 <a href="{{ route('member.products.show', $product->id) }}"
                                     class="flex flex-col flex-grow">
@@ -402,16 +404,16 @@
 
                                     <div class="px-4 pt-4 flex flex-col flex-grow">
                                         <h5
-                                            class="sm:leading-6 md:leading-normal lg:leading-normal text-xl sm:text-2xl md:text-2xl lg:text-xl font-bold tracking-tight text-yellow-500 text-center">
+                                            class="uppercase sm:leading-6 md:leading-normal lg:leading-normal text-lg sm:text-xl lg:text-lg xl:text-xl font-bold tracking-tight text-gray-900 text-center">
                                             {{ $product->name }}
                                         </h5>
                                         <div class="flex flex-row w-full justify-center items-center mt-2">
                                             @if ($product->discount != 0)
                                                 <p
-                                                    class="text-base sm:text-sm md:text-lg lg:text-sm text-red-500 text-center font-bold line-through	">
+                                                    class="text-sm sm:text-base lg:text-sm xl:text-base text-red-500 text-center font-bold line-through	">
                                                     Rp. {{ number_format($product->price, 0, ',', '.') }}</p>
                                                 <p
-                                                    class="ml-2 flex items-center text-base sm:text-sm md:text-lg lg:text-sm font-bold text-green-500 text-center">
+                                                    class="ml-2 flex items-center text-sm sm:text-base lg:text-sm xl:text-base font-bold text-green-500 text-center">
                                                     <svg class="w-4 h-4 mr-2 text-green-500" aria-hidden="true"
                                                         xmlns="http://www.w3.org/2000/svg" fill="none"
                                                         viewBox="0 0 14 10">
@@ -423,10 +425,12 @@
                                                 </p>
                                             @else
                                                 <p
-                                                    class="text-base sm:text-sm md:text-lg lg:text-base font-normal text-white text-center">
+                                                    class="text-base sm:text-lg lg:text-base xl:text-lg font-normal text-gray-900 text-center">
                                                     Rp. {{ number_format($product->price, 0, ',', '.') }}</p>
                                             @endif
                                         </div>
+                                        <p class="text-xs sm:text-sm font-medium text-gray-900 text-center mt-2">Terjual
+                                            {{ $product->order_detail->sum('quantity') }}</p>
                                     </div>
                                 </a>
 
@@ -439,7 +443,7 @@
                                                 $product->wishlist->where('user_id', Auth::user()->id)->first() &&
                                                     $product->wishlist->where('user_id', Auth::user()->id)->first()->favorite_status == '1')
                                                 <button type="submit">
-                                                    <svg class="cursor-pointer w-6 h-6 text-red-600 hover:text-white"
+                                                    <svg class="cursor-pointer w-6 h-6 text-red-600 hover:text-gray-400"
                                                         aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
                                                         fill="currentColor" viewBox="0 0 20 18">
                                                         <path
@@ -448,7 +452,7 @@
                                                 </button>
                                             @else
                                                 <button type="submit">
-                                                    <svg class="cursor-pointer w-6 h-6 text-white hover:text-red-600"
+                                                    <svg class="cursor-pointer w-6 h-6 text-gray-400 hover:text-red-600"
                                                         aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
                                                         fill="currentColor" viewBox="0 0 20 18">
                                                         <path
@@ -459,7 +463,7 @@
                                         @endauth
                                         @guest
                                             <button type="submit">
-                                                <svg class="cursor-pointer w-6 h-6 text-white hover:text-red-600"
+                                                <svg class="cursor-pointer w-6 h-6 text-gray-400 hover:text-red-600"
                                                     aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
                                                     viewBox="0 0 20 18">
                                                     <path
@@ -473,7 +477,7 @@
                                 <!-- Diskon di pojok kanan atas -->
                                 @if ($product->discount != 0)
                                     <div
-                                        class="absolute top-0 right-0 m-4 text-lg text-red-600 rounded-lg font-bold bg-gray-900 p-2 pointer-events-none">
+                                        class="absolute top-0 right-0 m-4 text-lg text-red-600 rounded-lg font-bold bg-red-100 p-2 pointer-events-none">
                                         {{ $product->discount }}%</div>
                                 @endif
                             </div>

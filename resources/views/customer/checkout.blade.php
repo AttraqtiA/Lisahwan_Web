@@ -849,7 +849,7 @@
                                                     {{ $cart->product->name }}</p>
                                                 <p class="text-xs sm:text-sm font-normal text-gray-400">
                                                     {{ $cart->quantity }} buah
-                                                    ({{ $cart->weight }} gram)
+                                                    {{-- ({{ $cart->weight }} gram) --}}
                                                 </p>
                                                 @php
                                                     $originalPrice = Session::get('originalPrice_' . $cart->id);
@@ -1084,10 +1084,10 @@
                     @if (count($products_bestseller) > 0)
                         @foreach ($products_bestseller as $bestseller)
                             <div
-                                class="w-full relative hover:shadow-xl transform transition duration-500 hover:-translate-y-4 hover:z-40 mx-auto">
+                                class="product-item relative hover:shadow-xl transform transition duration-500 hover:-translate-y-4 hover:z-40">
                                 <div data-aos="fade-up" data-aos-anchor-placement="top-bottom"
                                     data-aos-duration="800"
-                                    class="relative w-full h-full rounded-lg bg-gray-900 border-gray-800 mx-auto shadow-lg overflow-hidden flex flex-col justify-between">
+                                    class="relative w-full h-full rounded-lg bg-neutral-200 border-gray-200 mx-auto shadow-lg overflow-hidden flex flex-col justify-between">
                                     
                                     <a href="{{ route('member.products.show', $bestseller->product->id) }}" class="flex flex-col flex-grow">
                                         @if (strlen($bestseller->product->image) > 30)
@@ -1102,17 +1102,17 @@
                                         
                                         <div class="px-4 pt-4 flex flex-col flex-grow">
                                             <h5
-                                                class="sm:leading-6 md:leading-normal lg:leading-normal text-xl sm:text-3xl md:text-2xl lg:text-xl font-bold tracking-tight text-yellow-500 text-center">
+                                                class="uppercase sm:leading-6 md:leading-normal lg:leading-normal text-lg sm:text-xl lg:text-lg xl:text-xl font-bold tracking-tight text-gray-900 text-center">
                                                 {{ $bestseller->product->name }}
                                             </h5>
                                             <div class="flex flex-row w-full justify-center items-center mt-2">
                                                 @if ($bestseller->product->discount != 0)
                                                     <p
-                                                        class="text-base sm:text-sm md:text-lg lg:text-sm text-red-500 text-center font-bold line-through">
+                                                        class="text-sm sm:text-base lg:text-sm xl:text-base text-red-500 text-center font-bold line-through">
                                                         Rp. {{ number_format($bestseller->product->price, 0, ',', '.') }}
                                                     </p>
                                                     <p
-                                                        class="ml-2 flex items-center text-base sm:text-sm md:text-lg lg:text-sm font-bold text-green-500 text-center">
+                                                        class="ml-2 flex items-center text-sm sm:text-base lg:text-sm xl:text-base font-bold text-green-500 text-center">
                                                         <svg class="w-4 h-4 mr-2 text-green-500" aria-hidden="true"
                                                             xmlns="http://www.w3.org/2000/svg" fill="none"
                                                             viewBox="0 0 14 10">
@@ -1124,13 +1124,14 @@
                                                     </p>
                                                 @else
                                                     <p
-                                                        class="text-base sm:text-sm md:text-lg lg:text-base font-normal text-white text-center">
+                                                        class="text-base sm:text-lg lg:text-base xl:text-lg font-normal text-gray-900 text-center">
                                                         Rp. {{ number_format($bestseller->product->price, 0, ',', '.') }}
                                                     </p>
                                                 @endif
                                             </div>
-                                        </div>
-                                    </a>
+                                            <p class="text-xs sm:text-sm font-medium text-gray-900 text-center mt-2">Terjual {{ $bestseller->product->order_detail->sum('quantity') }}</p>
+                                    </div>
+                                </a>
 
                                     <div class="px-4 pb-4 pt-2 text-right relative z-20">
                                         <!-- SVG icon di kanan bawah dari gambar -->
@@ -1142,7 +1143,7 @@
                                                 $bestseller->product->wishlist->where('user_id', Auth::user()->id)->first() &&
                                                     $bestseller->product->wishlist->where('user_id', Auth::user()->id)->first()->favorite_status == '1')
                                                 <button type="submit">
-                                                    <svg class="cursor-pointer w-6 h-6 text-red-600 hover:text-white"
+                                                    <svg class="cursor-pointer w-6 h-6 text-red-600 hover:text-gray-400"
                                                         aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
                                                         fill="currentColor" viewBox="0 0 20 18">
                                                         <path
@@ -1151,7 +1152,7 @@
                                                 </button>
                                             @else
                                                 <button type="submit">
-                                                    <svg class="cursor-pointer w-6 h-6 text-white hover:text-red-600"
+                                                    <svg class="cursor-pointer w-6 h-6 text-gray-400 hover:text-red-600"
                                                         aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
                                                         fill="currentColor" viewBox="0 0 20 18">
                                                         <path
@@ -1164,7 +1165,7 @@
                                     <!-- Diskon di pojok kanan atas -->
                                     @if ($bestseller->product->discount != 0)
                                         <div
-                                            class="absolute top-0 right-0 m-4 text-lg text-red-600 rounded-lg font-bold bg-gray-900 p-2 pointer-events-none">
+                                            class="absolute top-0 right-0 m-4 text-lg text-red-600 rounded-lg font-bold bg-red-100 p-2 pointer-events-none">
                                             {{ $bestseller->product->discount }}%</div>
                                     @endif
                                 </div>
