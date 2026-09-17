@@ -2,7 +2,7 @@
 
 @section('content_page')
     <div class="flex flex-col items-center">
-         @if (session('deleteWishlist_success'))
+        @if (session('deleteWishlist_success'))
             <div data-aos="zoom-in-down" data-aos-anchor-placement="top-bottom" data-aos-duration="800"
                 class="w-10/12 md:w-9/12 lg:w-6/12 flex justify-center items-center p-4 mt-8 text-sm rounded-lg bg-gray-900 text-green-400"
                 role="alert">
@@ -332,8 +332,10 @@
                         @csrf
                         <input type="hidden" value="{{ $total_poin }}" name="total_poin">
                         <input type="hidden" value="{{ $reward_now }}" name="reward_now">
-                        <input type="hidden" id="courier_hidden" value="{{ session('checkout.courier', '') }}" name="courier">
-                        <input type="hidden" id="service_hidden" value="{{ session('checkout.service', '') }}" name="service">
+                        <input type="hidden" id="courier_hidden" value="{{ session('checkout.courier', '') }}"
+                            name="courier">
+                        <input type="hidden" id="service_hidden" value="{{ session('checkout.service', '') }}"
+                            name="service">
                         <input type="hidden" id="final_province_id" name="province_id"
                             value="{{ old('province_id', session('checkout.province_id')) }}">
                         <input type="hidden" id="final_city_id" name="city_id"
@@ -1085,11 +1087,11 @@
                         @foreach ($products_bestseller as $bestseller)
                             <div
                                 class="product-item relative hover:shadow-xl transform transition duration-500 hover:-translate-y-4 hover:z-40">
-                                <div data-aos="fade-up" data-aos-anchor-placement="top-bottom"
-                                    data-aos-duration="800"
-                                    class="relative w-full h-full rounded-lg bg-neutral-200 border-gray-200 mx-auto shadow-lg overflow-hidden flex flex-col justify-between">
-                                    
-                                    <a href="{{ route('member.products.show', $bestseller->product->id) }}" class="flex flex-col flex-grow">
+                                <div data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="800"
+                                    class="relative w-full h-full rounded-lg bg-white border-gray-200 mx-auto shadow-lg overflow-hidden flex flex-col justify-between">
+
+                                    <a href="{{ route('member.products.show', $bestseller->product->id) }}"
+                                        class="flex flex-col flex-grow">
                                         @if (strlen($bestseller->product->image) > 30)
                                             <img class="w-full h-auto"
                                                 src="{{ asset('storage/' . $bestseller->product->image) }}"
@@ -1099,7 +1101,7 @@
                                                 src="/images/fotoproduk/{{ $bestseller->product->image }}"
                                                 alt="{{ $bestseller->product->name }}" />
                                         @endif
-                                        
+
                                         <div class="px-4 pt-4 flex flex-col flex-grow">
                                             <h5
                                                 class="uppercase sm:leading-6 md:leading-normal lg:leading-normal text-lg sm:text-xl lg:text-lg xl:text-xl font-bold tracking-tight text-gray-900 text-center">
@@ -1120,7 +1122,8 @@
                                                                 stroke-linejoin="round" stroke-width="2"
                                                                 d="M1 5h12m0 0L9 1m4 4L9 9" />
                                                         </svg>
-                                                        Rp. {{ number_format($bestseller->product->countDiscount(), 0, ',', '.') }}
+                                                        Rp.
+                                                        {{ number_format($bestseller->product->countDiscount(), 0, ',', '.') }}
                                                     </p>
                                                 @else
                                                     <p
@@ -1129,14 +1132,14 @@
                                                     </p>
                                                 @endif
                                             </div>
-                                            <p class="text-xs sm:text-sm font-medium text-gray-900 text-center mt-2">Terjual {{ $bestseller->product->order_detail->sum('quantity') }}</p>
-                                    </div>
-                                </a>
+                                            <p class="text-xs sm:text-sm font-medium text-gray-900 text-center mt-2">
+                                                Terjual {{ $bestseller->product->order_detail->sum('quantity') }}</p>
+                                        </div>
+                                    </a>
 
                                     <div class="px-4 pb-4 pt-2 text-right relative z-20">
                                         <!-- SVG icon di kanan bawah dari gambar -->
-                                        <form
-                                            action="{{ route('member.wishlist.store', $bestseller->product->id) }}"
+                                        <form action="{{ route('member.wishlist.store', $bestseller->product->id) }}"
                                             method="POST" class="flex justify-end items-center">
                                             @csrf
                                             @if (

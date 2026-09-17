@@ -271,7 +271,7 @@
                         <div data-category-id="{{ $product->category_id }}"
                             class="product-item order-first relative hover:shadow-xl transform transition duration-500 hover:-translate-y-4 hover:z-40">
                             <div data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="800"
-                                class="relative w-full h-full rounded-lg bg-neutral-200 border-gray-200 mx-auto shadow-lg overflow-hidden flex flex-col justify-between">
+                                class="relative w-full h-full rounded-lg bg-white border-gray-200 mx-auto shadow-lg overflow-hidden flex flex-col justify-between">
 
                                 <a href="{{ route('member.products.show', $product->id) }}"
                                     class="flex flex-col flex-grow">
@@ -390,7 +390,7 @@
                         <div data-category-id="{{ $product->category_id }}"
                             class="product-item relative hover:shadow-xl transform transition duration-500 hover:-translate-y-4 hover:z-40">
                             <div data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="800"
-                                class="relative w-full h-full rounded-lg bg-neutral-200 border-gray-200 mx-auto shadow-lg overflow-hidden flex flex-col justify-between">
+                                class="relative w-full h-full rounded-lg bg-white border-gray-200 mx-auto shadow-lg overflow-hidden flex flex-col justify-between">
 
                                 <a href="{{ route('member.products.show', $product->id) }}"
                                     class="flex flex-col flex-grow">
