@@ -240,7 +240,7 @@
                         </ul>
                     </div>
                 @else
-                    <div class="">
+                    <div class="relative">
                         <button type="button"
                             class="flex items-center justify-center w-10 h-10 text-sm bg-gray-800 rounded-full focus:ring focus:ring-gray-500"
                             aria-expanded="false" data-dropdown-toggle="dropdown-user">
@@ -267,6 +267,50 @@
                                 @endif
                             @endif
                         </button>
+                        @if (Auth::user()->reward == 500 && Auth::user()->isMember())
+                            <div id="point-tooltip"
+                                class="hidden absolute top-full mt-2.5 right-0 w-[220px] sm:w-64 p-2 sm:p-3 bg-yellow-500 border border-yellow-600 text-gray-900 text-xs sm:text-sm font-medium rounded-lg shadow-xl z-[100] transition-opacity duration-1000">
+                                <div
+                                    class="absolute -top-2 right-3 w-4 h-4 bg-yellow-500 border-t border-l border-yellow-600 transform rotate-45">
+                                </div>
+                                <span class="relative z-10 flex items-center gap-2">
+                                    <span class="text-lg sm:text-xl leading-none">🎉</span>
+                                    <span class="leading-snug">Selamat! Anda berhasil mendapatkan 500 Poin. Klik ikon ini
+                                        untuk melihatnya!</span>
+                                </span>
+                            </div>
+                            <script>
+                                document.addEventListener("DOMContentLoaded", function() {
+                                    if (!localStorage.getItem('pointTooltipShown_{{ Auth::user()->id }}')) {
+                                        const tooltip = document.getElementById('point-tooltip');
+                                        if (tooltip) {
+                                            tooltip.classList.remove('hidden');
+                                            // Add a small bouncing effect initially
+                                            tooltip.animate([{
+                                                    transform: 'translateY(0px)'
+                                                },
+                                                {
+                                                    transform: 'translateY(-5px)'
+                                                },
+                                                {
+                                                    transform: 'translateY(0px)'
+                                                }
+                                            ], {
+                                                duration: 1000,
+                                                iterations: 3
+                                            });
+
+                                            setTimeout(() => {
+                                                tooltip.style.opacity = '0';
+                                                setTimeout(() => tooltip.remove(), 1000);
+                                            }, 7000);
+
+                                            localStorage.setItem('pointTooltipShown_{{ Auth::user()->id }}', 'true');
+                                        }
+                                    }
+                                });
+                            </script>
+                        @endif
                     </div>
                     <div class="z-50 hidden my-4 text-base list-none bg-white divide-y divide-gray-100 rounded shadow"
                         id="dropdown-user">

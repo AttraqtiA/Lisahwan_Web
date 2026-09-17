@@ -9,15 +9,14 @@
                 data-carousel-item="active">
                 <div
                     class="px-6 mx-auto max-w-screen-xl text-center text-white h-full flex flex-col justify-center items-center">
-                    <h2
-                        class="text-center mb-4 sm:mb-6 text-2xl sm:text-3xl md:text-4xl font-bold drop-shadow-md leading-snug">
-                        Dapatkan <mark class="px-2 text-yellow-500 bg-gray-900 rounded">500 Poin Gratis</mark>
-                    </h2>
-                    <p class="mb-8 sm:mb-10 text-base sm:text-lg md:text-xl text-gray-200 mx-auto drop-shadow px-8">
-                        Bergabung dengan Lisahwan dan dapatkan 500 poin untuk akun baru Anda!
-                    </p>
-
                     @guest
+                        <h2
+                            class="text-center mb-4 sm:mb-6 text-2xl sm:text-3xl md:text-4xl font-bold drop-shadow-md leading-snug">
+                            Dapatkan <mark class="px-2 text-yellow-500 bg-gray-900 rounded">500 Poin Gratis</mark>
+                        </h2>
+                        <p class="mb-8 sm:mb-10 text-base sm:text-lg md:text-xl text-gray-200 mx-auto drop-shadow px-8">
+                            Daftar sekarang untuk menikmati 500 poin khusus pendaftaran pengguna baru.
+                        </p>
                         <a href="{{ route('register') }}"
                             class="inline-flex justify-center items-center py-3 px-6 sm:py-4 sm:px-7 text-base sm:text-lg font-medium text-center text-white rounded-xl bg-yellow-500 hover:bg-yellow-600 focus:ring-4 focus:ring-yellow-300 transform transition hover:scale-105 shadow-lg">
                             Daftar & Klaim Poin
@@ -31,6 +30,14 @@
                     @endguest
 
                     @auth
+                        <h2
+                            class="text-center mb-4 sm:mb-6 text-2xl sm:text-3xl md:text-4xl font-bold drop-shadow-md leading-snug">
+                            Belanja Hemat dengan <mark class="px-2 text-yellow-500 bg-gray-900 rounded">Tukar Poin</mark>
+                        </h2>
+                        <p class="mb-8 sm:mb-10 text-base sm:text-lg md:text-xl text-gray-200 mx-auto drop-shadow px-8">
+                            Cek poin Anda pada menu <strong>Akun</strong> di pojok kanan atas, dan gunakan poinnya
+                            untuk potongan harga saat <i>checkout</i>!
+                        </p>
                         <a href="{{ route('products') }}"
                             class="inline-flex justify-center items-center py-3 px-6 sm:py-4 sm:px-7 text-base sm:text-lg font-medium text-center text-white rounded-xl bg-yellow-500 hover:bg-yellow-600 focus:ring-4 focus:ring-yellow-300 transform transition hover:scale-105 shadow-lg">
                             Lihat Produk
@@ -53,7 +60,7 @@
                         class="text-center mb-4 sm:mb-6 text-2xl sm:text-3xl md:text-4xl font-bold drop-shadow-md leading-snug">
                         Jadi <mark class="px-2 text-yellow-500 bg-gray-900 rounded">Reseller Lisahwan</mark>
                     </h2>
-                    <p class="mb-8 sm:mb-10 text-base sm:text-lg md:text-xl text-gray-200 mx-auto drop-shadow px-2">
+                    <p class="mb-8 sm:mb-10 text-base sm:text-lg md:text-xl text-gray-200 mx-auto drop-shadow px-8">
                         Bawa Produk Pilihan Lisahwan Lebih Dekat ke Pelanggan di Kota Anda.
                     </p>
 
