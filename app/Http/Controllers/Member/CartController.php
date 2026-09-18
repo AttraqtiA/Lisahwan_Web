@@ -129,7 +129,11 @@ class CartController extends Controller
      */
     public function edit($id)
     {
-        $cart_detail = CartDetail::where('product_id', $id)->first();
+        $cart = Cart::where('user_id', Auth::user()->id)->first();
+        if (!$cart) {
+            return redirect()->route('products')->with('deleteCart_success', 'Mohon maaf, keranjang anda kosong!');
+        }
+        $cart_detail = CartDetail::where('cart_id', $cart->id)->where('product_id', $id)->first();
 
         if (!$cart_detail) {
             return redirect()->route('products')->with('deleteCart_success', 'Mohon maaf, keranjang anda kosong!');
@@ -218,7 +222,12 @@ class CartController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $cart_detail = CartDetail::where('id', $id)->first();
+        $cart = Cart::where('user_id', Auth::user()->id)->first();
+        $cart_detail = CartDetail::where('cart_id', $cart ? $cart->id : 0)->where('id', $id)->first();
+
+        if (!$cart_detail) {
+            abort(403, 'Pesanan tidak ditemukan');
+        }
 
         $validatedData = $request->validate([
             "quantity" => "required|not_in:0",

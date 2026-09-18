@@ -131,9 +131,9 @@
 </nav>
 
 <aside id="logo-sidebar"
-    class="fixed top-0 left-0 z-40 w-56 h-screen pt-24 transition-transform -translate-x-full border-r sm:translate-x-0 bg-gray-900 border-gray-700"
+    class="fixed top-0 left-0 z-40 w-56 h-[100dvh] pt-24 transition-transform -translate-x-full border-r sm:translate-x-0 bg-gray-900 border-gray-700"
     aria-label="Sidebar">
-    <div class="h-full px-3 py-8 overflow-y-auto bg-gray-900">
+    <div class="h-full px-3 pt-8 pb-28 sm:pb-8 overflow-y-auto bg-gray-900">
         <ul class="space-y-6 font-medium">
             @auth
                 @if (Auth::user()->isOwner())

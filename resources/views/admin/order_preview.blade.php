@@ -1,5 +1,5 @@
 <div id="order-detail{{ $order->id }}"
-    class="fixed top-0 left-0 z-50 h-screen overflow-y-auto transition-transform -translate-x-full bg-white w-full md:w-2/4"
+    class="fixed top-0 left-0 z-50 h-[100dvh] overflow-y-auto pb-24 sm:pb-0 transition-transform -translate-x-full bg-white w-full md:w-2/4"
     tabindex="-1" aria-labelledby="drawer-label">
     <div class="flex flex-rw w-full bg-gray-900 pt-4">
         <h5 id="drawer-label" class="pl-4 inline-flex items-center mb-4 text-base font-semibold text-gray-400">

@@ -1490,7 +1490,10 @@ class OrderController extends Controller
         $midtrans_order_id = time() . rand(100, 999);
 
         if ($validatedData['address_id'] != 0) {
-            $address = Address::find($validatedData['address_id']);
+            $address = Address::where('id', $validatedData['address_id'])->where('user_id', Auth::id())->first();
+            if (!$address) {
+                abort(403, 'Alamat tidak ditemukan');
+            }
 
             $orderData = [
                 'user_id' => Auth::user()->id,
@@ -1769,7 +1772,10 @@ class OrderController extends Controller
      */
     public function update($id)
     {
-        $order = Order::where('id', $id)->first();
+        $order = Order::where('id', $id)->where('user_id', Auth::id())->first();
+        if (!$order) {
+            abort(403, 'Pesanan tidak ditemukan');
+        }
         $arrived_date = now();
         $order->update([
             'arrived_date' => $arrived_date,

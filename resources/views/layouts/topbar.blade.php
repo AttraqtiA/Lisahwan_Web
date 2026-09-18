@@ -61,7 +61,7 @@
 
                     <!-- drawer component -->
                     <div id="drawer-right-example"
-                        class="fixed top-0 right-0 z-40 w-full sm:w-7/12 lg:w-5/12 h-screen pt-6 p-5 overflow-y-auto transition-transform translate-x-full bg-gray-900"
+                        class="fixed top-0 right-0 z-40 w-full sm:w-7/12 lg:w-5/12 h-[100dvh] pt-6 px-5 pb-24 sm:pb-5 overflow-y-auto transition-transform translate-x-full bg-gray-900"
                         tabindex="-1" aria-labelledby="drawer-right-label">
                         <div class="flex flex-row items-center mb-4 justify-between">
                             <h5 id="drawer-right-label"

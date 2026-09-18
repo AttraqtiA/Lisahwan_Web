@@ -109,7 +109,11 @@ class TestimonyController extends Controller
 
         $date = now();
 
-        $testimony = Testimony::where('product_id', $id)->first();
+        $testimony = Testimony::where('product_id', $id)->where('user_id', Auth::id())->first();
+
+        if (!$testimony) {
+            abort(403, 'Ulasan tidak ditemukan');
+        }
 
         if ($request->file('image')) {
             if ($request->oldImage) {
@@ -139,7 +143,10 @@ class TestimonyController extends Controller
      */
     public function destroy($id)
     {
-        $testimony = Testimony::where('id', $id)->first();
+        $testimony = Testimony::where('id', $id)->where('user_id', Auth::id())->first();
+        if (!$testimony) {
+            abort(403, 'Ulasan tidak ditemukan');
+        }
         if ($testimony->image != null) {
             Storage::disk('public')->delete($testimony->image);
         }
