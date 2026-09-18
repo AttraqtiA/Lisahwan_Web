@@ -608,7 +608,7 @@
                                                                 class="block mb-2 text-sm font-medium text-gray-900">Kategori
                                                                 (Bisa pilih lebih dari satu)</label>
                                                             <div
-                                                                class="grid grid-cols-2 gap-2 mt-3 {{ $errors->has('category_ids_edit') ? 'border border-red-500 rounded p-2' : '' }}">
+                                                                class="grid grid-cols-2 gap-2 mt-3 {{ $errors->has('category_ids_edit.*') ? 'border border-red-500 rounded p-2' : '' }}">
                                                                 @foreach ($categories as $category)
                                                                     <div class="flex items-center">
                                                                         <input
@@ -616,7 +616,7 @@
                                                                             type="checkbox" name="category_ids_edit[]"
                                                                             value="{{ $category->id }}"
                                                                             class="w-4 h-4 text-yellow-500 bg-white border-gray-300 rounded focus:ring-yellow-500"
-                                                                            {{ is_array(old('category_ids_edit', $product->categories->pluck('id')->toArray())) && in_array($category->id, old('category_ids_edit', $product->categories->pluck('id')->toArray())) ? 'checked' : '' }}>
+                                                                            {{ is_array(old('category_ids_edit.*', $product->categories->pluck('id')->toArray())) && in_array($category->id, old('category_ids_edit.*', $product->categories->pluck('id')->toArray())) ? 'checked' : '' }}>
                                                                         <label
                                                                             for="edit_cat_{{ $product->id }}_{{ $category->id }}"
                                                                             class="ml-2 text-sm font-medium text-gray-900">{{ $category->name }}</label>
@@ -753,14 +753,14 @@
                                                                 class="block mb-2 text-sm font-medium text-gray-900">Kategori
                                                                 (Bisa pilih lebih dari satu)</label>
                                                             <div
-                                                                class="grid grid-cols-2 gap-2 mt-3 {{ $errors->has('category_ids') ? 'border border-red-500 rounded p-2' : '' }}">
+                                                                class="grid grid-cols-2 gap-2 mt-3 {{ $errors->has('category_ids.*') ? 'border border-red-500 rounded p-2' : '' }}">
                                                                 @foreach ($categories as $category)
                                                                     <div class="flex items-center">
                                                                         <input id="add_cat_{{ $category->id }}"
                                                                             type="checkbox" name="category_ids[]"
                                                                             value="{{ $category->id }}"
                                                                             class="w-4 h-4 text-yellow-500 bg-white border-gray-300 rounded focus:ring-yellow-500"
-                                                                            {{ is_array(old('category_ids')) && in_array($category->id, old('category_ids')) ? 'checked' : '' }}>
+                                                                            {{ is_array(old('category_ids.*')) && in_array($category->id, old('category_ids.*')) ? 'checked' : '' }}>
                                                                         <label for="add_cat_{{ $category->id }}"
                                                                             class="ml-2 text-sm font-medium text-gray-900">{{ $category->name }}</label>
                                                                     </div>
