@@ -268,7 +268,7 @@
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 px-12 py-12 mx-auto" id="productGrid">
                 @foreach ($products as $product)
                     @if ($product->special_status == 'ya')
-                        <div data-category-id="{{ $product->category_id }}"
+                        <div data-category-ids="{{ json_encode($product->categories->pluck('id')) }}"
                             class="product-item order-first relative hover:shadow-xl transform transition duration-500 hover:-translate-y-4 hover:z-40">
                             <div data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="800"
                                 class="relative w-full h-full rounded-lg bg-white border-gray-200 mx-auto shadow-lg overflow-hidden flex flex-col justify-between">
@@ -387,7 +387,7 @@
                             </div>
                         </div>
                     @else
-                        <div data-category-id="{{ $product->category_id }}"
+                        <div data-category-ids="{{ json_encode($product->categories->pluck('id')) }}"
                             class="product-item relative hover:shadow-xl transform transition duration-500 hover:-translate-y-4 hover:z-40">
                             <div data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="800"
                                 class="relative w-full h-full rounded-lg bg-white border-gray-200 mx-auto shadow-lg overflow-hidden flex flex-col justify-between">
@@ -529,9 +529,11 @@
 
                     // Filter products
                     productItems.forEach(item => {
-                        const itemCategory = item.getAttribute('data-category-id');
+                        const itemCategories = JSON.parse(item.getAttribute(
+                            'data-category-ids') || '[]');
 
-                        if (filterValue === 'all' || filterValue === itemCategory) {
+                        if (filterValue === 'all' || itemCategories.includes(parseInt(
+                                filterValue))) {
                             item.style.display = 'block';
                             // Re-trigger animation if needed
                             item.classList.add('animate-fadeIn');

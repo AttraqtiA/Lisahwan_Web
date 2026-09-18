@@ -6,7 +6,7 @@
     <section class="bg-neutral-200 p-2 sm:p-4 antialiased">
         <div class="bg-neutral-200 mx-auto max-w-screen-2xl pt-20 sm:pt-24 sm:ml-56">
             <div
-                class="flex flex-col justify-center items-center w-full {{ session('addProduct_success') || session('updateProduct_success') || session('deleteProduct_success') || $errors->has('name') || $errors->has('category_id') || $errors->has('category_id_edit') || $errors->has('price') || $errors->has('stock') || $errors->has('weight') || $errors->has('discount') || $errors->has('description') || $errors->has('special_status') || $errors->has('name_edit') || $errors->has('price_edit') || $errors->has('stock_edit') || $errors->has('weight_edit') || $errors->has('discount_edit') || $errors->has('description_edit') || $errors->has('special_status_edit') || $errors->has('image') ? 'mb-6 mt-10 sm:mb-10 sm:mt-4' : '' }}">
+                class="flex flex-col justify-center items-center w-full {{ session('addProduct_success') || session('updateProduct_success') || session('deleteProduct_success') || $errors->has('name') || $errors->has('category_ids') ||  $errors->has('category_ids.*') || $errors->has('category_ids_edit') || $errors->has('category_ids_edit.*') || $errors->has('price') || $errors->has('stock') || $errors->has('weight') || $errors->has('discount') || $errors->has('description') || $errors->has('special_status') || $errors->has('name_edit') || $errors->has('price_edit') || $errors->has('stock_edit') || $errors->has('weight_edit') || $errors->has('discount_edit') || $errors->has('description_edit') || $errors->has('special_status_edit') || $errors->has('image') ? 'mb-6 mt-10 sm:mb-10 sm:mt-4' : '' }}">
                 @error('name')
                     <div data-aos="zoom-in-down" data-aos-anchor-placement="top-bottom" data-aos-duration="800"
                         class="w-10/12 md:w-9/12 lg:w-6/12 flex justify-center items-center p-4 {{ $errors->has('name') ? 'mb-2' : '' }} text-sm rounded-lg bg-gray-900 text-red-400"
@@ -22,9 +22,9 @@
                         </div>
                     </div>
                 @enderror
-                @error('category_id')
+                @if($errors->has('category_ids') || $errors->has('category_ids.*'))
                     <div data-aos="zoom-in-down" data-aos-anchor-placement="top-bottom" data-aos-duration="800"
-                        class="w-10/12 md:w-9/12 lg:w-6/12 flex justify-center items-center p-4 {{ $errors->has('category_id') ? 'mb-2' : '' }} text-sm rounded-lg bg-gray-900 text-red-400"
+                        class="w-10/12 md:w-9/12 lg:w-6/12 flex justify-center items-center p-4 mb-2 text-sm rounded-lg bg-gray-900 text-red-400"
                         role="alert">
                         <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
                             fill="currentColor" viewBox="0 0 20 20">
@@ -33,10 +33,10 @@
                         </svg>
                         <span class="sr-only">Info</span>
                         <div>
-                            <span class="font-medium">{{ $message }}
+                            <span class="font-medium">{{ $errors->first('category_ids') ?: $errors->first('category_ids.*') }}</span>
                         </div>
                     </div>
-                @enderror
+                @endif
                 @error('price')
                     <div data-aos="zoom-in-down" data-aos-anchor-placement="top-bottom" data-aos-duration="800"
                         class="w-10/12 md:w-9/12 lg:w-6/12 flex justify-center items-center p-4 {{ $errors->has('price') ? 'mb-2' : '' }} text-sm rounded-lg bg-gray-900 text-red-400"
@@ -142,9 +142,9 @@
                         </div>
                     </div>
                 @enderror
-                @error('category_id_edit')
+                @if($errors->has('category_ids_edit') || $errors->has('category_ids_edit.*'))
                     <div data-aos="zoom-in-down" data-aos-anchor-placement="top-bottom" data-aos-duration="800"
-                        class="w-10/12 md:w-9/12 lg:w-6/12 flex justify-center items-center p-4 {{ $errors->has('category_id_edit') ? 'mb-2' : '' }} text-sm rounded-lg bg-gray-900 text-red-400"
+                        class="w-10/12 md:w-9/12 lg:w-6/12 flex justify-center items-center p-4 mb-2 text-sm rounded-lg bg-gray-900 text-red-400"
                         role="alert">
                         <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
                             fill="currentColor" viewBox="0 0 20 20">
@@ -153,10 +153,10 @@
                         </svg>
                         <span class="sr-only">Info</span>
                         <div>
-                            <span class="font-medium">{{ $message }}
+                            <span class="font-medium">{{ $errors->first('category_ids_edit') ?: $errors->first('category_ids_edit.*') }}</span>
                         </div>
                     </div>
-                @enderror
+                @endif
                 @error('price_edit')
                     <div data-aos="zoom-in-down" data-aos-anchor-placement="top-bottom" data-aos-duration="800"
                         class="w-10/12 md:w-9/12 lg:w-6/12 flex justify-center items-center p-4 {{ $errors->has('price_edit') ? 'mb-2' : '' }} text-sm rounded-lg bg-gray-900 text-red-400"
@@ -604,18 +604,25 @@
                                                             </select>
                                                         </div>
                                                         <div class="sm:col-span-2">
-                                                            <label for="category_id_edit"
-                                                                class="block mb-2 text-sm font-medium text-gray-900">Kategori</label>
-                                                            <select id="category_id_edit"
-                                                                name="category_id_edit"
-                                                                class="{{ $errors->has('category_id_edit') ? 'bg-red-100 border-red-400 text-red-500 placeholder-red-700 focus:ring-red-500 focus:border-red-500' : 'bg-white border-yellow-500 text-gray-900 placeholder-gray-400  focus:ring-yellow-500 focus:border-yellow-500' }} rounded-lg border-1 text-sm block w-full p-2.5 mt-3" required>
-                                                                <option value="" disabled>Pilih Kategori Produk</option>
-                                                                @foreach($categories as $category)
-                                                                    <option value="{{ $category->id }}" {{ old('category_id_edit', $product->category_id) == $category->id ? 'selected' : '' }}>
-                                                                        {{ $category->name }}
-                                                                    </option>
+                                                            <label
+                                                                class="block mb-2 text-sm font-medium text-gray-900">Kategori
+                                                                (Bisa pilih lebih dari satu)</label>
+                                                            <div
+                                                                class="grid grid-cols-2 gap-2 mt-3 {{ $errors->has('category_ids_edit') ? 'border border-red-500 rounded p-2' : '' }}">
+                                                                @foreach ($categories as $category)
+                                                                    <div class="flex items-center">
+                                                                        <input
+                                                                            id="edit_cat_{{ $product->id }}_{{ $category->id }}"
+                                                                            type="checkbox" name="category_ids_edit[]"
+                                                                            value="{{ $category->id }}"
+                                                                            class="w-4 h-4 text-yellow-500 bg-white border-gray-300 rounded focus:ring-yellow-500"
+                                                                            {{ is_array(old('category_ids_edit', $product->categories->pluck('id')->toArray())) && in_array($category->id, old('category_ids_edit', $product->categories->pluck('id')->toArray())) ? 'checked' : '' }}>
+                                                                        <label
+                                                                            for="edit_cat_{{ $product->id }}_{{ $category->id }}"
+                                                                            class="ml-2 text-sm font-medium text-gray-900">{{ $category->name }}</label>
+                                                                    </div>
                                                                 @endforeach
-                                                            </select>
+                                                            </div>
                                                         </div>
                                                         <div class="sm:col-span-2">
                                                             <label for="description_edit"
@@ -742,18 +749,23 @@
                                                         </div>
 
                                                         <div class="sm:col-span-2">
-                                                            <label for="category_id"
-                                                                class="block mb-2 text-sm font-medium text-gray-900">Kategori</label>
-                                                            <select id="category_id"
-                                                                name="category_id"
-                                                                class="{{ $errors->has('category_id') ? 'bg-red-100 border-red-400 text-red-500 placeholder-red-700 focus:ring-red-500 focus:border-red-500' : 'bg-white border-yellow-500 text-gray-900 placeholder-gray-400  focus:ring-yellow-500 focus:border-yellow-500' }} rounded-lg border-1 text-sm block w-full p-2.5 mt-3" required>
-                                                                <option value="" disabled selected>Pilih Kategori Produk</option>
-                                                                @foreach($categories as $category)
-                                                                    <option value="{{ $category->id }}" {{ old('category_id') == $category->id ? 'selected' : '' }}>
-                                                                        {{ $category->name }}
-                                                                    </option>
+                                                            <label
+                                                                class="block mb-2 text-sm font-medium text-gray-900">Kategori
+                                                                (Bisa pilih lebih dari satu)</label>
+                                                            <div
+                                                                class="grid grid-cols-2 gap-2 mt-3 {{ $errors->has('category_ids') ? 'border border-red-500 rounded p-2' : '' }}">
+                                                                @foreach ($categories as $category)
+                                                                    <div class="flex items-center">
+                                                                        <input id="add_cat_{{ $category->id }}"
+                                                                            type="checkbox" name="category_ids[]"
+                                                                            value="{{ $category->id }}"
+                                                                            class="w-4 h-4 text-yellow-500 bg-white border-gray-300 rounded focus:ring-yellow-500"
+                                                                            {{ is_array(old('category_ids')) && in_array($category->id, old('category_ids')) ? 'checked' : '' }}>
+                                                                        <label for="add_cat_{{ $category->id }}"
+                                                                            class="ml-2 text-sm font-medium text-gray-900">{{ $category->name }}</label>
+                                                                    </div>
                                                                 @endforeach
-                                                            </select>
+                                                            </div>
                                                         </div>
 
                                                         <div class="sm:col-span-2">

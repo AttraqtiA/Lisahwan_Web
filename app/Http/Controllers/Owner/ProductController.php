@@ -74,7 +74,8 @@ class ProductController extends Controller
     {
         $validatedData = $request->validate([
             'name' => 'required|string|unique:products|max:30',
-            'category_id' => 'required|exists:categories,id',
+            'category_ids' => 'nullable|array',
+            'category_ids.*' => 'exists:categories,id',
             'price' => 'required|numeric|min:1000',
             'stock' => 'required|numeric|min:1',
             'weight' => 'required|numeric|min:1',
@@ -87,8 +88,8 @@ class ProductController extends Controller
             'name.string' => 'Nama produk wajib berupa karakter!',
             'name.unique' => 'Nama produk wajib berbeda dari produk yang sudah ada!',
             'name.max' => 'Nama produk maksimal 30 karakter!',
-            'category_id.required' => 'Kategori produk wajib dipilih!',
-            'category_id.exists' => 'Kategori produk tidak valid!',
+            'category_ids.required' => 'Kategori produk wajib dipilih minimal 1!',
+            'category_ids.*.exists' => 'Kategori produk tidak valid!',
             'price.required' => 'Harga wajib diisi!',
             'price.numeric' => 'Harga wajib berupa angka!',
             'price.min' => 'Harga minimal Rp. 1.000!',
@@ -123,7 +124,6 @@ class ProductController extends Controller
 
             $product = Product::create([
                 'name' => $validatedData['name'],
-                'category_id' => $validatedData['category_id'],
                 'description' => $validatedData['description'],
                 'price' => $validatedData['price'],
                 'stock' => $validatedData['stock'],
@@ -132,6 +132,7 @@ class ProductController extends Controller
                 'image' => $validatedData['image'],
                 'special_status' => $validatedData['special_status'],
             ]);
+            $product->categories()->attach($validatedData['category_ids'] ?? []);
 
             Production::create([
                 'date' => now(),
@@ -142,7 +143,6 @@ class ProductController extends Controller
         } else {
             $product = Product::create([
                 'name' => $validatedData['name'],
-                'category_id' => $validatedData['category_id'],
                 'description' => $validatedData['description'],
                 'price' => $validatedData['price'],
                 'stock' => $validatedData['stock'],
@@ -150,6 +150,7 @@ class ProductController extends Controller
                 'discount' => $validatedData['discount'],
                 'special_status' => $validatedData['special_status'],
             ]);
+            $product->categories()->attach($validatedData['category_ids'] ?? []);
 
             Production::create([
                 'date' => now(),
@@ -268,7 +269,8 @@ class ProductController extends Controller
     {
         $validatedData = $request->validate([
             'name_edit' => 'required|string|max:30',
-            'category_id_edit' => 'required|exists:categories,id',
+            'category_ids_edit' => 'nullable|array',
+            'category_ids_edit.*' => 'exists:categories,id',
             'price_edit' => 'required|numeric|min:1000',
             'weight_edit' => 'required|numeric|min:1',
             'discount_edit' => 'required|numeric|between:0,100',
@@ -278,8 +280,8 @@ class ProductController extends Controller
             'name_edit.required' => 'Nama produk wajib diisi!',
             'name_edit.string' => 'Nama produk wajib berupa karakter!',
             'name_edit.max' => 'Nama produk maksimal 30 karakter!',
-            'category_id_edit.required' => 'Kategori produk wajib dipilih!',
-            'category_id_edit.exists' => 'Kategori produk tidak valid!',
+            'category_ids_edit.required' => 'Kategori produk wajib dipilih minimal 1!',
+            'category_ids_edit.*.exists' => 'Kategori produk tidak valid!',
             'price_edit.required' => 'Harga wajib diisi!',
             'price_edit.numeric' => 'Harga wajib berupa angka!',
             'price_edit.min' => 'Harga minimal Rp. 1.000!',
@@ -300,13 +302,13 @@ class ProductController extends Controller
 
         $product->update([
             'name' => $validatedData['name_edit'],
-            'category_id' => $validatedData['category_id_edit'],
             'description' => $validatedData['description_edit'],
             'price' => $validatedData['price_edit'],
             'weight' => $validatedData['weight_edit'],
             'discount' => $validatedData['discount_edit'],
             'special_status' => $validatedData['special_status'],
         ]);
+        $product->categories()->sync($validatedData['category_ids_edit'] ?? []);
 
         return back()->with('updateProduct_success', "{$product->name} berhasil diperbarui!");
     }
