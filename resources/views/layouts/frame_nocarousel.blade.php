@@ -7,6 +7,13 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>{{ $TabTitle ?? 'Lisahwan' }}</title>
     @yield('meta_seo')
+
+    {{-- SEO Canonical Tag --}}
+    @hasSection('canonical')
+        <link rel="canonical" href="@yield('canonical')" />
+    @else
+        <link rel="canonical" href="{{ url()->current() }}" />
+    @endif
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link

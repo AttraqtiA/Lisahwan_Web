@@ -46,6 +46,9 @@ Route::get('/sitemap.xml', [SitemapController::class, 'index'])->name('sitemap')
 Route::get('/', [ProductController::class, 'home']); // HOME PAGE (CHECKED)
 Route::get('/products', [ProductController::class, 'index'])->name('products'); // PRODUCTS PAGE (CHECKED)
 Route::get('/products/{product_id}', [ProductController::class, 'show'])->name('member.products.show'); // PUBLIC ORDERDETAIL PAGE
+Route::get('/member/products/{product_id}', function ($product_id) {
+    return redirect('/products/' . $product_id, 301);
+});
 Route::get('/gallery', [GalleryController::class, 'index']); // GALLERY PAGE (CHECKED)
 Route::get('/contactus', function () {
     if (Auth::check()) {

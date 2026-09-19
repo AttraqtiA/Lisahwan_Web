@@ -293,6 +293,12 @@ class ProductController extends Controller
     {
         $product = Product::find($id);
 
+        // Jika produk tidak ditemukan (misal: link dari website lama yang sudah mati)
+        // Lakukan 301 Permanent Redirect ke halaman katalog utama
+        if (!$product) {
+            return redirect('/products', 301);
+        }
+
         $testimonies = Testimony::where('product_id', $id)->paginate(4);
         $total_product = Product::count();
 
