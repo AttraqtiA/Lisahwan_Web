@@ -109,7 +109,7 @@
         @enderror
         <div class="mx-auto w-11/12 sm:max-w-screen-xl text-center sm:col-span-2 md:col-span-2 lg:col-span-4">
             <h1 data-aos="fade-down" data-aos-anchor-placement="top-bottom" data-aos-duration="800"
-                class="mb-8 text-4xl font-extrabold tracking-tight leading-none text-gray-900 md:text-5xl lg:text-6xl">
+                class="mb-6 text-4xl font-extrabold tracking-tight leading-none text-gray-900 md:text-5xl lg:text-6xl">
                 {!! $pageTitle !!}</h1>
             <p data-aos="fade-down" data-aos-anchor-placement="top-bottom" data-aos-duration="800"
                 class="text-lg font-normal text-gray-900 lg:text-xl sm:px-16 lg:px-48">{!! $pageDescription !!}</p>

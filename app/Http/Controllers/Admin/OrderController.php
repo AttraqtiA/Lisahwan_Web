@@ -293,7 +293,7 @@ class OrderController extends Controller
             "TabTitle" => "Daftar Produk Lisahwan",
             "active_3" => "text-yellow-500",
             "pageTitle" => '<mark class="px-2 text-yellow-500 bg-gray-900 rounded">Produk</mark> Lisahwan',
-            'pageDescription' => 'Temukan sajian <span class="underline underline-offset-2 decoration-4 decoration-yellow-500">Lisahwan</span> sesuai selera dan momen Anda.',
+            'pageDescription' => 'Jelajahi Produk Lisahwan<br><span class="underline underline-offset-2 decoration-4 decoration-yellow-500">Sajian Praktis, Cita Rasa Nusantara.</span>',
             "products" => Product::all(),
             "carts" => $carts
         ]);
@@ -416,7 +416,7 @@ class OrderController extends Controller
                 "TabTitle" => "Keranjang",
                 "active_4" => "text-yellow-500",
                 "pageTitle" => '<mark class="px-2 text-yellow-500 bg-gray-900 rounded">Keranjang</mark> Belanjaan',
-                'pageDescription' => 'Setiap produk Lisahwan <span class="underline underline-offset-2 decoration-4 decoration-yellow-500">Lisahwan</span> telah dibuat  spesial untuk anda!',
+                'pageDescription' => 'Setiap produk <span class="underline underline-offset-2 decoration-4 decoration-yellow-500">Lisahwan</span> telah dibuat spesial untuk anda!',
                 "carts" => $carts,
             ]
         );
@@ -424,7 +424,9 @@ class OrderController extends Controller
 
     public function editProduct(Request $request, $id)
     {
-        $cart_detail = CartDetail::where('id', $id)->first();
+        $cart = Cart::where('user_id', Auth::user()->id)->first();
+        $cart_detail = CartDetail::where('id', $id)->where('cart_id', $cart ? $cart->id : 0)->first();
+        if (!$cart_detail) abort(403, 'Akses ditolak');
         $last_quantity = 0;
         if (Session::has('last_quantity_' . $cart_detail->product->id)) {
             $last_quantity = Session::get('last_quantity_' . $cart_detail->product->id);
@@ -437,7 +439,7 @@ class OrderController extends Controller
             'quantity.not_in' => 'Oops! Anda lupa mengisikan jumlah pemesanan!'
         ]);
 
-        $total_price = $validatedData['quantity'] * $cart_detail->product->price;
+        $total_price = ($validatedData['quantity'] * $cart_detail->product->price) - ($validatedData['quantity'] * $cart_detail->product->price * ($cart_detail->product->discount / 100));
         $total_weight = $cart_detail->product->weight * $validatedData['quantity'];
 
         $quantity_final = $validatedData['quantity'] - $last_quantity;
@@ -478,7 +480,10 @@ class OrderController extends Controller
 
     public function deleteProduct($id)
     {
-        $cartDetail = CartDetail::find($id);
+        $cart = Cart::where('user_id', Auth::user()->id)->first();
+        $cartDetail = CartDetail::where('id', $id)->where('cart_id', $cart ? $cart->id : 0)->first();
+        if (!$cartDetail) abort(403, 'Akses ditolak');
+
         $productId = $cartDetail->product->id;
         Session::forget('last_quantity_' . $productId);
         if ($cartDetail) {

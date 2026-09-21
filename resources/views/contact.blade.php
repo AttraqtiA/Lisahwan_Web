@@ -51,8 +51,8 @@
                     Segera Dapatkan <mark class="px-2 text-yellow-500 bg-gray-900 rounded">Produk Lisahwan</mark>
                     di Tangan Anda!</h2>
                 <p data-aos="fade-down" data-aos-anchor-placement="top-bottom" data-aos-duration="800"
-                    class="text-center text-lg font-normal lg:text-xl sm:px-16 lg:px-48">Anda Dapat Menghubungi Kami
-                    Melalui,</p>
+                    class="text-center text-lg font-normal lg:text-xl sm:px-16 lg:px-48">Anda dapat menghubungi Kami
+                    melalui,</p>
             </div>
 
             <div class="flex flex-col lg:flex-row justify-evenly items-center gap-y-4 lg:gap-y-0">

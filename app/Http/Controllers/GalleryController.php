@@ -74,7 +74,7 @@ class GalleryController extends Controller
                 "TabTitle" => "Galeri Lisahwan",
                 "active_3" => "text-yellow-500 rounded lg:bg-transparent lg:p-0",
                 "pageTitle" => '<mark class="px-2 text-yellow-500 bg-gray-900 rounded dark:bg-gray-900">Galeri</mark> Lisahwan',
-                'pageDescription' => 'Kisah Rasa <span class="underline underline-offset-2 decoration-4 decoration-yellow-500">Autentik, Lokal, Homemade,</span> dan <span class="underline underline-offset-2 decoration-4 decoration-yellow-500">Premium</span>',
+                'pageDescription' => 'Kisah Rasa <span class="underline underline-offset-2 decoration-4 decoration-yellow-500">Autentik, Lokal, Homemade,</span> dan <span class="underline underline-offset-2 decoration-4 decoration-yellow-500">Premium.</span>',
                 "galleries" => Gallery::all(),
                 "carts" => $carts,
                 "shipment_price" => $shipment_price,
@@ -87,7 +87,7 @@ class GalleryController extends Controller
                 "TabTitle" => "Galeri Lisahwan",
                 "active_3" => "text-yellow-500 rounded lg:bg-transparent lg:p-0",
                 "pageTitle" => '<mark class="px-2 text-yellow-500 bg-gray-900 rounded dark:bg-gray-900">Galeri</mark> Lisahwan',
-                'pageDescription' => 'Kisah Rasa <span class="underline underline-offset-2 decoration-4 decoration-yellow-500">Autentik, Lokal, Homemade,</span> dan <span class="underline underline-offset-2 decoration-4 decoration-yellow-500">Premium</span>',
+                'pageDescription' => 'Kisah Rasa <span class="underline underline-offset-2 decoration-4 decoration-yellow-500">Autentik, Lokal, Homemade,</span> dan <span class="underline underline-offset-2 decoration-4 decoration-yellow-500">Premium.</span>',
                 "galleries" => Gallery::all()
             ]);
         }

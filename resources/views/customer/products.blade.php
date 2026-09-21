@@ -260,7 +260,7 @@
             <button
                 class="category-btn active px-5 py-2.5 rounded-full text-sm font-semibold transition-all duration-300 bg-yellow-500 text-white shadow-md hover:bg-yellow-600 focus:ring-4 focus:ring-yellow-300"
                 data-filter="all">
-                Semua
+                Produk Lisahwan
             </button>
         </div>
 
