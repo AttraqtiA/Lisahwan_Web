@@ -260,19 +260,10 @@
                     </p>
                 </div>
                 <div class="flex flex-row justify-between items-center">
-                    <div class="flex flex-col justify-center">
-                        @if ($order_detail->product->discount != 0)
-                            <p class="mt-1 text-base font-semibold text-gray-900">
-                                Rp.
-                                {{ number_format($order_detail->product->countDiscount(), 0, ',', '.') }}
-                            </p>
-                        @else
-                            <p class="mt-1 text-base font-semibold text-gray-900">
-                                Rp.
-                                {{ number_format($order_detail->product->price, 0, ',', '.') }}
-                            </p>
-                        @endif
-                    </div>
+                    <p class="mt-1 text-base font-semibold text-gray-900">
+                        Rp.
+                        {{ number_format($order_detail->price / $order_detail->quantity, 0, ',', '.') }}
+                    </p>
                     <span
                         class="ml-8 inline-flex justify-center items-center bg-yellow-100 text-yellow-800 text-sm font-medium px-3 py-1.5 rounded border border-yellow-500"><svg
                             class="w-3 h-3 mr-1 text-yellow-800" aria-hidden="true"

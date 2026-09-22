@@ -77,19 +77,15 @@
                                     {{ $order_detail->product->name }}
                                 </td>
                             </tr>
-                            <tr style="display: flex;">
+                            <tr style="display: flex; width: 100%;">
                                 <td style="padding-bottom: 0.5rem; ">
                                     {{ $order_detail->quantity }}x</td>
-                                <td style="padding-bottom: 0.5rem;">
-                                    &#64;{{ number_format($order_detail->product->price, 0, ',', '.') }}
-                                    @if ($order_detail->product->discount != 0)
-                                        <span style="color: red;">
-                                            - {{ $order_detail->product->discount }}%
-                                        </span>
-                                    @endif
+                                <td style="padding-bottom: 0.5rem; padding-left: 0.5rem;">
+                                    &#64;{{ number_format($order_detail->price / $order_detail->quantity, 0, ',', '.') }}
                                 </td>
-                                <td style="padding-bottom: 0.5rem; padding-left: 3rem;">
-                                    {{ number_format($order_detail->price, 0, ',', '.') }}</td>
+                                <td style="padding-bottom: 0.5rem; margin-left: auto; text-align: right;">
+                                    {{ number_format($order_detail->price, 0, ',', '.') }}
+                                </td>
                             </tr>
                         @endforeach
                     </tbody>

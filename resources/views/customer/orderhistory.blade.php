@@ -182,14 +182,9 @@
                                                     <span class="sm:inline-block">Lihat Produk</span>
                                                 </button>
                                             </a>
-                                            @if ($order_detail->product->discount != 0)
-                                                <p class="mt-1 text-base font-semibold text-gray-900"> Rp.
-                                                    {{ number_format($order_detail->product->countDiscount(), 0, ',', '.') }}
-                                                </p>
-                                            @else
-                                                <p class="mt-1 text-base font-semibold text-gray-900"> Rp.
-                                                    {{ number_format($order_detail->product->price, 0, ',', '.') }}</p>
-                                            @endif
+                                            <p class="mt-1 text-base font-semibold text-gray-900"> Rp.
+                                                {{ number_format($order_detail->price / $order_detail->quantity, 0, ',', '.') }}
+                                            </p>
                                         </div>
                                         <span
                                             class="mt-5 sm:mt-0 inline-flex justify-center items-center bg-yellow-100 text-yellow-800 sm:text-xs md:text-sm font-medium px-3 py-1.5 rounded border border-yellow-500"><svg

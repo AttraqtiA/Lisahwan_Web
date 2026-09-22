@@ -13,7 +13,7 @@
     @php
         use Carbon\Carbon;
     @endphp
-    <div style="display: flex; justify-content: center; align-items: center; padding-right: 1rem;">
+    <div style="display: flex; justify-content: center; align-items: center;">
         <div style="width: 100%; border-radius: 0.375rem; padding-left: 1rem; padding-right: 1rem;">
             <img src="{{ public_path('images/lisahwan_text.png') }}" alt="Lisahwan"
                 style="filter: contrast(150%) drop-shadow(2px 2px 2px black);">
@@ -61,19 +61,15 @@
                                     {{ $cart_detail->product->name }}
                                 </td>
                             </tr>
-                            <tr style="display: flex;">
+                            <tr style="display: flex; width: 100%;">
                                 <td style="padding-bottom: 0.5rem; ">
                                     {{ $cart_detail->quantity }}x</td>
-                                <td style="padding-bottom: 0.5rem;">
-                                    &#64;{{ number_format($cart_detail->product->price, 0, ',', '.') }}
-                                    @if ($cart_detail->product->discount != 0)
-                                        <span style="color: red;">
-                                            - {{ $cart_detail->product->discount }}%
-                                        </span>
-                                    @endif
+                                <td style="padding-bottom: 0.5rem; padding-left: 0.5rem;">
+                                    &#64;{{ number_format($cart_detail->price / $cart_detail->quantity, 0, ',', '.') }}
                                 </td>
-                                <td style="padding-bottom: 0.5rem; padding-left: 3rem;">
-                                    {{ number_format($cart_detail->price, 0, ',', '.') }}</td>
+                                <td style="padding-bottom: 0.5rem; margin-left: auto; text-align: right;">
+                                    {{ number_format($cart_detail->price, 0, ',', '.') }}
+                                </td>
                             </tr>
                         @endforeach
                     </tbody>
