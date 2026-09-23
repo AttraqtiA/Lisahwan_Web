@@ -528,7 +528,7 @@
                         @csrf
                         @php
                             $courierStatus_lion = Session::get('courierStatus_lion');
-                            $courierStatus_anteraja = Session::get('courierStatus_anteraja');
+                            $courierStatus_jnt = Session::get('courierStatus_jnt');
                             // Session::forget('costs');
                             // Session::forget([
                             //     'checkout.address',
@@ -559,7 +559,7 @@
                                     type="submit"
                                     class="w-full flex flex-row  text-sm font-medium text-yellow-500 bg-gray-900 rounded-lg justify-center items-center">
                                     <div
-                                        class="px-4 flex justify-center items-center w-full border-gray-600 sm:border-b-0 border-r">
+                                        class="px-4 flex justify-center items-center w-full border-gray-600 sm:border-b-0">
                                         <div class="w-full flex items-center justify-center">
                                             <input id="lion-checkbox-list" type="checkbox" name="courier" value="lion"
                                                 {{ isset($courierStatus_lion) ? 'checked' : '' }}
@@ -568,15 +568,15 @@
                                                 class="py-3 ms-2 text-sm font-medium text-yellow-500">LION</label>
                                         </div>
                                     </div>
-                                    <div class="px-4 w-full border-gray-600">
+                                    {{-- <div class="px-4 w-full border-gray-600">
                                         <div class="w-full flex items-center justify-center">
-                                            <input id="anteraja-checkbox-list" type="checkbox" name="courier"
-                                                value="anteraja" {{ isset($courierStatus_anteraja) ? 'checked' : '' }}
+                                            <input id="jnt-checkbox-list" type="checkbox" name="courier" value="jnt"
+                                                {{ isset($courierStatus_jnt) ? 'checked' : '' }}
                                                 class="courier-checkbox w-4 h-4 text-yellow-500 bg-gray-600 rounded focus:ring-yellow-500 focus:ring-1">
-                                            <label for="anteraja-checkbox-list"
-                                                class="py-3 ms-2 text-sm font-medium text-yellow-500">ANTERAJA</label>
+                                            <label for="jnt-checkbox-list"
+                                                class="py-3 ms-2 text-sm font-medium text-yellow-500">JNT</label>
                                         </div>
-                                    </div>
+                                    </div> --}}
                                 </div>
                                 <button data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="800"
                                     type="submit"
@@ -592,7 +592,7 @@
                             </div>
                         </div>
                     </form>
-                    @if (session('costs') && (Session::has('courierStatus_lion') || Session::has('courierStatus_anteraja')))
+                    @if (session('costs') && (Session::has('courierStatus_lion') || Session::has('courierStatus_jnt')))
                         {{-- @dd(session('costs')) --}}
                         <div data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="800"
                             class="mt-3 w-full bg-gray-900 divide-y divide-gray-100 rounded-lg shadow">
@@ -648,8 +648,7 @@
                                                     <span class="w-1.5 h-1.5 bg-gray-600 rounded-full shrink-0"></span>
                                                     <span
                                                         class="text-yellow-500 text-xs sm:text-sm font-medium whitespace-nowrap">
-                                                        (Estimasi {{ $cost['etd'] }}
-                                                        {{ stripos($cost['etd'], 'hari') === false ? 'hari' : '' }})
+                                                        (Estimasi {{ preg_replace('/[^0-9\-]/', '', $cost['etd']) }} hari)
                                                     </span>
                                                 </div>
                                             </div>

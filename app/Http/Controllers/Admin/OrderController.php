@@ -205,9 +205,11 @@ class OrderController extends Controller
                 $courier = '';
                 if (stripos($order->shipment_service, 'Lion') !== false) {
                     $courier = 'lion';
-                } elseif (stripos($order->shipment_service, 'AnterAja') !== false) {
-                    $courier = 'anteraja';
+                } elseif (stripos($order->shipment_service, 'J&T') !== false) {
+                    $courier = 'jnt';
                 }
+
+                if (!$courier) continue;
 
                 try {
                     $queryParams = http_build_query([
@@ -243,7 +245,7 @@ class OrderController extends Controller
                             $order->update(['shipment_date' => $shipDate]);
                         }
 
-                        if (!empty($waybills['delivery_status']['pod_date'])) {
+                        if (!empty($waybills['delivery_status']['pod_date']) && strtoupper($status) === 'DELIVERED') {
                             $podDate = $waybills['delivery_status']['pod_date'];
                             if (!empty($waybills['delivery_status']['pod_time'])) {
                                 $podDate .= ' ' . $waybills['delivery_status']['pod_time'];
@@ -829,9 +831,11 @@ class OrderController extends Controller
                 $courier = '';
                 if (stripos($order->shipment_service, 'Lion') !== false) {
                     $courier = 'lion';
-                } elseif (stripos($order->shipment_service, 'AnterAja') !== false) {
-                    $courier = 'anteraja';
+                } elseif (stripos($order->shipment_service, 'J&T') !== false) {
+                    $courier = 'jnt';
                 }
+
+                if (!$courier) continue;
 
                 try {
                     $queryParams = http_build_query([
@@ -867,7 +871,7 @@ class OrderController extends Controller
                             $order->update(['shipment_date' => $shipDate]);
                         }
 
-                        if (!empty($waybills['delivery_status']['pod_date'])) {
+                        if (!empty($waybills['delivery_status']['pod_date']) && strtoupper($status) === 'DELIVERED') {
                             $podDate = $waybills['delivery_status']['pod_date'];
                             if (!empty($waybills['delivery_status']['pod_time'])) {
                                 $podDate .= ' ' . $waybills['delivery_status']['pod_time'];
@@ -970,9 +974,11 @@ class OrderController extends Controller
         $courier = '';
         if (stripos($order->shipment_service, 'Lion') !== false) {
             $courier = 'lion';
-        } elseif (stripos($order->shipment_service, 'AnterAja') !== false) {
-            $courier = 'anteraja';
+        } elseif (stripos($order->shipment_service, 'J&T') !== false) {
+            $courier = 'jnt';
         }
+
+        if (!$courier) return redirect()->back()->withErrors(["waybillNotValid_error" => "Nomor resi tidak valid atau kurir tidak didukung!"])->withInput();
 
         try {
             $queryParams = http_build_query([
@@ -1057,9 +1063,11 @@ class OrderController extends Controller
         $courier = '';
         if (stripos($order->shipment_service, 'Lion') !== false) {
             $courier = 'lion';
-        } elseif (stripos($order->shipment_service, 'AnterAja') !== false) {
-            $courier = 'anteraja';
+        } elseif (stripos($order->shipment_service, 'J&T') !== false) {
+            $courier = 'jnt';
         }
+
+        if (!$courier) return redirect()->back()->withErrors(["waybillNotValid_error" => "Nomor resi tidak valid atau kurir tidak didukung!"])->withInput();
 
         try {
             $queryParams = http_build_query([
@@ -1098,7 +1106,7 @@ class OrderController extends Controller
                     $order->update(['shipment_date' => $shipDate]);
                 }
 
-                if (!empty($waybills['delivery_status']['pod_date'])) {
+                if (!empty($waybills['delivery_status']['pod_date']) && strtoupper($status) === 'DELIVERED') {
                     $podDate = $waybills['delivery_status']['pod_date'];
                     if (!empty($waybills['delivery_status']['pod_time'])) {
                         $podDate .= ' ' . $waybills['delivery_status']['pod_time'];

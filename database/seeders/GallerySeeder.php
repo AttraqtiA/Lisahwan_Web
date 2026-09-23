@@ -14,25 +14,25 @@ class GallerySeeder extends Seeder
     public function run(): void
     {
         Gallery::create([
-            'title' => 'Waktu Ngemil jadi Memorable',
+            'title' => 'Momen Sederhana Jadi Lebih Berarti',
             'content' => 'GalleryCarousel_12.jpeg',
             'type' => 'image'
         ]);
 
         Gallery::create([
-            'title' => 'Cara Belanja di Website Lisahwan',
+            'title' => 'Mudahnya Membawa Pulang Rasa Lisahwan',
             'content' => 'LisahwanWeb_PromotionalVideo.mp4',
             'type' => 'video'
         ]);
 
         Gallery::create([
-            'title' => 'Kualitas Premium & Terjamin',
-            'content' => 'GalleryCarousel_11.jpg',
-            'type' => 'image'
+            'title' => 'Cita Rasa yang Layak Dibagikan',
+            'content' => 'CTDLocalHeroes_PromotionVideo.mp4',
+            'type' => 'video'
         ]);
 
         Gallery::create([
-            'title' => 'Testimoni MamaRia',
+            'title' => 'Cerita Rasa dari Pelanggan Kami',
             'content' => 'PromotionVideo_MamaRia.mp4',
             'type' => 'video'
         ]);
@@ -44,31 +44,31 @@ class GallerySeeder extends Seeder
         // ]);
 
         Gallery::create([
-            'title' => 'Spesialis Teri Oven',
-            'content' => 'GalleryCarousel_13.jpeg',
+            'title' => 'Kelembutan Klasik, Resep Keluarga Lisahwan',
+            'content' => 'GalleryCarousel_15.jpg',
             'type' => 'image'
         ]);
 
         Gallery::create([
-            'title' => 'Kentang Teri Ori',
+            'title' => 'Sajian Praktis, Cita Rasa Nusantara',
             'content' => 'GalleryCarousel_1.jpg',
             'type' => 'image'
         ]);
 
         Gallery::create([
-            'title' => 'Lisahwan Promotion Video',
+            'title' => 'Kenali Lebih Dekat Kisah Lisahwan',
             'content' => 'LisahwanPromotionVideo.mp4',
             'type' => 'video'
         ]);
 
         Gallery::create([
-            'title' => 'Kualitas adalah Prioritas Kami',
+            'title' => 'Kualitas & Konsistensi Sejak 2007',
             'content' => 'GalleryCarousel_8.jpg',
             'type' => 'image'
         ]);
 
         Gallery::create([
-            'title' => 'Rasa yang Tak Terlupakan dan Dijamin Nagih!',
+            'title' => 'Rasa yang Ingin Anda Bawa Pulang',
             'content' => 'GalleryCarousel_10.jpg',
             'type' => 'image'
         ]);

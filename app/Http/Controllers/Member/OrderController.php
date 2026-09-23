@@ -987,12 +987,12 @@ class OrderController extends Controller
         } else {
             if (!$request->courier) {
                 $courierStatus_lion = Session::get('courierStatus_lion');
-                $courierStatus_anteraja = Session::get('courierStatus_anteraja');
+                $courierStatus_jnt = Session::get('courierStatus_jnt');
                 if ($courierStatus_lion) {
                     Session::forget('courierStatus_lion');
                 }
-                if ($courierStatus_anteraja) {
-                    Session::forget('courierStatus_anteraja');
+                if ($courierStatus_jnt) {
+                    Session::forget('courierStatus_jnt');
                 }
                 return redirect()->back()->withErrors(['courierForgotten_error' => "Oops, anda lupa memilih jasa pengiriman yang akan digunakan!"])->withInput();
             } else {
@@ -1275,9 +1275,11 @@ class OrderController extends Controller
             if ($waybill) {
                 if (stripos($order->shipment_service, 'Lion') !== false) {
                     $courier = 'lion';
-                } elseif (stripos($order->shipment_service, 'AnterAja') !== false) {
-                    $courier = 'anteraja';
+                } elseif (stripos($order->shipment_service, 'J&T') !== false) {
+                    $courier = 'jnt';
                 }
+
+                if (!$courier) continue;
 
                 try {
                     $queryParams = http_build_query([
@@ -1296,7 +1298,7 @@ class OrderController extends Controller
 
                         if (!empty($trackData['manifest'])) {
                             $manifest = $trackData['manifest'];
-                            if ($courier == 'lion') {
+                            if ($courier == 'lion' || $courier == 'jnt') {
                                 $manifest = array_reverse($manifest);
                             }
                             $shipment_histories[$order->id] = $manifest;
@@ -1321,7 +1323,7 @@ class OrderController extends Controller
                             $order->update(['shipment_date' => $shipDate]);
                         }
 
-                        if (!empty($trackData['delivery_status']['pod_date'])) {
+                        if (!empty($trackData['delivery_status']['pod_date']) && strtoupper($newStatus) === 'DELIVERED') {
                             $podDate = $trackData['delivery_status']['pod_date'];
                             if (!empty($trackData['delivery_status']['pod_time'])) {
                                 $podDate .= ' ' . $trackData['delivery_status']['pod_time'];
