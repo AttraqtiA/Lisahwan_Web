@@ -239,7 +239,7 @@
                     <div class="flex-1 flex items-center space-x-2">
                         <h5 data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="800">
                             <span class="text-gray-500">Semua User:</span>
-                            <span class="text-gray-500">{{ $users->count() }}</span>
+                            <span class="text-gray-500">{{ $users->total() }}</span>
                         </h5>
                     </div>
                     <div data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="800"

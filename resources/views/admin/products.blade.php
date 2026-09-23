@@ -6,7 +6,7 @@
     <section class="bg-neutral-200 p-2 sm:p-4 antialiased">
         <div class="bg-neutral-200 mx-auto max-w-screen-2xl pt-20 sm:pt-24 sm:ml-56">
             <div
-                class="flex flex-col justify-center items-center w-full {{ session('addProduct_success') || session('updateProduct_success') || session('deleteProduct_success') || $errors->has('name') || $errors->has('category_ids') ||  $errors->has('category_ids.*') || $errors->has('category_ids_edit') || $errors->has('category_ids_edit.*') || $errors->has('price') || $errors->has('stock') || $errors->has('weight') || $errors->has('discount') || $errors->has('description') || $errors->has('special_status') || $errors->has('name_edit') || $errors->has('price_edit') || $errors->has('stock_edit') || $errors->has('weight_edit') || $errors->has('discount_edit') || $errors->has('description_edit') || $errors->has('special_status_edit') || $errors->has('image') ? 'mb-6 mt-10 sm:mb-10 sm:mt-4' : '' }}">
+                class="flex flex-col justify-center items-center w-full {{ session('addProduct_success') || session('updateProduct_success') || session('deleteProduct_success') || $errors->has('name') || $errors->has('category_ids') || $errors->has('category_ids.*') || $errors->has('category_ids_edit') || $errors->has('category_ids_edit.*') || $errors->has('price') || $errors->has('stock') || $errors->has('weight') || $errors->has('discount') || $errors->has('description') || $errors->has('special_status') || $errors->has('name_edit') || $errors->has('price_edit') || $errors->has('stock_edit') || $errors->has('weight_edit') || $errors->has('discount_edit') || $errors->has('description_edit') || $errors->has('special_status_edit') || $errors->has('image') ? 'mb-6 mt-10 sm:mb-10 sm:mt-4' : '' }}">
                 @error('name')
                     <div data-aos="zoom-in-down" data-aos-anchor-placement="top-bottom" data-aos-duration="800"
                         class="w-10/12 md:w-9/12 lg:w-6/12 flex justify-center items-center p-4 {{ $errors->has('name') ? 'mb-2' : '' }} text-sm rounded-lg bg-gray-900 text-red-400"
@@ -22,7 +22,7 @@
                         </div>
                     </div>
                 @enderror
-                @if($errors->has('category_ids') || $errors->has('category_ids.*'))
+                @if ($errors->has('category_ids') || $errors->has('category_ids.*'))
                     <div data-aos="zoom-in-down" data-aos-anchor-placement="top-bottom" data-aos-duration="800"
                         class="w-10/12 md:w-9/12 lg:w-6/12 flex justify-center items-center p-4 mb-2 text-sm rounded-lg bg-gray-900 text-red-400"
                         role="alert">
@@ -33,7 +33,8 @@
                         </svg>
                         <span class="sr-only">Info</span>
                         <div>
-                            <span class="font-medium">{{ $errors->first('category_ids') ?: $errors->first('category_ids.*') }}</span>
+                            <span
+                                class="font-medium">{{ $errors->first('category_ids') ?: $errors->first('category_ids.*') }}</span>
                         </div>
                     </div>
                 @endif
@@ -142,18 +143,19 @@
                         </div>
                     </div>
                 @enderror
-                @if($errors->has('category_ids_edit') || $errors->has('category_ids_edit.*'))
+                @if ($errors->has('category_ids_edit') || $errors->has('category_ids_edit.*'))
                     <div data-aos="zoom-in-down" data-aos-anchor-placement="top-bottom" data-aos-duration="800"
                         class="w-10/12 md:w-9/12 lg:w-6/12 flex justify-center items-center p-4 mb-2 text-sm rounded-lg bg-gray-900 text-red-400"
                         role="alert">
-                        <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
-                            fill="currentColor" viewBox="0 0 20 20">
+                        <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true"
+                            xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
                             <path
                                 d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Zm3.707 11.793a1 1 0 1 1-1.414 1.414L10 11.414l-2.293 2.293a1 1 0 0 1-1.414-1.414L8.586 10 6.293 7.707a1 1 0 0 1 1.414-1.414L10 8.586l2.293-2.293a1 1 0 0 1 1.414 1.414L11.414 10l2.293 2.293Z" />
                         </svg>
                         <span class="sr-only">Info</span>
                         <div>
-                            <span class="font-medium">{{ $errors->first('category_ids_edit') ?: $errors->first('category_ids_edit.*') }}</span>
+                            <span
+                                class="font-medium">{{ $errors->first('category_ids_edit') ?: $errors->first('category_ids_edit.*') }}</span>
                         </div>
                     </div>
                 @endif
@@ -314,7 +316,7 @@
                     <div class="flex-1 flex items-center space-x-2">
                         <h5 data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="800">
                             <span class="text-gray-500">Semua Produk:</span>
-                            <span class="text-gray-500">{{ $products->count() }}</span>
+                            <span class="text-gray-500">{{ $products->total() }}</span>
                         </h5>
                     </div>
                     <div data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="800"
