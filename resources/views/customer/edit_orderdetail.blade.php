@@ -300,7 +300,7 @@
                                                 @endif
                                             </div>
                                             <p class="text-xs sm:text-sm font-medium text-gray-900 text-center mt-2">
-                                                Terjual {{ $bestseller->product->order_detail->sum('quantity') }}</p>
+                                                Terjual {{ $bestseller->product->terjual }}</p>
                                         </div>
                                     </a>
                                     <div class="px-4 pb-4 pt-2 text-right relative z-20">

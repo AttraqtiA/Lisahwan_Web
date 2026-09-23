@@ -99,7 +99,7 @@
                                         @endif
                                     </div>
                                     <p class="text-xs sm:text-sm font-medium text-gray-900 text-center mt-2">Terjual
-                                        {{ $wishlist->product->order_detail->sum('quantity') }}</p>
+                                        {{ $wishlist->product->terjual }}</p>
                                 </div>
                             </a>
 

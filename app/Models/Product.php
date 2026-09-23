@@ -45,4 +45,11 @@ class Product extends Model
         $discountedPrice = $this->price - ($this->price * ($this->discount / 100));
         return max($discountedPrice, 0); // Harga diskon tidak boleh kurang dari 0
     }
+
+    public function getTerjualAttribute()
+    {
+        return $this->order_detail()->whereHas('order', function ($query) {
+            $query->where('acceptbyAdmin_status', 'paid');
+        })->sum('quantity');
+    }
 }

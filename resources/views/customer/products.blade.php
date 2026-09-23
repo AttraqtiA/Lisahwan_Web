@@ -325,7 +325,7 @@
                                             @endif
                                         </div>
                                         <p class="text-xs sm:text-sm font-medium text-gray-900 text-center mt-2">Terjual
-                                            {{ $product->order_detail->sum('quantity') }}</p>
+                                            {{ $product->terjual }}</p>
                                     </div>
                                 </a>
 
@@ -430,7 +430,7 @@
                                             @endif
                                         </div>
                                         <p class="text-xs sm:text-sm font-medium text-gray-900 text-center mt-2">Terjual
-                                            {{ $product->order_detail->sum('quantity') }}</p>
+                                            {{ $product->terjual }}</p>
                                     </div>
                                 </a>
 

@@ -467,7 +467,7 @@
                                                     <path
                                                         d="M2.25 2.25a.75.75 0 000 1.5h1.386c.17 0 .318.114.362.278l2.558 9.592a3.752 3.752 0 00-2.806 3.63c0 .414.336.75.75.75h15.75a.75.75 0 000-1.5H5.378A2.25 2.25 0 017.5 15h11.218a.75.75 0 00.674-.421 60.358 60.358 0 002.96-7.228.75.75 0 00-.525-.965A60.864 60.864 0 005.68 4.509l-.232-.867A1.875 1.875 0 003.636 2.25H2.25zM3.75 20.25a1.5 1.5 0 113 0 1.5 1.5 0 01-3 0zM16.5 20.25a1.5 1.5 0 113 0 1.5 1.5 0 01-3 0z" />
                                                 </svg>
-                                                {{ $product->order_detail->sum('quantity') }}
+                                                {{ $product->terjual }}
                                             </div>
                                         </td>
 
@@ -616,7 +616,7 @@
                                                                             type="checkbox" name="category_ids_edit[]"
                                                                             value="{{ $category->id }}"
                                                                             class="w-4 h-4 text-yellow-500 bg-white border-gray-300 rounded focus:ring-yellow-500"
-                                                                            {{ is_array(old('category_ids_edit.*', $product->categories->pluck('id')->toArray())) && in_array($category->id, old('category_ids_edit.*', $product->categories->pluck('id')->toArray())) ? 'checked' : '' }}>
+                                                                            {{ is_array(old('category_ids_edit', $product->categories->pluck('id')->toArray())) && in_array($category->id, old('category_ids_edit', $product->categories->pluck('id')->toArray())) ? 'checked' : '' }}>
                                                                         <label
                                                                             for="edit_cat_{{ $product->id }}_{{ $category->id }}"
                                                                             class="ml-2 text-sm font-medium text-gray-900">{{ $category->name }}</label>
@@ -760,7 +760,7 @@
                                                                             type="checkbox" name="category_ids[]"
                                                                             value="{{ $category->id }}"
                                                                             class="w-4 h-4 text-yellow-500 bg-white border-gray-300 rounded focus:ring-yellow-500"
-                                                                            {{ is_array(old('category_ids.*')) && in_array($category->id, old('category_ids.*')) ? 'checked' : '' }}>
+                                                                            {{ is_array(old('category_ids')) && in_array($category->id, old('category_ids')) ? 'checked' : '' }}>
                                                                         <label for="add_cat_{{ $category->id }}"
                                                                             class="ml-2 text-sm font-medium text-gray-900">{{ $category->name }}</label>
                                                                     </div>
