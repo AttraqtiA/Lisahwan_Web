@@ -92,8 +92,10 @@ class ProductController extends Controller
         //     }
         // }
 
-        $products_bestseller = OrderDetail::select('product_id', DB::raw('SUM(quantity) as total_quantity'))
-            ->groupBy('product_id')
+        $products_bestseller = OrderDetail::select('order_details.product_id', DB::raw('SUM(order_details.quantity) as total_quantity'))
+            ->join('orders', 'order_details.order_id', '=', 'orders.id')
+            ->where('orders.acceptbyAdmin_status', 'paid')
+            ->groupBy('order_details.product_id')
             ->orderByDesc('total_quantity')
             ->take(4)
             ->get();
@@ -302,8 +304,10 @@ class ProductController extends Controller
         $testimonies = Testimony::where('product_id', $id)->paginate(4);
         $total_product = Product::count();
 
-        $products_bestseller = OrderDetail::select('product_id', DB::raw('SUM(quantity) as total_quantity'))
-            ->groupBy('product_id')
+        $products_bestseller = OrderDetail::select('order_details.product_id', DB::raw('SUM(order_details.quantity) as total_quantity'))
+            ->join('orders', 'order_details.order_id', '=', 'orders.id')
+            ->where('orders.acceptbyAdmin_status', 'paid')
+            ->groupBy('order_details.product_id')
             ->orderByDesc('total_quantity')
             ->take(4)
             ->get();

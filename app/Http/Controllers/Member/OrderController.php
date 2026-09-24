@@ -1130,8 +1130,10 @@ class OrderController extends Controller
         if (!$cart) {
             return redirect()->route('products')->with('checkout_cancel', 'Oops! Keranjang anda kosong!');
         } else {
-            $products_bestseller = OrderDetail::select('product_id', DB::raw('SUM(quantity) as total_quantity'))
-                ->groupBy('product_id')
+            $products_bestseller = OrderDetail::select('order_details.product_id', DB::raw('SUM(order_details.quantity) as total_quantity'))
+                ->join('orders', 'order_details.order_id', '=', 'orders.id')
+                ->where('orders.acceptbyAdmin_status', 'paid')
+                ->groupBy('order_details.product_id')
                 ->orderByDesc('total_quantity')
                 ->take(4)
                 ->get();

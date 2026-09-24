@@ -139,8 +139,10 @@ class CartController extends Controller
             return redirect()->route('products')->with('deleteCart_success', 'Mohon maaf, keranjang anda kosong!');
         } else {
             $testimonies = Testimony::where('product_id', $id)->paginate(4);
-            $products_bestseller = OrderDetail::select('product_id', DB::raw('SUM(quantity) as total_quantity'))
-                ->groupBy('product_id')
+            $products_bestseller = OrderDetail::select('order_details.product_id', DB::raw('SUM(order_details.quantity) as total_quantity'))
+                ->join('orders', 'order_details.order_id', '=', 'orders.id')
+                ->where('orders.acceptbyAdmin_status', 'paid')
+                ->groupBy('order_details.product_id')
                 ->orderByDesc('total_quantity')
                 ->take(4)
                 ->get();

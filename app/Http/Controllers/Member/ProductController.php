@@ -56,8 +56,10 @@ class ProductController extends Controller
             $check_order_user = $user->order->filter(function ($order) use ($product_id) {
                 return $order->order_detail->where('product_id', $product_id)->isNotEmpty();
             })->isNotEmpty();
-            $products_bestseller = OrderDetail::select('product_id', DB::raw('SUM(quantity) as total_quantity'))
-                ->groupBy('product_id')
+            $products_bestseller = OrderDetail::select('order_details.product_id', DB::raw('SUM(order_details.quantity) as total_quantity'))
+                ->join('orders', 'order_details.order_id', '=', 'orders.id')
+                ->where('orders.acceptbyAdmin_status', 'paid')
+                ->groupBy('order_details.product_id')
                 ->orderByDesc('total_quantity')
                 ->take(4)
                 ->get();
