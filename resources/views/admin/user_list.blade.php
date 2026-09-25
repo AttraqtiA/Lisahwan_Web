@@ -416,46 +416,48 @@
                                                                 method="POST" enctype="multipart/form-data">
                                                                 @csrf
                                                                 @method('put')
+                                                                <input type="hidden" name="coupon_id"
+                                                                    value="{{ $coupon->id }}">
                                                                 <tr
                                                                     class="bg-gray-100 border-b hover:bg-slate-200 text-center">
                                                                     <td class="p-4 text-gray-900">
                                                                         <input type="text" id="title"
                                                                             name="title"
                                                                             aria-describedby="helper-text-explanation"
-                                                                            class="{{ $errors->has('title') ? 'bg-red-100 border-red-400 text-red-500 placeholder-red-700 focus:ring-red-500 focus:border-red-500' : 'bg-white border-yellow-500 text-gray-900 placeholder-gray-400  focus:ring-yellow-500 focus:border-yellow-500' }} text-center rounded-lg border-1 text-sm block w-full p-2.5"
-                                                                            value="{{ old('title', $coupon->title) }}">
+                                                                            class="{{ old('coupon_id') == $coupon->id && $errors->has('title') ? 'bg-red-100 border-red-400 text-red-500 placeholder-red-700 focus:ring-red-500 focus:border-red-500' : 'bg-white border-yellow-500 text-gray-900 placeholder-gray-400  focus:ring-yellow-500 focus:border-yellow-500' }} text-center rounded-lg border-1 text-sm block w-full p-2.5"
+                                                                            value="{{ old('coupon_id') == $coupon->id ? old('title') : $coupon->title }}">
                                                                     </td>
                                                                     <td class="p-4 text-gray-900">
                                                                         <input type="datetime-local" id="starting_time"
                                                                             name="starting_time"
                                                                             aria-describedby="helper-text-explanation"
-                                                                            class="{{ $errors->has('starting_time') ? 'bg-red-100 border-red-400 text-red-500 placeholder-red-700 focus:ring-red-500 focus:border-red-500' : 'bg-white border-yellow-500 text-gray-900 placeholder-gray-400  focus:ring-yellow-500 focus:border-yellow-500' }} text-center rounded-lg border-1 text-sm block w-full p-2.5"
-                                                                            value="{{ $coupon->starting_time ? \Carbon\Carbon::parse($coupon->starting_time)->format('Y-m-d\TH:i') : '' }}">
+                                                                            class="{{ old('coupon_id') == $coupon->id && $errors->has('starting_time') ? 'bg-red-100 border-red-400 text-red-500 placeholder-red-700 focus:ring-red-500 focus:border-red-500' : 'bg-white border-yellow-500 text-gray-900 placeholder-gray-400  focus:ring-yellow-500 focus:border-yellow-500' }} text-center rounded-lg border-1 text-sm block w-full p-2.5"
+                                                                            value="{{ old('coupon_id') == $coupon->id && old('starting_time') ? \Carbon\Carbon::parse(old('starting_time'))->format('Y-m-d\TH:i') : ($coupon->starting_time ? \Carbon\Carbon::parse($coupon->starting_time)->format('Y-m-d\TH:i') : '') }}">
                                                                     </td>
                                                                     <td class="p-4 text-gray-900">
                                                                         <input type="datetime-local" id="ending_time"
                                                                             name="ending_time"
                                                                             aria-describedby="helper-text-explanation"
-                                                                            class="{{ $errors->has('ending_time') ? 'bg-red-100 border-red-400 text-red-500 placeholder-red-700 focus:ring-red-500 focus:border-red-500' : 'bg-white border-yellow-500 text-gray-900 placeholder-gray-400  focus:ring-yellow-500 focus:border-yellow-500' }} text-center rounded-lg border-1 text-sm block w-full p-2.5"
-                                                                            value="{{ $coupon->ending_time ? \Carbon\Carbon::parse($coupon->ending_time)->format('Y-m-d\TH:i') : '' }}">
+                                                                            class="{{ old('coupon_id') == $coupon->id && $errors->has('ending_time') ? 'bg-red-100 border-red-400 text-red-500 placeholder-red-700 focus:ring-red-500 focus:border-red-500' : 'bg-white border-yellow-500 text-gray-900 placeholder-gray-400  focus:ring-yellow-500 focus:border-yellow-500' }} text-center rounded-lg border-1 text-sm block w-full p-2.5"
+                                                                            value="{{ old('coupon_id') == $coupon->id && old('ending_time') ? \Carbon\Carbon::parse(old('ending_time'))->format('Y-m-d\TH:i') : ($coupon->ending_time ? \Carbon\Carbon::parse($coupon->ending_time)->format('Y-m-d\TH:i') : '') }}">
                                                                     </td>
                                                                     <td class="p-4 text-gray-900">
                                                                         <input type="number" id="discount"
                                                                             name="discount"
                                                                             aria-describedby="helper-text-explanation"
-                                                                            class="{{ $errors->has('discount') ? 'bg-red-100 border-red-400 text-red-500 placeholder-red-700 focus:ring-red-500 focus:border-red-500' : 'bg-white border-yellow-500 text-gray-900 placeholder-gray-400  focus:ring-yellow-500 focus:border-yellow-500' }} text-center rounded-lg border-1 text-sm block w-full p-2.5"
+                                                                            class="{{ old('coupon_id') == $coupon->id && $errors->has('discount') ? 'bg-red-100 border-red-400 text-red-500 placeholder-red-700 focus:ring-red-500 focus:border-red-500' : 'bg-white border-yellow-500 text-gray-900 placeholder-gray-400  focus:ring-yellow-500 focus:border-yellow-500' }} text-center rounded-lg border-1 text-sm block w-full p-2.5"
                                                                             placeholder="Rentang diskon dari 1-100"
                                                                             min="0"
-                                                                            value="{{ old('discount', $coupon->discount) }}">
+                                                                            value="{{ old('coupon_id') == $coupon->id ? old('discount') : $coupon->discount }}">
                                                                     </td>
                                                                     <td class="p-4 text-gray-900">
                                                                         <input type="number" id="quantity"
                                                                             name="quantity"
                                                                             aria-describedby="helper-text-explanation"
-                                                                            class="{{ $errors->has('quantity') ? 'bg-red-100 border-red-400 text-red-500 placeholder-red-700 focus:ring-red-500 focus:border-red-500' : 'bg-white border-yellow-500 text-gray-900 placeholder-gray-400  focus:ring-yellow-500 focus:border-yellow-500' }} text-center rounded-lg border-1 text-sm block w-full p-2.5"
+                                                                            class="{{ old('coupon_id') == $coupon->id && $errors->has('quantity') ? 'bg-red-100 border-red-400 text-red-500 placeholder-red-700 focus:ring-red-500 focus:border-red-500' : 'bg-white border-yellow-500 text-gray-900 placeholder-gray-400  focus:ring-yellow-500 focus:border-yellow-500' }} text-center rounded-lg border-1 text-sm block w-full p-2.5"
                                                                             placeholder="Jumlah kupon minimal 1"
                                                                             min="0"
-                                                                            value="{{ old('quantity', $coupon->initial_quantity) }}">
+                                                                            value="{{ old('coupon_id') == $coupon->id ? old('quantity') : $coupon->initial_quantity }}">
                                                                     </td>
                                                                     <td class="p-4 text-gray-900">
                                                                         <div

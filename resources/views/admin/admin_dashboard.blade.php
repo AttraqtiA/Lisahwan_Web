@@ -657,6 +657,7 @@
                                                             @method('put')
                                                             @csrf
                                                 @endif
+                                                <input type="hidden" name="order_id" value="{{ $order->id }}">
                                                 <div class="flex flex-col mb-4">
                                                     <p class="text-center font-semibold col-span-3 mb-4">Nomor Resi
                                                         Pengiriman</p>
@@ -665,10 +666,10 @@
                                                             <label for="acceptbyAdmin_status"
                                                                 class="block mb-2 text-sm font-medium text-gray-900 text-center">Mohon
                                                                 masukkan nomor resi pengiriman terkait order ini!</label>
-                                                            <input type="text" id="waybill" name="waybill"
-                                                                aria-describedby="helper-text-explanation"
-                                                                class="{{ $errors->has('waybill') ? 'bg-red-100 border-red-400 text-red-500 placeholder-red-700 focus:ring-red-500 focus:border-red-500' : 'bg-white border-yellow-500 text-gray-900 placeholder-gray-400  focus:ring-yellow-500 focus:border-yellow-500' }} text-center rounded-lg border-1 text-sm block w-full p-2.5 mb-4"
-                                                                value="{{ old('waybill', $order->waybill) }}"
+                                                            <input type="text" id="waybill-{{ $order->id }}"
+                                                                name="waybill" aria-describedby="helper-text-explanation"
+                                                                class="{{ old('order_id') == $order->id && ($errors->has('waybill') || $errors->has('waybillNotValid_error')) ? 'bg-red-100 border-red-400 text-red-500 placeholder-red-700 focus:ring-red-500 focus:border-red-500' : 'bg-white border-yellow-500 text-gray-900 placeholder-gray-400 focus:ring-yellow-500 focus:border-yellow-500' }} text-center rounded-lg border-1 text-sm block w-full p-2.5 mb-4"
+                                                                value="{{ old('order_id') == $order->id ? old('waybill') : $order->waybill }}"
                                                                 placeholder="(Contoh: SOCAG00183235715)">
                                                         </div>
                                                         {{-- <p class="text-center font-semibold col-span-3 mb-2">Order Status</p>

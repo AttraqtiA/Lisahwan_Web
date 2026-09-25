@@ -249,13 +249,14 @@
                             <form action="{{ route('owner.admin_categories.update', $category->id) }}" method="POST">
                                 @csrf
                                 @method('put')
+                                <input type="hidden" name="category_id" value="{{ $category->id }}">
                                 <div class="grid gap-4 mb-4 sm:grid-cols-2">
                                     <div class="sm:col-span-2">
                                         <label for="name_edit" class="block mb-2 text-sm font-medium text-gray-900">Nama
                                             Kategori</label>
-                                        <input type="text" name="name_edit" id="name_edit"
-                                            value="{{ old('name_edit', $category->name) }}"
-                                            class="{{ $errors->has('name_edit') ? 'bg-red-100 border-red-400 text-red-500 placeholder-red-700 focus:ring-red-500 focus:border-red-500' : 'bg-white border border-yellow-500 text-gray-900 placeholder-gray-400 focus:ring-yellow-500 focus:border-yellow-500' }} rounded-lg block w-full p-2.5 mt-3"
+                                        <input type="text" name="name_edit" id="name_edit-{{ $category->id }}"
+                                            value="{{ old('category_id') == $category->id ? old('name_edit') : $category->name }}"
+                                            class="{{ old('category_id') == $category->id && $errors->has('name_edit') ? 'bg-red-100 border-red-400 text-red-500 placeholder-red-700 focus:ring-red-500 focus:border-red-500' : 'bg-white border border-yellow-500 text-gray-900 placeholder-gray-400 focus:ring-yellow-500 focus:border-yellow-500' }} rounded-lg block w-full p-2.5 mt-3"
                                             required>
                                     </div>
                                 </div>

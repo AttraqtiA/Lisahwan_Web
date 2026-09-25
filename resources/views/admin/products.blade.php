@@ -527,6 +527,7 @@
                                         enctype="multipart/form-data">
                                         @method('put')
                                         @csrf
+                                        <input type="hidden" name="product_id" value="{{ $product->id }}">
                                         <div id="update-modal{{ $product->id }}" tabindex="-1" aria-hidden="true"
                                             class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] md:h-full">
                                             <div class="relative p-4 w-full max-w-3xl h-full md:h-auto">
@@ -556,8 +557,9 @@
                                                                 class="block mb-2 text-sm font-medium text-gray-900">Nama
                                                                 Produk</label>
                                                             <input type="text" name="name_edit" id="name_edit"
-                                                                class="{{ $errors->has('name_edit') ? 'bg-red-100 border-red-400 text-red-500 placeholder-red-700 focus:ring-red-500 focus:border-red-500' : 'bg-white border-yellow-500 text-gray-900 placeholder-gray-400  focus:ring-yellow-500 focus:border-yellow-500' }} rounded-lg border-1 text-sm mt-3 block w-full p-2.5"
-                                                                value="{{ old('name_edit', $product->name) }}" required>
+                                                                class="{{ old('product_id') == $product->id && $errors->has('name_edit') ? 'bg-red-100 border-red-400 text-red-500 placeholder-red-700 focus:ring-red-500 focus:border-red-500' : 'bg-white border-yellow-500 text-gray-900 placeholder-gray-400  focus:ring-yellow-500 focus:border-yellow-500' }} rounded-lg border-1 text-sm mt-3 block w-full p-2.5"
+                                                                value="{{ old('product_id') == $product->id ? old('name_edit') : $product->name }}"
+                                                                required>
                                                         </div>
                                                         <div>
                                                             <label for="price_edit"
@@ -565,8 +567,8 @@
                                                                 (Rp)
                                                             </label>
                                                             <input type="number" name="price_edit" id="price_edit"
-                                                                class="{{ $errors->has('price_edit') ? 'bg-red-100 border-red-400 text-red-500 placeholder-red-700 focus:ring-red-500 focus:border-red-500' : 'bg-white border-yellow-500 text-gray-900 placeholder-gray-400  focus:ring-yellow-500 focus:border-yellow-500' }} rounded-lg border-1 text-sm mt-3 block w-full p-2.5"
-                                                                value="{{ old('price_edit', $product->price) }}"
+                                                                class="{{ old('product_id') == $product->id && $errors->has('price_edit') ? 'bg-red-100 border-red-400 text-red-500 placeholder-red-700 focus:ring-red-500 focus:border-red-500' : 'bg-white border-yellow-500 text-gray-900 placeholder-gray-400  focus:ring-yellow-500 focus:border-yellow-500' }} rounded-lg border-1 text-sm mt-3 block w-full p-2.5"
+                                                                value="{{ old('product_id') == $product->id ? old('price_edit') : $product->price }}"
                                                                 min="0" required>
                                                         </div>
                                                         <div>
@@ -575,8 +577,8 @@
                                                                 (gram)
                                                             </label>
                                                             <input type="number" name="weight_edit" id="weight_edit"
-                                                                class="{{ $errors->has('weight_edit') ? 'bg-red-100 border-red-400 text-red-500 placeholder-red-700 focus:ring-red-500 focus:border-red-500' : 'bg-white border-yellow-500 text-gray-900 placeholder-gray-400  focus:ring-yellow-500 focus:border-yellow-500' }} rounded-lg border-1 text-sm mt-3 block w-full p-2.5"
-                                                                value="{{ old('weight_edit', $product->weight) }}"
+                                                                class="{{ old('product_id') == $product->id && $errors->has('weight_edit') ? 'bg-red-100 border-red-400 text-red-500 placeholder-red-700 focus:ring-red-500 focus:border-red-500' : 'bg-white border-yellow-500 text-gray-900 placeholder-gray-400  focus:ring-yellow-500 focus:border-yellow-500' }} rounded-lg border-1 text-sm mt-3 block w-full p-2.5"
+                                                                value="{{ old('product_id') == $product->id ? old('weight_edit') : $product->weight }}"
                                                                 min="0" required>
                                                         </div>
                                                         <div>
@@ -584,8 +586,8 @@
                                                                 class="block mb-2 text-sm font-medium text-gray-900">Diskon
                                                                 (%)</label>
                                                             <input type="number" name="discount_edit" id="discount_edit"
-                                                                class="{{ $errors->has('discount_edit') ? 'bg-red-100 border-red-400 text-red-500 placeholder-red-700 focus:ring-red-500 focus:border-red-500' : 'bg-white border-yellow-500 text-gray-900 placeholder-gray-400  focus:ring-yellow-500 focus:border-yellow-500' }} rounded-lg border-1 text-sm mt-3 block w-full p-2.5"
-                                                                value="{{ old('discount_edit', $product->discount) }}"
+                                                                class="{{ old('product_id') == $product->id && $errors->has('discount_edit') ? 'bg-red-100 border-red-400 text-red-500 placeholder-red-700 focus:ring-red-500 focus:border-red-500' : 'bg-white border-yellow-500 text-gray-900 placeholder-gray-400  focus:ring-yellow-500 focus:border-yellow-500' }} rounded-lg border-1 text-sm mt-3 block w-full p-2.5"
+                                                                value="{{ old('product_id') == $product->id ? old('discount_edit') : $product->discount }}"
                                                                 min="0" required>
                                                         </div>
                                                         <div class="sm:col-span-2">
@@ -598,10 +600,10 @@
                                                                 name="special_status"
                                                                 class="{{ $errors->has('special_status') ? 'bg-red-100 border-red-400 text-red-500 placeholder-red-700 focus:ring-red-500 focus:border-red-500' : 'bg-white border-yellow-500 text-gray-900 placeholder-gray-400  focus:ring-yellow-500 focus:border-yellow-500' }} rounded-lg border-1 text-sm block w-full p-2.5 mt-3">
                                                                 <option value="tidak"
-                                                                    {{ old('special_status', $product->special_status) == 'tidak' ? 'selected' : '' }}>
+                                                                    {{ (old('product_id') == $product->id ? old('special_status') : $product->special_status) == 'tidak' ? 'selected' : '' }}>
                                                                     Tidak</option>
                                                                 <option value="ya"
-                                                                    {{ old('special_status', $product->special_status) == 'ya' ? 'selected' : '' }}>
+                                                                    {{ (old('product_id') == $product->id ? old('special_status') : $product->special_status) == 'ya' ? 'selected' : '' }}>
                                                                     Ya</option>
                                                             </select>
                                                         </div>
@@ -610,7 +612,7 @@
                                                                 class="block mb-2 text-sm font-medium text-gray-900">Kategori
                                                                 (Bisa pilih lebih dari satu)</label>
                                                             <div
-                                                                class="grid grid-cols-2 gap-2 mt-3 {{ $errors->has('category_ids_edit.*') ? 'border border-red-500 rounded p-2' : '' }}">
+                                                                class="grid grid-cols-2 gap-2 mt-3 {{ old('product_id') == $product->id && $errors->has('category_ids_edit.*') ? 'border border-red-500 rounded p-2' : '' }}">
                                                                 @foreach ($categories as $category)
                                                                     <div class="flex items-center">
                                                                         <input
@@ -618,7 +620,7 @@
                                                                             type="checkbox" name="category_ids_edit[]"
                                                                             value="{{ $category->id }}"
                                                                             class="w-4 h-4 text-yellow-500 bg-white border-gray-300 rounded focus:ring-yellow-500"
-                                                                            {{ is_array(old('category_ids_edit', $product->categories->pluck('id')->toArray())) && in_array($category->id, old('category_ids_edit', $product->categories->pluck('id')->toArray())) ? 'checked' : '' }}>
+                                                                            {{ is_array(old('product_id') == $product->id ? (old('category_ids_edit') ?: []) : $product->categories->pluck('id')->toArray()) && in_array($category->id, old('product_id') == $product->id ? (old('category_ids_edit') ?: []) : $product->categories->pluck('id')->toArray()) ? 'checked' : '' }}>
                                                                         <label
                                                                             for="edit_cat_{{ $product->id }}_{{ $category->id }}"
                                                                             class="ml-2 text-sm font-medium text-gray-900">{{ $category->name }}</label>
@@ -630,7 +632,7 @@
                                                             <label for="description_edit"
                                                                 class="block mb-2 text-sm font-medium text-gray-900">Deskripsi</label>
                                                             <textarea name="description_edit" id="description_edit" rows="4"
-                                                                class="{{ $errors->has('description_edit') ? 'bg-red-100 border-red-400 text-red-500 placeholder-red-700 focus:ring-red-500 focus:border-red-500' : 'bg-white border-yellow-500 text-gray-900 placeholder-gray-400  focus:ring-yellow-500 focus:border-yellow-500' }} rounded-lg border-1 text-sm mt-3 block w-full p-2.5"required>{{ old('description_edit', $product->description) }}</textarea>
+                                                                class="{{ old('product_id') == $product->id && $errors->has('description_edit') ? 'bg-red-100 border-red-400 text-red-500 placeholder-red-700 focus:ring-red-500 focus:border-red-500' : 'bg-white border-yellow-500 text-gray-900 placeholder-gray-400  focus:ring-yellow-500 focus:border-yellow-500' }} rounded-lg border-1 text-sm mt-3 block w-full p-2.5"required>{{ old('product_id') == $product->id ? old('description_edit') : $product->description }}</textarea>
                                                         </div>
                                                         <p
                                                             class="mb-4 text-red-700 text-xs text-center md:text-start sm:col-span-2">

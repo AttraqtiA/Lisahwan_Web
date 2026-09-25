@@ -54,7 +54,7 @@ class CouponController extends Controller
             "title" => "required|string|max:20",
             "starting_time" => "required|date|after:today",
             "ending_time" => "required|date|after:starting_time",
-            "discount" => "required|numeric|min:1,100",
+            "discount" => "required|numeric|between:1,100",
             "quantity" => "required|numeric|min:1",
         ], [
             'title.required' => 'Nama kupon wajib diisi!',
