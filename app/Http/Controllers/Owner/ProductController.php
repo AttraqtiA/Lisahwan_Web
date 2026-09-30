@@ -39,6 +39,9 @@ class ProductController extends Controller
                 ->orWhere('stock', 'like', '%' . $search . '%')
                 ->orWhere('discount', 'like', '%' . $search . '%')
                 ->orWhere('description', 'like', '%' . $search . '%')
+                ->orWhereHas('categories', function ($query) use ($search) {
+                    $query->where('name', 'like', '%' . $search . '%');
+                })
                 ->orWhereHas('testimony', function ($query) use ($search) {
                     $query->where('rating', 'like', '%' . $search . '%');
                 });
